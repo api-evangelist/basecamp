@@ -1,0 +1,459 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "bc": "https://3.basecampapi.com/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Project": {
+      "@id": "schema:Project",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "description": "schema:description",
+        "status": "bc:status",
+        "purpose": "bc:purpose",
+        "color": "bc:color",
+        "clients_enabled": {
+          "@id": "bc:clientsEnabled",
+          "@type": "xsd:boolean"
+        },
+        "timesheet_enabled": {
+          "@id": "bc:timesheetEnabled",
+          "@type": "xsd:boolean"
+        },
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "app_url": {
+          "@id": "bc:appUrl",
+          "@type": "@id"
+        },
+        "bookmark_url": {
+          "@id": "bc:bookmarkUrl",
+          "@type": "@id"
+        },
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "dock": {
+          "@id": "bc:dock",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Person": {
+      "@id": "schema:Person",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "email_address": "schema:email",
+        "title": "schema:jobTitle",
+        "bio": "schema:description",
+        "location": "schema:location",
+        "avatar_url": {
+          "@id": "schema:image",
+          "@type": "@id"
+        },
+        "personable_type": "bc:personableType",
+        "admin": {
+          "@id": "bc:admin",
+          "@type": "xsd:boolean"
+        },
+        "owner": {
+          "@id": "bc:owner",
+          "@type": "xsd:boolean"
+        },
+        "client": {
+          "@id": "bc:client",
+          "@type": "xsd:boolean"
+        },
+        "employee": {
+          "@id": "schema:employee",
+          "@type": "xsd:boolean"
+        },
+        "time_zone": "bc:timeZone",
+        "attachable_sgid": "bc:attachableSgid",
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "company": {
+          "@id": "schema:worksFor",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Message": {
+      "@id": "schema:Message",
+      "@context": {
+        "id": "@id",
+        "subject": "schema:headline",
+        "content": "schema:text",
+        "status": "bc:status",
+        "visible_to_clients": {
+          "@id": "bc:visibleToClients",
+          "@type": "xsd:boolean"
+        },
+        "comments_count": {
+          "@id": "bc:commentsCount",
+          "@type": "xsd:integer"
+        },
+        "boosts_count": {
+          "@id": "bc:boostsCount",
+          "@type": "xsd:integer"
+        },
+        "creator": {
+          "@id": "schema:author",
+          "@type": "@id"
+        },
+        "bucket": {
+          "@id": "schema:isPartOf",
+          "@type": "@id"
+        },
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "app_url": {
+          "@id": "bc:appUrl",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Todo": {
+      "@id": "schema:Action",
+      "@context": {
+        "id": "@id",
+        "content": "schema:description",
+        "completed": {
+          "@id": "schema:actionStatus",
+          "@type": "xsd:boolean"
+        },
+        "due_on": {
+          "@id": "schema:endDate",
+          "@type": "xsd:date"
+        },
+        "starts_on": {
+          "@id": "schema:startDate",
+          "@type": "xsd:date"
+        },
+        "status": "bc:status",
+        "position": {
+          "@id": "bc:position",
+          "@type": "xsd:integer"
+        },
+        "assignees": {
+          "@id": "schema:agent",
+          "@container": "@set"
+        },
+        "completion_subscribers": {
+          "@id": "bc:completionSubscribers",
+          "@container": "@set"
+        },
+        "comments_count": {
+          "@id": "bc:commentsCount",
+          "@type": "xsd:integer"
+        },
+        "creator": {
+          "@id": "schema:creator",
+          "@type": "@id"
+        },
+        "bucket": {
+          "@id": "schema:isPartOf",
+          "@type": "@id"
+        },
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "app_url": {
+          "@id": "bc:appUrl",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "TodoList": {
+      "@id": "schema:ItemList",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "description": "schema:description",
+        "completed": {
+          "@id": "bc:completed",
+          "@type": "xsd:boolean"
+        },
+        "completed_ratio": "bc:completedRatio",
+        "status": "bc:status",
+        "position": {
+          "@id": "bc:position",
+          "@type": "xsd:integer"
+        },
+        "color": "bc:color",
+        "creator": {
+          "@id": "schema:creator",
+          "@type": "@id"
+        },
+        "bucket": {
+          "@id": "schema:isPartOf",
+          "@type": "@id"
+        },
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "ScheduleEntry": {
+      "@id": "schema:Event",
+      "@context": {
+        "id": "@id",
+        "summary": "schema:name",
+        "description": "schema:description",
+        "all_day": {
+          "@id": "bc:allDay",
+          "@type": "xsd:boolean"
+        },
+        "starts_at": {
+          "@id": "schema:startDate",
+          "@type": "xsd:dateTime"
+        },
+        "ends_at": {
+          "@id": "schema:endDate",
+          "@type": "xsd:dateTime"
+        },
+        "participants": {
+          "@id": "schema:attendee",
+          "@container": "@set"
+        },
+        "status": "bc:status",
+        "creator": {
+          "@id": "schema:organizer",
+          "@type": "@id"
+        },
+        "bucket": {
+          "@id": "schema:isPartOf",
+          "@type": "@id"
+        },
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "app_url": {
+          "@id": "bc:appUrl",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Document": {
+      "@id": "schema:DigitalDocument",
+      "@context": {
+        "id": "@id",
+        "title": "schema:name",
+        "content": "schema:text",
+        "status": "bc:status",
+        "visible_to_clients": {
+          "@id": "bc:visibleToClients",
+          "@type": "xsd:boolean"
+        },
+        "position": {
+          "@id": "bc:position",
+          "@type": "xsd:integer"
+        },
+        "comments_count": {
+          "@id": "bc:commentsCount",
+          "@type": "xsd:integer"
+        },
+        "creator": {
+          "@id": "schema:creator",
+          "@type": "@id"
+        },
+        "bucket": {
+          "@id": "schema:isPartOf",
+          "@type": "@id"
+        },
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "app_url": {
+          "@id": "bc:appUrl",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Upload": {
+      "@id": "schema:MediaObject",
+      "@context": {
+        "id": "@id",
+        "title": "schema:name",
+        "description": "schema:description",
+        "filename": "schema:name",
+        "content_type": "schema:encodingFormat",
+        "byte_size": {
+          "@id": "schema:contentSize",
+          "@type": "xsd:integer"
+        },
+        "width": {
+          "@id": "schema:width",
+          "@type": "xsd:integer"
+        },
+        "height": {
+          "@id": "schema:height",
+          "@type": "xsd:integer"
+        },
+        "download_url": {
+          "@id": "schema:contentUrl",
+          "@type": "@id"
+        },
+        "status": "bc:status",
+        "position": {
+          "@id": "bc:position",
+          "@type": "xsd:integer"
+        },
+        "creator": {
+          "@id": "schema:creator",
+          "@type": "@id"
+        },
+        "bucket": {
+          "@id": "schema:isPartOf",
+          "@type": "@id"
+        },
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Comment": {
+      "@id": "schema:Comment",
+      "@context": {
+        "id": "@id",
+        "content": "schema:text",
+        "status": "bc:status",
+        "boosts_count": {
+          "@id": "bc:boostsCount",
+          "@type": "xsd:integer"
+        },
+        "creator": {
+          "@id": "schema:author",
+          "@type": "@id"
+        },
+        "parent": {
+          "@id": "schema:parentItem",
+          "@type": "@id"
+        },
+        "bucket": {
+          "@id": "schema:isPartOf",
+          "@type": "@id"
+        },
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Webhook": {
+      "@id": "bc:Webhook",
+      "@context": {
+        "id": "@id",
+        "payload_url": {
+          "@id": "bc:payloadUrl",
+          "@type": "@id"
+        },
+        "active": {
+          "@id": "bc:active",
+          "@type": "xsd:boolean"
+        },
+        "types": {
+          "@id": "bc:subscribedTypes",
+          "@container": "@set"
+        },
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        }
+      }
+    }
+  }
+}

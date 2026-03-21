@@ -1,0 +1,3049 @@
+openapi: 3.1.0
+info:
+  title: Basecamp API
+  description: >-
+    The Basecamp API is a REST API that provides programmatic access to
+    Basecamp's project management and team communication platform. It enables
+    developers to manage projects, to-do lists, messages, documents, schedules,
+    campfires, uploads, card tables, templates, and team members across Basecamp
+    accounts. The API uses OAuth 2.0 for authentication and returns JSON
+    responses, with all requests scoped to an account ID in the base URL path.
+    Resources include projects, people, to-dos, message boards, documents, card
+    tables, campfires, questionnaires, and webhooks, covering the full breadth
+    of Basecamp's collaboration toolset.
+  version: '1.0'
+  contact:
+    name: Basecamp Developer Support
+    url: https://github.com/basecamp/bc3-api
+  termsOfService: https://basecamp.com/terms
+externalDocs:
+  description: Basecamp API Documentation
+  url: https://github.com/basecamp/bc3-api
+servers:
+  - url: https://3.basecampapi.com/{accountId}
+    description: Production Server
+    variables:
+      accountId:
+        description: Your Basecamp account ID
+        default: '999999999'
+tags:
+  - name: Projects
+    description: Manage Basecamp projects (buckets)
+  - name: People
+    description: Manage people, profiles, and project access
+  - name: Templates
+    description: Manage project templates and construct projects from them
+  - name: Recordings
+    description: Common actions for all recordable resources (archive, trash, restore)
+  - name: Messages
+    description: Manage messages on message boards
+  - name: Comments
+    description: Manage comments on any commentable recording
+  - name: To-Do Sets
+    description: Top-level to-do containers on a project
+  - name: To-Do Lists
+    description: Manage to-do lists within a to-do set
+  - name: To-Dos
+    description: Manage individual to-do items
+  - name: Schedules
+    description: Manage project schedules
+  - name: Schedule Entries
+    description: Manage individual schedule events and recurring entries
+  - name: Documents
+    description: Manage documents stored in vaults
+  - name: Uploads
+    description: Manage file uploads stored in vaults
+  - name: Vaults
+    description: File and document storage containers on a project
+  - name: Campfires
+    description: Manage project campfire chat rooms and lines
+  - name: Card Tables
+    description: Manage kanban-style card tables and card movements
+  - name: Webhooks
+    description: Manage webhook subscriptions for a project
+  - name: Subscriptions
+    description: Manage per-recording notification subscriptions
+security:
+  - bearerAuth: []
+paths:
+  /projects.json:
+    get:
+      operationId: listProjects
+      summary: List projects
+      description: >-
+        Returns a paginated list of active projects visible to the authenticated
+        user. Use the optional status parameter to retrieve archived or trashed
+        projects instead.
+      tags:
+        - Projects
+      parameters:
+        - name: status
+          in: query
+          description: Filter projects by status. Omit for active projects.
+          required: false
+          schema:
+            type: string
+            enum: [archived, trashed]
+      responses:
+        '200':
+          description: Paginated list of projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createProject
+      summary: Create a project
+      description: >-
+        Creates a new Basecamp project with the given name and optional
+        description. Returns the new project with a 201 Created status.
+      tags:
+        - Projects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectCreateRequest'
+      responses:
+        '201':
+          description: Project created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /projects/{projectId}.json:
+    get:
+      operationId: getProject
+      summary: Get a project
+      description: >-
+        Returns the project with the given ID including its dock, which lists
+        the tools enabled for that project.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '200':
+          description: Project details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateProject
+      summary: Update a project
+      description: >-
+        Updates the name, description, schedule dates, or admissions settings
+        for an existing project. Returns the updated project.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectUpdateRequest'
+      responses:
+        '200':
+          description: Updated project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteProject
+      summary: Delete a project
+      description: >-
+        Moves the project with the given ID to trash. Trashed projects can be
+        permanently deleted from the Basecamp web interface.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '204':
+          description: Project moved to trash
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /people.json:
+    get:
+      operationId: listPeople
+      summary: List all people
+      description: >-
+        Returns a paginated list of all people visible to the authenticated user
+        across the account.
+      tags:
+        - People
+      responses:
+        '200':
+          description: Paginated list of people
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /projects/{projectId}/people.json:
+    get:
+      operationId: listProjectPeople
+      summary: List people on a project
+      description: >-
+        Returns a paginated list of all people with access to the specified
+        project.
+      tags:
+        - People
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '200':
+          description: List of people on the project
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /projects/{projectId}/people/users.json:
+    put:
+      operationId: updateProjectAccess
+      summary: Update project access
+      description: >-
+        Grants or revokes access to the project for specific people. Accepts
+        arrays of person IDs to grant or revoke, or new person objects to
+        create and invite.
+      tags:
+        - People
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectAccessRequest'
+      responses:
+        '200':
+          description: Updated access list
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /circles/people.json:
+    get:
+      operationId: listPingablePeople
+      summary: List pingable people
+      description: >-
+        Returns a paginated list of all people the authenticated user can ping
+        (direct message) within the account.
+      tags:
+        - People
+      responses:
+        '200':
+          description: List of pingable people
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /people/{personId}.json:
+    get:
+      operationId: getPerson
+      summary: Get a person
+      description: >-
+        Returns the profile of the person with the given ID.
+      tags:
+        - People
+      parameters:
+        - $ref: '#/components/parameters/PersonId'
+      responses:
+        '200':
+          description: Person profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /my/profile.json:
+    get:
+      operationId: getMyProfile
+      summary: Get my profile
+      description: >-
+        Returns the profile of the currently authenticated user.
+      tags:
+        - People
+      responses:
+        '200':
+          description: Authenticated user profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: updateMyProfile
+      summary: Update my profile
+      description: >-
+        Updates profile fields for the currently authenticated user including
+        name, email address, title, bio, location, and time zone.
+      tags:
+        - People
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileUpdateRequest'
+      responses:
+        '200':
+          description: Updated profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /templates.json:
+    get:
+      operationId: listTemplates
+      summary: List templates
+      description: >-
+        Returns a paginated list of active project templates visible to the
+        authenticated user. Optionally filter by status.
+      tags:
+        - Templates
+      parameters:
+        - name: status
+          in: query
+          description: Filter templates by status.
+          required: false
+          schema:
+            type: string
+            enum: [archived, trashed]
+      responses:
+        '200':
+          description: List of templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Template'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createTemplate
+      summary: Create a template
+      description: >-
+        Creates a new project template with the given name and optional
+        description. Returns the template with a 201 Created status.
+      tags:
+        - Templates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateCreateRequest'
+      responses:
+        '201':
+          description: Template created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /templates/{templateId}.json:
+    get:
+      operationId: getTemplate
+      summary: Get a template
+      description: >-
+        Returns the project template with the given ID.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/TemplateId'
+      responses:
+        '200':
+          description: Template details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateTemplate
+      summary: Update a template
+      description: >-
+        Updates the name and description of an existing project template.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/TemplateId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateCreateRequest'
+      responses:
+        '200':
+          description: Updated template
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteTemplate
+      summary: Delete a template
+      description: >-
+        Moves the template with the given ID to trash.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/TemplateId'
+      responses:
+        '204':
+          description: Template trashed
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /templates/{templateId}/project_constructions.json:
+    post:
+      operationId: createProjectFromTemplate
+      summary: Create project from template
+      description: >-
+        Starts the construction of a new project based on the given template.
+        Returns a project construction object whose status can be polled until
+        it transitions from "pending" to "completed".
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/TemplateId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectConstructionRequest'
+      responses:
+        '201':
+          description: Project construction initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectConstruction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /templates/{templateId}/project_constructions/{constructionId}.json:
+    get:
+      operationId: getProjectConstruction
+      summary: Get project construction status
+      description: >-
+        Returns the current status of a project construction job. Poll this
+        endpoint until status changes from "pending" to "completed".
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/TemplateId'
+        - $ref: '#/components/parameters/ConstructionId'
+      responses:
+        '200':
+          description: Project construction status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectConstruction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /projects/recordings.json:
+    get:
+      operationId: listRecordings
+      summary: List recordings
+      description: >-
+        Returns a paginated list of recordings of the specified type across all
+        projects. Use the type parameter to specify the resource type (Comment,
+        Document, Message, Todo, Upload, etc.).
+      tags:
+        - Recordings
+      parameters:
+        - name: type
+          in: query
+          description: The recording type to list.
+          required: true
+          schema:
+            type: string
+            enum:
+              - Comment
+              - Document
+              - Message
+              - Todo
+              - TodoList
+              - Schedule::Entry
+              - Upload
+              - Vault
+        - name: bucket
+          in: query
+          description: Filter to a specific project (bucket) ID.
+          required: false
+          schema:
+            type: integer
+        - name: status
+          in: query
+          description: Filter by recording status.
+          required: false
+          schema:
+            type: string
+            enum: [active, archived, trashed]
+        - name: sort
+          in: query
+          description: Sort field.
+          required: false
+          schema:
+            type: string
+            enum: [created_at, updated_at]
+        - name: direction
+          in: query
+          description: Sort direction.
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+      responses:
+        '200':
+          description: List of recordings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recording'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /recordings/{recordingId}/status/trashed.json:
+    put:
+      operationId: trashRecording
+      summary: Trash a recording
+      description: >-
+        Moves the recording with the given ID to trash. Works for any
+        recordable resource type including messages, to-dos, documents, and
+        comments.
+      tags:
+        - Recordings
+      parameters:
+        - $ref: '#/components/parameters/RecordingId'
+      responses:
+        '204':
+          description: Recording trashed
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /recordings/{recordingId}/status/archived.json:
+    put:
+      operationId: archiveRecording
+      summary: Archive a recording
+      description: >-
+        Archives the recording with the given ID. Archived recordings are
+        hidden from default views but remain accessible.
+      tags:
+        - Recordings
+      parameters:
+        - $ref: '#/components/parameters/RecordingId'
+      responses:
+        '204':
+          description: Recording archived
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /recordings/{recordingId}/status/active.json:
+    put:
+      operationId: unarchiveRecording
+      summary: Unarchive a recording
+      description: >-
+        Restores an archived recording to active status, making it visible in
+        default views again.
+      tags:
+        - Recordings
+      parameters:
+        - $ref: '#/components/parameters/RecordingId'
+      responses:
+        '204':
+          description: Recording restored to active
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /message_boards/{messageBoardId}/messages.json:
+    get:
+      operationId: listMessages
+      summary: List messages
+      description: >-
+        Returns a paginated list of active messages in the specified message
+        board. Messages can be sorted by created_at or updated_at.
+      tags:
+        - Messages
+      parameters:
+        - $ref: '#/components/parameters/MessageBoardId'
+        - name: sort
+          in: query
+          description: Sort field.
+          required: false
+          schema:
+            type: string
+            enum: [created_at, updated_at]
+        - name: direction
+          in: query
+          description: Sort direction.
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+      responses:
+        '200':
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createMessage
+      summary: Create a message
+      description: >-
+        Creates a new message in the specified message board. Set status to
+        "active" to publish immediately; otherwise the message is saved as a
+        draft.
+      tags:
+        - Messages
+      parameters:
+        - $ref: '#/components/parameters/MessageBoardId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageCreateRequest'
+      responses:
+        '201':
+          description: Message created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /messages/{messageId}.json:
+    get:
+      operationId: getMessage
+      summary: Get a message
+      description: >-
+        Returns the message with the given ID.
+      tags:
+        - Messages
+      parameters:
+        - $ref: '#/components/parameters/MessageId'
+      responses:
+        '200':
+          description: Message details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateMessage
+      summary: Update a message
+      description: >-
+        Updates the subject, content, or category of the specified message.
+      tags:
+        - Messages
+      parameters:
+        - $ref: '#/components/parameters/MessageId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageUpdateRequest'
+      responses:
+        '200':
+          description: Updated message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /recordings/{recordingId}/comments.json:
+    get:
+      operationId: listComments
+      summary: List comments
+      description: >-
+        Returns a paginated list of active comments on the specified recording.
+        Any resource that exposes a comments_url can have its comments listed
+        via this endpoint.
+      tags:
+        - Comments
+      parameters:
+        - $ref: '#/components/parameters/RecordingId'
+      responses:
+        '200':
+          description: List of comments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createComment
+      summary: Create a comment
+      description: >-
+        Creates a new comment on the specified recording. All subscribers to
+        the recording will be notified. Supports HTML-formatted content.
+      tags:
+        - Comments
+      parameters:
+        - $ref: '#/components/parameters/RecordingId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentCreateRequest'
+      responses:
+        '201':
+          description: Comment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /comments/{commentId}.json:
+    get:
+      operationId: getComment
+      summary: Get a comment
+      description: >-
+        Returns the comment with the given ID.
+      tags:
+        - Comments
+      parameters:
+        - $ref: '#/components/parameters/CommentId'
+      responses:
+        '200':
+          description: Comment details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateComment
+      summary: Update a comment
+      description: >-
+        Updates the content of the specified comment.
+      tags:
+        - Comments
+      parameters:
+        - $ref: '#/components/parameters/CommentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentCreateRequest'
+      responses:
+        '200':
+          description: Updated comment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /todosets/{todosetId}/todolists.json:
+    get:
+      operationId: listTodoLists
+      summary: List to-do lists
+      description: >-
+        Returns a paginated list of active to-do lists within the specified
+        to-do set.
+      tags:
+        - To-Do Lists
+      parameters:
+        - $ref: '#/components/parameters/TodosetId'
+        - name: status
+          in: query
+          required: false
+          description: Filter by status.
+          schema:
+            type: string
+            enum: [archived, trashed]
+      responses:
+        '200':
+          description: List of to-do lists
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createTodoList
+      summary: Create a to-do list
+      description: >-
+        Creates a new to-do list in the specified to-do set with the given name
+        and optional description.
+      tags:
+        - To-Do Lists
+      parameters:
+        - $ref: '#/components/parameters/TodosetId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoListCreateRequest'
+      responses:
+        '201':
+          description: To-do list created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /todolists/{todolistId}.json:
+    get:
+      operationId: getTodoList
+      summary: Get a to-do list
+      description: >-
+        Returns the to-do list with the given ID.
+      tags:
+        - To-Do Lists
+      parameters:
+        - $ref: '#/components/parameters/TodolistId'
+      responses:
+        '200':
+          description: To-do list details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateTodoList
+      summary: Update a to-do list
+      description: >-
+        Updates the name and description of the specified to-do list.
+      tags:
+        - To-Do Lists
+      parameters:
+        - $ref: '#/components/parameters/TodolistId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoListCreateRequest'
+      responses:
+        '200':
+          description: Updated to-do list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /todolists/{todolistId}/todos.json:
+    get:
+      operationId: listTodos
+      summary: List to-dos
+      description: >-
+        Returns a paginated list of active to-dos in the specified to-do list.
+        Set completed=true to retrieve completed items instead.
+      tags:
+        - To-Dos
+      parameters:
+        - $ref: '#/components/parameters/TodolistId'
+        - name: status
+          in: query
+          required: false
+          description: Filter by status.
+          schema:
+            type: string
+            enum: [archived, trashed]
+        - name: completed
+          in: query
+          required: false
+          description: Set to true to return completed to-dos.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: List of to-dos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createTodo
+      summary: Create a to-do
+      description: >-
+        Creates a new to-do in the specified to-do list. Supports assignees,
+        due dates, start dates, and completion subscriber notifications.
+      tags:
+        - To-Dos
+      parameters:
+        - $ref: '#/components/parameters/TodolistId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoCreateRequest'
+      responses:
+        '201':
+          description: To-do created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /todos/{todoId}.json:
+    get:
+      operationId: getTodo
+      summary: Get a to-do
+      description: >-
+        Returns the to-do with the given ID.
+      tags:
+        - To-Dos
+      parameters:
+        - $ref: '#/components/parameters/TodoId'
+      responses:
+        '200':
+          description: To-do details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateTodo
+      summary: Update a to-do
+      description: >-
+        Updates the content, description, assignees, due date, or other fields
+        of the specified to-do.
+      tags:
+        - To-Dos
+      parameters:
+        - $ref: '#/components/parameters/TodoId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoCreateRequest'
+      responses:
+        '200':
+          description: Updated to-do
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /todos/{todoId}/completion.json:
+    post:
+      operationId: completeTodo
+      summary: Complete a to-do
+      description: >-
+        Marks the specified to-do as completed and notifies completion
+        subscribers.
+      tags:
+        - To-Dos
+      parameters:
+        - $ref: '#/components/parameters/TodoId'
+      responses:
+        '204':
+          description: To-do marked as completed
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: uncompleteTodo
+      summary: Uncomplete a to-do
+      description: >-
+        Marks the specified to-do as incomplete, reversing a previous
+        completion.
+      tags:
+        - To-Dos
+      parameters:
+        - $ref: '#/components/parameters/TodoId'
+      responses:
+        '204':
+          description: To-do marked as incomplete
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /todos/{todoId}/position.json:
+    put:
+      operationId: repositionTodo
+      summary: Reposition a to-do
+      description: >-
+        Changes the position of the specified to-do within its to-do list.
+        Position is 1-indexed.
+      tags:
+        - To-Dos
+      parameters:
+        - $ref: '#/components/parameters/TodoId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PositionRequest'
+      responses:
+        '204':
+          description: Position updated
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /schedules/{scheduleId}.json:
+    get:
+      operationId: getSchedule
+      summary: Get a schedule
+      description: >-
+        Returns the schedule with the given ID including its configuration and
+        entry count.
+      tags:
+        - Schedules
+      parameters:
+        - $ref: '#/components/parameters/ScheduleId'
+      responses:
+        '200':
+          description: Schedule details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateSchedule
+      summary: Update a schedule
+      description: >-
+        Updates the schedule's configuration, including whether it should
+        include due dates from to-dos, cards, and steps.
+      tags:
+        - Schedules
+      parameters:
+        - $ref: '#/components/parameters/ScheduleId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleUpdateRequest'
+      responses:
+        '200':
+          description: Updated schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Schedule'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /schedules/{scheduleId}/entries.json:
+    get:
+      operationId: listScheduleEntries
+      summary: List schedule entries
+      description: >-
+        Returns a paginated list of active schedule entries in the specified
+        schedule.
+      tags:
+        - Schedule Entries
+      parameters:
+        - $ref: '#/components/parameters/ScheduleId'
+        - name: status
+          in: query
+          required: false
+          description: Filter by status.
+          schema:
+            type: string
+            enum: [archived, trashed]
+      responses:
+        '200':
+          description: List of schedule entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScheduleEntry'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createScheduleEntry
+      summary: Create a schedule entry
+      description: >-
+        Creates a new schedule entry in the specified schedule. Requires a
+        summary, start time, and end time.
+      tags:
+        - Schedule Entries
+      parameters:
+        - $ref: '#/components/parameters/ScheduleId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleEntryCreateRequest'
+      responses:
+        '201':
+          description: Schedule entry created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleEntry'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /schedule_entries/{entryId}.json:
+    get:
+      operationId: getScheduleEntry
+      summary: Get a schedule entry
+      description: >-
+        Returns the schedule entry with the given ID.
+      tags:
+        - Schedule Entries
+      parameters:
+        - $ref: '#/components/parameters/EntryId'
+      responses:
+        '200':
+          description: Schedule entry details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleEntry'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateScheduleEntry
+      summary: Update a schedule entry
+      description: >-
+        Updates the summary, times, description, participants, or recurrence
+        configuration of the specified schedule entry.
+      tags:
+        - Schedule Entries
+      parameters:
+        - $ref: '#/components/parameters/EntryId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleEntryCreateRequest'
+      responses:
+        '200':
+          description: Updated schedule entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleEntry'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /vaults/{vaultId}/documents.json:
+    get:
+      operationId: listDocuments
+      summary: List documents
+      description: >-
+        Returns a paginated list of active documents in the specified vault.
+      tags:
+        - Documents
+      parameters:
+        - $ref: '#/components/parameters/VaultId'
+      responses:
+        '200':
+          description: List of documents
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Document'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createDocument
+      summary: Create a document
+      description: >-
+        Creates a new document in the specified vault. Set status to "active"
+        for immediate publication; otherwise it is saved as a draft.
+      tags:
+        - Documents
+      parameters:
+        - $ref: '#/components/parameters/VaultId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentCreateRequest'
+      responses:
+        '201':
+          description: Document created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /documents/{documentId}.json:
+    get:
+      operationId: getDocument
+      summary: Get a document
+      description: >-
+        Returns the document with the given ID.
+      tags:
+        - Documents
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Document details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateDocument
+      summary: Update a document
+      description: >-
+        Updates the title and content of the specified document.
+      tags:
+        - Documents
+      parameters:
+        - $ref: '#/components/parameters/DocumentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentCreateRequest'
+      responses:
+        '200':
+          description: Updated document
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /vaults/{vaultId}/uploads.json:
+    get:
+      operationId: listUploads
+      summary: List uploads
+      description: >-
+        Returns a paginated list of active file uploads in the specified vault.
+      tags:
+        - Uploads
+      parameters:
+        - $ref: '#/components/parameters/VaultId'
+      responses:
+        '200':
+          description: List of uploads
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Upload'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createUpload
+      summary: Create an upload
+      description: >-
+        Creates a new upload entry in the specified vault using an attachable
+        SGID obtained from the Basecamp attachment API.
+      tags:
+        - Uploads
+      parameters:
+        - $ref: '#/components/parameters/VaultId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadCreateRequest'
+      responses:
+        '201':
+          description: Upload created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Upload'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /uploads/{uploadId}.json:
+    get:
+      operationId: getUpload
+      summary: Get an upload
+      description: >-
+        Returns the upload with the given ID.
+      tags:
+        - Uploads
+      parameters:
+        - $ref: '#/components/parameters/UploadId'
+      responses:
+        '200':
+          description: Upload details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Upload'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateUpload
+      summary: Update an upload
+      description: >-
+        Updates the description or base name of the specified upload.
+      tags:
+        - Uploads
+      parameters:
+        - $ref: '#/components/parameters/UploadId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadUpdateRequest'
+      responses:
+        '200':
+          description: Updated upload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Upload'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /chats.json:
+    get:
+      operationId: listCampfires
+      summary: List campfires
+      description: >-
+        Returns a paginated list of all active campfire chat rooms visible to
+        the authenticated user.
+      tags:
+        - Campfires
+      responses:
+        '200':
+          description: List of campfires
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Campfire'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /chats/{campfireId}.json:
+    get:
+      operationId: getCampfire
+      summary: Get a campfire
+      description: >-
+        Returns the campfire with the given ID.
+      tags:
+        - Campfires
+      parameters:
+        - $ref: '#/components/parameters/CampfireId'
+      responses:
+        '200':
+          description: Campfire details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campfire'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /chats/{campfireId}/lines.json:
+    get:
+      operationId: listCampfireLines
+      summary: List campfire lines
+      description: >-
+        Returns a paginated list of chat messages (lines) in the specified
+        campfire, ordered newest first.
+      tags:
+        - Campfires
+      parameters:
+        - $ref: '#/components/parameters/CampfireId'
+      responses:
+        '200':
+          description: List of campfire lines
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CampfireLine'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createCampfireLine
+      summary: Create a campfire line
+      description: >-
+        Posts a new message to the specified campfire. Content must be plain
+        text.
+      tags:
+        - Campfires
+      parameters:
+        - $ref: '#/components/parameters/CampfireId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampfireLineCreateRequest'
+      responses:
+        '201':
+          description: Line posted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampfireLine'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /chats/{campfireId}/lines/{lineId}.json:
+    get:
+      operationId: getCampfireLine
+      summary: Get a campfire line
+      description: >-
+        Returns the specific campfire line with the given ID.
+      tags:
+        - Campfires
+      parameters:
+        - $ref: '#/components/parameters/CampfireId'
+        - $ref: '#/components/parameters/LineId'
+      responses:
+        '200':
+          description: Campfire line details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampfireLine'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCampfireLine
+      summary: Delete a campfire line
+      description: >-
+        Deletes the campfire line with the given ID. Only the line creator or
+        account admins can delete lines.
+      tags:
+        - Campfires
+      parameters:
+        - $ref: '#/components/parameters/CampfireId'
+        - $ref: '#/components/parameters/LineId'
+      responses:
+        '204':
+          description: Line deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /card_tables/{cardTableId}.json:
+    get:
+      operationId: getCardTable
+      summary: Get a card table
+      description: >-
+        Returns the card table with the given ID, including its columns and
+        metadata such as card counts per column.
+      tags:
+        - Card Tables
+      parameters:
+        - $ref: '#/components/parameters/CardTableId'
+      responses:
+        '200':
+          description: Card table details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardTable'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /card_tables/{cardTableId}/moves.json:
+    post:
+      operationId: moveCard
+      summary: Move a card
+      description: >-
+        Moves a card to a different column on the card table at the specified
+        zero-indexed position.
+      tags:
+        - Card Tables
+      parameters:
+        - $ref: '#/components/parameters/CardTableId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardMoveRequest'
+      responses:
+        '204':
+          description: Card moved
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /buckets/{projectId}/webhooks.json:
+    get:
+      operationId: listWebhooks
+      summary: List webhooks
+      description: >-
+        Returns all webhooks configured for the project with the given ID,
+        including delivery history for each webhook.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '200':
+          description: List of webhooks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createWebhook
+      summary: Create a webhook
+      description: >-
+        Creates a new webhook for the specified project. The payload URL must
+        be HTTPS. Optionally restrict to specific resource types; defaults to
+        all types.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookCreateRequest'
+      responses:
+        '201':
+          description: Webhook created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /webhooks/{webhookId}.json:
+    get:
+      operationId: getWebhook
+      summary: Get a webhook
+      description: >-
+        Returns the webhook with the given ID and its recent delivery history.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/WebhookId'
+      responses:
+        '200':
+          description: Webhook details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateWebhook
+      summary: Update a webhook
+      description: >-
+        Updates the payload URL, active status, or subscribed types of the
+        specified webhook.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/WebhookId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookUpdateRequest'
+      responses:
+        '200':
+          description: Updated webhook
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteWebhook
+      summary: Delete a webhook
+      description: >-
+        Permanently deletes the webhook with the given ID.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/WebhookId'
+      responses:
+        '204':
+          description: Webhook deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /recordings/{recordingId}/subscription.json:
+    get:
+      operationId: getSubscription
+      summary: Get subscription
+      description: >-
+        Returns the current subscription status and list of subscribers for the
+        specified recording.
+      tags:
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/RecordingId'
+      responses:
+        '200':
+          description: Subscription details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: subscribeToRecording
+      summary: Subscribe to recording
+      description: >-
+        Adds the authenticated user as a subscriber to the specified recording.
+      tags:
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/RecordingId'
+      responses:
+        '200':
+          description: Subscription updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: unsubscribeFromRecording
+      summary: Unsubscribe from recording
+      description: >-
+        Removes the authenticated user as a subscriber from the specified
+        recording.
+      tags:
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/RecordingId'
+      responses:
+        '204':
+          description: Unsubscribed
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: updateSubscription
+      summary: Update subscription
+      description: >-
+        Bulk adds or removes subscribers from the specified recording using
+        arrays of person IDs.
+      tags:
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/RecordingId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionUpdateRequest'
+      responses:
+        '200':
+          description: Updated subscription
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        OAuth 2.0 Bearer token obtained via the Basecamp authorization code
+        flow at launchpad.37signals.com. Include as "Authorization: Bearer
+        {token}" in all requests.
+  parameters:
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the project (bucket)
+      schema:
+        type: integer
+    PersonId:
+      name: personId
+      in: path
+      required: true
+      description: Unique identifier of the person
+      schema:
+        type: integer
+    TemplateId:
+      name: templateId
+      in: path
+      required: true
+      description: Unique identifier of the template
+      schema:
+        type: integer
+    ConstructionId:
+      name: constructionId
+      in: path
+      required: true
+      description: Unique identifier of the project construction job
+      schema:
+        type: integer
+    RecordingId:
+      name: recordingId
+      in: path
+      required: true
+      description: Unique identifier of the recording
+      schema:
+        type: integer
+    MessageBoardId:
+      name: messageBoardId
+      in: path
+      required: true
+      description: Unique identifier of the message board
+      schema:
+        type: integer
+    MessageId:
+      name: messageId
+      in: path
+      required: true
+      description: Unique identifier of the message
+      schema:
+        type: integer
+    CommentId:
+      name: commentId
+      in: path
+      required: true
+      description: Unique identifier of the comment
+      schema:
+        type: integer
+    TodosetId:
+      name: todosetId
+      in: path
+      required: true
+      description: Unique identifier of the to-do set
+      schema:
+        type: integer
+    TodolistId:
+      name: todolistId
+      in: path
+      required: true
+      description: Unique identifier of the to-do list
+      schema:
+        type: integer
+    TodoId:
+      name: todoId
+      in: path
+      required: true
+      description: Unique identifier of the to-do
+      schema:
+        type: integer
+    ScheduleId:
+      name: scheduleId
+      in: path
+      required: true
+      description: Unique identifier of the schedule
+      schema:
+        type: integer
+    EntryId:
+      name: entryId
+      in: path
+      required: true
+      description: Unique identifier of the schedule entry
+      schema:
+        type: integer
+    VaultId:
+      name: vaultId
+      in: path
+      required: true
+      description: Unique identifier of the vault
+      schema:
+        type: integer
+    DocumentId:
+      name: documentId
+      in: path
+      required: true
+      description: Unique identifier of the document
+      schema:
+        type: integer
+    UploadId:
+      name: uploadId
+      in: path
+      required: true
+      description: Unique identifier of the upload
+      schema:
+        type: integer
+    CampfireId:
+      name: campfireId
+      in: path
+      required: true
+      description: Unique identifier of the campfire chat room
+      schema:
+        type: integer
+    LineId:
+      name: lineId
+      in: path
+      required: true
+      description: Unique identifier of the campfire line
+      schema:
+        type: integer
+    CardTableId:
+      name: cardTableId
+      in: path
+      required: true
+      description: Unique identifier of the card table
+      schema:
+        type: integer
+    WebhookId:
+      name: webhookId
+      in: path
+      required: true
+      description: Unique identifier of the webhook
+      schema:
+        type: integer
+  responses:
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: >-
+        Too many requests — rate limit exceeded. Retry after the interval
+        indicated in the Retry-After response header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    BucketRef:
+      type: object
+      description: Reference to the project (bucket) that contains a resource
+      properties:
+        id:
+          type: integer
+          description: Project ID
+        name:
+          type: string
+          description: Project name
+        type:
+          type: string
+          description: Resource type, always "Project"
+        url:
+          type: string
+          format: uri
+          description: API URL for the project
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for the project
+    PersonRef:
+      type: object
+      description: Minimal reference to a Basecamp person
+      properties:
+        id:
+          type: integer
+          description: Person ID
+        attachable_sgid:
+          type: string
+          description: Signed global ID for attaching this person
+        name:
+          type: string
+          description: Full name
+        email_address:
+          type: string
+          format: email
+          description: Email address
+        personable_type:
+          type: string
+          description: Type of personable (User, Client, etc.)
+        title:
+          type: string
+          description: Job title
+        bio:
+          type: string
+          description: Short biography
+        location:
+          type: string
+          description: Location string
+        created_at:
+          type: string
+          format: date-time
+          description: Account creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        admin:
+          type: boolean
+          description: Whether the person is an account administrator
+        owner:
+          type: boolean
+          description: Whether the person is the account owner
+        client:
+          type: boolean
+          description: Whether the person is a client user
+        employee:
+          type: boolean
+          description: Whether the person is an employee
+        time_zone:
+          type: string
+          description: IANA time zone name
+        avatar_url:
+          type: string
+          format: uri
+          description: URL to the person's avatar image
+        company:
+          type: object
+          description: Company the person belongs to
+          properties:
+            id:
+              type: integer
+              description: Company ID
+            name:
+              type: string
+              description: Company name
+    Person:
+      allOf:
+        - $ref: '#/components/schemas/PersonRef'
+        - type: object
+          properties:
+            can_ping:
+              type: boolean
+              description: Whether the authenticated user can direct message this person
+            can_manage_projects:
+              type: boolean
+              description: Whether the person can manage projects
+            can_manage_people:
+              type: boolean
+              description: Whether the person can manage people
+            can_access_timesheet:
+              type: boolean
+              description: Whether the person can access timesheets
+            can_access_hill_charts:
+              type: boolean
+              description: Whether the person can access hill charts
+    DockItem:
+      type: object
+      description: A tool available on a project's dock
+      properties:
+        id:
+          type: integer
+          description: Dock item ID
+        title:
+          type: string
+          description: Display title of the tool
+        name:
+          type: string
+          description: Internal name of the tool (e.g., message_board, todoset)
+        enabled:
+          type: boolean
+          description: Whether this tool is enabled on the project
+        position:
+          type: integer
+          description: Display position of the tool in the dock
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: API URL for this tool's resource
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this tool's resource
+    Project:
+      type: object
+      required: [id, name, status]
+      properties:
+        id:
+          type: integer
+          description: Unique project identifier
+        status:
+          type: string
+          description: Project status (active, archived, trashed)
+          enum: [active, archived, trashed]
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the project was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the project was last updated
+        name:
+          type: string
+          description: Project name
+        description:
+          type: string
+          description: Project description
+          nullable: true
+        purpose:
+          type: string
+          description: Project purpose classification
+        clients_enabled:
+          type: boolean
+          description: Whether client access is enabled for this project
+        timesheet_enabled:
+          type: boolean
+          description: Whether timesheets are enabled for this project
+        color:
+          type: string
+          description: Project color identifier
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: API URL for this project
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this project
+        bookmark_url:
+          type: string
+          format: uri
+          description: API URL to bookmark this project
+        dock:
+          type: array
+          description: List of tools available on this project
+          items:
+            $ref: '#/components/schemas/DockItem'
+    ProjectCreateRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+          description: Name for the new project
+        description:
+          type: string
+          description: Optional description of the project
+    ProjectUpdateRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+          description: Updated project name
+        description:
+          type: string
+          description: Updated project description
+        schedule_attributes:
+          type: object
+          description: Optional schedule date range for the project
+          properties:
+            start_date:
+              type: string
+              format: date
+              description: Project start date in ISO 8601 format
+            end_date:
+              type: string
+              format: date
+              description: Project end date in ISO 8601 format
+        admissions:
+          type: string
+          description: Controls who can join the project
+          enum: [invite, employee, team]
+    ProjectAccessRequest:
+      type: object
+      properties:
+        grant:
+          type: array
+          description: Array of person IDs to grant access
+          items:
+            type: integer
+        revoke:
+          type: array
+          description: Array of person IDs to revoke access
+          items:
+            type: integer
+        create:
+          type: array
+          description: New people to invite to the project
+          items:
+            type: object
+            required: [name, email_address]
+            properties:
+              name:
+                type: string
+                description: Full name of the new person
+              email_address:
+                type: string
+                format: email
+                description: Email address of the new person
+              title:
+                type: string
+                description: Job title
+              company_name:
+                type: string
+                description: Company name
+    ProfileUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Full name
+        email_address:
+          type: string
+          format: email
+          description: Email address
+        title:
+          type: string
+          description: Job title
+        bio:
+          type: string
+          description: Short biography
+        location:
+          type: string
+          description: Location string
+        time_zone_name:
+          type: string
+          description: IANA time zone name
+    Template:
+      type: object
+      required: [id, name, status]
+      properties:
+        id:
+          type: integer
+          description: Template ID
+        status:
+          type: string
+          description: Template status
+          enum: [active, archived, trashed]
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the template was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the template was last updated
+        name:
+          type: string
+          description: Template name
+        description:
+          type: string
+          description: Template description
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: API URL for this template
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this template
+        dock:
+          type: array
+          description: Tools available in this template
+          items:
+            $ref: '#/components/schemas/DockItem'
+    TemplateCreateRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+          description: Template name
+        description:
+          type: string
+          description: Optional template description
+    ProjectConstructionRequest:
+      type: object
+      required: [project]
+      properties:
+        project:
+          type: object
+          required: [name]
+          properties:
+            name:
+              type: string
+              description: Name for the new project being constructed
+            description:
+              type: string
+              description: Optional description for the new project
+    ProjectConstruction:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Project construction job ID
+        status:
+          type: string
+          description: Construction status
+          enum: [pending, completed]
+        url:
+          type: string
+          format: uri
+          description: API URL to poll for this construction job
+        project:
+          $ref: '#/components/schemas/Project'
+          description: The resulting project once construction is completed
+    Recording:
+      type: object
+      description: >-
+        A generic recording object representing any Basecamp content resource
+        such as a message, to-do, document, comment, or upload.
+      properties:
+        id:
+          type: integer
+          description: Recording ID
+        status:
+          type: string
+          description: Recording status
+          enum: [active, archived, trashed]
+        visible_to_clients:
+          type: boolean
+          description: Whether this recording is visible to client users
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was last updated
+        title:
+          type: string
+          description: Title or summary of the recording
+        inherits_status:
+          type: boolean
+          description: Whether this recording inherits its status from a parent
+        type:
+          type: string
+          description: Recording type (e.g., Message, Todo, Document)
+        url:
+          type: string
+          format: uri
+          description: API URL for this recording
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this recording
+        bucket:
+          $ref: '#/components/schemas/BucketRef'
+        creator:
+          $ref: '#/components/schemas/PersonRef'
+    Message:
+      allOf:
+        - $ref: '#/components/schemas/Recording'
+        - type: object
+          properties:
+            subject:
+              type: string
+              description: Message subject/title
+            content:
+              type: string
+              description: HTML-formatted message body
+            comments_count:
+              type: integer
+              description: Number of comments on this message
+            comments_url:
+              type: string
+              format: uri
+              description: API URL to list comments
+            boosts_count:
+              type: integer
+              description: Number of boosts (reactions) on this message
+    MessageCreateRequest:
+      type: object
+      required: [subject]
+      properties:
+        subject:
+          type: string
+          description: Message subject (title)
+        content:
+          type: string
+          description: Message body in HTML format
+        status:
+          type: string
+          description: Set to "active" to publish immediately
+          enum: [active, draft]
+        category_id:
+          type: integer
+          description: Optional message category ID
+        subscriptions:
+          type: array
+          description: Person IDs to notify about this message
+          items:
+            type: integer
+    MessageUpdateRequest:
+      type: object
+      properties:
+        subject:
+          type: string
+          description: Updated message subject
+        content:
+          type: string
+          description: Updated message body in HTML format
+        category_id:
+          type: integer
+          description: Updated message category ID
+    Comment:
+      allOf:
+        - $ref: '#/components/schemas/Recording'
+        - type: object
+          properties:
+            content:
+              type: string
+              description: HTML-formatted comment body
+            boosts_count:
+              type: integer
+              description: Number of boosts on this comment
+            parent:
+              $ref: '#/components/schemas/Recording'
+    CommentCreateRequest:
+      type: object
+      required: [content]
+      properties:
+        content:
+          type: string
+          description: Comment body in HTML format
+    TodoList:
+      allOf:
+        - $ref: '#/components/schemas/Recording'
+        - type: object
+          properties:
+            completed:
+              type: boolean
+              description: Whether all to-dos in this list are completed
+            completed_ratio:
+              type: string
+              description: Completion ratio as a string (e.g., "2/5")
+            position:
+              type: integer
+              description: Display position within the to-do set
+            color:
+              type: string
+              description: List color identifier
+              nullable: true
+            todos_url:
+              type: string
+              format: uri
+              description: API URL to list to-dos in this list
+            comments_count:
+              type: integer
+              description: Number of comments on this list
+            boosts_count:
+              type: integer
+              description: Number of boosts on this list
+    TodoListCreateRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+          description: To-do list name
+        description:
+          type: string
+          description: Optional description with supported HTML formatting
+    Todo:
+      allOf:
+        - $ref: '#/components/schemas/Recording'
+        - type: object
+          properties:
+            content:
+              type: string
+              description: To-do text content
+            description:
+              type: string
+              description: HTML-formatted additional details
+            completed:
+              type: boolean
+              description: Whether this to-do has been completed
+            due_on:
+              type: string
+              format: date
+              description: Due date in ISO 8601 format
+              nullable: true
+            starts_on:
+              type: string
+              format: date
+              description: Start date in ISO 8601 format
+              nullable: true
+            position:
+              type: integer
+              description: Position within the to-do list
+            assignees:
+              type: array
+              description: People assigned to this to-do
+              items:
+                $ref: '#/components/schemas/PersonRef'
+            completion_subscribers:
+              type: array
+              description: People notified when this to-do is completed
+              items:
+                $ref: '#/components/schemas/PersonRef'
+            comments_count:
+              type: integer
+              description: Number of comments on this to-do
+            parent:
+              $ref: '#/components/schemas/Recording'
+    TodoCreateRequest:
+      type: object
+      required: [content]
+      properties:
+        content:
+          type: string
+          description: To-do text description
+        description:
+          type: string
+          description: Additional details in HTML format
+        assignee_ids:
+          type: array
+          description: Person IDs to assign to this to-do
+          items:
+            type: integer
+        completion_subscriber_ids:
+          type: array
+          description: Person IDs to notify when this to-do is completed
+          items:
+            type: integer
+        notify:
+          type: boolean
+          description: Whether to immediately notify assignees
+        due_on:
+          type: string
+          format: date
+          description: Due date in ISO 8601 format
+        starts_on:
+          type: string
+          format: date
+          description: Start date in ISO 8601 format
+    PositionRequest:
+      type: object
+      required: [position]
+      properties:
+        position:
+          type: integer
+          description: New position within the list (1-indexed)
+          minimum: 1
+    Schedule:
+      allOf:
+        - $ref: '#/components/schemas/Recording'
+        - type: object
+          properties:
+            include_due_assignments:
+              type: boolean
+              description: >-
+                Whether the schedule displays due dates from to-dos, cards, and
+                steps alongside scheduled entries
+            entries_count:
+              type: integer
+              description: Total number of schedule entries
+            entries_url:
+              type: string
+              format: uri
+              description: API URL to list schedule entries
+    ScheduleUpdateRequest:
+      type: object
+      required: [include_due_assignments]
+      properties:
+        include_due_assignments:
+          type: boolean
+          description: >-
+            Whether the schedule should include due dates from to-dos, cards,
+            and steps
+    ScheduleEntry:
+      allOf:
+        - $ref: '#/components/schemas/Recording'
+        - type: object
+          properties:
+            summary:
+              type: string
+              description: Entry title/summary
+            description:
+              type: string
+              description: HTML-formatted entry description
+            all_day:
+              type: boolean
+              description: Whether this is an all-day event
+            starts_at:
+              type: string
+              format: date-time
+              description: Entry start time in ISO 8601 format
+            ends_at:
+              type: string
+              format: date-time
+              description: Entry end time in ISO 8601 format
+            participants:
+              type: array
+              description: People participating in this entry
+              items:
+                $ref: '#/components/schemas/PersonRef'
+            comments_count:
+              type: integer
+              description: Number of comments on this entry
+            recurrence_schedule:
+              $ref: '#/components/schemas/RecurrenceSchedule'
+    RecurrenceSchedule:
+      type: object
+      description: Recurrence configuration for a schedule entry
+      properties:
+        frequency:
+          type: string
+          description: Recurrence frequency
+          enum: [daily, weekly, monthly, yearly]
+        days:
+          type: array
+          description: Days of the week for weekly recurrence
+          items:
+            type: string
+        hour:
+          type: integer
+          description: Hour of the day for the recurrence
+        minute:
+          type: integer
+          description: Minute of the hour for the recurrence
+        week_instance:
+          type: integer
+          description: Week instance within the month for monthly recurrence
+          nullable: true
+        start_date:
+          type: string
+          format: date
+          description: Date when the recurrence starts
+        end_date:
+          type: string
+          format: date
+          description: Date when the recurrence ends
+          nullable: true
+    ScheduleEntryCreateRequest:
+      type: object
+      required: [summary, starts_at, ends_at]
+      properties:
+        summary:
+          type: string
+          description: Entry title/summary
+        starts_at:
+          type: string
+          format: date-time
+          description: Entry start time in ISO 8601 format
+        ends_at:
+          type: string
+          format: date-time
+          description: Entry end time in ISO 8601 format
+        description:
+          type: string
+          description: HTML-formatted entry description
+        participant_ids:
+          type: array
+          description: Person IDs to add as participants
+          items:
+            type: integer
+        all_day:
+          type: boolean
+          description: Whether this is an all-day event
+        notify:
+          type: boolean
+          description: Whether to notify participants
+    Document:
+      allOf:
+        - $ref: '#/components/schemas/Recording'
+        - type: object
+          properties:
+            content:
+              type: string
+              description: HTML-formatted document body
+            comments_count:
+              type: integer
+              description: Number of comments on this document
+            boosts_count:
+              type: integer
+              description: Number of boosts on this document
+            position:
+              type: integer
+              description: Display position within the vault
+    DocumentCreateRequest:
+      type: object
+      required: [title, content]
+      properties:
+        title:
+          type: string
+          description: Document title
+        content:
+          type: string
+          description: Document body in HTML format
+        status:
+          type: string
+          description: Set to "active" to publish immediately
+          enum: [active, draft]
+    Upload:
+      allOf:
+        - $ref: '#/components/schemas/Recording'
+        - type: object
+          properties:
+            filename:
+              type: string
+              description: Original filename of the upload
+            content_type:
+              type: string
+              description: MIME type of the file
+            byte_size:
+              type: integer
+              description: File size in bytes
+            width:
+              type: integer
+              description: Image width in pixels (for image files)
+              nullable: true
+            height:
+              type: integer
+              description: Image height in pixels (for image files)
+              nullable: true
+            download_url:
+              type: string
+              format: uri
+              description: Direct download URL for the file
+            description:
+              type: string
+              description: HTML-formatted upload description
+            position:
+              type: integer
+              description: Display position within the vault
+            comments_count:
+              type: integer
+              description: Number of comments on this upload
+    UploadCreateRequest:
+      type: object
+      required: [attachable_sgid]
+      properties:
+        attachable_sgid:
+          type: string
+          description: Signed global ID of the attachment obtained from the Basecamp attachment API
+        description:
+          type: string
+          description: HTML-formatted information about the upload
+        base_name:
+          type: string
+          description: Filename without extension
+    UploadUpdateRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Revised upload description in HTML format
+        base_name:
+          type: string
+          description: New filename without extension
+    Campfire:
+      allOf:
+        - $ref: '#/components/schemas/Recording'
+        - type: object
+          properties:
+            lines_url:
+              type: string
+              format: uri
+              description: API URL to list campfire lines
+    CampfireLine:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Line ID
+        status:
+          type: string
+          description: Line status
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the line was posted
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the line was last updated
+        title:
+          type: string
+          description: Line title (summary)
+        content:
+          type: string
+          description: Plain text message content
+        type:
+          type: string
+          description: Line type
+        creator:
+          $ref: '#/components/schemas/PersonRef'
+        bucket:
+          $ref: '#/components/schemas/BucketRef'
+        parent:
+          $ref: '#/components/schemas/Recording'
+        boosts_count:
+          type: integer
+          description: Number of boosts on this line
+    CampfireLineCreateRequest:
+      type: object
+      required: [content]
+      properties:
+        content:
+          type: string
+          description: Plain text content of the campfire message
+    CardTable:
+      allOf:
+        - $ref: '#/components/schemas/Recording'
+        - type: object
+          properties:
+            lists:
+              type: array
+              description: Columns in the card table
+              items:
+                $ref: '#/components/schemas/CardColumn'
+    CardColumn:
+      type: object
+      description: A column within a card table
+      properties:
+        id:
+          type: integer
+          description: Column ID
+        title:
+          type: string
+          description: Column title
+        type:
+          type: string
+          description: Column type (Kanban::Column, Kanban::Triage, etc.)
+        color:
+          type: string
+          description: Column color
+          nullable: true
+        position:
+          type: integer
+          description: Column position within the table
+        cards_count:
+          type: integer
+          description: Number of cards in this column
+        cards_url:
+          type: string
+          format: uri
+          description: API URL to list cards in this column
+    CardMoveRequest:
+      type: object
+      required: [source_id, target_id, position]
+      properties:
+        source_id:
+          type: integer
+          description: Recording ID of the card to move
+        target_id:
+          type: integer
+          description: Recording ID of the destination column
+        position:
+          type: integer
+          description: Zero-indexed position within the destination column
+          minimum: 0
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Webhook ID
+        active:
+          type: boolean
+          description: Whether this webhook is currently active
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the webhook was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the webhook was last updated
+        payload_url:
+          type: string
+          format: uri
+          description: HTTPS URL where Basecamp sends event notifications
+        types:
+          type: array
+          description: Resource types that trigger this webhook
+          items:
+            type: string
+        url:
+          type: string
+          format: uri
+          description: API URL for this webhook
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this webhook configuration
+    WebhookCreateRequest:
+      type: object
+      required: [payload_url]
+      properties:
+        payload_url:
+          type: string
+          format: uri
+          description: HTTPS URL to receive webhook event notifications
+        types:
+          type: array
+          description: >-
+            Resource types to subscribe to. Omit to subscribe to all types.
+          items:
+            type: string
+            enum:
+              - Message
+              - Todo
+              - Todolist
+              - Document
+              - Comment
+              - Kanban::Card
+              - Schedule::Entry
+              - Vault
+              - Upload
+              - Client::Forward
+              - Client::Correspondence
+              - Question
+              - Question::Answer
+              - Inbox::Forward
+        active:
+          type: boolean
+          description: Whether the webhook should be active upon creation
+          default: true
+    WebhookUpdateRequest:
+      type: object
+      properties:
+        payload_url:
+          type: string
+          format: uri
+          description: Updated HTTPS URL for event delivery
+        types:
+          type: array
+          description: Updated list of subscribed resource types
+          items:
+            type: string
+        active:
+          type: boolean
+          description: Whether the webhook should be active
+    Subscription:
+      type: object
+      properties:
+        subscribed:
+          type: boolean
+          description: Whether the authenticated user is subscribed
+        count:
+          type: integer
+          description: Total number of subscribers
+        url:
+          type: string
+          format: uri
+          description: API URL for this subscription resource
+        subscribers:
+          type: array
+          description: List of subscribed people
+          items:
+            $ref: '#/components/schemas/PersonRef'
+    SubscriptionUpdateRequest:
+      type: object
+      properties:
+        subscriptions:
+          type: array
+          description: Person IDs to add as subscribers
+          items:
+            type: integer
+        unsubscriptions:
+          type: array
+          description: Person IDs to remove as subscribers
+          items:
+            type: integer

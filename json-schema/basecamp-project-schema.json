@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/basecamp/bc3-api/schemas/basecamp/project.json",
+  "title": "Basecamp Project",
+  "description": "Represents a Basecamp project (bucket), which is the top-level container for all collaboration content including messages, to-dos, documents, schedules, campfires, and card tables. Projects are owned by an account and can be accessed by invited team members and clients.",
+  "type": "object",
+  "required": ["id", "name", "status"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique identifier for the project within the Basecamp account"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current lifecycle status of the project",
+      "enum": ["active", "archived", "trashed"]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp when the project was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp when the project was last updated"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name of the project",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "description": {
+      "type": ["string", "null"],
+      "description": "Optional description providing context about the project's purpose or scope"
+    },
+    "purpose": {
+      "type": "string",
+      "description": "Project purpose classification such as 'team_project' or 'company_hq'"
+    },
+    "clients_enabled": {
+      "type": "boolean",
+      "description": "Whether client visibility is enabled for this project, allowing invited client users to view designated content"
+    },
+    "timesheet_enabled": {
+      "type": "boolean",
+      "description": "Whether timesheet tracking is enabled for this project"
+    },
+    "color": {
+      "type": ["string", "null"],
+      "description": "Optional color identifier used to visually distinguish the project in the Basecamp interface"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Canonical API URL for this project resource"
+    },
+    "app_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Web URL to open this project in the Basecamp application"
+    },
+    "bookmark_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "API URL to bookmark this project for the authenticated user"
+    },
+    "dock": {
+      "type": "array",
+      "description": "List of tools available on this project's dock, each representing an enabled feature such as messages, to-dos, schedule, or campfire",
+      "items": {
+        "$ref": "#/$defs/DockItem"
+      }
+    }
+  },
+  "$defs": {
+    "DockItem": {
+      "type": "object",
+      "description": "A tool or feature available on a Basecamp project dock",
+      "required": ["id", "title", "name", "enabled"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Unique identifier for this dock item resource"
+        },
+        "title": {
+          "type": "string",
+          "description": "Display title of the tool shown to users (e.g., 'Message Board', 'To-dos')"
+        },
+        "name": {
+          "type": "string",
+          "description": "Internal machine-readable name of the tool",
+          "enum": [
+            "message_board",
+            "todoset",
+            "vault",
+            "schedule",
+            "inbox",
+            "chat",
+            "questionnaire",
+            "kanban_board"
+          ]
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether this tool is currently enabled and visible on the project"
+        },
+        "position": {
+          "type": ["integer", "null"],
+          "description": "Display order position of this tool in the project dock"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "API URL for this tool's resource within the project"
+        },
+        "app_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Web URL to open this tool within the project in the Basecamp application"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,278 @@
+openapi: 3.1.0
+info:
+  title: Basecamp OAuth API
+  description: >-
+    The Basecamp OAuth 2.0 API provides the authorization code flow for
+    obtaining access tokens on behalf of Basecamp users. Developers register
+    their applications at launchpad.37signals.com to receive a client ID and
+    client secret, then redirect users through the authorization flow. Access
+    tokens expire after two weeks and can be refreshed using refresh tokens
+    without requiring the user to re-authorize. All Basecamp API requests must
+    include a valid Bearer token obtained through this flow.
+  version: '1.0'
+  contact:
+    name: Basecamp Developer Support
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+  termsOfService: https://basecamp.com/terms
+externalDocs:
+  description: Basecamp Authentication Documentation
+  url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+servers:
+  - url: https://launchpad.37signals.com
+    description: Basecamp Authorization Server
+tags:
+  - name: Authorization
+    description: OAuth 2.0 authorization code flow endpoints
+  - name: Token
+    description: Token exchange and refresh endpoints
+  - name: Identity
+    description: Retrieve authenticated user identity
+paths:
+  /authorization:
+    get:
+      operationId: authorizeUser
+      summary: Authorize user
+      description: >-
+        Redirects the user to the Basecamp authorization page where they can
+        grant your application access to their account. After the user approves,
+        Basecamp redirects back to your redirect_uri with an authorization code.
+      tags:
+        - Authorization
+      parameters:
+        - name: type
+          in: query
+          required: true
+          description: Must be set to "web_server" for the authorization code flow
+          schema:
+            type: string
+            enum: [web_server]
+        - name: client_id
+          in: query
+          required: true
+          description: Your application's client ID from launchpad.37signals.com
+          schema:
+            type: string
+        - name: redirect_uri
+          in: query
+          required: true
+          description: >-
+            The URI to redirect to after authorization. Must match a URI
+            registered with your application.
+          schema:
+            type: string
+            format: uri
+      responses:
+        '302':
+          description: >-
+            Redirect to Basecamp authorization page or back to redirect_uri with
+            code parameter on approval
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /authorization/token:
+    post:
+      operationId: exchangeCodeForToken
+      summary: Exchange code for token
+      description: >-
+        Exchanges an authorization code for an access token and refresh token.
+        The authorization code is single-use and expires shortly after being
+        issued. The resulting access token expires after two weeks.
+      tags:
+        - Token
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+      responses:
+        '200':
+          description: Access token and refresh token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /authorization/token/refresh:
+    post:
+      operationId: refreshAccessToken
+      summary: Refresh access token
+      description: >-
+        Uses a refresh token to obtain a new access token without requiring the
+        user to re-authorize. Refresh tokens do not expire but are revoked if
+        the user revokes access.
+      tags:
+        - Token
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+      responses:
+        '200':
+          description: New access token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /authorization.json:
+    get:
+      operationId: getIdentity
+      summary: Get identity
+      description: >-
+        Returns the identity of the authenticated user along with the list of
+        Basecamp accounts they have access to. This is typically the first
+        call made after obtaining an access token to discover which account IDs
+        to use in subsequent API requests.
+      tags:
+        - Identity
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Authenticated user identity and accessible accounts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Identity'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        OAuth 2.0 Bearer token obtained via the authorization code flow.
+        Include as "Authorization: Bearer {token}" in all API requests.
+  responses:
+    BadRequest:
+      description: Bad request — missing or invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — invalid or expired credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    TokenRequest:
+      type: object
+      required: [type, client_id, client_secret, code, redirect_uri]
+      properties:
+        type:
+          type: string
+          description: Must be set to "web_server"
+          enum: [web_server]
+        client_id:
+          type: string
+          description: Your application's client ID
+        client_secret:
+          type: string
+          description: Your application's client secret
+        code:
+          type: string
+          description: The authorization code received from the authorization redirect
+        redirect_uri:
+          type: string
+          format: uri
+          description: The redirect URI used in the authorization request
+    RefreshTokenRequest:
+      type: object
+      required: [type, client_id, client_secret, refresh_token]
+      properties:
+        type:
+          type: string
+          description: Must be set to "refresh"
+          enum: [refresh]
+        client_id:
+          type: string
+          description: Your application's client ID
+        client_secret:
+          type: string
+          description: Your application's client secret
+        refresh_token:
+          type: string
+          description: The refresh token from a previous token exchange
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: Bearer token to use in API requests
+        refresh_token:
+          type: string
+          description: Token used to obtain new access tokens after expiry
+        expires_in:
+          type: integer
+          description: Access token lifetime in seconds (approximately two weeks)
+        token_type:
+          type: string
+          description: Token type, always "Bearer"
+          enum: [Bearer]
+    Identity:
+      type: object
+      properties:
+        expires_at:
+          type: string
+          format: date-time
+          description: Timestamp when the current access token expires
+        identity:
+          $ref: '#/components/schemas/IdentityUser'
+        accounts:
+          type: array
+          description: Basecamp accounts the authenticated user has access to
+          items:
+            $ref: '#/components/schemas/Account'
+    IdentityUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: User ID
+        first_name:
+          type: string
+          description: User's first name
+        last_name:
+          type: string
+          description: User's last name
+        email_address:
+          type: string
+          format: email
+          description: User's email address
+    Account:
+      type: object
+      properties:
+        product:
+          type: string
+          description: Product name (e.g., "bc3")
+        id:
+          type: integer
+          description: Account ID used in API base URLs
+        name:
+          type: string
+          description: Account name
+        href:
+          type: string
+          format: uri
+          description: API base URL for this account
+        app_href:
+          type: string
+          format: uri
+          description: Web URL for this account

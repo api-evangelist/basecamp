@@ -1,0 +1,339 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/basecamp/bc3-api/schemas/basecamp/webhook-payload.json",
+  "title": "Basecamp Webhook Payload",
+  "description": "Represents the JSON payload delivered by Basecamp to a registered webhook endpoint when a subscribed event occurs within a project. Every payload includes a unique event ID, the event kind, a timestamp, the full recording object that triggered the event, the person who triggered it, and optional event-specific details.",
+  "type": "object",
+  "required": ["id", "kind", "created_at", "recording", "creator"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique identifier for this webhook event delivery"
+    },
+    "kind": {
+      "type": "string",
+      "description": "Event type descriptor identifying the resource type and action, formatted as {resource}_{action} (e.g., message_created, todo_completed, comment_updated)",
+      "enum": [
+        "message_created",
+        "message_updated",
+        "message_archived",
+        "message_trashed",
+        "message_subscribers_changed",
+        "message_publicized",
+        "todo_created",
+        "todo_updated",
+        "todo_completed",
+        "todo_uncompleted",
+        "todo_archived",
+        "todo_trashed",
+        "todo_subscribers_changed",
+        "todolist_created",
+        "todolist_updated",
+        "todolist_archived",
+        "todolist_trashed",
+        "document_created",
+        "document_updated",
+        "document_archived",
+        "document_trashed",
+        "comment_created",
+        "comment_updated",
+        "comment_trashed",
+        "card_created",
+        "card_updated",
+        "card_archived",
+        "card_trashed",
+        "schedule_entry_created",
+        "schedule_entry_updated",
+        "schedule_entry_archived",
+        "schedule_entry_trashed",
+        "upload_created",
+        "upload_updated",
+        "upload_archived",
+        "upload_trashed",
+        "question_answer_created",
+        "question_answer_updated",
+        "question_paused",
+        "question_resumed",
+        "inbox_forward_created",
+        "client_forward_created",
+        "client_correspondence_created"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp when the triggering event occurred in Basecamp"
+    },
+    "recording": {
+      "$ref": "#/$defs/Recording",
+      "description": "Full JSON representation of the Basecamp resource that triggered the event"
+    },
+    "creator": {
+      "$ref": "#/$defs/Person",
+      "description": "The Basecamp user whose action triggered the event"
+    },
+    "details": {
+      "type": "object",
+      "description": "Event-specific contextual metadata. For copy and move events includes a copy object with the duplicated item reference. Contents vary by event kind.",
+      "additionalProperties": true,
+      "properties": {
+        "copy": {
+          "$ref": "#/$defs/Recording",
+          "description": "Reference to the original recording when this event was triggered by a copy or move operation"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "Person": {
+      "type": "object",
+      "description": "A Basecamp user profile reference included in webhook payloads",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Unique identifier for the person"
+        },
+        "attachable_sgid": {
+          "type": "string",
+          "description": "Signed global ID used to reference this person as an attachment"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full display name of the person"
+        },
+        "email_address": {
+          "type": "string",
+          "format": "email",
+          "description": "Primary email address of the person"
+        },
+        "personable_type": {
+          "type": "string",
+          "description": "Personable type indicating user role",
+          "enum": ["User", "Client"]
+        },
+        "title": {
+          "type": "string",
+          "description": "Job title of the person"
+        },
+        "bio": {
+          "type": "string",
+          "description": "Short biography text"
+        },
+        "location": {
+          "type": "string",
+          "description": "Location string"
+        },
+        "avatar_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the person's avatar image"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the person's account was created"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the person's profile was last updated"
+        },
+        "admin": {
+          "type": "boolean",
+          "description": "Whether the person is an account administrator"
+        },
+        "owner": {
+          "type": "boolean",
+          "description": "Whether the person is the account owner"
+        },
+        "client": {
+          "type": "boolean",
+          "description": "Whether the person is a client user"
+        },
+        "employee": {
+          "type": "boolean",
+          "description": "Whether the person is an internal employee"
+        },
+        "time_zone": {
+          "type": "string",
+          "description": "IANA time zone name for the person's local time zone"
+        }
+      }
+    },
+    "Bucket": {
+      "type": "object",
+      "description": "Reference to the Basecamp project containing the recording",
+      "required": ["id", "name", "type"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Project ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "Project name"
+        },
+        "type": {
+          "type": "string",
+          "description": "Always 'Project' for project buckets",
+          "const": "Project"
+        }
+      }
+    },
+    "Recording": {
+      "type": "object",
+      "description": "A Basecamp content resource such as a message, to-do, document, comment, or card. The exact fields present depend on the resource type indicated by the type field.",
+      "required": ["id", "type"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Unique identifier for this recording"
+        },
+        "status": {
+          "type": "string",
+          "description": "Lifecycle status of the recording",
+          "enum": ["active", "archived", "trashed"]
+        },
+        "visible_to_clients": {
+          "type": "boolean",
+          "description": "Whether the recording is visible to client users"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the recording was created"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the recording was last updated"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title or summary of the recording"
+        },
+        "inherits_status": {
+          "type": "boolean",
+          "description": "Whether this recording inherits its status from a parent recording"
+        },
+        "type": {
+          "type": "string",
+          "description": "Recording type identifying the kind of Basecamp content",
+          "enum": [
+            "Message",
+            "Todo",
+            "Todolist",
+            "Document",
+            "Comment",
+            "Kanban::Card",
+            "Schedule::Entry",
+            "Upload",
+            "Vault",
+            "Question::Answer",
+            "Client::Forward",
+            "Client::Correspondence",
+            "Inbox::Forward"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "API URL to retrieve this recording"
+        },
+        "app_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Web URL to open this recording in the Basecamp application"
+        },
+        "bookmark_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "API URL to bookmark this recording"
+        },
+        "bucket": {
+          "$ref": "#/$defs/Bucket"
+        },
+        "creator": {
+          "$ref": "#/$defs/Person"
+        },
+        "content": {
+          "type": "string",
+          "description": "HTML-formatted body content for messages, documents, and comments"
+        },
+        "subject": {
+          "type": "string",
+          "description": "Subject line for message recordings"
+        },
+        "completed": {
+          "type": "boolean",
+          "description": "Whether the to-do has been completed (Todo type only)"
+        },
+        "due_on": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Due date in ISO 8601 date format (Todo type only)"
+        },
+        "starts_on": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Start date in ISO 8601 date format (Todo type only)"
+        },
+        "assignees": {
+          "type": "array",
+          "description": "People assigned to this to-do (Todo type only)",
+          "items": {
+            "$ref": "#/$defs/Person"
+          }
+        },
+        "starts_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start time for schedule entries (Schedule::Entry type only)"
+        },
+        "ends_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End time for schedule entries (Schedule::Entry type only)"
+        },
+        "all_day": {
+          "type": "boolean",
+          "description": "Whether the schedule entry spans the entire day (Schedule::Entry type only)"
+        },
+        "filename": {
+          "type": "string",
+          "description": "Original filename of the uploaded file (Upload type only)"
+        },
+        "content_type": {
+          "type": "string",
+          "description": "MIME type of the uploaded file (Upload type only)"
+        },
+        "byte_size": {
+          "type": "integer",
+          "description": "File size in bytes (Upload type only)"
+        },
+        "download_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Direct download URL for the uploaded file (Upload type only)"
+        },
+        "comments_count": {
+          "type": "integer",
+          "description": "Number of comments on this recording"
+        },
+        "boosts_count": {
+          "type": "integer",
+          "description": "Number of boosts (reactions) on this recording"
+        },
+        "position": {
+          "type": "integer",
+          "description": "Display order position within the parent container"
+        },
+        "parent": {
+          "$ref": "#/$defs/Recording",
+          "description": "Reference to the parent recording (e.g., the message board containing a message, or the to-do list containing a to-do)"
+        }
+      }
+    }
+  }
+}

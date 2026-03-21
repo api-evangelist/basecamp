@@ -1,0 +1,491 @@
+asyncapi: 2.6.0
+info:
+  title: Basecamp Webhook Events
+  description: >-
+    The Basecamp webhook system delivers real-time HTTP notifications to
+    registered HTTPS endpoints when events occur within a Basecamp project.
+    Webhooks are configured per project with a payload URL and an optional list
+    of resource types. Basecamp sends an HTTP POST with a JSON payload to the
+    registered URL whenever a subscribed event occurs. Delivery is attempted up
+    to 10 times with exponential backoff before a webhook is deactivated if the
+    endpoint fails to return a 2xx HTTP response.
+  version: '1.0'
+  contact:
+    name: Basecamp Developer Support
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md
+  termsOfService: https://basecamp.com/terms
+externalDocs:
+  description: Basecamp Webhooks Documentation
+  url: https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md
+servers:
+  basecamp:
+    url: 'https://3.basecampapi.com'
+    protocol: https
+    description: >-
+      Basecamp sends webhook event notifications as HTTP POST requests
+      originating from Basecamp infrastructure. Receiving endpoints must be
+      publicly accessible HTTPS URLs registered via the Webhooks REST API.
+    security:
+      - bearerAuth: []
+channels:
+  /webhook:
+    description: >-
+      The HTTPS endpoint on the subscriber's server that receives webhook
+      notifications from Basecamp. Basecamp sends HTTP POST requests with JSON
+      payloads. Subscribers should respond with a 2xx status code within a
+      reasonable timeout to acknowledge receipt. Failure to respond with 2xx
+      after 10 attempts will cause Basecamp to deactivate the webhook.
+    publish:
+      operationId: receiveBasecampWebhook
+      summary: Receive a Basecamp webhook event notification
+      description: >-
+        Basecamp sends this message to the subscriber's registered payload URL
+        whenever a subscribed resource event occurs within a project. The
+        payload includes the event kind, the recording object, the creator,
+        and any event-specific details.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/MessageCreated'
+          - $ref: '#/components/messages/MessageUpdated'
+          - $ref: '#/components/messages/MessageArchived'
+          - $ref: '#/components/messages/MessageTrashed'
+          - $ref: '#/components/messages/TodoCreated'
+          - $ref: '#/components/messages/TodoUpdated'
+          - $ref: '#/components/messages/TodoCompleted'
+          - $ref: '#/components/messages/TodoUncompleted'
+          - $ref: '#/components/messages/TodoArchived'
+          - $ref: '#/components/messages/TodoTrashed'
+          - $ref: '#/components/messages/TodolistCreated'
+          - $ref: '#/components/messages/TodolistUpdated'
+          - $ref: '#/components/messages/TodolistArchived'
+          - $ref: '#/components/messages/TodolistTrashed'
+          - $ref: '#/components/messages/DocumentCreated'
+          - $ref: '#/components/messages/DocumentUpdated'
+          - $ref: '#/components/messages/DocumentArchived'
+          - $ref: '#/components/messages/DocumentTrashed'
+          - $ref: '#/components/messages/CommentCreated'
+          - $ref: '#/components/messages/CommentUpdated'
+          - $ref: '#/components/messages/CommentTrashed'
+          - $ref: '#/components/messages/CardCreated'
+          - $ref: '#/components/messages/CardUpdated'
+          - $ref: '#/components/messages/CardArchived'
+          - $ref: '#/components/messages/CardTrashed'
+          - $ref: '#/components/messages/ScheduleEntryCreated'
+          - $ref: '#/components/messages/ScheduleEntryUpdated'
+          - $ref: '#/components/messages/ScheduleEntryArchived'
+          - $ref: '#/components/messages/ScheduleEntryTrashed'
+          - $ref: '#/components/messages/UploadCreated'
+          - $ref: '#/components/messages/UploadUpdated'
+          - $ref: '#/components/messages/UploadArchived'
+          - $ref: '#/components/messages/UploadTrashed'
+          - $ref: '#/components/messages/QuestionAnswerCreated'
+          - $ref: '#/components/messages/QuestionAnswerUpdated'
+          - $ref: '#/components/messages/QuestionPaused'
+          - $ref: '#/components/messages/QuestionResumed'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Bearer token used to authenticate REST API calls to configure webhooks.
+        Not used in the webhook delivery itself — delivery authentication relies
+        on verifying the source IP or using shared secrets in the payload URL.
+  messages:
+    MessageCreated:
+      name: message_created
+      title: Message Created
+      summary: A new message was created on a message board
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+      examples:
+        - name: MessageCreatedExample
+          payload:
+            id: 9007199254741234
+            kind: message_created
+            created_at: '2024-01-15T10:00:00.000Z'
+            recording:
+              id: 1234567
+              type: Message
+              status: active
+              title: Project Kickoff
+            creator:
+              id: 99
+              name: Alice Smith
+            details: {}
+    MessageUpdated:
+      name: message_updated
+      title: Message Updated
+      summary: An existing message was updated
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    MessageArchived:
+      name: message_archived
+      title: Message Archived
+      summary: A message was archived
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    MessageTrashed:
+      name: message_trashed
+      title: Message Trashed
+      summary: A message was moved to trash
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    TodoCreated:
+      name: todo_created
+      title: To-Do Created
+      summary: A new to-do was created
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    TodoUpdated:
+      name: todo_updated
+      title: To-Do Updated
+      summary: An existing to-do was updated
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    TodoCompleted:
+      name: todo_completed
+      title: To-Do Completed
+      summary: A to-do was marked as completed
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    TodoUncompleted:
+      name: todo_uncompleted
+      title: To-Do Uncompleted
+      summary: A to-do was marked as incomplete
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    TodoArchived:
+      name: todo_archived
+      title: To-Do Archived
+      summary: A to-do was archived
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    TodoTrashed:
+      name: todo_trashed
+      title: To-Do Trashed
+      summary: A to-do was moved to trash
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    TodolistCreated:
+      name: todolist_created
+      title: To-Do List Created
+      summary: A new to-do list was created
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    TodolistUpdated:
+      name: todolist_updated
+      title: To-Do List Updated
+      summary: An existing to-do list was updated
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    TodolistArchived:
+      name: todolist_archived
+      title: To-Do List Archived
+      summary: A to-do list was archived
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    TodolistTrashed:
+      name: todolist_trashed
+      title: To-Do List Trashed
+      summary: A to-do list was moved to trash
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    DocumentCreated:
+      name: document_created
+      title: Document Created
+      summary: A new document was created in a vault
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    DocumentUpdated:
+      name: document_updated
+      title: Document Updated
+      summary: An existing document was updated
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    DocumentArchived:
+      name: document_archived
+      title: Document Archived
+      summary: A document was archived
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    DocumentTrashed:
+      name: document_trashed
+      title: Document Trashed
+      summary: A document was moved to trash
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    CommentCreated:
+      name: comment_created
+      title: Comment Created
+      summary: A new comment was posted on a recording
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    CommentUpdated:
+      name: comment_updated
+      title: Comment Updated
+      summary: An existing comment was updated
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    CommentTrashed:
+      name: comment_trashed
+      title: Comment Trashed
+      summary: A comment was moved to trash
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    CardCreated:
+      name: card_created
+      title: Card Created
+      summary: A new card was created on a card table
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    CardUpdated:
+      name: card_updated
+      title: Card Updated
+      summary: An existing card was updated or moved
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    CardArchived:
+      name: card_archived
+      title: Card Archived
+      summary: A card was archived
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    CardTrashed:
+      name: card_trashed
+      title: Card Trashed
+      summary: A card was moved to trash
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    ScheduleEntryCreated:
+      name: schedule_entry_created
+      title: Schedule Entry Created
+      summary: A new schedule entry was created
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    ScheduleEntryUpdated:
+      name: schedule_entry_updated
+      title: Schedule Entry Updated
+      summary: An existing schedule entry was updated
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    ScheduleEntryArchived:
+      name: schedule_entry_archived
+      title: Schedule Entry Archived
+      summary: A schedule entry was archived
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    ScheduleEntryTrashed:
+      name: schedule_entry_trashed
+      title: Schedule Entry Trashed
+      summary: A schedule entry was moved to trash
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    UploadCreated:
+      name: upload_created
+      title: Upload Created
+      summary: A new file upload was created in a vault
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    UploadUpdated:
+      name: upload_updated
+      title: Upload Updated
+      summary: An existing upload was updated
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    UploadArchived:
+      name: upload_archived
+      title: Upload Archived
+      summary: An upload was archived
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    UploadTrashed:
+      name: upload_trashed
+      title: Upload Trashed
+      summary: An upload was moved to trash
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    QuestionAnswerCreated:
+      name: question_answer_created
+      title: Question Answer Created
+      summary: A new answer was submitted to an automatic check-in question
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    QuestionAnswerUpdated:
+      name: question_answer_updated
+      title: Question Answer Updated
+      summary: An answer to an automatic check-in question was updated
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    QuestionPaused:
+      name: question_paused
+      title: Question Paused
+      summary: An automatic check-in question was paused
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+    QuestionResumed:
+      name: question_resumed
+      title: Question Resumed
+      summary: A paused automatic check-in question was resumed
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+  schemas:
+    WebhookPayload:
+      type: object
+      required: [id, kind, created_at, recording, creator]
+      description: >-
+        Standard JSON payload delivered by Basecamp to the registered webhook
+        endpoint for all event types. The recording field contains the full
+        representation of the resource that triggered the event.
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for this webhook event
+        kind:
+          type: string
+          description: >-
+            Event type descriptor in the format {resource}_{action}, such as
+            message_created, todo_completed, or document_updated.
+          examples:
+            - message_created
+            - todo_completed
+            - comment_created
+            - card_updated
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the event occurred
+        recording:
+          $ref: '#/components/schemas/RecordingPayload'
+        creator:
+          $ref: '#/components/schemas/PersonPayload'
+        details:
+          type: object
+          description: >-
+            Event-specific metadata. For copy and move events this includes a
+            copy object referencing the duplicated item. Contents vary by event
+            kind.
+          additionalProperties: true
+    RecordingPayload:
+      type: object
+      description: >-
+        Full representation of the Basecamp resource that triggered the webhook
+        event. The exact fields present depend on the resource type.
+      properties:
+        id:
+          type: integer
+          description: Recording ID
+        status:
+          type: string
+          description: Recording status at the time of the event
+          enum: [active, archived, trashed]
+        visible_to_clients:
+          type: boolean
+          description: Whether the recording is visible to client users
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was last updated
+        title:
+          type: string
+          description: Title or summary of the recording
+        inherits_status:
+          type: boolean
+          description: Whether the recording inherits status from a parent
+        type:
+          type: string
+          description: Recording type (Message, Todo, Document, Comment, etc.)
+        url:
+          type: string
+          format: uri
+          description: API URL for this recording
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this recording
+        bucket:
+          $ref: '#/components/schemas/BucketPayload'
+        creator:
+          $ref: '#/components/schemas/PersonPayload'
+        content:
+          type: string
+          description: HTML-formatted body content (for messages, documents, comments)
+        completed:
+          type: boolean
+          description: Whether the to-do is completed (for Todo type)
+        due_on:
+          type: string
+          format: date
+          description: Due date for to-dos and schedule entries
+          nullable: true
+        starts_at:
+          type: string
+          format: date-time
+          description: Start time for schedule entries
+        ends_at:
+          type: string
+          format: date-time
+          description: End time for schedule entries
+        assignees:
+          type: array
+          description: Assigned people (for Todos)
+          items:
+            $ref: '#/components/schemas/PersonPayload'
+    BucketPayload:
+      type: object
+      description: Reference to the Basecamp project containing the recording
+      properties:
+        id:
+          type: integer
+          description: Project ID
+        name:
+          type: string
+          description: Project name
+        type:
+          type: string
+          description: Always "Project"
+    PersonPayload:
+      type: object
+      description: Reference to the Basecamp user who created or triggered the event
+      properties:
+        id:
+          type: integer
+          description: Person ID
+        attachable_sgid:
+          type: string
+          description: Signed global ID
+        name:
+          type: string
+          description: Full name
+        email_address:
+          type: string
+          format: email
+          description: Email address
+        personable_type:
+          type: string
+          description: Type of personable (User, Client)
+        title:
+          type: string
+          description: Job title
+        avatar_url:
+          type: string
+          format: uri
+          description: URL to avatar image
+        created_at:
+          type: string
+          format: date-time
+          description: Account creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        admin:
+          type: boolean
+          description: Whether the person is an account administrator
+        time_zone:
+          type: string
+          description: IANA time zone name
