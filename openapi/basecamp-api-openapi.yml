@@ -27,42 +27,38 @@ servers:
         description: Your Basecamp account ID
         default: '999999999'
 tags:
-  - name: Projects
-    description: Manage Basecamp projects (buckets)
-  - name: People
-    description: Manage people, profiles, and project access
-  - name: Templates
-    description: Manage project templates and construct projects from them
-  - name: Recordings
-    description: Common actions for all recordable resources (archive, trash, restore)
-  - name: Messages
-    description: Manage messages on message boards
-  - name: Comments
-    description: Manage comments on any commentable recording
-  - name: To-Do Sets
-    description: Top-level to-do containers on a project
-  - name: To-Do Lists
-    description: Manage to-do lists within a to-do set
-  - name: To-Dos
-    description: Manage individual to-do items
-  - name: Schedules
-    description: Manage project schedules
-  - name: Schedule Entries
-    description: Manage individual schedule events and recurring entries
-  - name: Documents
-    description: Manage documents stored in vaults
-  - name: Uploads
-    description: Manage file uploads stored in vaults
-  - name: Vaults
-    description: File and document storage containers on a project
   - name: Campfires
     description: Manage project campfire chat rooms and lines
   - name: Card Tables
     description: Manage kanban-style card tables and card movements
-  - name: Webhooks
-    description: Manage webhook subscriptions for a project
+  - name: Comments
+    description: Manage comments on any commentable recording
+  - name: Documents
+    description: Manage documents stored in vaults
+  - name: Messages
+    description: Manage messages on message boards
+  - name: People
+    description: Manage people, profiles, and project access
+  - name: Projects
+    description: Manage Basecamp projects (buckets)
+  - name: Recordings
+    description: Common actions for all recordable resources (archive, trash, restore)
+  - name: Schedule Entries
+    description: Manage individual schedule events and recurring entries
+  - name: Schedules
+    description: Manage project schedules
   - name: Subscriptions
     description: Manage per-recording notification subscriptions
+  - name: Templates
+    description: Manage project templates and construct projects from them
+  - name: To-Do Lists
+    description: Manage to-do lists within a to-do set
+  - name: To-Dos
+    description: Manage individual to-do items
+  - name: Uploads
+    description: Manage file uploads stored in vaults
+  - name: Webhooks
+    description: Manage webhook subscriptions for a project
 security:
   - bearerAuth: []
 paths:

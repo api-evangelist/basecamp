@@ -1,16 +1,14 @@
 aid: basecamp
-url: 
-  https://raw.githubusercontent.com/api-evangelist/basecamp/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/basecamp/refs/heads/main/apis.yml
 apis:
   - aid: basecamp:basecamp-api
     name: Basecamp API
     tags:
-      - Project Management
-      - Team Communication
       - Collaboration
+      - Project Management
       - REST
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Team Communication
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://3.basecampapi.com
     humanURL: https://github.com/basecamp/bc3-api
     properties:
@@ -28,18 +26,15 @@ apis:
   - aid: basecamp:basecamp-webhooks
     name: Basecamp Webhooks
     tags:
-      - Webhooks
       - Events
       - Notifications
       - Project Management
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Webhooks
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://3.basecampapi.com
-    humanURL: 
-      https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md
+    humanURL: https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md
     properties:
-      - url: 
-          https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md
+      - url: https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md
         type: Documentation
       - url: asyncapi/basecamp-webhooks-asyncapi.yml
         type: AsyncAPI
@@ -53,18 +48,15 @@ apis:
   - aid: basecamp:basecamp-oauth
     name: Basecamp OAuth
     tags:
-      - OAuth
       - Authentication
       - Authorization
+      - OAuth
       - Security
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://launchpad.37signals.com
-    humanURL: 
-      https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+    humanURL: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
     properties:
-      - url: 
-          https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+      - url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
         type: Documentation
       - url: openapi/basecamp-oauth-openapi.yml
         type: OpenAPI

@@ -23,10 +23,10 @@ servers:
 tags:
   - name: Authorization
     description: OAuth 2.0 authorization code flow endpoints
-  - name: Token
-    description: Token exchange and refresh endpoints
   - name: Identity
     description: Retrieve authenticated user identity
+  - name: Token
+    description: Token exchange and refresh endpoints
 paths:
   /authorization:
     get:
