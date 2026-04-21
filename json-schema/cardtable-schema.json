@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/cardtable-schema.json",
+  "title": "CardTable",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Recording"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "lists": {
+          "type": "array",
+          "description": "Columns in the card table",
+          "items": {
+            "$ref": "#/components/schemas/CardColumn"
+          }
+        }
+      }
+    }
+  ]
+}

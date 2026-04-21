@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/template-schema.json",
+  "title": "Template",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Template ID"
+    },
+    "status": {
+      "type": "string",
+      "description": "Template status",
+      "enum": [
+        "active",
+        "archived",
+        "trashed"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the template was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the template was last updated"
+    },
+    "name": {
+      "type": "string",
+      "description": "Template name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Template description",
+      "nullable": true
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "API URL for this template"
+    },
+    "app_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Web URL for this template"
+    },
+    "dock": {
+      "type": "array",
+      "description": "Tools available in this template",
+      "items": {
+        "$ref": "#/components/schemas/DockItem"
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/uploadupdaterequest-schema.json",
+  "title": "UploadUpdateRequest",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "Revised upload description in HTML format"
+    },
+    "base_name": {
+      "type": "string",
+      "description": "New filename without extension"
+    }
+  }
+}

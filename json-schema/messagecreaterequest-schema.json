@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/messagecreaterequest-schema.json",
+  "title": "MessageCreateRequest",
+  "type": "object",
+  "required": [
+    "subject"
+  ],
+  "properties": {
+    "subject": {
+      "type": "string",
+      "description": "Message subject (title)"
+    },
+    "content": {
+      "type": "string",
+      "description": "Message body in HTML format"
+    },
+    "status": {
+      "type": "string",
+      "description": "Set to \"active\" to publish immediately",
+      "enum": [
+        "active",
+        "draft"
+      ]
+    },
+    "category_id": {
+      "type": "integer",
+      "description": "Optional message category ID"
+    },
+    "subscriptions": {
+      "type": "array",
+      "description": "Person IDs to notify about this message",
+      "items": {
+        "type": "integer"
+      }
+    }
+  }
+}

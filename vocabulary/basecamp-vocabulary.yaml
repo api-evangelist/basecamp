@@ -1,0 +1,136 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Basecamp"
+  description: "Taxonomy for the Basecamp API covering project management, team collaboration, messaging, and scheduling."
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+operational:
+  apis:
+    - namespace: basecamp-api
+      label: Basecamp API
+      version: "3.0"
+      baseUrl: https://3.basecampapi.com
+      status: active
+
+  resources:
+    - name: projects
+      description: Basecamp projects (buckets)
+      apis: [basecamp-api]
+      actions: [list, create, get, update, delete]
+    - name: todos
+      description: To-do items within project to-do lists
+      apis: [basecamp-api]
+      actions: [list, create, get, update, complete]
+    - name: messages
+      description: Messages on project message boards
+      apis: [basecamp-api]
+      actions: [list, create, get, update, delete]
+    - name: people
+      description: Account members and project participants
+      apis: [basecamp-api]
+      actions: [list, get]
+    - name: comments
+      description: Comments on project recordings
+      apis: [basecamp-api]
+      actions: [list, create, get, update, delete]
+    - name: schedule-entries
+      description: Calendar events and schedule entries
+      apis: [basecamp-api]
+      actions: [list, create, get, update, delete]
+
+  actions:
+    - name: list
+      description: Retrieve a collection
+      methods: [GET]
+      pattern: read
+    - name: create
+      description: Create a new resource
+      methods: [POST]
+      pattern: write
+    - name: get
+      description: Retrieve a specific resource
+      methods: [GET]
+      pattern: read
+    - name: update
+      description: Update a resource
+      methods: [PUT]
+      pattern: write
+    - name: delete
+      description: Remove a resource
+      methods: [DELETE]
+      pattern: write
+    - name: complete
+      description: Mark a to-do as complete
+      methods: [POST]
+      pattern: write
+
+  authentication:
+    schemes:
+      - name: OAuth2
+        type: oauth2
+        description: OAuth2 Authorization Code via 37signals Launchpad
+
+capability:
+  workflows:
+    - name: Project Management
+      file: capabilities/project-management.yaml
+      description: Full Basecamp project lifecycle including todos, messages, scheduling, and team management
+      apis_combined: [basecamp-api]
+      tool_count: 7
+      personas: [Project Manager, Team Member, Developer]
+      domains: [Project Management, Team Collaboration, Communication]
+
+  personas:
+    - id: project-manager
+      name: Project Manager
+      description: Manager overseeing project progress, tasks, and team communication
+      workflows: [Project Management]
+    - id: team-member
+      name: Team Member
+      description: Individual contributor managing tasks and collaborating on projects
+      workflows: [Project Management]
+    - id: developer
+      name: Developer
+      description: Developer integrating Basecamp into custom workflows and tools
+      workflows: [Project Management]
+
+  domains:
+    - name: Project Management
+      description: Project creation and lifecycle management
+      resources: [projects]
+      workflows: [Project Management]
+    - name: Team Collaboration
+      description: To-dos, messages, and team member management
+      resources: [todos, messages, people]
+      workflows: [Project Management]
+
+  namespaces:
+    - namespace: basecamp-api
+      type: consumed
+    - namespace: basecamp-mcp
+      type: mcp-exposed
+      port: 9080
+
+  binds:
+    - name: BASECAMP_ACCESS_TOKEN
+      description: Basecamp OAuth2 access token
+      workflows: [Project Management]
+    - name: BASECAMP_ACCOUNT_ID
+      description: Basecamp account ID
+      workflows: [Project Management]
+
+crossReference:
+  - resource: projects
+    operations: [listProjects, createProject, getProject, updateProject, deleteProject]
+    workflows: [Project Management]
+    personas: [Project Manager, Developer]
+  - resource: todos
+    operations: [listTodos, createTodo, getTodo, updateTodo, completeTodo]
+    workflows: [Project Management]
+    personas: [Project Manager, Team Member]
+  - resource: messages
+    operations: [listMessages, createMessage, getMessage, updateMessage, deleteMessage]
+    workflows: [Project Management]
+    personas: [Project Manager, Team Member]

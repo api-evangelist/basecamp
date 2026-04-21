@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/subscription-structure.json",
+  "title": "Subscription",
+  "type": "record",
+  "members": [
+    {
+      "name": "subscribed",
+      "type": "boolean",
+      "description": "Whether the authenticated user is subscribed"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "description": "Total number of subscribers"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "API URL for this subscription resource"
+    },
+    {
+      "name": "subscribers",
+      "type": "array",
+      "description": "List of subscribed people"
+    }
+  ]
+}

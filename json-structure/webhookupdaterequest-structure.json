@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/webhookupdaterequest-structure.json",
+  "title": "WebhookUpdateRequest",
+  "type": "record",
+  "members": [
+    {
+      "name": "payload_url",
+      "type": "string",
+      "description": "Updated HTTPS URL for event delivery"
+    },
+    {
+      "name": "types",
+      "type": "array",
+      "description": "Updated list of subscribed resource types"
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "description": "Whether the webhook should be active"
+    }
+  ]
+}

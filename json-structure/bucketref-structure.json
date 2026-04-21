@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/bucketref-structure.json",
+  "title": "BucketRef",
+  "type": "record",
+  "members": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "Project ID"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Project name"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Resource type, always \"Project\""
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "API URL for the project"
+    },
+    {
+      "name": "app_url",
+      "type": "string",
+      "description": "Web URL for the project"
+    }
+  ]
+}

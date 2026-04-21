@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/todolist-schema.json",
+  "title": "TodoList",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Recording"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "completed": {
+          "type": "boolean",
+          "description": "Whether all to-dos in this list are completed"
+        },
+        "completed_ratio": {
+          "type": "string",
+          "description": "Completion ratio as a string (e.g., \"2/5\")"
+        },
+        "position": {
+          "type": "integer",
+          "description": "Display position within the to-do set"
+        },
+        "color": {
+          "type": "string",
+          "description": "List color identifier",
+          "nullable": true
+        },
+        "todos_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "API URL to list to-dos in this list"
+        },
+        "comments_count": {
+          "type": "integer",
+          "description": "Number of comments on this list"
+        },
+        "boosts_count": {
+          "type": "integer",
+          "description": "Number of boosts on this list"
+        }
+      }
+    }
+  ]
+}

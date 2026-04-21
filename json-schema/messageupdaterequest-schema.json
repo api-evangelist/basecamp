@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/messageupdaterequest-schema.json",
+  "title": "MessageUpdateRequest",
+  "type": "object",
+  "properties": {
+    "subject": {
+      "type": "string",
+      "description": "Updated message subject"
+    },
+    "content": {
+      "type": "string",
+      "description": "Updated message body in HTML format"
+    },
+    "category_id": {
+      "type": "integer",
+      "description": "Updated message category ID"
+    }
+  }
+}

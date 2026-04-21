@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/subscription-schema.json",
+  "title": "Subscription",
+  "type": "object",
+  "properties": {
+    "subscribed": {
+      "type": "boolean",
+      "description": "Whether the authenticated user is subscribed"
+    },
+    "count": {
+      "type": "integer",
+      "description": "Total number of subscribers"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "API URL for this subscription resource"
+    },
+    "subscribers": {
+      "type": "array",
+      "description": "List of subscribed people",
+      "items": {
+        "$ref": "#/components/schemas/PersonRef"
+      }
+    }
+  }
+}

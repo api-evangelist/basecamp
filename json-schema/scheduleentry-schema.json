@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/scheduleentry-schema.json",
+  "title": "ScheduleEntry",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Recording"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "Entry title/summary"
+        },
+        "description": {
+          "type": "string",
+          "description": "HTML-formatted entry description"
+        },
+        "all_day": {
+          "type": "boolean",
+          "description": "Whether this is an all-day event"
+        },
+        "starts_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Entry start time in ISO 8601 format"
+        },
+        "ends_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Entry end time in ISO 8601 format"
+        },
+        "participants": {
+          "type": "array",
+          "description": "People participating in this entry",
+          "items": {
+            "$ref": "#/components/schemas/PersonRef"
+          }
+        },
+        "comments_count": {
+          "type": "integer",
+          "description": "Number of comments on this entry"
+        },
+        "recurrence_schedule": {
+          "$ref": "#/components/schemas/RecurrenceSchedule"
+        }
+      }
+    }
+  ]
+}

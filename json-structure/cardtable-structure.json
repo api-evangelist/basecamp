@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/cardtable-structure.json",
+  "title": "CardTable",
+  "type": "record",
+  "members": []
+}

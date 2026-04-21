@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/projectcreaterequest-structure.json",
+  "title": "ProjectCreateRequest",
+  "type": "record",
+  "members": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Name for the new project"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Optional description of the project"
+    }
+  ]
+}

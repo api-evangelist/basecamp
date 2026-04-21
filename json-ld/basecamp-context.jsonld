@@ -1,459 +1,458 @@
 {
   "@context": {
     "@version": 1.1,
-    "bc": "https://3.basecampapi.com/vocab/",
-    "schema": "https://schema.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "dcterms": "http://purl.org/dc/terms/",
-
-    "Project": {
-      "@id": "schema:Project",
-      "@context": {
-        "id": "@id",
-        "name": "schema:name",
-        "description": "schema:description",
-        "status": "bc:status",
-        "purpose": "bc:purpose",
-        "color": "bc:color",
-        "clients_enabled": {
-          "@id": "bc:clientsEnabled",
-          "@type": "xsd:boolean"
-        },
-        "timesheet_enabled": {
-          "@id": "bc:timesheetEnabled",
-          "@type": "xsd:boolean"
-        },
-        "url": {
-          "@id": "schema:url",
-          "@type": "@id"
-        },
-        "app_url": {
-          "@id": "bc:appUrl",
-          "@type": "@id"
-        },
-        "bookmark_url": {
-          "@id": "bc:bookmarkUrl",
-          "@type": "@id"
-        },
-        "created_at": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        },
-        "updated_at": {
-          "@id": "dcterms:modified",
-          "@type": "xsd:dateTime"
-        },
-        "dock": {
-          "@id": "bc:dock",
-          "@container": "@set"
-        }
-      }
+    "schema": "https://schema.org/",
+    "bcapi": "https://api-evangelist.github.io/basecamp/vocab#",
+    "Error": {
+      "@id": "bcapi:Error"
     },
-
+    "error": {
+      "@id": "bcapi:error",
+      "@type": "xsd:string"
+    },
+    "BucketRef": {
+      "@id": "bcapi:BucketRef"
+    },
+    "id": {
+      "@id": "bcapi:id",
+      "@type": "xsd:integer"
+    },
+    "name": {
+      "@id": "bcapi:name",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "bcapi:type",
+      "@type": "xsd:string"
+    },
+    "url": {
+      "@id": "bcapi:url",
+      "@type": "xsd:string"
+    },
+    "app_url": {
+      "@id": "bcapi:app_url",
+      "@type": "xsd:string"
+    },
+    "PersonRef": {
+      "@id": "bcapi:PersonRef"
+    },
+    "attachable_sgid": {
+      "@id": "bcapi:attachable_sgid",
+      "@type": "xsd:string"
+    },
+    "email_address": {
+      "@id": "bcapi:email_address",
+      "@type": "xsd:string"
+    },
+    "personable_type": {
+      "@id": "bcapi:personable_type",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "bcapi:title",
+      "@type": "xsd:string"
+    },
+    "bio": {
+      "@id": "bcapi:bio",
+      "@type": "xsd:string"
+    },
+    "location": {
+      "@id": "bcapi:location",
+      "@type": "xsd:string"
+    },
+    "created_at": {
+      "@id": "bcapi:created_at",
+      "@type": "xsd:string"
+    },
+    "updated_at": {
+      "@id": "bcapi:updated_at",
+      "@type": "xsd:string"
+    },
+    "admin": {
+      "@id": "bcapi:admin",
+      "@type": "xsd:boolean"
+    },
+    "owner": {
+      "@id": "bcapi:owner",
+      "@type": "xsd:boolean"
+    },
+    "client": {
+      "@id": "bcapi:client",
+      "@type": "xsd:boolean"
+    },
+    "employee": {
+      "@id": "bcapi:employee",
+      "@type": "xsd:boolean"
+    },
+    "time_zone": {
+      "@id": "bcapi:time_zone",
+      "@type": "xsd:string"
+    },
+    "avatar_url": {
+      "@id": "bcapi:avatar_url",
+      "@type": "xsd:string"
+    },
+    "company": {
+      "@id": "bcapi:company",
+      "@type": "xsd:string"
+    },
     "Person": {
-      "@id": "schema:Person",
-      "@context": {
-        "id": "@id",
-        "name": "schema:name",
-        "email_address": "schema:email",
-        "title": "schema:jobTitle",
-        "bio": "schema:description",
-        "location": "schema:location",
-        "avatar_url": {
-          "@id": "schema:image",
-          "@type": "@id"
-        },
-        "personable_type": "bc:personableType",
-        "admin": {
-          "@id": "bc:admin",
-          "@type": "xsd:boolean"
-        },
-        "owner": {
-          "@id": "bc:owner",
-          "@type": "xsd:boolean"
-        },
-        "client": {
-          "@id": "bc:client",
-          "@type": "xsd:boolean"
-        },
-        "employee": {
-          "@id": "schema:employee",
-          "@type": "xsd:boolean"
-        },
-        "time_zone": "bc:timeZone",
-        "attachable_sgid": "bc:attachableSgid",
-        "created_at": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        },
-        "updated_at": {
-          "@id": "dcterms:modified",
-          "@type": "xsd:dateTime"
-        },
-        "company": {
-          "@id": "schema:worksFor",
-          "@type": "@id"
-        }
-      }
+      "@id": "bcapi:Person"
     },
-
+    "DockItem": {
+      "@id": "bcapi:DockItem"
+    },
+    "enabled": {
+      "@id": "bcapi:enabled",
+      "@type": "xsd:boolean"
+    },
+    "position": {
+      "@id": "bcapi:position",
+      "@type": "xsd:integer"
+    },
+    "Project": {
+      "@id": "bcapi:Project"
+    },
+    "status": {
+      "@id": "bcapi:status",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "bcapi:description",
+      "@type": "xsd:string"
+    },
+    "purpose": {
+      "@id": "bcapi:purpose",
+      "@type": "xsd:string"
+    },
+    "clients_enabled": {
+      "@id": "bcapi:clients_enabled",
+      "@type": "xsd:boolean"
+    },
+    "timesheet_enabled": {
+      "@id": "bcapi:timesheet_enabled",
+      "@type": "xsd:boolean"
+    },
+    "color": {
+      "@id": "bcapi:color",
+      "@type": "xsd:string"
+    },
+    "bookmark_url": {
+      "@id": "bcapi:bookmark_url",
+      "@type": "xsd:string"
+    },
+    "dock": {
+      "@id": "bcapi:dock",
+      "@type": "xsd:string"
+    },
+    "ProjectCreateRequest": {
+      "@id": "bcapi:ProjectCreateRequest"
+    },
+    "ProjectUpdateRequest": {
+      "@id": "bcapi:ProjectUpdateRequest"
+    },
+    "schedule_attributes": {
+      "@id": "bcapi:schedule_attributes",
+      "@type": "xsd:string"
+    },
+    "admissions": {
+      "@id": "bcapi:admissions",
+      "@type": "xsd:string"
+    },
+    "ProjectAccessRequest": {
+      "@id": "bcapi:ProjectAccessRequest"
+    },
+    "grant": {
+      "@id": "bcapi:grant",
+      "@type": "xsd:string"
+    },
+    "revoke": {
+      "@id": "bcapi:revoke",
+      "@type": "xsd:string"
+    },
+    "create": {
+      "@id": "bcapi:create",
+      "@type": "xsd:string"
+    },
+    "ProfileUpdateRequest": {
+      "@id": "bcapi:ProfileUpdateRequest"
+    },
+    "time_zone_name": {
+      "@id": "bcapi:time_zone_name",
+      "@type": "xsd:string"
+    },
+    "Template": {
+      "@id": "bcapi:Template"
+    },
+    "TemplateCreateRequest": {
+      "@id": "bcapi:TemplateCreateRequest"
+    },
+    "ProjectConstructionRequest": {
+      "@id": "bcapi:ProjectConstructionRequest"
+    },
+    "project": {
+      "@id": "bcapi:project",
+      "@type": "xsd:string"
+    },
+    "ProjectConstruction": {
+      "@id": "bcapi:ProjectConstruction"
+    },
+    "Recording": {
+      "@id": "bcapi:Recording"
+    },
+    "visible_to_clients": {
+      "@id": "bcapi:visible_to_clients",
+      "@type": "xsd:boolean"
+    },
+    "inherits_status": {
+      "@id": "bcapi:inherits_status",
+      "@type": "xsd:boolean"
+    },
+    "bucket": {
+      "@id": "bcapi:bucket",
+      "@type": "xsd:string"
+    },
+    "creator": {
+      "@id": "bcapi:creator",
+      "@type": "xsd:string"
+    },
     "Message": {
-      "@id": "schema:Message",
-      "@context": {
-        "id": "@id",
-        "subject": "schema:headline",
-        "content": "schema:text",
-        "status": "bc:status",
-        "visible_to_clients": {
-          "@id": "bc:visibleToClients",
-          "@type": "xsd:boolean"
-        },
-        "comments_count": {
-          "@id": "bc:commentsCount",
-          "@type": "xsd:integer"
-        },
-        "boosts_count": {
-          "@id": "bc:boostsCount",
-          "@type": "xsd:integer"
-        },
-        "creator": {
-          "@id": "schema:author",
-          "@type": "@id"
-        },
-        "bucket": {
-          "@id": "schema:isPartOf",
-          "@type": "@id"
-        },
-        "created_at": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        },
-        "updated_at": {
-          "@id": "dcterms:modified",
-          "@type": "xsd:dateTime"
-        },
-        "url": {
-          "@id": "schema:url",
-          "@type": "@id"
-        },
-        "app_url": {
-          "@id": "bc:appUrl",
-          "@type": "@id"
-        }
-      }
+      "@id": "bcapi:Message"
     },
-
-    "Todo": {
-      "@id": "schema:Action",
-      "@context": {
-        "id": "@id",
-        "content": "schema:description",
-        "completed": {
-          "@id": "schema:actionStatus",
-          "@type": "xsd:boolean"
-        },
-        "due_on": {
-          "@id": "schema:endDate",
-          "@type": "xsd:date"
-        },
-        "starts_on": {
-          "@id": "schema:startDate",
-          "@type": "xsd:date"
-        },
-        "status": "bc:status",
-        "position": {
-          "@id": "bc:position",
-          "@type": "xsd:integer"
-        },
-        "assignees": {
-          "@id": "schema:agent",
-          "@container": "@set"
-        },
-        "completion_subscribers": {
-          "@id": "bc:completionSubscribers",
-          "@container": "@set"
-        },
-        "comments_count": {
-          "@id": "bc:commentsCount",
-          "@type": "xsd:integer"
-        },
-        "creator": {
-          "@id": "schema:creator",
-          "@type": "@id"
-        },
-        "bucket": {
-          "@id": "schema:isPartOf",
-          "@type": "@id"
-        },
-        "created_at": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        },
-        "updated_at": {
-          "@id": "dcterms:modified",
-          "@type": "xsd:dateTime"
-        },
-        "url": {
-          "@id": "schema:url",
-          "@type": "@id"
-        },
-        "app_url": {
-          "@id": "bc:appUrl",
-          "@type": "@id"
-        }
-      }
+    "MessageCreateRequest": {
+      "@id": "bcapi:MessageCreateRequest"
     },
-
-    "TodoList": {
-      "@id": "schema:ItemList",
-      "@context": {
-        "id": "@id",
-        "name": "schema:name",
-        "description": "schema:description",
-        "completed": {
-          "@id": "bc:completed",
-          "@type": "xsd:boolean"
-        },
-        "completed_ratio": "bc:completedRatio",
-        "status": "bc:status",
-        "position": {
-          "@id": "bc:position",
-          "@type": "xsd:integer"
-        },
-        "color": "bc:color",
-        "creator": {
-          "@id": "schema:creator",
-          "@type": "@id"
-        },
-        "bucket": {
-          "@id": "schema:isPartOf",
-          "@type": "@id"
-        },
-        "created_at": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        },
-        "updated_at": {
-          "@id": "dcterms:modified",
-          "@type": "xsd:dateTime"
-        }
-      }
+    "subject": {
+      "@id": "bcapi:subject",
+      "@type": "xsd:string"
     },
-
-    "ScheduleEntry": {
-      "@id": "schema:Event",
-      "@context": {
-        "id": "@id",
-        "summary": "schema:name",
-        "description": "schema:description",
-        "all_day": {
-          "@id": "bc:allDay",
-          "@type": "xsd:boolean"
-        },
-        "starts_at": {
-          "@id": "schema:startDate",
-          "@type": "xsd:dateTime"
-        },
-        "ends_at": {
-          "@id": "schema:endDate",
-          "@type": "xsd:dateTime"
-        },
-        "participants": {
-          "@id": "schema:attendee",
-          "@container": "@set"
-        },
-        "status": "bc:status",
-        "creator": {
-          "@id": "schema:organizer",
-          "@type": "@id"
-        },
-        "bucket": {
-          "@id": "schema:isPartOf",
-          "@type": "@id"
-        },
-        "created_at": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        },
-        "updated_at": {
-          "@id": "dcterms:modified",
-          "@type": "xsd:dateTime"
-        },
-        "url": {
-          "@id": "schema:url",
-          "@type": "@id"
-        },
-        "app_url": {
-          "@id": "bc:appUrl",
-          "@type": "@id"
-        }
-      }
+    "content": {
+      "@id": "bcapi:content",
+      "@type": "xsd:string"
     },
-
-    "Document": {
-      "@id": "schema:DigitalDocument",
-      "@context": {
-        "id": "@id",
-        "title": "schema:name",
-        "content": "schema:text",
-        "status": "bc:status",
-        "visible_to_clients": {
-          "@id": "bc:visibleToClients",
-          "@type": "xsd:boolean"
-        },
-        "position": {
-          "@id": "bc:position",
-          "@type": "xsd:integer"
-        },
-        "comments_count": {
-          "@id": "bc:commentsCount",
-          "@type": "xsd:integer"
-        },
-        "creator": {
-          "@id": "schema:creator",
-          "@type": "@id"
-        },
-        "bucket": {
-          "@id": "schema:isPartOf",
-          "@type": "@id"
-        },
-        "created_at": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        },
-        "updated_at": {
-          "@id": "dcterms:modified",
-          "@type": "xsd:dateTime"
-        },
-        "url": {
-          "@id": "schema:url",
-          "@type": "@id"
-        },
-        "app_url": {
-          "@id": "bc:appUrl",
-          "@type": "@id"
-        }
-      }
+    "category_id": {
+      "@id": "bcapi:category_id",
+      "@type": "xsd:integer"
     },
-
-    "Upload": {
-      "@id": "schema:MediaObject",
-      "@context": {
-        "id": "@id",
-        "title": "schema:name",
-        "description": "schema:description",
-        "filename": "schema:name",
-        "content_type": "schema:encodingFormat",
-        "byte_size": {
-          "@id": "schema:contentSize",
-          "@type": "xsd:integer"
-        },
-        "width": {
-          "@id": "schema:width",
-          "@type": "xsd:integer"
-        },
-        "height": {
-          "@id": "schema:height",
-          "@type": "xsd:integer"
-        },
-        "download_url": {
-          "@id": "schema:contentUrl",
-          "@type": "@id"
-        },
-        "status": "bc:status",
-        "position": {
-          "@id": "bc:position",
-          "@type": "xsd:integer"
-        },
-        "creator": {
-          "@id": "schema:creator",
-          "@type": "@id"
-        },
-        "bucket": {
-          "@id": "schema:isPartOf",
-          "@type": "@id"
-        },
-        "created_at": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        },
-        "updated_at": {
-          "@id": "dcterms:modified",
-          "@type": "xsd:dateTime"
-        },
-        "url": {
-          "@id": "schema:url",
-          "@type": "@id"
-        }
-      }
+    "subscriptions": {
+      "@id": "bcapi:subscriptions",
+      "@type": "xsd:string"
     },
-
+    "MessageUpdateRequest": {
+      "@id": "bcapi:MessageUpdateRequest"
+    },
     "Comment": {
-      "@id": "schema:Comment",
-      "@context": {
-        "id": "@id",
-        "content": "schema:text",
-        "status": "bc:status",
-        "boosts_count": {
-          "@id": "bc:boostsCount",
-          "@type": "xsd:integer"
-        },
-        "creator": {
-          "@id": "schema:author",
-          "@type": "@id"
-        },
-        "parent": {
-          "@id": "schema:parentItem",
-          "@type": "@id"
-        },
-        "bucket": {
-          "@id": "schema:isPartOf",
-          "@type": "@id"
-        },
-        "created_at": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        },
-        "updated_at": {
-          "@id": "dcterms:modified",
-          "@type": "xsd:dateTime"
-        },
-        "url": {
-          "@id": "schema:url",
-          "@type": "@id"
-        }
-      }
+      "@id": "bcapi:Comment"
     },
-
+    "CommentCreateRequest": {
+      "@id": "bcapi:CommentCreateRequest"
+    },
+    "TodoList": {
+      "@id": "bcapi:TodoList"
+    },
+    "TodoListCreateRequest": {
+      "@id": "bcapi:TodoListCreateRequest"
+    },
+    "Todo": {
+      "@id": "bcapi:Todo"
+    },
+    "TodoCreateRequest": {
+      "@id": "bcapi:TodoCreateRequest"
+    },
+    "assignee_ids": {
+      "@id": "bcapi:assignee_ids",
+      "@type": "xsd:string"
+    },
+    "completion_subscriber_ids": {
+      "@id": "bcapi:completion_subscriber_ids",
+      "@type": "xsd:string"
+    },
+    "notify": {
+      "@id": "bcapi:notify",
+      "@type": "xsd:boolean"
+    },
+    "due_on": {
+      "@id": "bcapi:due_on",
+      "@type": "xsd:string"
+    },
+    "starts_on": {
+      "@id": "bcapi:starts_on",
+      "@type": "xsd:string"
+    },
+    "PositionRequest": {
+      "@id": "bcapi:PositionRequest"
+    },
+    "Schedule": {
+      "@id": "bcapi:Schedule"
+    },
+    "ScheduleUpdateRequest": {
+      "@id": "bcapi:ScheduleUpdateRequest"
+    },
+    "include_due_assignments": {
+      "@id": "bcapi:include_due_assignments",
+      "@type": "xsd:boolean"
+    },
+    "ScheduleEntry": {
+      "@id": "bcapi:ScheduleEntry"
+    },
+    "RecurrenceSchedule": {
+      "@id": "bcapi:RecurrenceSchedule"
+    },
+    "frequency": {
+      "@id": "bcapi:frequency",
+      "@type": "xsd:string"
+    },
+    "days": {
+      "@id": "bcapi:days",
+      "@type": "xsd:string"
+    },
+    "hour": {
+      "@id": "bcapi:hour",
+      "@type": "xsd:integer"
+    },
+    "minute": {
+      "@id": "bcapi:minute",
+      "@type": "xsd:integer"
+    },
+    "week_instance": {
+      "@id": "bcapi:week_instance",
+      "@type": "xsd:integer"
+    },
+    "start_date": {
+      "@id": "bcapi:start_date",
+      "@type": "xsd:string"
+    },
+    "end_date": {
+      "@id": "bcapi:end_date",
+      "@type": "xsd:string"
+    },
+    "ScheduleEntryCreateRequest": {
+      "@id": "bcapi:ScheduleEntryCreateRequest"
+    },
+    "summary": {
+      "@id": "bcapi:summary",
+      "@type": "xsd:string"
+    },
+    "starts_at": {
+      "@id": "bcapi:starts_at",
+      "@type": "xsd:string"
+    },
+    "ends_at": {
+      "@id": "bcapi:ends_at",
+      "@type": "xsd:string"
+    },
+    "participant_ids": {
+      "@id": "bcapi:participant_ids",
+      "@type": "xsd:string"
+    },
+    "all_day": {
+      "@id": "bcapi:all_day",
+      "@type": "xsd:boolean"
+    },
+    "Document": {
+      "@id": "bcapi:Document"
+    },
+    "DocumentCreateRequest": {
+      "@id": "bcapi:DocumentCreateRequest"
+    },
+    "Upload": {
+      "@id": "bcapi:Upload"
+    },
+    "UploadCreateRequest": {
+      "@id": "bcapi:UploadCreateRequest"
+    },
+    "base_name": {
+      "@id": "bcapi:base_name",
+      "@type": "xsd:string"
+    },
+    "UploadUpdateRequest": {
+      "@id": "bcapi:UploadUpdateRequest"
+    },
+    "Campfire": {
+      "@id": "bcapi:Campfire"
+    },
+    "CampfireLine": {
+      "@id": "bcapi:CampfireLine"
+    },
+    "parent": {
+      "@id": "bcapi:parent",
+      "@type": "xsd:string"
+    },
+    "boosts_count": {
+      "@id": "bcapi:boosts_count",
+      "@type": "xsd:integer"
+    },
+    "CampfireLineCreateRequest": {
+      "@id": "bcapi:CampfireLineCreateRequest"
+    },
+    "CardTable": {
+      "@id": "bcapi:CardTable"
+    },
+    "CardColumn": {
+      "@id": "bcapi:CardColumn"
+    },
+    "cards_count": {
+      "@id": "bcapi:cards_count",
+      "@type": "xsd:integer"
+    },
+    "cards_url": {
+      "@id": "bcapi:cards_url",
+      "@type": "xsd:string"
+    },
+    "CardMoveRequest": {
+      "@id": "bcapi:CardMoveRequest"
+    },
+    "source_id": {
+      "@id": "bcapi:source_id",
+      "@type": "xsd:integer"
+    },
+    "target_id": {
+      "@id": "bcapi:target_id",
+      "@type": "xsd:integer"
+    },
     "Webhook": {
-      "@id": "bc:Webhook",
-      "@context": {
-        "id": "@id",
-        "payload_url": {
-          "@id": "bc:payloadUrl",
-          "@type": "@id"
-        },
-        "active": {
-          "@id": "bc:active",
-          "@type": "xsd:boolean"
-        },
-        "types": {
-          "@id": "bc:subscribedTypes",
-          "@container": "@set"
-        },
-        "created_at": {
-          "@id": "dcterms:created",
-          "@type": "xsd:dateTime"
-        },
-        "updated_at": {
-          "@id": "dcterms:modified",
-          "@type": "xsd:dateTime"
-        },
-        "url": {
-          "@id": "schema:url",
-          "@type": "@id"
-        }
-      }
+      "@id": "bcapi:Webhook"
+    },
+    "active": {
+      "@id": "bcapi:active",
+      "@type": "xsd:boolean"
+    },
+    "payload_url": {
+      "@id": "bcapi:payload_url",
+      "@type": "xsd:string"
+    },
+    "types": {
+      "@id": "bcapi:types",
+      "@type": "xsd:string"
+    },
+    "WebhookCreateRequest": {
+      "@id": "bcapi:WebhookCreateRequest"
+    },
+    "WebhookUpdateRequest": {
+      "@id": "bcapi:WebhookUpdateRequest"
+    },
+    "Subscription": {
+      "@id": "bcapi:Subscription"
+    },
+    "subscribed": {
+      "@id": "bcapi:subscribed",
+      "@type": "xsd:boolean"
+    },
+    "count": {
+      "@id": "bcapi:count",
+      "@type": "xsd:integer"
+    },
+    "subscribers": {
+      "@id": "bcapi:subscribers",
+      "@type": "xsd:string"
+    },
+    "SubscriptionUpdateRequest": {
+      "@id": "bcapi:SubscriptionUpdateRequest"
+    },
+    "unsubscriptions": {
+      "@id": "bcapi:unsubscriptions",
+      "@type": "xsd:string"
     }
   }
 }

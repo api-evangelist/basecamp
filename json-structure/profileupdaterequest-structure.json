@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/profileupdaterequest-structure.json",
+  "title": "ProfileUpdateRequest",
+  "type": "record",
+  "members": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Full name"
+    },
+    {
+      "name": "email_address",
+      "type": "string",
+      "description": "Email address"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Job title"
+    },
+    {
+      "name": "bio",
+      "type": "string",
+      "description": "Short biography"
+    },
+    {
+      "name": "location",
+      "type": "string",
+      "description": "Location string"
+    },
+    {
+      "name": "time_zone_name",
+      "type": "string",
+      "description": "IANA time zone name"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": 0,
+  "attachable_sgid": "example-attachable_sgid",
+  "name": "example-name",
+  "email_address": "example-email_address",
+  "personable_type": "example-personable_type",
+  "title": "example-title",
+  "bio": "example-bio",
+  "location": "example-location",
+  "created_at": "2026-04-19T12:00:00Z",
+  "updated_at": "2026-04-19T12:00:00Z",
+  "admin": true,
+  "owner": true,
+  "client": true,
+  "employee": true,
+  "time_zone": "example-time_zone",
+  "avatar_url": "example-avatar_url",
+  "company": {}
+}

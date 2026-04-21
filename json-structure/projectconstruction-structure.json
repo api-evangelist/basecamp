@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/projectconstruction-structure.json",
+  "title": "ProjectConstruction",
+  "type": "record",
+  "members": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "Project construction job ID"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Construction status"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "API URL to poll for this construction job"
+    },
+    {
+      "name": "project",
+      "type": "string",
+      "description": "The resulting project once construction is completed"
+    }
+  ]
+}

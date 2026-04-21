@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/templatecreaterequest-structure.json",
+  "title": "TemplateCreateRequest",
+  "type": "record",
+  "members": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Template name"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Optional template description"
+    }
+  ]
+}

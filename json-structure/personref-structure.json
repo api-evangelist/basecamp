@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/personref-structure.json",
+  "title": "PersonRef",
+  "type": "record",
+  "members": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "Person ID"
+    },
+    {
+      "name": "attachable_sgid",
+      "type": "string",
+      "description": "Signed global ID for attaching this person"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Full name"
+    },
+    {
+      "name": "email_address",
+      "type": "string",
+      "description": "Email address"
+    },
+    {
+      "name": "personable_type",
+      "type": "string",
+      "description": "Type of personable (User, Client, etc.)"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Job title"
+    },
+    {
+      "name": "bio",
+      "type": "string",
+      "description": "Short biography"
+    },
+    {
+      "name": "location",
+      "type": "string",
+      "description": "Location string"
+    },
+    {
+      "name": "created_at",
+      "type": "string",
+      "description": "Account creation timestamp"
+    },
+    {
+      "name": "updated_at",
+      "type": "string",
+      "description": "Last update timestamp"
+    },
+    {
+      "name": "admin",
+      "type": "boolean",
+      "description": "Whether the person is an account administrator"
+    },
+    {
+      "name": "owner",
+      "type": "boolean",
+      "description": "Whether the person is the account owner"
+    },
+    {
+      "name": "client",
+      "type": "boolean",
+      "description": "Whether the person is a client user"
+    },
+    {
+      "name": "employee",
+      "type": "boolean",
+      "description": "Whether the person is an employee"
+    },
+    {
+      "name": "time_zone",
+      "type": "string",
+      "description": "IANA time zone name"
+    },
+    {
+      "name": "avatar_url",
+      "type": "string",
+      "description": "URL to the person's avatar image"
+    },
+    {
+      "name": "company",
+      "type": "object",
+      "description": "Company the person belongs to"
+    }
+  ]
+}

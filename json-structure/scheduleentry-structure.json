@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/scheduleentry-structure.json",
+  "title": "ScheduleEntry",
+  "type": "record",
+  "members": []
+}

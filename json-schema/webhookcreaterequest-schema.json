@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/webhookcreaterequest-schema.json",
+  "title": "WebhookCreateRequest",
+  "type": "object",
+  "required": [
+    "payload_url"
+  ],
+  "properties": {
+    "payload_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "HTTPS URL to receive webhook event notifications"
+    },
+    "types": {
+      "type": "array",
+      "description": "Resource types to subscribe to. Omit to subscribe to all types.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Message",
+          "Todo",
+          "Todolist",
+          "Document",
+          "Comment",
+          "Kanban::Card",
+          "Schedule::Entry",
+          "Vault",
+          "Upload",
+          "Client::Forward",
+          "Client::Correspondence",
+          "Question",
+          "Question::Answer",
+          "Inbox::Forward"
+        ]
+      }
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the webhook should be active upon creation",
+      "default": true
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/personref-schema.json",
+  "title": "PersonRef",
+  "type": "object",
+  "description": "Minimal reference to a Basecamp person",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Person ID"
+    },
+    "attachable_sgid": {
+      "type": "string",
+      "description": "Signed global ID for attaching this person"
+    },
+    "name": {
+      "type": "string",
+      "description": "Full name"
+    },
+    "email_address": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address"
+    },
+    "personable_type": {
+      "type": "string",
+      "description": "Type of personable (User, Client, etc.)"
+    },
+    "title": {
+      "type": "string",
+      "description": "Job title"
+    },
+    "bio": {
+      "type": "string",
+      "description": "Short biography"
+    },
+    "location": {
+      "type": "string",
+      "description": "Location string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Account creation timestamp"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "admin": {
+      "type": "boolean",
+      "description": "Whether the person is an account administrator"
+    },
+    "owner": {
+      "type": "boolean",
+      "description": "Whether the person is the account owner"
+    },
+    "client": {
+      "type": "boolean",
+      "description": "Whether the person is a client user"
+    },
+    "employee": {
+      "type": "boolean",
+      "description": "Whether the person is an employee"
+    },
+    "time_zone": {
+      "type": "string",
+      "description": "IANA time zone name"
+    },
+    "avatar_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the person's avatar image"
+    },
+    "company": {
+      "type": "object",
+      "description": "Company the person belongs to",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Company ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "Company name"
+        }
+      }
+    }
+  }
+}

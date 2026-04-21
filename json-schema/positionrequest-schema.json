@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/positionrequest-schema.json",
+  "title": "PositionRequest",
+  "type": "object",
+  "required": [
+    "position"
+  ],
+  "properties": {
+    "position": {
+      "type": "integer",
+      "description": "New position within the list (1-indexed)",
+      "minimum": 1
+    }
+  }
+}

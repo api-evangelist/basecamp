@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/campfireline-schema.json",
+  "title": "CampfireLine",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Line ID"
+    },
+    "status": {
+      "type": "string",
+      "description": "Line status"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the line was posted"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the line was last updated"
+    },
+    "title": {
+      "type": "string",
+      "description": "Line title (summary)"
+    },
+    "content": {
+      "type": "string",
+      "description": "Plain text message content"
+    },
+    "type": {
+      "type": "string",
+      "description": "Line type"
+    },
+    "creator": {
+      "$ref": "#/components/schemas/PersonRef"
+    },
+    "bucket": {
+      "$ref": "#/components/schemas/BucketRef"
+    },
+    "parent": {
+      "$ref": "#/components/schemas/Recording"
+    },
+    "boosts_count": {
+      "type": "integer",
+      "description": "Number of boosts on this line"
+    }
+  }
+}

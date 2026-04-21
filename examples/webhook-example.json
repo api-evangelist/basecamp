@@ -1,0 +1,10 @@
+{
+  "id": 0,
+  "active": true,
+  "created_at": "2026-04-19T12:00:00Z",
+  "updated_at": "2026-04-19T12:00:00Z",
+  "payload_url": "example-payload_url",
+  "types": [],
+  "url": "example-url",
+  "app_url": "example-app_url"
+}

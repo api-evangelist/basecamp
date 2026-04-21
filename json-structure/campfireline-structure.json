@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/campfireline-structure.json",
+  "title": "CampfireLine",
+  "type": "record",
+  "members": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "Line ID"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Line status"
+    },
+    {
+      "name": "created_at",
+      "type": "string",
+      "description": "Timestamp when the line was posted"
+    },
+    {
+      "name": "updated_at",
+      "type": "string",
+      "description": "Timestamp when the line was last updated"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Line title (summary)"
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "description": "Plain text message content"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Line type"
+    },
+    {
+      "name": "creator",
+      "type": "string",
+      "description": ""
+    },
+    {
+      "name": "bucket",
+      "type": "string",
+      "description": ""
+    },
+    {
+      "name": "parent",
+      "type": "string",
+      "description": ""
+    },
+    {
+      "name": "boosts_count",
+      "type": "integer",
+      "description": "Number of boosts on this line"
+    }
+  ]
+}

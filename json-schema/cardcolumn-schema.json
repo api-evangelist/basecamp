@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/cardcolumn-schema.json",
+  "title": "CardColumn",
+  "type": "object",
+  "description": "A column within a card table",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Column ID"
+    },
+    "title": {
+      "type": "string",
+      "description": "Column title"
+    },
+    "type": {
+      "type": "string",
+      "description": "Column type (Kanban::Column, Kanban::Triage, etc.)"
+    },
+    "color": {
+      "type": "string",
+      "description": "Column color",
+      "nullable": true
+    },
+    "position": {
+      "type": "integer",
+      "description": "Column position within the table"
+    },
+    "cards_count": {
+      "type": "integer",
+      "description": "Number of cards in this column"
+    },
+    "cards_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "API URL to list cards in this column"
+    }
+  }
+}

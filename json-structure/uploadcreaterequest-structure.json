@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/uploadcreaterequest-structure.json",
+  "title": "UploadCreateRequest",
+  "type": "record",
+  "members": [
+    {
+      "name": "attachable_sgid",
+      "type": "string",
+      "description": "Signed global ID of the attachment obtained from the Basecamp attachment API"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "HTML-formatted information about the upload"
+    },
+    {
+      "name": "base_name",
+      "type": "string",
+      "description": "Filename without extension"
+    }
+  ]
+}

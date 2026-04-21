@@ -1,0 +1,8 @@
+{
+  "name": "example-name",
+  "email_address": "example-email_address",
+  "title": "example-title",
+  "bio": "example-bio",
+  "location": "example-location",
+  "time_zone_name": "example-time_zone_name"
+}

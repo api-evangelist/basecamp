@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/webhookupdaterequest-schema.json",
+  "title": "WebhookUpdateRequest",
+  "type": "object",
+  "properties": {
+    "payload_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Updated HTTPS URL for event delivery"
+    },
+    "types": {
+      "type": "array",
+      "description": "Updated list of subscribed resource types",
+      "items": {
+        "type": "string"
+      }
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the webhook should be active"
+    }
+  }
+}

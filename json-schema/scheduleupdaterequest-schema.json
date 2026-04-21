@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/scheduleupdaterequest-schema.json",
+  "title": "ScheduleUpdateRequest",
+  "type": "object",
+  "required": [
+    "include_due_assignments"
+  ],
+  "properties": {
+    "include_due_assignments": {
+      "type": "boolean",
+      "description": "Whether the schedule should include due dates from to-dos, cards, and steps"
+    }
+  }
+}

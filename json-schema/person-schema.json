@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/person-schema.json",
+  "title": "Person",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/PersonRef"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "can_ping": {
+          "type": "boolean",
+          "description": "Whether the authenticated user can direct message this person"
+        },
+        "can_manage_projects": {
+          "type": "boolean",
+          "description": "Whether the person can manage projects"
+        },
+        "can_manage_people": {
+          "type": "boolean",
+          "description": "Whether the person can manage people"
+        },
+        "can_access_timesheet": {
+          "type": "boolean",
+          "description": "Whether the person can access timesheets"
+        },
+        "can_access_hill_charts": {
+          "type": "boolean",
+          "description": "Whether the person can access hill charts"
+        }
+      }
+    }
+  ]
+}

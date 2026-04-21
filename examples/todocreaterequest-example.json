@@ -1,0 +1,9 @@
+{
+  "content": "example-content",
+  "description": "example-description",
+  "assignee_ids": [],
+  "completion_subscriber_ids": [],
+  "notify": true,
+  "due_on": "2026-04-19",
+  "starts_on": "2026-04-19"
+}

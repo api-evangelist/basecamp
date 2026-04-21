@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/cardmoverequest-schema.json",
+  "title": "CardMoveRequest",
+  "type": "object",
+  "required": [
+    "source_id",
+    "target_id",
+    "position"
+  ],
+  "properties": {
+    "source_id": {
+      "type": "integer",
+      "description": "Recording ID of the card to move"
+    },
+    "target_id": {
+      "type": "integer",
+      "description": "Recording ID of the destination column"
+    },
+    "position": {
+      "type": "integer",
+      "description": "Zero-indexed position within the destination column",
+      "minimum": 0
+    }
+  }
+}

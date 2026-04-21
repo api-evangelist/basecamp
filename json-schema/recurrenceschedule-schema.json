@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/recurrenceschedule-schema.json",
+  "title": "RecurrenceSchedule",
+  "type": "object",
+  "description": "Recurrence configuration for a schedule entry",
+  "properties": {
+    "frequency": {
+      "type": "string",
+      "description": "Recurrence frequency",
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly",
+        "yearly"
+      ]
+    },
+    "days": {
+      "type": "array",
+      "description": "Days of the week for weekly recurrence",
+      "items": {
+        "type": "string"
+      }
+    },
+    "hour": {
+      "type": "integer",
+      "description": "Hour of the day for the recurrence"
+    },
+    "minute": {
+      "type": "integer",
+      "description": "Minute of the hour for the recurrence"
+    },
+    "week_instance": {
+      "type": "integer",
+      "description": "Week instance within the month for monthly recurrence",
+      "nullable": true
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date when the recurrence starts"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date when the recurrence ends",
+      "nullable": true
+    }
+  }
+}

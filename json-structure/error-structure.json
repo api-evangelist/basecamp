@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/error-structure.json",
+  "title": "Error",
+  "type": "record",
+  "members": [
+    {
+      "name": "error",
+      "type": "string",
+      "description": "Human-readable error message"
+    }
+  ]
+}

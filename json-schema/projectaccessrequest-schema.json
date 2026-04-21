@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/projectaccessrequest-schema.json",
+  "title": "ProjectAccessRequest",
+  "type": "object",
+  "properties": {
+    "grant": {
+      "type": "array",
+      "description": "Array of person IDs to grant access",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "revoke": {
+      "type": "array",
+      "description": "Array of person IDs to revoke access",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "create": {
+      "type": "array",
+      "description": "New people to invite to the project",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "email_address"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Full name of the new person"
+          },
+          "email_address": {
+            "type": "string",
+            "format": "email",
+            "description": "Email address of the new person"
+          },
+          "title": {
+            "type": "string",
+            "description": "Job title"
+          },
+          "company_name": {
+            "type": "string",
+            "description": "Company name"
+          }
+        }
+      }
+    }
+  }
+}

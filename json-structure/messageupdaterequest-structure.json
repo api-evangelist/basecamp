@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/messageupdaterequest-structure.json",
+  "title": "MessageUpdateRequest",
+  "type": "record",
+  "members": [
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Updated message subject"
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "description": "Updated message body in HTML format"
+    },
+    {
+      "name": "category_id",
+      "type": "integer",
+      "description": "Updated message category ID"
+    }
+  ]
+}

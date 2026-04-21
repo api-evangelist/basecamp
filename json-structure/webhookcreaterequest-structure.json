@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/webhookcreaterequest-structure.json",
+  "title": "WebhookCreateRequest",
+  "type": "record",
+  "members": [
+    {
+      "name": "payload_url",
+      "type": "string",
+      "description": "HTTPS URL to receive webhook event notifications"
+    },
+    {
+      "name": "types",
+      "type": "array",
+      "description": "Resource types to subscribe to. Omit to subscribe to all types."
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "description": "Whether the webhook should be active upon creation"
+    }
+  ]
+}

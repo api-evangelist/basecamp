@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/documentcreaterequest-schema.json",
+  "title": "DocumentCreateRequest",
+  "type": "object",
+  "required": [
+    "title",
+    "content"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Document title"
+    },
+    "content": {
+      "type": "string",
+      "description": "Document body in HTML format"
+    },
+    "status": {
+      "type": "string",
+      "description": "Set to \"active\" to publish immediately",
+      "enum": [
+        "active",
+        "draft"
+      ]
+    }
+  }
+}

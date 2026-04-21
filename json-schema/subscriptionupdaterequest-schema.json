@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/subscriptionupdaterequest-schema.json",
+  "title": "SubscriptionUpdateRequest",
+  "type": "object",
+  "properties": {
+    "subscriptions": {
+      "type": "array",
+      "description": "Person IDs to add as subscribers",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "unsubscriptions": {
+      "type": "array",
+      "description": "Person IDs to remove as subscribers",
+      "items": {
+        "type": "integer"
+      }
+    }
+  }
+}

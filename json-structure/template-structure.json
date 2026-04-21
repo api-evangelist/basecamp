@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/template-structure.json",
+  "title": "Template",
+  "type": "record",
+  "members": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "Template ID"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Template status"
+    },
+    {
+      "name": "created_at",
+      "type": "string",
+      "description": "Timestamp when the template was created"
+    },
+    {
+      "name": "updated_at",
+      "type": "string",
+      "description": "Timestamp when the template was last updated"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Template name"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Template description"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "API URL for this template"
+    },
+    {
+      "name": "app_url",
+      "type": "string",
+      "description": "Web URL for this template"
+    },
+    {
+      "name": "dock",
+      "type": "array",
+      "description": "Tools available in this template"
+    }
+  ]
+}

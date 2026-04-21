@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/recording-structure.json",
+  "title": "Recording",
+  "type": "record",
+  "members": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "Recording ID"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Recording status"
+    },
+    {
+      "name": "visible_to_clients",
+      "type": "boolean",
+      "description": "Whether this recording is visible to client users"
+    },
+    {
+      "name": "created_at",
+      "type": "string",
+      "description": "Timestamp when the recording was created"
+    },
+    {
+      "name": "updated_at",
+      "type": "string",
+      "description": "Timestamp when the recording was last updated"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Title or summary of the recording"
+    },
+    {
+      "name": "inherits_status",
+      "type": "boolean",
+      "description": "Whether this recording inherits its status from a parent"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Recording type (e.g., Message, Todo, Document)"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "API URL for this recording"
+    },
+    {
+      "name": "app_url",
+      "type": "string",
+      "description": "Web URL for this recording"
+    },
+    {
+      "name": "bucket",
+      "type": "string",
+      "description": ""
+    },
+    {
+      "name": "creator",
+      "type": "string",
+      "description": ""
+    }
+  ]
+}

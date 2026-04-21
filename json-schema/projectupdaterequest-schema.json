@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/projectupdaterequest-schema.json",
+  "title": "ProjectUpdateRequest",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Updated project name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Updated project description"
+    },
+    "schedule_attributes": {
+      "type": "object",
+      "description": "Optional schedule date range for the project",
+      "properties": {
+        "start_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Project start date in ISO 8601 format"
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Project end date in ISO 8601 format"
+        }
+      }
+    },
+    "admissions": {
+      "type": "string",
+      "description": "Controls who can join the project",
+      "enum": [
+        "invite",
+        "employee",
+        "team"
+      ]
+    }
+  }
+}

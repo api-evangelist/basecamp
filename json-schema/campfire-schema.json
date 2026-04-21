@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/campfire-schema.json",
+  "title": "Campfire",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Recording"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "lines_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "API URL to list campfire lines"
+        }
+      }
+    }
+  ]
+}

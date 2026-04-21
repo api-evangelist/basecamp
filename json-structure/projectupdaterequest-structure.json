@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/projectupdaterequest-structure.json",
+  "title": "ProjectUpdateRequest",
+  "type": "record",
+  "members": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Updated project name"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Updated project description"
+    },
+    {
+      "name": "schedule_attributes",
+      "type": "object",
+      "description": "Optional schedule date range for the project"
+    },
+    {
+      "name": "admissions",
+      "type": "string",
+      "description": "Controls who can join the project"
+    }
+  ]
+}

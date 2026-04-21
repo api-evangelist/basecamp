@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/todolistcreaterequest-structure.json",
+  "title": "TodoListCreateRequest",
+  "type": "record",
+  "members": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "To-do list name"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Optional description with supported HTML formatting"
+    }
+  ]
+}

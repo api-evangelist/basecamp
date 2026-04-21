@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/subscriptionupdaterequest-structure.json",
+  "title": "SubscriptionUpdateRequest",
+  "type": "record",
+  "members": [
+    {
+      "name": "subscriptions",
+      "type": "array",
+      "description": "Person IDs to add as subscribers"
+    },
+    {
+      "name": "unsubscriptions",
+      "type": "array",
+      "description": "Person IDs to remove as subscribers"
+    }
+  ]
+}

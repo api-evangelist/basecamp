@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/project-structure.json",
+  "title": "Project",
+  "type": "record",
+  "members": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "Unique project identifier"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Project status (active, archived, trashed)"
+    },
+    {
+      "name": "created_at",
+      "type": "string",
+      "description": "Timestamp when the project was created"
+    },
+    {
+      "name": "updated_at",
+      "type": "string",
+      "description": "Timestamp when the project was last updated"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Project name"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Project description"
+    },
+    {
+      "name": "purpose",
+      "type": "string",
+      "description": "Project purpose classification"
+    },
+    {
+      "name": "clients_enabled",
+      "type": "boolean",
+      "description": "Whether client access is enabled for this project"
+    },
+    {
+      "name": "timesheet_enabled",
+      "type": "boolean",
+      "description": "Whether timesheets are enabled for this project"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "description": "Project color identifier"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "API URL for this project"
+    },
+    {
+      "name": "app_url",
+      "type": "string",
+      "description": "Web URL for this project"
+    },
+    {
+      "name": "bookmark_url",
+      "type": "string",
+      "description": "API URL to bookmark this project"
+    },
+    {
+      "name": "dock",
+      "type": "array",
+      "description": "List of tools available on this project"
+    }
+  ]
+}

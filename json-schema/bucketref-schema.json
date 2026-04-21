@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/bucketref-schema.json",
+  "title": "BucketRef",
+  "type": "object",
+  "description": "Reference to the project (bucket) that contains a resource",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Project ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Project name"
+    },
+    "type": {
+      "type": "string",
+      "description": "Resource type, always \"Project\""
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "API URL for the project"
+    },
+    "app_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Web URL for the project"
+    }
+  }
+}

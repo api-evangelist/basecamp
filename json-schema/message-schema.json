@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/message-schema.json",
+  "title": "Message",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Recording"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "subject": {
+          "type": "string",
+          "description": "Message subject/title"
+        },
+        "content": {
+          "type": "string",
+          "description": "HTML-formatted message body"
+        },
+        "comments_count": {
+          "type": "integer",
+          "description": "Number of comments on this message"
+        },
+        "comments_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "API URL to list comments"
+        },
+        "boosts_count": {
+          "type": "integer",
+          "description": "Number of boosts (reactions) on this message"
+        }
+      }
+    }
+  ]
+}

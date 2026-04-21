@@ -1,0 +1,108 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Basecamp Project Management"
+  description: >-
+    Basecamp project management workflow for teams, covering project creation,
+    to-do management, messaging, scheduling, and team member management.
+  tags:
+    - Basecamp
+    - Project Management
+    - Collaboration
+    - Team Communication
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      BASECAMP_ACCESS_TOKEN: BASECAMP_ACCESS_TOKEN
+      BASECAMP_ACCOUNT_ID: BASECAMP_ACCOUNT_ID
+
+capability:
+  consumes:
+    - import: basecamp-api
+      location: ./shared/basecamp-api.yaml
+
+  exposes:
+    - type: mcp
+      port: 9080
+      namespace: basecamp-mcp
+      transport: http
+      description: "MCP server for AI-assisted Basecamp project management."
+      tools:
+        - name: list-basecamp-projects
+          description: List all active Basecamp projects for the account
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "basecamp-api.listProjects"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-basecamp-project
+          description: Create a new Basecamp project
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "basecamp-api.createProject"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-todos
+          description: List to-dos in a Basecamp todolist
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "basecamp-api.listTodos"
+          with:
+            projectId: "tools.projectId"
+            todolistId: "tools.todolistId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-todo
+          description: Create a new to-do item in a Basecamp project
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "basecamp-api.createTodo"
+          with:
+            projectId: "tools.projectId"
+            todolistId: "tools.todolistId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-messages
+          description: List messages on a Basecamp message board
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "basecamp-api.listMessages"
+          with:
+            projectId: "tools.projectId"
+            messageBoardId: "tools.messageBoardId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: post-message
+          description: Post a new message to a Basecamp message board
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "basecamp-api.createMessage"
+          with:
+            projectId: "tools.projectId"
+            messageBoardId: "tools.messageBoardId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-team-members
+          description: List all people in the Basecamp account
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "basecamp-api.listPeople"
+          outputParameters:
+            - type: object
+              mapping: "$."

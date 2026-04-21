@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/campfirelinecreaterequest-schema.json",
+  "title": "CampfireLineCreateRequest",
+  "type": "object",
+  "required": [
+    "content"
+  ],
+  "properties": {
+    "content": {
+      "type": "string",
+      "description": "Plain text content of the campfire message"
+    }
+  }
+}

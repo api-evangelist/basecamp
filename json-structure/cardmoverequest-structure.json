@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/cardmoverequest-structure.json",
+  "title": "CardMoveRequest",
+  "type": "record",
+  "members": [
+    {
+      "name": "source_id",
+      "type": "integer",
+      "description": "Recording ID of the card to move"
+    },
+    {
+      "name": "target_id",
+      "type": "integer",
+      "description": "Recording ID of the destination column"
+    },
+    {
+      "name": "position",
+      "type": "integer",
+      "description": "Zero-indexed position within the destination column"
+    }
+  ]
+}

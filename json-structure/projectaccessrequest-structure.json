@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/projectaccessrequest-structure.json",
+  "title": "ProjectAccessRequest",
+  "type": "record",
+  "members": [
+    {
+      "name": "grant",
+      "type": "array",
+      "description": "Array of person IDs to grant access"
+    },
+    {
+      "name": "revoke",
+      "type": "array",
+      "description": "Array of person IDs to revoke access"
+    },
+    {
+      "name": "create",
+      "type": "array",
+      "description": "New people to invite to the project"
+    }
+  ]
+}

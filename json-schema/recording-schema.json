@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/recording-schema.json",
+  "title": "Recording",
+  "type": "object",
+  "description": "A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Recording ID"
+    },
+    "status": {
+      "type": "string",
+      "description": "Recording status",
+      "enum": [
+        "active",
+        "archived",
+        "trashed"
+      ]
+    },
+    "visible_to_clients": {
+      "type": "boolean",
+      "description": "Whether this recording is visible to client users"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the recording was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the recording was last updated"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title or summary of the recording"
+    },
+    "inherits_status": {
+      "type": "boolean",
+      "description": "Whether this recording inherits its status from a parent"
+    },
+    "type": {
+      "type": "string",
+      "description": "Recording type (e.g., Message, Todo, Document)"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "API URL for this recording"
+    },
+    "app_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Web URL for this recording"
+    },
+    "bucket": {
+      "$ref": "#/components/schemas/BucketRef"
+    },
+    "creator": {
+      "$ref": "#/components/schemas/PersonRef"
+    }
+  }
+}

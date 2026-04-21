@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/dockitem-schema.json",
+  "title": "DockItem",
+  "type": "object",
+  "description": "A tool available on a project's dock",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Dock item ID"
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title of the tool"
+    },
+    "name": {
+      "type": "string",
+      "description": "Internal name of the tool (e.g., message_board, todoset)"
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether this tool is enabled on the project"
+    },
+    "position": {
+      "type": "integer",
+      "description": "Display position of the tool in the dock",
+      "nullable": true
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "API URL for this tool's resource"
+    },
+    "app_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Web URL for this tool's resource"
+    }
+  }
+}

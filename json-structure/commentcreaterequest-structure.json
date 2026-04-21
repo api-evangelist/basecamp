@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/commentcreaterequest-structure.json",
+  "title": "CommentCreateRequest",
+  "type": "record",
+  "members": [
+    {
+      "name": "content",
+      "type": "string",
+      "description": "Comment body in HTML format"
+    }
+  ]
+}

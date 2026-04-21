@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/document-schema.json",
+  "title": "Document",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Recording"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "description": "HTML-formatted document body"
+        },
+        "comments_count": {
+          "type": "integer",
+          "description": "Number of comments on this document"
+        },
+        "boosts_count": {
+          "type": "integer",
+          "description": "Number of boosts on this document"
+        },
+        "position": {
+          "type": "integer",
+          "description": "Display position within the vault"
+        }
+      }
+    }
+  ]
+}

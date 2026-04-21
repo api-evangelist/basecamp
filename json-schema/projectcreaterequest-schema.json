@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/projectcreaterequest-schema.json",
+  "title": "ProjectCreateRequest",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name for the new project"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description of the project"
+    }
+  }
+}

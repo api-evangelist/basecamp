@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/scheduleupdaterequest-structure.json",
+  "title": "ScheduleUpdateRequest",
+  "type": "record",
+  "members": [
+    {
+      "name": "include_due_assignments",
+      "type": "boolean",
+      "description": "Whether the schedule should include due dates from to-dos, cards, and steps"
+    }
+  ]
+}

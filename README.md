@@ -1,34 +1,25 @@
 # Basecamp (basecamp)
-Basecamp is a project management and team communication platform developed by 37signals that helps teams organize work, track to-dos, share files, and communicate in one place. Their developer platform provides REST APIs and webhook support, enabling programmatic access to projects, messages, schedules, documents, and team members across Basecamp accounts.
+Basecamp is a project management and team collaboration platform developed by 37signals. The Basecamp REST API provides programmatic access to projects, to-do lists, messages, documents, schedules, and team members via OAuth2 authentication.
 
 **URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/basecamp/refs/heads/main/apis.yml)
 
-## Scope
-
-- **Type:** Contract
-- **Position:** Consuming
-- **Access:** 3rd-Party
+**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
 
 ## Tags:
 
- - Project Management, Team Communication, Collaboration, REST
+ - Collaboration, Project Management, REST, SaaS, Team Communication
 
 ## Timestamps
 
-- **Created:** 2026-03-21
-- **Modified:** 2026-03-21
+- **Created:** 2024-01-01
+- **Modified:** 2026-04-19
 
 ## APIs
 
 ### Basecamp API
-The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
+REST API for programmatic access to Basecamp projects, to-dos, messages, schedules, and team members.
 
 **Human URL:** [https://github.com/basecamp/bc3-api](https://github.com/basecamp/bc3-api)
-
-
-#### Tags:
-
- - Project Management, Team Communication, Collaboration, REST
 
 #### Properties
 
@@ -36,48 +27,79 @@ The Basecamp API is a REST API that provides programmatic access to Basecamp's p
 - [OpenAPI](openapi/basecamp-api-openapi.yml)
 
 ### Basecamp Webhooks
-Basecamp Webhooks allow developers to receive real-time HTTP notifications when events occur within a Basecamp project. Webhooks are configured per project with an HTTPS payload URL and a list of resource types that should trigger notifications. Basecamp will attempt delivery up to 10 times with exponential backoff before deactivating a webhook if the endpoint does not return a 2xx status code. Developers can manage webhook subscriptions via the REST API, including creating, listing, updating, and deleting webhooks for a given project.
+Real-time HTTP notifications for project events.
 
 **Human URL:** [https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md](https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md)
 
-
-#### Tags:
-
- - Webhooks, Events, Notifications, Project Management
-
-#### Properties
-
-- [Documentation](https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md)
-- [AsyncAPI](asyncapi/basecamp-webhooks-asyncapi.yml)
-
 ### Basecamp OAuth
-Basecamp OAuth 2.0 is the required authentication mechanism for accessing all Basecamp APIs. Developers register their applications at launchpad.37signals.com to receive a client ID and client secret, then implement the OAuth authorization code flow to obtain access tokens on behalf of users. Access tokens expire after two weeks and can be refreshed using refresh tokens without requiring the user to re-authorize. All API requests must include an Authorization Bearer token header along with a descriptive User-Agent header identifying the application and a contact email address.
+OAuth 2.0 authentication via 37signals Launchpad.
 
 **Human URL:** [https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md](https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md)
 
-
-#### Tags:
-
- - OAuth, Authentication, Authorization, Security
-
-#### Properties
-
-- [Documentation](https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md)
-- [OpenAPI](openapi/basecamp-oauth-openapi.yml)
-
 ## Common Properties
 
-- [Portal](https://dev.37signals.com/)
-- [Documentation](https://github.com/basecamp/bc3-api)
 - [Website](https://basecamp.com/)
-- [PrivacyPolicy](https://basecamp.com/about/policies/privacy)
-- [TermsOfService](https://basecamp.com/about/policies/terms)
-- [Support](https://basecamp.com/support)
+- [API Documentation](https://github.com/basecamp/bc3-api)
+- [37signals Launchpad](https://launchpad.37signals.com/)
 - [Blog](https://basecamp.com/blog)
-- [Login](https://launchpad.37signals.com/signin)
+- [TermsOfService](https://basecamp.com/about/policies/terms)
+- [PrivacyPolicy](https://basecamp.com/about/policies/privacy)
+
+## Features
+
+| Name | Description |
+|------|-------------|
+| Project Management | Create and manage projects with team access controls. |
+| To-Do Lists | Hierarchical to-do lists with assignments, due dates, and completion tracking. |
+| Message Boards | Threaded message boards for team discussion and announcements. |
+| Campfire Chat | Real-time group chat within projects. |
+| Schedules | Project calendars with events and milestones. |
+| File Storage | Document and file storage with version history. |
+| Webhooks | Real-time event notifications for project activity. |
+| OAuth2 API | Full REST API with OAuth2 authentication for third-party integrations. |
+
+## Use Cases
+
+| Name | Description |
+|------|-------------|
+| Software Development | Track sprints, bugs, and feature development with to-do lists. |
+| Client Projects | Manage client deliverables, approvals, and communications. |
+| Remote Team Collaboration | Asynchronous team communication and project coordination. |
+| Project Automation | Automate project workflows and reporting via REST API. |
+| Agency Project Management | Multi-client project organization for agencies and consultancies. |
+
+## Artifacts
+
+### OpenAPI
+
+- [Basecamp API](openapi/basecamp-api-openapi.yml)
+
+### JSON-LD
+
+- [Basecamp JSON-LD Context](json-ld/basecamp-context.jsonld)
+
+## Capabilities
+
+### Shared Per-API Definitions
+
+- [Basecamp API](capabilities/shared/basecamp-api.yaml) — 10 key operations
+
+### Workflow Capabilities
+
+| Workflow | APIs Combined | Tools | Persona |
+|----------|--------------|-------|---------|
+| [Project Management](capabilities/project-management.yaml) | Basecamp | 7 | Project Manager, Team Member, Developer |
+
+## Vocabulary
+
+- [Basecamp Vocabulary](vocabulary/basecamp-vocabulary.yaml) — 6 resources, 6 actions, 1 workflow, 3 personas
+
+## Rules
+
+- [Basecamp Spectral Rules](rules/basecamp-spectral-rules.yml) — 15 rules enforcing API conventions
 
 ## Maintainers
 
-**FN:** API Evangelist
+**FN:** Kin Lane
 
-**Email:** info@apievangelist.com
+**Email:** kin@apievangelist.com

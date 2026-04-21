@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/project-schema.json",
+  "title": "Project",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique project identifier"
+    },
+    "status": {
+      "type": "string",
+      "description": "Project status (active, archived, trashed)",
+      "enum": [
+        "active",
+        "archived",
+        "trashed"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the project was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the project was last updated"
+    },
+    "name": {
+      "type": "string",
+      "description": "Project name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Project description",
+      "nullable": true
+    },
+    "purpose": {
+      "type": "string",
+      "description": "Project purpose classification"
+    },
+    "clients_enabled": {
+      "type": "boolean",
+      "description": "Whether client access is enabled for this project"
+    },
+    "timesheet_enabled": {
+      "type": "boolean",
+      "description": "Whether timesheets are enabled for this project"
+    },
+    "color": {
+      "type": "string",
+      "description": "Project color identifier",
+      "nullable": true
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "API URL for this project"
+    },
+    "app_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Web URL for this project"
+    },
+    "bookmark_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "API URL to bookmark this project"
+    },
+    "dock": {
+      "type": "array",
+      "description": "List of tools available on this project",
+      "items": {
+        "$ref": "#/components/schemas/DockItem"
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/webhook-schema.json",
+  "title": "Webhook",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Webhook ID"
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether this webhook is currently active"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the webhook was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the webhook was last updated"
+    },
+    "payload_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "HTTPS URL where Basecamp sends event notifications"
+    },
+    "types": {
+      "type": "array",
+      "description": "Resource types that trigger this webhook",
+      "items": {
+        "type": "string"
+      }
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "API URL for this webhook"
+    },
+    "app_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Web URL for this webhook configuration"
+    }
+  }
+}

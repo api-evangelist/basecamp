@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/upload-schema.json",
+  "title": "Upload",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Recording"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "filename": {
+          "type": "string",
+          "description": "Original filename of the upload"
+        },
+        "content_type": {
+          "type": "string",
+          "description": "MIME type of the file"
+        },
+        "byte_size": {
+          "type": "integer",
+          "description": "File size in bytes"
+        },
+        "width": {
+          "type": "integer",
+          "description": "Image width in pixels (for image files)",
+          "nullable": true
+        },
+        "height": {
+          "type": "integer",
+          "description": "Image height in pixels (for image files)",
+          "nullable": true
+        },
+        "download_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Direct download URL for the file"
+        },
+        "description": {
+          "type": "string",
+          "description": "HTML-formatted upload description"
+        },
+        "position": {
+          "type": "integer",
+          "description": "Display position within the vault"
+        },
+        "comments_count": {
+          "type": "integer",
+          "description": "Number of comments on this upload"
+        }
+      }
+    }
+  ]
+}

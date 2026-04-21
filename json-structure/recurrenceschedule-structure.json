@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/recurrenceschedule-structure.json",
+  "title": "RecurrenceSchedule",
+  "type": "record",
+  "members": [
+    {
+      "name": "frequency",
+      "type": "string",
+      "description": "Recurrence frequency"
+    },
+    {
+      "name": "days",
+      "type": "array",
+      "description": "Days of the week for weekly recurrence"
+    },
+    {
+      "name": "hour",
+      "type": "integer",
+      "description": "Hour of the day for the recurrence"
+    },
+    {
+      "name": "minute",
+      "type": "integer",
+      "description": "Minute of the hour for the recurrence"
+    },
+    {
+      "name": "week_instance",
+      "type": "integer",
+      "description": "Week instance within the month for monthly recurrence"
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "description": "Date when the recurrence starts"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "description": "Date when the recurrence ends"
+    }
+  ]
+}

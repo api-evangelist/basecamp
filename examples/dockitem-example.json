@@ -1,0 +1,9 @@
+{
+  "id": 0,
+  "title": "example-title",
+  "name": "example-name",
+  "enabled": true,
+  "position": 0,
+  "url": "example-url",
+  "app_url": "example-app_url"
+}

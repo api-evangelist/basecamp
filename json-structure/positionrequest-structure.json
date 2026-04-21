@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://api-evangelist.github.io/basecamp/json-structure/positionrequest-structure.json",
+  "title": "PositionRequest",
+  "type": "record",
+  "members": [
+    {
+      "name": "position",
+      "type": "integer",
+      "description": "New position within the list (1-indexed)"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/todo-schema.json",
+  "title": "Todo",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Recording"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "description": "To-do text content"
+        },
+        "description": {
+          "type": "string",
+          "description": "HTML-formatted additional details"
+        },
+        "completed": {
+          "type": "boolean",
+          "description": "Whether this to-do has been completed"
+        },
+        "due_on": {
+          "type": "string",
+          "format": "date",
+          "description": "Due date in ISO 8601 format",
+          "nullable": true
+        },
+        "starts_on": {
+          "type": "string",
+          "format": "date",
+          "description": "Start date in ISO 8601 format",
+          "nullable": true
+        },
+        "position": {
+          "type": "integer",
+          "description": "Position within the to-do list"
+        },
+        "assignees": {
+          "type": "array",
+          "description": "People assigned to this to-do",
+          "items": {
+            "$ref": "#/components/schemas/PersonRef"
+          }
+        },
+        "completion_subscribers": {
+          "type": "array",
+          "description": "People notified when this to-do is completed",
+          "items": {
+            "$ref": "#/components/schemas/PersonRef"
+          }
+        },
+        "comments_count": {
+          "type": "integer",
+          "description": "Number of comments on this to-do"
+        },
+        "parent": {
+          "$ref": "#/components/schemas/Recording"
+        }
+      }
+    }
+  ]
+}

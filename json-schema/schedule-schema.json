@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/schedule-schema.json",
+  "title": "Schedule",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Recording"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "include_due_assignments": {
+          "type": "boolean",
+          "description": "Whether the schedule displays due dates from to-dos, cards, and steps alongside scheduled entries"
+        },
+        "entries_count": {
+          "type": "integer",
+          "description": "Total number of schedule entries"
+        },
+        "entries_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "API URL to list schedule entries"
+        }
+      }
+    }
+  ]
+}

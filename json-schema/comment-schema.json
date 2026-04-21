@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/comment-schema.json",
+  "title": "Comment",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Recording"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "description": "HTML-formatted comment body"
+        },
+        "boosts_count": {
+          "type": "integer",
+          "description": "Number of boosts on this comment"
+        },
+        "parent": {
+          "$ref": "#/components/schemas/Recording"
+        }
+      }
+    }
+  ]
+}

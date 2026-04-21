@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/basecamp/json-schema/projectconstruction-schema.json",
+  "title": "ProjectConstruction",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Project construction job ID"
+    },
+    "status": {
+      "type": "string",
+      "description": "Construction status",
+      "enum": [
+        "pending",
+        "completed"
+      ]
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "API URL to poll for this construction job"
+    },
+    "project": {
+      "$ref": "#/components/schemas/Project",
+      "description": "The resulting project once construction is completed"
+    }
+  }
+}

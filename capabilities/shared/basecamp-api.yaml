@@ -1,0 +1,61 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  namespace: basecamp-api
+  label: Basecamp API
+  baseUrl: https://3.basecampapi.com
+
+authentication:
+  - type: oauth2
+    flow: authorizationCode
+    tokenUrl: https://launchpad.37signals.com/authorization/token
+    description: OAuth2 Authorization Code for Basecamp API access
+
+operations:
+  - operationId: listProjects
+    method: GET
+    path: /projects.json
+    description: List all active projects
+  - operationId: createProject
+    method: POST
+    path: /projects.json
+    description: Create a new project
+  - operationId: getProject
+    method: GET
+    path: /projects/{projectId}.json
+    description: Get project details
+    pathParameters: [projectId]
+  - operationId: listTodos
+    method: GET
+    path: /buckets/{projectId}/todolists/{todolistId}/todos.json
+    description: List todos in a todolist
+    pathParameters: [projectId, todolistId]
+  - operationId: createTodo
+    method: POST
+    path: /buckets/{projectId}/todolists/{todolistId}/todos.json
+    description: Create a new todo
+    pathParameters: [projectId, todolistId]
+  - operationId: listMessages
+    method: GET
+    path: /buckets/{projectId}/message_boards/{messageBoardId}/messages.json
+    description: List messages
+    pathParameters: [projectId, messageBoardId]
+  - operationId: createMessage
+    method: POST
+    path: /buckets/{projectId}/message_boards/{messageBoardId}/messages.json
+    description: Post a message
+    pathParameters: [projectId, messageBoardId]
+  - operationId: listPeople
+    method: GET
+    path: /people.json
+    description: List account members
+  - operationId: listComments
+    method: GET
+    path: /buckets/{projectId}/recordings/{recordingId}/comments.json
+    description: List comments on a recording
+    pathParameters: [projectId, recordingId]
+  - operationId: listEvents
+    method: GET
+    path: /buckets/{projectId}/schedules/{scheduleId}/entries.json
+    description: List schedule entries
+    pathParameters: [projectId, scheduleId]
