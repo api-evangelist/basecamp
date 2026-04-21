@@ -7,7 +7,7 @@ tags:
   - REST
   - SaaS
   - Team Communication
-modified: '2026-04-19'
+modified: '2026-04-21'
 description: >-
   Basecamp is a project management and team collaboration platform developed by 37signals.
   The Basecamp REST API (bc3-api) provides programmatic access to projects, to-do lists,
