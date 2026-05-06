@@ -1,0 +1,1955 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Basecamp API
+  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team
+    communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires,
+    uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication
+    and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects,
+    people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth
+    of Basecam
+  tags:
+  - Basecamp
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: basecamp
+    baseUri: https://3.basecampapi.com/999999999
+    description: Basecamp API HTTP API.
+    authentication:
+      type: bearer
+      token: '{{BASECAMP_TOKEN}}'
+    resources:
+    - name: projects-json
+      path: /projects.json
+      operations:
+      - name: listprojects
+        method: GET
+        description: List projects
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: Filter projects by status. Omit for active projects.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createproject
+        method: POST
+        description: Create a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-projectid-json
+      path: /projects/{projectId}.json
+      operations:
+      - name: getproject
+        method: GET
+        description: Get a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateproject
+        method: PUT
+        description: Update a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteproject
+        method: DELETE
+        description: Delete a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: people-json
+      path: /people.json
+      operations:
+      - name: listpeople
+        method: GET
+        description: List all people
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-projectid-people-json
+      path: /projects/{projectId}/people.json
+      operations:
+      - name: listprojectpeople
+        method: GET
+        description: List people on a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-projectid-people-users-json
+      path: /projects/{projectId}/people/users.json
+      operations:
+      - name: updateprojectaccess
+        method: PUT
+        description: Update project access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: circles-people-json
+      path: /circles/people.json
+      operations:
+      - name: listpingablepeople
+        method: GET
+        description: List pingable people
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: people-personid-json
+      path: /people/{personId}.json
+      operations:
+      - name: getperson
+        method: GET
+        description: Get a person
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: my-profile-json
+      path: /my/profile.json
+      operations:
+      - name: getmyprofile
+        method: GET
+        description: Get my profile
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatemyprofile
+        method: PUT
+        description: Update my profile
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: templates-json
+      path: /templates.json
+      operations:
+      - name: listtemplates
+        method: GET
+        description: List templates
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: Filter templates by status.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createtemplate
+        method: POST
+        description: Create a template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: templates-templateid-json
+      path: /templates/{templateId}.json
+      operations:
+      - name: gettemplate
+        method: GET
+        description: Get a template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatetemplate
+        method: PUT
+        description: Update a template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletetemplate
+        method: DELETE
+        description: Delete a template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: templates-templateid-project-constructions-json
+      path: /templates/{templateId}/project_constructions.json
+      operations:
+      - name: createprojectfromtemplate
+        method: POST
+        description: Create project from template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: templates-templateid-project-constructions-const
+      path: /templates/{templateId}/project_constructions/{constructionId}.json
+      operations:
+      - name: getprojectconstruction
+        method: GET
+        description: Get project construction status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-recordings-json
+      path: /projects/recordings.json
+      operations:
+      - name: listrecordings
+        method: GET
+        description: List recordings
+        inputParameters:
+        - name: type
+          in: query
+          type: string
+          required: true
+          description: The recording type to list.
+        - name: bucket
+          in: query
+          type: integer
+          description: Filter to a specific project (bucket) ID.
+        - name: status
+          in: query
+          type: string
+          description: Filter by recording status.
+        - name: sort
+          in: query
+          type: string
+          description: Sort field.
+        - name: direction
+          in: query
+          type: string
+          description: Sort direction.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: recordings-recordingid-status-trashed-json
+      path: /recordings/{recordingId}/status/trashed.json
+      operations:
+      - name: trashrecording
+        method: PUT
+        description: Trash a recording
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: recordings-recordingid-status-archived-json
+      path: /recordings/{recordingId}/status/archived.json
+      operations:
+      - name: archiverecording
+        method: PUT
+        description: Archive a recording
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: recordings-recordingid-status-active-json
+      path: /recordings/{recordingId}/status/active.json
+      operations:
+      - name: unarchiverecording
+        method: PUT
+        description: Unarchive a recording
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: message-boards-messageboardid-messages-json
+      path: /message_boards/{messageBoardId}/messages.json
+      operations:
+      - name: listmessages
+        method: GET
+        description: List messages
+        inputParameters:
+        - name: sort
+          in: query
+          type: string
+          description: Sort field.
+        - name: direction
+          in: query
+          type: string
+          description: Sort direction.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createmessage
+        method: POST
+        description: Create a message
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: messages-messageid-json
+      path: /messages/{messageId}.json
+      operations:
+      - name: getmessage
+        method: GET
+        description: Get a message
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatemessage
+        method: PUT
+        description: Update a message
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: recordings-recordingid-comments-json
+      path: /recordings/{recordingId}/comments.json
+      operations:
+      - name: listcomments
+        method: GET
+        description: List comments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createcomment
+        method: POST
+        description: Create a comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: comments-commentid-json
+      path: /comments/{commentId}.json
+      operations:
+      - name: getcomment
+        method: GET
+        description: Get a comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatecomment
+        method: PUT
+        description: Update a comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: todosets-todosetid-todolists-json
+      path: /todosets/{todosetId}/todolists.json
+      operations:
+      - name: listtodolists
+        method: GET
+        description: List to-do lists
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: Filter by status.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createtodolist
+        method: POST
+        description: Create a to-do list
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: todolists-todolistid-json
+      path: /todolists/{todolistId}.json
+      operations:
+      - name: gettodolist
+        method: GET
+        description: Get a to-do list
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatetodolist
+        method: PUT
+        description: Update a to-do list
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: todolists-todolistid-todos-json
+      path: /todolists/{todolistId}/todos.json
+      operations:
+      - name: listtodos
+        method: GET
+        description: List to-dos
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: Filter by status.
+        - name: completed
+          in: query
+          type: boolean
+          description: Set to true to return completed to-dos.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createtodo
+        method: POST
+        description: Create a to-do
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: todos-todoid-json
+      path: /todos/{todoId}.json
+      operations:
+      - name: gettodo
+        method: GET
+        description: Get a to-do
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatetodo
+        method: PUT
+        description: Update a to-do
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: todos-todoid-completion-json
+      path: /todos/{todoId}/completion.json
+      operations:
+      - name: completetodo
+        method: POST
+        description: Complete a to-do
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: uncompletetodo
+        method: DELETE
+        description: Uncomplete a to-do
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: todos-todoid-position-json
+      path: /todos/{todoId}/position.json
+      operations:
+      - name: repositiontodo
+        method: PUT
+        description: Reposition a to-do
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: schedules-scheduleid-json
+      path: /schedules/{scheduleId}.json
+      operations:
+      - name: getschedule
+        method: GET
+        description: Get a schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateschedule
+        method: PUT
+        description: Update a schedule
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: schedules-scheduleid-entries-json
+      path: /schedules/{scheduleId}/entries.json
+      operations:
+      - name: listscheduleentries
+        method: GET
+        description: List schedule entries
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: Filter by status.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createscheduleentry
+        method: POST
+        description: Create a schedule entry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: schedule-entries-entryid-json
+      path: /schedule_entries/{entryId}.json
+      operations:
+      - name: getscheduleentry
+        method: GET
+        description: Get a schedule entry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatescheduleentry
+        method: PUT
+        description: Update a schedule entry
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: vaults-vaultid-documents-json
+      path: /vaults/{vaultId}/documents.json
+      operations:
+      - name: listdocuments
+        method: GET
+        description: List documents
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createdocument
+        method: POST
+        description: Create a document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: documents-documentid-json
+      path: /documents/{documentId}.json
+      operations:
+      - name: getdocument
+        method: GET
+        description: Get a document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatedocument
+        method: PUT
+        description: Update a document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: vaults-vaultid-uploads-json
+      path: /vaults/{vaultId}/uploads.json
+      operations:
+      - name: listuploads
+        method: GET
+        description: List uploads
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createupload
+        method: POST
+        description: Create an upload
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: uploads-uploadid-json
+      path: /uploads/{uploadId}.json
+      operations:
+      - name: getupload
+        method: GET
+        description: Get an upload
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateupload
+        method: PUT
+        description: Update an upload
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: chats-json
+      path: /chats.json
+      operations:
+      - name: listcampfires
+        method: GET
+        description: List campfires
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: chats-campfireid-json
+      path: /chats/{campfireId}.json
+      operations:
+      - name: getcampfire
+        method: GET
+        description: Get a campfire
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: chats-campfireid-lines-json
+      path: /chats/{campfireId}/lines.json
+      operations:
+      - name: listcampfirelines
+        method: GET
+        description: List campfire lines
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createcampfireline
+        method: POST
+        description: Create a campfire line
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: basecamp-rest
+    description: REST adapter for Basecamp API.
+    resources:
+    - path: /projects.json
+      name: listprojects
+      operations:
+      - method: GET
+        name: listprojects
+        description: List projects
+        call: basecamp.listprojects
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects.json
+      name: createproject
+      operations:
+      - method: POST
+        name: createproject
+        description: Create a project
+        call: basecamp.createproject
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{projectId}.json
+      name: getproject
+      operations:
+      - method: GET
+        name: getproject
+        description: Get a project
+        call: basecamp.getproject
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{projectId}.json
+      name: updateproject
+      operations:
+      - method: PUT
+        name: updateproject
+        description: Update a project
+        call: basecamp.updateproject
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{projectId}.json
+      name: deleteproject
+      operations:
+      - method: DELETE
+        name: deleteproject
+        description: Delete a project
+        call: basecamp.deleteproject
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /people.json
+      name: listpeople
+      operations:
+      - method: GET
+        name: listpeople
+        description: List all people
+        call: basecamp.listpeople
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{projectId}/people.json
+      name: listprojectpeople
+      operations:
+      - method: GET
+        name: listprojectpeople
+        description: List people on a project
+        call: basecamp.listprojectpeople
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/{projectId}/people/users.json
+      name: updateprojectaccess
+      operations:
+      - method: PUT
+        name: updateprojectaccess
+        description: Update project access
+        call: basecamp.updateprojectaccess
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /circles/people.json
+      name: listpingablepeople
+      operations:
+      - method: GET
+        name: listpingablepeople
+        description: List pingable people
+        call: basecamp.listpingablepeople
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /people/{personId}.json
+      name: getperson
+      operations:
+      - method: GET
+        name: getperson
+        description: Get a person
+        call: basecamp.getperson
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /my/profile.json
+      name: getmyprofile
+      operations:
+      - method: GET
+        name: getmyprofile
+        description: Get my profile
+        call: basecamp.getmyprofile
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /my/profile.json
+      name: updatemyprofile
+      operations:
+      - method: PUT
+        name: updatemyprofile
+        description: Update my profile
+        call: basecamp.updatemyprofile
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /templates.json
+      name: listtemplates
+      operations:
+      - method: GET
+        name: listtemplates
+        description: List templates
+        call: basecamp.listtemplates
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /templates.json
+      name: createtemplate
+      operations:
+      - method: POST
+        name: createtemplate
+        description: Create a template
+        call: basecamp.createtemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /templates/{templateId}.json
+      name: gettemplate
+      operations:
+      - method: GET
+        name: gettemplate
+        description: Get a template
+        call: basecamp.gettemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /templates/{templateId}.json
+      name: updatetemplate
+      operations:
+      - method: PUT
+        name: updatetemplate
+        description: Update a template
+        call: basecamp.updatetemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /templates/{templateId}.json
+      name: deletetemplate
+      operations:
+      - method: DELETE
+        name: deletetemplate
+        description: Delete a template
+        call: basecamp.deletetemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /templates/{templateId}/project_constructions.json
+      name: createprojectfromtemplate
+      operations:
+      - method: POST
+        name: createprojectfromtemplate
+        description: Create project from template
+        call: basecamp.createprojectfromtemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /templates/{templateId}/project_constructions/{constructionId}.json
+      name: getprojectconstruction
+      operations:
+      - method: GET
+        name: getprojectconstruction
+        description: Get project construction status
+        call: basecamp.getprojectconstruction
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /projects/recordings.json
+      name: listrecordings
+      operations:
+      - method: GET
+        name: listrecordings
+        description: List recordings
+        call: basecamp.listrecordings
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /recordings/{recordingId}/status/trashed.json
+      name: trashrecording
+      operations:
+      - method: PUT
+        name: trashrecording
+        description: Trash a recording
+        call: basecamp.trashrecording
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /recordings/{recordingId}/status/archived.json
+      name: archiverecording
+      operations:
+      - method: PUT
+        name: archiverecording
+        description: Archive a recording
+        call: basecamp.archiverecording
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /recordings/{recordingId}/status/active.json
+      name: unarchiverecording
+      operations:
+      - method: PUT
+        name: unarchiverecording
+        description: Unarchive a recording
+        call: basecamp.unarchiverecording
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /message_boards/{messageBoardId}/messages.json
+      name: listmessages
+      operations:
+      - method: GET
+        name: listmessages
+        description: List messages
+        call: basecamp.listmessages
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /message_boards/{messageBoardId}/messages.json
+      name: createmessage
+      operations:
+      - method: POST
+        name: createmessage
+        description: Create a message
+        call: basecamp.createmessage
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /messages/{messageId}.json
+      name: getmessage
+      operations:
+      - method: GET
+        name: getmessage
+        description: Get a message
+        call: basecamp.getmessage
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /messages/{messageId}.json
+      name: updatemessage
+      operations:
+      - method: PUT
+        name: updatemessage
+        description: Update a message
+        call: basecamp.updatemessage
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /recordings/{recordingId}/comments.json
+      name: listcomments
+      operations:
+      - method: GET
+        name: listcomments
+        description: List comments
+        call: basecamp.listcomments
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /recordings/{recordingId}/comments.json
+      name: createcomment
+      operations:
+      - method: POST
+        name: createcomment
+        description: Create a comment
+        call: basecamp.createcomment
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /comments/{commentId}.json
+      name: getcomment
+      operations:
+      - method: GET
+        name: getcomment
+        description: Get a comment
+        call: basecamp.getcomment
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /comments/{commentId}.json
+      name: updatecomment
+      operations:
+      - method: PUT
+        name: updatecomment
+        description: Update a comment
+        call: basecamp.updatecomment
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /todosets/{todosetId}/todolists.json
+      name: listtodolists
+      operations:
+      - method: GET
+        name: listtodolists
+        description: List to-do lists
+        call: basecamp.listtodolists
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /todosets/{todosetId}/todolists.json
+      name: createtodolist
+      operations:
+      - method: POST
+        name: createtodolist
+        description: Create a to-do list
+        call: basecamp.createtodolist
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /todolists/{todolistId}.json
+      name: gettodolist
+      operations:
+      - method: GET
+        name: gettodolist
+        description: Get a to-do list
+        call: basecamp.gettodolist
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /todolists/{todolistId}.json
+      name: updatetodolist
+      operations:
+      - method: PUT
+        name: updatetodolist
+        description: Update a to-do list
+        call: basecamp.updatetodolist
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /todolists/{todolistId}/todos.json
+      name: listtodos
+      operations:
+      - method: GET
+        name: listtodos
+        description: List to-dos
+        call: basecamp.listtodos
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /todolists/{todolistId}/todos.json
+      name: createtodo
+      operations:
+      - method: POST
+        name: createtodo
+        description: Create a to-do
+        call: basecamp.createtodo
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /todos/{todoId}.json
+      name: gettodo
+      operations:
+      - method: GET
+        name: gettodo
+        description: Get a to-do
+        call: basecamp.gettodo
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /todos/{todoId}.json
+      name: updatetodo
+      operations:
+      - method: PUT
+        name: updatetodo
+        description: Update a to-do
+        call: basecamp.updatetodo
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /todos/{todoId}/completion.json
+      name: completetodo
+      operations:
+      - method: POST
+        name: completetodo
+        description: Complete a to-do
+        call: basecamp.completetodo
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /todos/{todoId}/completion.json
+      name: uncompletetodo
+      operations:
+      - method: DELETE
+        name: uncompletetodo
+        description: Uncomplete a to-do
+        call: basecamp.uncompletetodo
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /todos/{todoId}/position.json
+      name: repositiontodo
+      operations:
+      - method: PUT
+        name: repositiontodo
+        description: Reposition a to-do
+        call: basecamp.repositiontodo
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /schedules/{scheduleId}.json
+      name: getschedule
+      operations:
+      - method: GET
+        name: getschedule
+        description: Get a schedule
+        call: basecamp.getschedule
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /schedules/{scheduleId}.json
+      name: updateschedule
+      operations:
+      - method: PUT
+        name: updateschedule
+        description: Update a schedule
+        call: basecamp.updateschedule
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /schedules/{scheduleId}/entries.json
+      name: listscheduleentries
+      operations:
+      - method: GET
+        name: listscheduleentries
+        description: List schedule entries
+        call: basecamp.listscheduleentries
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /schedules/{scheduleId}/entries.json
+      name: createscheduleentry
+      operations:
+      - method: POST
+        name: createscheduleentry
+        description: Create a schedule entry
+        call: basecamp.createscheduleentry
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /schedule_entries/{entryId}.json
+      name: getscheduleentry
+      operations:
+      - method: GET
+        name: getscheduleentry
+        description: Get a schedule entry
+        call: basecamp.getscheduleentry
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /schedule_entries/{entryId}.json
+      name: updatescheduleentry
+      operations:
+      - method: PUT
+        name: updatescheduleentry
+        description: Update a schedule entry
+        call: basecamp.updatescheduleentry
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /vaults/{vaultId}/documents.json
+      name: listdocuments
+      operations:
+      - method: GET
+        name: listdocuments
+        description: List documents
+        call: basecamp.listdocuments
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /vaults/{vaultId}/documents.json
+      name: createdocument
+      operations:
+      - method: POST
+        name: createdocument
+        description: Create a document
+        call: basecamp.createdocument
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /documents/{documentId}.json
+      name: getdocument
+      operations:
+      - method: GET
+        name: getdocument
+        description: Get a document
+        call: basecamp.getdocument
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /documents/{documentId}.json
+      name: updatedocument
+      operations:
+      - method: PUT
+        name: updatedocument
+        description: Update a document
+        call: basecamp.updatedocument
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /vaults/{vaultId}/uploads.json
+      name: listuploads
+      operations:
+      - method: GET
+        name: listuploads
+        description: List uploads
+        call: basecamp.listuploads
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /vaults/{vaultId}/uploads.json
+      name: createupload
+      operations:
+      - method: POST
+        name: createupload
+        description: Create an upload
+        call: basecamp.createupload
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /uploads/{uploadId}.json
+      name: getupload
+      operations:
+      - method: GET
+        name: getupload
+        description: Get an upload
+        call: basecamp.getupload
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /uploads/{uploadId}.json
+      name: updateupload
+      operations:
+      - method: PUT
+        name: updateupload
+        description: Update an upload
+        call: basecamp.updateupload
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /chats.json
+      name: listcampfires
+      operations:
+      - method: GET
+        name: listcampfires
+        description: List campfires
+        call: basecamp.listcampfires
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /chats/{campfireId}.json
+      name: getcampfire
+      operations:
+      - method: GET
+        name: getcampfire
+        description: Get a campfire
+        call: basecamp.getcampfire
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /chats/{campfireId}/lines.json
+      name: listcampfirelines
+      operations:
+      - method: GET
+        name: listcampfirelines
+        description: List campfire lines
+        call: basecamp.listcampfirelines
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /chats/{campfireId}/lines.json
+      name: createcampfireline
+      operations:
+      - method: POST
+        name: createcampfireline
+        description: Create a campfire line
+        call: basecamp.createcampfireline
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: basecamp-mcp
+    transport: http
+    description: MCP adapter for Basecamp API for AI agent use.
+    tools:
+    - name: listprojects
+      description: List projects
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.listprojects
+      with:
+        status: tools.status
+      inputParameters:
+      - name: status
+        type: string
+        description: Filter projects by status. Omit for active projects.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createproject
+      description: Create a project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp.createproject
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getproject
+      description: Get a project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.getproject
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateproject
+      description: Update a project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp.updateproject
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deleteproject
+      description: Delete a project
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: basecamp.deleteproject
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listpeople
+      description: List all people
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.listpeople
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listprojectpeople
+      description: List people on a project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.listprojectpeople
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateprojectaccess
+      description: Update project access
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp.updateprojectaccess
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listpingablepeople
+      description: List pingable people
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.listpingablepeople
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getperson
+      description: Get a person
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.getperson
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getmyprofile
+      description: Get my profile
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.getmyprofile
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatemyprofile
+      description: Update my profile
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp.updatemyprofile
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listtemplates
+      description: List templates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.listtemplates
+      with:
+        status: tools.status
+      inputParameters:
+      - name: status
+        type: string
+        description: Filter templates by status.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createtemplate
+      description: Create a template
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp.createtemplate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gettemplate
+      description: Get a template
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.gettemplate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatetemplate
+      description: Update a template
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp.updatetemplate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletetemplate
+      description: Delete a template
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: basecamp.deletetemplate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createprojectfromtemplate
+      description: Create project from template
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp.createprojectfromtemplate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getprojectconstruction
+      description: Get project construction status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.getprojectconstruction
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listrecordings
+      description: List recordings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.listrecordings
+      with:
+        type: tools.type
+        bucket: tools.bucket
+        status: tools.status
+        sort: tools.sort
+        direction: tools.direction
+      inputParameters:
+      - name: type
+        type: string
+        description: The recording type to list.
+        required: true
+      - name: bucket
+        type: integer
+        description: Filter to a specific project (bucket) ID.
+      - name: status
+        type: string
+        description: Filter by recording status.
+      - name: sort
+        type: string
+        description: Sort field.
+      - name: direction
+        type: string
+        description: Sort direction.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: trashrecording
+      description: Trash a recording
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp.trashrecording
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: archiverecording
+      description: Archive a recording
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp.archiverecording
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: unarchiverecording
+      description: Unarchive a recording
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp.unarchiverecording
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listmessages
+      description: List messages
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.listmessages
+      with:
+        sort: tools.sort
+        direction: tools.direction
+      inputParameters:
+      - name: sort
+        type: string
+        description: Sort field.
+      - name: direction
+        type: string
+        description: Sort direction.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createmessage
+      description: Create a message
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp.createmessage
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getmessage
+      description: Get a message
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.getmessage
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatemessage
+      description: Update a message
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp.updatemessage
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listcomments
+      description: List comments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.listcomments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createcomment
+      description: Create a comment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp.createcomment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getcomment
+      description: Get a comment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.getcomment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatecomment
+      description: Update a comment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp.updatecomment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listtodolists
+      description: List to-do lists
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.listtodolists
+      with:
+        status: tools.status
+      inputParameters:
+      - name: status
+        type: string
+        description: Filter by status.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createtodolist
+      description: Create a to-do list
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp.createtodolist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gettodolist
+      description: Get a to-do list
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.gettodolist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatetodolist
+      description: Update a to-do list
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp.updatetodolist
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listtodos
+      description: List to-dos
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.listtodos
+      with:
+        status: tools.status
+        completed: tools.completed
+      inputParameters:
+      - name: status
+        type: string
+        description: Filter by status.
+      - name: completed
+        type: boolean
+        description: Set to true to return completed to-dos.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createtodo
+      description: Create a to-do
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp.createtodo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gettodo
+      description: Get a to-do
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.gettodo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatetodo
+      description: Update a to-do
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp.updatetodo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: completetodo
+      description: Complete a to-do
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp.completetodo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uncompletetodo
+      description: Uncomplete a to-do
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: basecamp.uncompletetodo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: repositiontodo
+      description: Reposition a to-do
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp.repositiontodo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getschedule
+      description: Get a schedule
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.getschedule
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateschedule
+      description: Update a schedule
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp.updateschedule
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listscheduleentries
+      description: List schedule entries
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.listscheduleentries
+      with:
+        status: tools.status
+      inputParameters:
+      - name: status
+        type: string
+        description: Filter by status.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createscheduleentry
+      description: Create a schedule entry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp.createscheduleentry
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getscheduleentry
+      description: Get a schedule entry
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.getscheduleentry
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatescheduleentry
+      description: Update a schedule entry
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp.updatescheduleentry
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listdocuments
+      description: List documents
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.listdocuments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createdocument
+      description: Create a document
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp.createdocument
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getdocument
+      description: Get a document
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.getdocument
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatedocument
+      description: Update a document
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp.updatedocument
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listuploads
+      description: List uploads
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.listuploads
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createupload
+      description: Create an upload
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp.createupload
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getupload
+      description: Get an upload
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.getupload
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateupload
+      description: Update an upload
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp.updateupload
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listcampfires
+      description: List campfires
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.listcampfires
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getcampfire
+      description: Get a campfire
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.getcampfire
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listcampfirelines
+      description: List campfire lines
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp.listcampfirelines
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createcampfireline
+      description: Create a campfire line
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp.createcampfireline
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    BASECAMP_TOKEN: BASECAMP_TOKEN
