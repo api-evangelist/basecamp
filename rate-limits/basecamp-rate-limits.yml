@@ -4,7 +4,8 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Basecamp
 providerId: basecamp
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - Collaboration
   - Project Management
@@ -12,88 +13,44 @@ tags:
   - SaaS
   - Team Communication
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Basecamp API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+description: Basecamp's bc3-api enforces multiple rate limits simultaneously, scoped per IP address with
+  separate windows for GET vs POST and per-second/hour/day buckets. The most commonly hit limit is 50
+  requests per 10-second window per IP. Thresholds are dynamic and not published per-plan; integrators
+  must handle backpressure rather than rely on static numbers.
+sources:
+  - https://github.com/basecamp/bc3-api
+  - https://github.com/basecamp/bc3-api/blob/master/README.md
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
   retryAfter: Retry-After
-  policy: RateLimit-Policy
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Basecamp API
-      - Basecamp Webhooks
-      - Basecamp OAuth
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Basecamp API
-      - Basecamp Webhooks
-      - Basecamp OAuth
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Basecamp API
-      - Basecamp Webhooks
-      - Basecamp OAuth
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Basecamp API
-      - Basecamp Webhooks
-      - Basecamp OAuth
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Basecamp API
-      - Basecamp Webhooks
-      - Basecamp OAuth
+  - name: Default per-IP throttle
+    scope: IP
+    metric: requests_per_10_seconds
+    limit: 50
+    timeFrame: 10-seconds
+    notes: Most commonly encountered limit. Multiple per-second/hour/day limits operate concurrently and
+      are dynamically adjusted by Basecamp.
+  - name: Per-method dynamic limits
+    scope: IP
+    metric: varies
+    limit: 'dynamic — separate buckets for GET and POST, per-second/hour/day'
+    notes: Documentation does not publish the exact thresholds; clients must observe 429 + Retry-After
+      and back off.
 policies:
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    description: Implement exponential backoff with jitter and honor the Retry-After header on 429 responses.
+  - name: Retry on 5xx
+    description: 500, 502, 503, and 504 responses should be retried with exponential backoff. Do not retry
+      404s automatically.
+  - name: Dynamic Backpressure
+    description: Basecamp explicitly warns thresholds adjust dynamically. Treat rate limits as observed
+      runtime signals rather than static configuration.
+  - name: User-Agent Identification
+    description: Basecamp requires a descriptive User-Agent header identifying the integration; missing/anonymous
+      User-Agents may be blocked before rate limiting applies.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

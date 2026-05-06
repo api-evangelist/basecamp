@@ -4,30 +4,35 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Basecamp
 providerId: basecamp
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - Collaboration
   - Project Management
   - REST
   - SaaS
   - Team Communication
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+description: Basecamp prices per-product seat (Plus) plus a flat unlimited-seat tier (Pro Unlimited) and
+  a free tier capped at 1 project / 20 users / 1 GB. API access is included with all plans; there is no
+  separate API metering or per-call pricing — quotas mirror the underlying SaaS plan and rate limits are
+  enforced uniformly per IP/account.
+sources:
+  - https://basecamp.com/pricing
+  - https://github.com/basecamp/bc3-api
 plans:
   - id: basecamp-free
-    name: Free
+    name: Basecamp Free
     type: freemium
-    description: Free entry tier for the Basecamp API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+    description: Free forever tier limited to 1 project, 20 users, and 1 GB of storage. API access included
+      with the same per-IP rate limits as paid tiers.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
+      - label: Projects
+        description: Maximum number of active projects on the free tier
+        name: projects
         type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
+        metric: project
+        limit: 1
+        timeFrame: usage
         geo: global
         domains:
           - https://3.basecampapi.com
@@ -35,127 +40,214 @@ plans:
         unit: 1
         price: '0.00'
         userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
+      - label: Users
+        description: Maximum users included on the free tier
+        name: users
+        type: quota
+        metric: seat
+        limit: 20
+        timeFrame: usage
         geo: global
         domains:
           - https://3.basecampapi.com
           - https://launchpad.37signals.com
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Storage
+        description: Included file storage on the free tier
+        name: storage
+        type: quota
+        metric: gb
+        limit: 1
+        timeFrame: usage
+        geo: global
+        domains:
+          - https://3.basecampapi.com
         unit: 1
         price: '0.00'
         userMultiplied: false
     elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
+      - name: 1 Project
+      - name: Up to 20 Users
+      - name: 1 GB Storage
       - name: Basecamp API
       - name: Basecamp Webhooks
       - name: Basecamp OAuth
-  - id: basecamp-pro
-    name: Professional
-    type: paid
-    description: Production tier for Basecamp. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
+  - id: basecamp-plus
+    name: Basecamp Plus
+    type: subscription
+    description: Per-seat plan billed monthly. Guests and clients are invited free. Includes 30-day free
+      trial. Optional add-ons for Timesheet and Admin Pro Pack are billed separately.
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
+      - label: Per-User Subscription
+        description: Monthly per-user fee, charged per employee
+        name: seat_subscription
+        type: subscription
+        metric: seat
+        limit: -1
         timeFrame: month
         geo: global
         domains:
           - https://3.basecampapi.com
           - https://launchpad.37signals.com
         unit: 1
-        price: TBD
+        price: $15/user per month
+        userMultiplied: true
+      - label: Storage
+        description: Included storage on the Plus plan
+        name: storage
+        type: quota
+        metric: gb
+        limit: 500
+        timeFrame: usage
+        geo: global
+        domains:
+          - https://3.basecampapi.com
+        unit: 1
+        price: included
         userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
+      - label: Timesheet Add-On
+        description: Optional Timesheet capability flat fee
+        name: timesheet_addon
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        geo: global
+        domains:
+          - https://3.basecampapi.com
+        unit: 1
+        price: $50/month
+        userMultiplied: false
+      - label: Admin Pro Pack Add-On
+        description: Optional Admin Pro Pack capabilities flat fee
+        name: admin_pro_pack
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        geo: global
+        domains:
+          - https://3.basecampapi.com
+        unit: 1
+        price: $50/month
+        userMultiplied: false
+    elements:
+      - name: Unlimited Projects
+      - name: 500 GB Storage
+      - name: Free Guest/Client Seats
+      - name: 24/7/365 Customer Support
+      - name: 30-Day Free Trial
+      - name: Basecamp API
+      - name: Basecamp Webhooks
+      - name: Basecamp OAuth
+  - id: basecamp-pro-unlimited
+    name: Basecamp Pro Unlimited
+    type: subscription
+    description: Flat all-inclusive plan with unlimited users and 5 TB storage. Discounted when billed
+      annually. Includes Timesheet, Admin Pro Pack, personal onboarding, and priority support.
+    entries:
+      - label: Annual Subscription
+        description: Flat monthly fee when billed annually (all-inclusive)
+        name: annual_subscription
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
         geo: global
         domains:
           - https://3.basecampapi.com
           - https://launchpad.37signals.com
         unit: 1
-        price: '0.00'
+        price: $299/month billed annually
         userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+      - label: Monthly Subscription
+        description: Flat monthly fee when billed month-to-month
+        name: monthly_subscription
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        geo: global
+        domains:
+          - https://3.basecampapi.com
+          - https://launchpad.37signals.com
+        unit: 1
+        price: $349/month
+        userMultiplied: false
+      - label: Storage
+        description: Included storage on the Pro Unlimited plan
+        name: storage
+        type: quota
+        metric: tb
+        limit: 5
+        timeFrame: usage
+        geo: global
+        domains:
+          - https://3.basecampapi.com
+        unit: 1
+        price: included
+        userMultiplied: false
+      - label: Additional Storage
+        description: Per-terabyte add-on for storage above plan ceiling
+        name: storage_overage
         type: metered
-        metric: requests
+        metric: tb
         limit: -1
         timeFrame: month
         geo: global
         domains:
           - https://3.basecampapi.com
-          - https://launchpad.37signals.com
-        unit: 1000
-        price: TBD
+        unit: 1
+        price: $50/month per additional terabyte
         userMultiplied: false
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
+      - name: Unlimited Users
+      - name: Unlimited Projects
+      - name: 5 TB Storage
+      - name: Timesheet Included
+      - name: Admin Pro Pack Included
+      - name: Personal Onboarding
+      - name: Priority 24/7/365 Support
+      - name: 60-Day Free Trial
       - name: Basecamp API
       - name: Basecamp Webhooks
       - name: Basecamp OAuth
-  - id: basecamp-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Basecamp. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
+  - id: basecamp-discounts
+    name: Special Discounts
+    type: tiered
+    description: Programmatic discounts for nonprofits and schools.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Nonprofit Discount
+        description: 10% off for registered 501(c)(3) organizations
+        name: nonprofit_discount
+        type: flat
+        metric: month
         limit: -1
         timeFrame: month
-        geo: configurable
+        geo: US
         domains:
-          - https://3.basecampapi.com
-          - https://launchpad.37signals.com
+          - https://basecamp.com
         unit: 1
-        price: custom
+        price: 10% off
         userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
+      - label: Education Discount
+        description: 100% free for K-12, homeschools, and universities for class work only
+        name: education_discount
+        type: flat
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
         domains:
-          - https://3.basecampapi.com
-          - https://launchpad.37signals.com
+          - https://basecamp.com
         unit: 1
-        price: custom
+        price: 100% off (class work only)
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Basecamp API
-      - name: Basecamp Webhooks
-      - name: Basecamp OAuth
+      - name: Nonprofit 501(c)(3) Eligibility
+      - name: K-12 / Homeschool / University Eligibility
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
