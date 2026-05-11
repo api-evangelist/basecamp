@@ -139,7 +139,99 @@ common:
       - name: GitHub
       - name: Harvest
       - name: Clockify
+  - type: Integrations
+    url: https://basecamp.com/integrations
 created: '2024-01-01'
+integrations:
+  - name: Can Do!
+  - name: CData Software
+  - name: elastic.io
+  - name: Field Trip
+  - name: Monkedo
+  - name: Pleexy
+  - name: Ply
+  - name: ReDD Do
+  - name: Retool
+  - name: RSSBus
+  - name: SureTriggers
+  - name: TaskClone
+  - name: Team O'clock
+  - name: To-do Helpers
+  - name: Unito.io
+  - name: Zapier
+  - name: Zoho Flow
+  - name: AssessTEAM
+  - name: Calamari
+  - name: Centreli
+  - name: clockcamp
+  - name: Clockify
+  - name: Everhour
+  - name: Harvest
+  - name: Moon HRM
+  - name: My Hours
+  - name: Noko Time Tracking
+  - name: Rinkta
+  - name: TeamTime App
+  - name: Tick
+  - name: Timely
+  - name: Timeneye
+  - name: Timenotes
+  - name: Timesheetr
+  - name: Toggl
+  - name: TrackingTime
+  - name: AgencyDots
+  - name: Bridge24
+  - name: BrightGauge Software
+  - name: ClicData
+  - name: DNS Check
+  - name: Earned Value App
+  - name: Easy Insight
+  - name: Expiration Reminder
+  - name: Ganttify
+  - name: Grow
+  - name: Klipfolio
+  - name: Meta SaaS
+  - name: Numerics
+  - name: Recur
+  - name: Slickplan
+  - name: To-do Numbers
+  - name: Tracked
+  - name: Pro Backup
+  - name: AnyWebhook
+  - name: Feedbucket
+  - name: Git Helpers
+  - name: Honeybadger
+  - name: Instabug
+  - name: Marker.io
+  - name: Saber Feedback
+  - name: ScrumDo
+  - name: TeamRetro
+  - name: TestLodge
+  - name: Userback
+  - name: Usersnap Classic
+  - name: Ybug
+  - name: Claritee
+  - name: Context Link
+  - name: Ziflow
+  - name: Akita
+  - name: DataGrail
+  - name: Deskpro
+  - name: Doorbell.io
+  - name: Enchant
+  - name: EvantoDesk
+  - name: FeatValue
+  - name: FlowEQ
+  - name: Helpwise
+  - name: Jitbit Helpdesk
+  - name: PMS Data Migration
+  - name: StartADAM
+  - name: SupportBee
+  - name: Nusii
+  - name: Proposify
+  - name: Apideck
+  - name: OAuth.io
+  - name: Truto
+  - name: viaSocket
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
