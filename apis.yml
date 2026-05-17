@@ -96,7 +96,7 @@ common:
     url: vocabulary/basecamp-vocabulary.yaml
   - type: NaftikoCapability
     url: capabilities/project-management.yaml
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/basecamp-context.jsonld
   - name: Features
     type: Features
