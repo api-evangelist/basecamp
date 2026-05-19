@@ -1,0 +1,280 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Basecamp API — Templates
+  description: 'Basecamp API — Templates. 7 operations. Lead operation: List templates. Self-contained Naftiko capability
+    covering one Basecamp business surface.'
+  tags:
+  - Basecamp
+  - Templates
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BASECAMP_API_KEY: BASECAMP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: basecamp-templates
+    baseUri: https://3.basecampapi.com/{accountId}
+    description: Basecamp API — Templates business capability. Self-contained, no shared references.
+    resources:
+    - name: templates.json
+      path: /templates.json
+      operations:
+      - name: listtemplates
+        method: GET
+        description: List templates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: Filter templates by status.
+      - name: createtemplate
+        method: POST
+        description: Create a template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: templates-templateId}.json
+      path: /templates/{templateId}.json
+      operations:
+      - name: gettemplate
+        method: GET
+        description: Get a template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatetemplate
+        method: PUT
+        description: Update a template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletetemplate
+        method: DELETE
+        description: Delete a template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: templates-templateId-project_constructions.json
+      path: /templates/{templateId}/project_constructions.json
+      operations:
+      - name: createprojectfromtemplate
+        method: POST
+        description: Create project from template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: templates-templateId-project_constructions-constructionId}.json
+      path: /templates/{templateId}/project_constructions/{constructionId}.json
+      operations:
+      - name: getprojectconstruction
+        method: GET
+        description: Get project construction status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.BASECAMP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: basecamp-templates-rest
+    port: 8080
+    description: REST adapter for Basecamp API — Templates. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/templates-json
+      name: templates-json
+      description: REST surface for templates.json.
+      operations:
+      - method: GET
+        name: listtemplates
+        description: List templates
+        call: basecamp-templates.listtemplates
+        with:
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createtemplate
+        description: Create a template
+        call: basecamp-templates.createtemplate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/templates/templateid-json
+      name: templates-templateid-json
+      description: REST surface for templates-templateId}.json.
+      operations:
+      - method: GET
+        name: gettemplate
+        description: Get a template
+        call: basecamp-templates.gettemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatetemplate
+        description: Update a template
+        call: basecamp-templates.updatetemplate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletetemplate
+        description: Delete a template
+        call: basecamp-templates.deletetemplate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/templates/{templateid}/project-constructions-json
+      name: templates-templateid-project-constructions-json
+      description: REST surface for templates-templateId-project_constructions.json.
+      operations:
+      - method: POST
+        name: createprojectfromtemplate
+        description: Create project from template
+        call: basecamp-templates.createprojectfromtemplate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/templates/{templateid}/project-constructions/constructionid-json
+      name: templates-templateid-project-constructions-constructionid-json
+      description: REST surface for templates-templateId-project_constructions-constructionId}.json.
+      operations:
+      - method: GET
+        name: getprojectconstruction
+        description: Get project construction status
+        call: basecamp-templates.getprojectconstruction
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: basecamp-templates-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Basecamp API — Templates. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-templates
+      description: List templates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp-templates.listtemplates
+      with:
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-template
+      description: Create a template
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp-templates.createtemplate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-template
+      description: Get a template
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp-templates.gettemplate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-template
+      description: Update a template
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp-templates.updatetemplate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-template
+      description: Delete a template
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: basecamp-templates.deletetemplate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-project-template
+      description: Create project from template
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp-templates.createprojectfromtemplate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-project-construction-status
+      description: Get project construction status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp-templates.getprojectconstruction
+      outputParameters:
+      - type: object
+        mapping: $.

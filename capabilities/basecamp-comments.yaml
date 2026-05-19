@@ -1,0 +1,172 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Basecamp API — Comments
+  description: 'Basecamp API — Comments. 4 operations. Lead operation: Get a comment. Self-contained Naftiko capability covering
+    one Basecamp business surface.'
+  tags:
+  - Basecamp
+  - Comments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BASECAMP_API_KEY: BASECAMP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: basecamp-comments
+    baseUri: https://3.basecampapi.com/{accountId}
+    description: Basecamp API — Comments business capability. Self-contained, no shared references.
+    resources:
+    - name: comments-commentId}.json
+      path: /comments/{commentId}.json
+      operations:
+      - name: getcomment
+        method: GET
+        description: Get a comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatecomment
+        method: PUT
+        description: Update a comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: recordings-recordingId-comments.json
+      path: /recordings/{recordingId}/comments.json
+      operations:
+      - name: listcomments
+        method: GET
+        description: List comments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createcomment
+        method: POST
+        description: Create a comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.BASECAMP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: basecamp-comments-rest
+    port: 8080
+    description: REST adapter for Basecamp API — Comments. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/comments/commentid-json
+      name: comments-commentid-json
+      description: REST surface for comments-commentId}.json.
+      operations:
+      - method: GET
+        name: getcomment
+        description: Get a comment
+        call: basecamp-comments.getcomment
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecomment
+        description: Update a comment
+        call: basecamp-comments.updatecomment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/recordings/{recordingid}/comments-json
+      name: recordings-recordingid-comments-json
+      description: REST surface for recordings-recordingId-comments.json.
+      operations:
+      - method: GET
+        name: listcomments
+        description: List comments
+        call: basecamp-comments.listcomments
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcomment
+        description: Create a comment
+        call: basecamp-comments.createcomment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: basecamp-comments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Basecamp API — Comments. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-comment
+      description: Get a comment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp-comments.getcomment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-comment
+      description: Update a comment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp-comments.updatecomment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-comments
+      description: List comments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp-comments.listcomments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-comment
+      description: Create a comment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp-comments.createcomment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,172 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Basecamp API — Documents
+  description: 'Basecamp API — Documents. 4 operations. Lead operation: Get a document. Self-contained Naftiko capability
+    covering one Basecamp business surface.'
+  tags:
+  - Basecamp
+  - Documents
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BASECAMP_API_KEY: BASECAMP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: basecamp-documents
+    baseUri: https://3.basecampapi.com/{accountId}
+    description: Basecamp API — Documents business capability. Self-contained, no shared references.
+    resources:
+    - name: documents-documentId}.json
+      path: /documents/{documentId}.json
+      operations:
+      - name: getdocument
+        method: GET
+        description: Get a document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatedocument
+        method: PUT
+        description: Update a document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: vaults-vaultId-documents.json
+      path: /vaults/{vaultId}/documents.json
+      operations:
+      - name: listdocuments
+        method: GET
+        description: List documents
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createdocument
+        method: POST
+        description: Create a document
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.BASECAMP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: basecamp-documents-rest
+    port: 8080
+    description: REST adapter for Basecamp API — Documents. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/documents/documentid-json
+      name: documents-documentid-json
+      description: REST surface for documents-documentId}.json.
+      operations:
+      - method: GET
+        name: getdocument
+        description: Get a document
+        call: basecamp-documents.getdocument
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatedocument
+        description: Update a document
+        call: basecamp-documents.updatedocument
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/vaults/{vaultid}/documents-json
+      name: vaults-vaultid-documents-json
+      description: REST surface for vaults-vaultId-documents.json.
+      operations:
+      - method: GET
+        name: listdocuments
+        description: List documents
+        call: basecamp-documents.listdocuments
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createdocument
+        description: Create a document
+        call: basecamp-documents.createdocument
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: basecamp-documents-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Basecamp API — Documents. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-document
+      description: Get a document
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp-documents.getdocument
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-document
+      description: Update a document
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp-documents.updatedocument
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-documents
+      description: List documents
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp-documents.listdocuments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-document
+      description: Create a document
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp-documents.createdocument
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

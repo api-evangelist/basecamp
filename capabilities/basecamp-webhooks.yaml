@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Basecamp API — Webhooks
+  description: 'Basecamp API — Webhooks. 5 operations. Lead operation: List webhooks. Self-contained Naftiko capability covering
+    one Basecamp business surface.'
+  tags:
+  - Basecamp
+  - Webhooks
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BASECAMP_API_KEY: BASECAMP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: basecamp-webhooks
+    baseUri: https://3.basecampapi.com/{accountId}
+    description: Basecamp API — Webhooks business capability. Self-contained, no shared references.
+    resources:
+    - name: buckets-projectId-webhooks.json
+      path: /buckets/{projectId}/webhooks.json
+      operations:
+      - name: listwebhooks
+        method: GET
+        description: List webhooks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createwebhook
+        method: POST
+        description: Create a webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: webhooks-webhookId}.json
+      path: /webhooks/{webhookId}.json
+      operations:
+      - name: getwebhook
+        method: GET
+        description: Get a webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatewebhook
+        method: PUT
+        description: Update a webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletewebhook
+        method: DELETE
+        description: Delete a webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.BASECAMP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: basecamp-webhooks-rest
+    port: 8080
+    description: REST adapter for Basecamp API — Webhooks. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/buckets/{projectid}/webhooks-json
+      name: buckets-projectid-webhooks-json
+      description: REST surface for buckets-projectId-webhooks.json.
+      operations:
+      - method: GET
+        name: listwebhooks
+        description: List webhooks
+        call: basecamp-webhooks.listwebhooks
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createwebhook
+        description: Create a webhook
+        call: basecamp-webhooks.createwebhook
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/webhooks/webhookid-json
+      name: webhooks-webhookid-json
+      description: REST surface for webhooks-webhookId}.json.
+      operations:
+      - method: GET
+        name: getwebhook
+        description: Get a webhook
+        call: basecamp-webhooks.getwebhook
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatewebhook
+        description: Update a webhook
+        call: basecamp-webhooks.updatewebhook
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletewebhook
+        description: Delete a webhook
+        call: basecamp-webhooks.deletewebhook
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: basecamp-webhooks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Basecamp API — Webhooks. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-webhooks
+      description: List webhooks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp-webhooks.listwebhooks
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-webhook
+      description: Create a webhook
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp-webhooks.createwebhook
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-webhook
+      description: Get a webhook
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp-webhooks.getwebhook
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-webhook
+      description: Update a webhook
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp-webhooks.updatewebhook
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-webhook
+      description: Delete a webhook
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: basecamp-webhooks.deletewebhook
+      outputParameters:
+      - type: object
+        mapping: $.

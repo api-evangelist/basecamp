@@ -1,0 +1,200 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Basecamp API — Recordings
+  description: 'Basecamp API — Recordings. 4 operations. Lead operation: List recordings. Self-contained Naftiko capability
+    covering one Basecamp business surface.'
+  tags:
+  - Basecamp
+  - Recordings
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BASECAMP_API_KEY: BASECAMP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: basecamp-recordings
+    baseUri: https://3.basecampapi.com/{accountId}
+    description: Basecamp API — Recordings business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-recordings.json
+      path: /projects/recordings.json
+      operations:
+      - name: listrecordings
+        method: GET
+        description: List recordings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type
+          in: query
+          type: string
+          description: The recording type to list.
+          required: true
+        - name: bucket
+          in: query
+          type: integer
+          description: Filter to a specific project (bucket) ID.
+        - name: status
+          in: query
+          type: string
+          description: Filter by recording status.
+        - name: sort
+          in: query
+          type: string
+          description: Sort field.
+        - name: direction
+          in: query
+          type: string
+          description: Sort direction.
+    - name: recordings-recordingId-status-active.json
+      path: /recordings/{recordingId}/status/active.json
+      operations:
+      - name: unarchiverecording
+        method: PUT
+        description: Unarchive a recording
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: recordings-recordingId-status-archived.json
+      path: /recordings/{recordingId}/status/archived.json
+      operations:
+      - name: archiverecording
+        method: PUT
+        description: Archive a recording
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: recordings-recordingId-status-trashed.json
+      path: /recordings/{recordingId}/status/trashed.json
+      operations:
+      - name: trashrecording
+        method: PUT
+        description: Trash a recording
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.BASECAMP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: basecamp-recordings-rest
+    port: 8080
+    description: REST adapter for Basecamp API — Recordings. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/projects/recordings-json
+      name: projects-recordings-json
+      description: REST surface for projects-recordings.json.
+      operations:
+      - method: GET
+        name: listrecordings
+        description: List recordings
+        call: basecamp-recordings.listrecordings
+        with:
+          type: rest.type
+          bucket: rest.bucket
+          status: rest.status
+          sort: rest.sort
+          direction: rest.direction
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/recordings/{recordingid}/status/active-json
+      name: recordings-recordingid-status-active-json
+      description: REST surface for recordings-recordingId-status-active.json.
+      operations:
+      - method: PUT
+        name: unarchiverecording
+        description: Unarchive a recording
+        call: basecamp-recordings.unarchiverecording
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/recordings/{recordingid}/status/archived-json
+      name: recordings-recordingid-status-archived-json
+      description: REST surface for recordings-recordingId-status-archived.json.
+      operations:
+      - method: PUT
+        name: archiverecording
+        description: Archive a recording
+        call: basecamp-recordings.archiverecording
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/recordings/{recordingid}/status/trashed-json
+      name: recordings-recordingid-status-trashed-json
+      description: REST surface for recordings-recordingId-status-trashed.json.
+      operations:
+      - method: PUT
+        name: trashrecording
+        description: Trash a recording
+        call: basecamp-recordings.trashrecording
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: basecamp-recordings-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Basecamp API — Recordings. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-recordings
+      description: List recordings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp-recordings.listrecordings
+      with:
+        type: tools.type
+        bucket: tools.bucket
+        status: tools.status
+        sort: tools.sort
+        direction: tools.direction
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: unarchive-recording
+      description: Unarchive a recording
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp-recordings.unarchiverecording
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: archive-recording
+      description: Archive a recording
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp-recordings.archiverecording
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: trash-recording
+      description: Trash a recording
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp-recordings.trashrecording
+      outputParameters:
+      - type: object
+        mapping: $.

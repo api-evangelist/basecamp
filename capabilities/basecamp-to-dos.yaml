@@ -1,0 +1,286 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Basecamp API — To-Dos
+  description: 'Basecamp API — To-Dos. 7 operations. Lead operation: List to-dos. Self-contained Naftiko capability covering
+    one Basecamp business surface.'
+  tags:
+  - Basecamp
+  - To-Dos
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BASECAMP_API_KEY: BASECAMP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: basecamp-to-dos
+    baseUri: https://3.basecampapi.com/{accountId}
+    description: Basecamp API — To-Dos business capability. Self-contained, no shared references.
+    resources:
+    - name: todolists-todolistId-todos.json
+      path: /todolists/{todolistId}/todos.json
+      operations:
+      - name: listtodos
+        method: GET
+        description: List to-dos
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: Filter by status.
+        - name: completed
+          in: query
+          type: boolean
+          description: Set to true to return completed to-dos.
+      - name: createtodo
+        method: POST
+        description: Create a to-do
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: todos-todoId}.json
+      path: /todos/{todoId}.json
+      operations:
+      - name: gettodo
+        method: GET
+        description: Get a to-do
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatetodo
+        method: PUT
+        description: Update a to-do
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: todos-todoId-completion.json
+      path: /todos/{todoId}/completion.json
+      operations:
+      - name: completetodo
+        method: POST
+        description: Complete a to-do
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: uncompletetodo
+        method: DELETE
+        description: Uncomplete a to-do
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: todos-todoId-position.json
+      path: /todos/{todoId}/position.json
+      operations:
+      - name: repositiontodo
+        method: PUT
+        description: Reposition a to-do
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.BASECAMP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: basecamp-to-dos-rest
+    port: 8080
+    description: REST adapter for Basecamp API — To-Dos. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/todolists/{todolistid}/todos-json
+      name: todolists-todolistid-todos-json
+      description: REST surface for todolists-todolistId-todos.json.
+      operations:
+      - method: GET
+        name: listtodos
+        description: List to-dos
+        call: basecamp-to-dos.listtodos
+        with:
+          status: rest.status
+          completed: rest.completed
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createtodo
+        description: Create a to-do
+        call: basecamp-to-dos.createtodo
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/todos/todoid-json
+      name: todos-todoid-json
+      description: REST surface for todos-todoId}.json.
+      operations:
+      - method: GET
+        name: gettodo
+        description: Get a to-do
+        call: basecamp-to-dos.gettodo
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatetodo
+        description: Update a to-do
+        call: basecamp-to-dos.updatetodo
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/todos/{todoid}/completion-json
+      name: todos-todoid-completion-json
+      description: REST surface for todos-todoId-completion.json.
+      operations:
+      - method: POST
+        name: completetodo
+        description: Complete a to-do
+        call: basecamp-to-dos.completetodo
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: uncompletetodo
+        description: Uncomplete a to-do
+        call: basecamp-to-dos.uncompletetodo
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/todos/{todoid}/position-json
+      name: todos-todoid-position-json
+      description: REST surface for todos-todoId-position.json.
+      operations:
+      - method: PUT
+        name: repositiontodo
+        description: Reposition a to-do
+        call: basecamp-to-dos.repositiontodo
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: basecamp-to-dos-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Basecamp API — To-Dos. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-dos
+      description: List to-dos
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp-to-dos.listtodos
+      with:
+        status: tools.status
+        completed: tools.completed
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-do
+      description: Create a to-do
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp-to-dos.createtodo
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-do
+      description: Get a to-do
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: basecamp-to-dos.gettodo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-do
+      description: Update a to-do
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp-to-dos.updatetodo
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: complete-do
+      description: Complete a to-do
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: basecamp-to-dos.completetodo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: uncomplete-do
+      description: Uncomplete a to-do
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: basecamp-to-dos.uncompletetodo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: reposition-do
+      description: Reposition a to-do
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: basecamp-to-dos.repositiontodo
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

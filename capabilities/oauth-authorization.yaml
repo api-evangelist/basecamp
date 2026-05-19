@@ -1,0 +1,94 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Basecamp OAuth API — Authorization
+  description: 'Basecamp OAuth API — Authorization. 1 operations. Lead operation: Authorize user. Self-contained Naftiko capability
+    covering one Basecamp business surface.'
+  tags:
+  - Basecamp
+  - Authorization
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BASECAMP_API_KEY: BASECAMP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: oauth-authorization
+    baseUri: https://launchpad.37signals.com
+    description: Basecamp OAuth API — Authorization business capability. Self-contained, no shared references.
+    resources:
+    - name: authorization
+      path: /authorization
+      operations:
+      - name: authorizeuser
+        method: GET
+        description: Authorize user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type
+          in: query
+          type: string
+          description: Must be set to "web_server" for the authorization code flow
+          required: true
+        - name: client_id
+          in: query
+          type: string
+          description: Your application's client ID from launchpad.37signals.com
+          required: true
+        - name: redirect_uri
+          in: query
+          type: string
+          description: The URI to redirect to after authorization. Must match a URI registered with your application.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.BASECAMP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: oauth-authorization-rest
+    port: 8080
+    description: REST adapter for Basecamp OAuth API — Authorization. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/authorization
+      name: authorization
+      description: REST surface for authorization.
+      operations:
+      - method: GET
+        name: authorizeuser
+        description: Authorize user
+        call: oauth-authorization.authorizeuser
+        with:
+          type: rest.type
+          client_id: rest.client_id
+          redirect_uri: rest.redirect_uri
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: oauth-authorization-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Basecamp OAuth API — Authorization. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: authorize-user
+      description: Authorize user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: oauth-authorization.authorizeuser
+      with:
+        type: tools.type
+        client_id: tools.client_id
+        redirect_uri: tools.redirect_uri
+      outputParameters:
+      - type: object
+        mapping: $.

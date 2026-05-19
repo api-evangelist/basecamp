@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Basecamp OAuth API — Token
+  description: 'Basecamp OAuth API — Token. 2 operations. Lead operation: Exchange code for token. Self-contained Naftiko
+    capability covering one Basecamp business surface.'
+  tags:
+  - Basecamp
+  - Token
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BASECAMP_API_KEY: BASECAMP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: oauth-token
+    baseUri: https://launchpad.37signals.com
+    description: Basecamp OAuth API — Token business capability. Self-contained, no shared references.
+    resources:
+    - name: authorization-token
+      path: /authorization/token
+      operations:
+      - name: exchangecodefortoken
+        method: POST
+        description: Exchange code for token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: authorization-token-refresh
+      path: /authorization/token/refresh
+      operations:
+      - name: refreshaccesstoken
+        method: POST
+        description: Refresh access token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.BASECAMP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: oauth-token-rest
+    port: 8080
+    description: REST adapter for Basecamp OAuth API — Token. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/authorization/token
+      name: authorization-token
+      description: REST surface for authorization-token.
+      operations:
+      - method: POST
+        name: exchangecodefortoken
+        description: Exchange code for token
+        call: oauth-token.exchangecodefortoken
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/authorization/token/refresh
+      name: authorization-token-refresh
+      description: REST surface for authorization-token-refresh.
+      operations:
+      - method: POST
+        name: refreshaccesstoken
+        description: Refresh access token
+        call: oauth-token.refreshaccesstoken
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: oauth-token-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Basecamp OAuth API — Token. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: exchange-code-token
+      description: Exchange code for token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: oauth-token.exchangecodefortoken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: refresh-access-token
+      description: Refresh access token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: oauth-token.refreshaccesstoken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

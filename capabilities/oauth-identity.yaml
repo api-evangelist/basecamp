@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Basecamp OAuth API — Identity
+  description: 'Basecamp OAuth API — Identity. 1 operations. Lead operation: Get identity. Self-contained Naftiko capability
+    covering one Basecamp business surface.'
+  tags:
+  - Basecamp
+  - Identity
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BASECAMP_API_KEY: BASECAMP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: oauth-identity
+    baseUri: https://launchpad.37signals.com
+    description: Basecamp OAuth API — Identity business capability. Self-contained, no shared references.
+    resources:
+    - name: authorization.json
+      path: /authorization.json
+      operations:
+      - name: getidentity
+        method: GET
+        description: Get identity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.BASECAMP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: oauth-identity-rest
+    port: 8080
+    description: REST adapter for Basecamp OAuth API — Identity. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/authorization-json
+      name: authorization-json
+      description: REST surface for authorization.json.
+      operations:
+      - method: GET
+        name: getidentity
+        description: Get identity
+        call: oauth-identity.getidentity
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: oauth-identity-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Basecamp OAuth API — Identity. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-identity
+      description: Get identity
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: oauth-identity.getidentity
+      outputParameters:
+      - type: object
+        mapping: $.
