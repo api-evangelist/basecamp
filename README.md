@@ -1,105 +1,107 @@
 # Basecamp (basecamp)
-Basecamp is a project management and team collaboration platform developed by 37signals. The Basecamp REST API provides programmatic access to projects, to-do lists, messages, documents, schedules, and team members via OAuth2 authentication.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/basecamp/refs/heads/main/apis.yml)
+Basecamp is a project management and team collaboration platform developed by 37signals. The Basecamp REST API (bc3-api) provides programmatic access to projects, to-do lists, messages, documents, schedules, and team members. OAuth2 authentication via the 37signals Launchpad is required. The API returns JSON and is documented on GitHub at github.com/basecamp/bc3-api.
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/basecamp/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/basecamp/refs/heads/main/apis.yml)
 
-## Tags:
+## Tags
 
- - Collaboration, Project Management, REST, SaaS, Team Communication
+- Collaboration
+- Project Management
+- REST
+- SaaS
+- Team Communication
 
 ## Timestamps
 
 - **Created:** 2024-01-01
-- **Modified:** 2026-04-19
+- **Modified:** 2026-05-19
 
 ## APIs
 
 ### Basecamp API
-REST API for programmatic access to Basecamp projects, to-dos, messages, schedules, and team members.
 
-**Human URL:** [https://github.com/basecamp/bc3-api](https://github.com/basecamp/bc3-api)
+The Basecamp API is a REST API providing programmatic access to Basecamp's project management platform. Manage projects, to-do lists, messages, documents, schedules, and team members. Uses OAuth 2.0 for authentication and returns JSON.
+
+- **Human URL:** [https://github.com/basecamp/bc3-api](https://github.com/basecamp/bc3-api)
+- **Base URL:** `https://3.basecampapi.com`
+
+#### Tags
+
+- Collaboration
+- Project Management
+- REST
+- Team Communication
 
 #### Properties
 
 - [Documentation](https://github.com/basecamp/bc3-api)
-- [OpenAPI](openapi/basecamp-api-openapi.yml)
+- [OpenAPI](openapi/basecamp-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/basecamp-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/basecamp-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Basecamp Webhooks
-Real-time HTTP notifications for project events.
 
-**Human URL:** [https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md](https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md)
+Basecamp Webhooks deliver real-time HTTP notifications when events occur within a project. Configure webhooks per project with an HTTPS payload URL and resource types.
+
+- **Human URL:** [https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md](https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md)
+- **Base URL:** `https://3.basecampapi.com`
+
+#### Tags
+
+- Events
+- Notifications
+- Project Management
+- Webhooks
+
+#### Properties
+
+- [Documentation](https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md)
+- [AsyncAPI](asyncapi/basecamp-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [Postman Collection](collections/basecamp-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/basecamp-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/basecamp-oauth.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/basecamp-oauth.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Basecamp OAuth
-OAuth 2.0 authentication via 37signals Launchpad.
 
-**Human URL:** [https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md](https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md)
+OAuth 2.0 authentication for Basecamp API access via the 37signals Launchpad. Register at launchpad.37signals.com for a client ID and secret, then implement the authorization code flow to obtain access tokens.
+
+- **Human URL:** [https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md](https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md)
+- **Base URL:** `https://launchpad.37signals.com`
+
+#### Tags
+
+- Authentication
+- Authorization
+- OAuth
+- Security
+
+#### Properties
+
+- [Documentation](https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md)
+- [OpenAPI](openapi/basecamp-oauth-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/basecamp-oauth.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/basecamp-oauth.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ## Common Properties
 
+- [LinkedIn](https://www.linkedin.com/company/37signals)
 - [Website](https://basecamp.com/)
-- [API Documentation](https://github.com/basecamp/bc3-api)
-- [37signals Launchpad](https://launchpad.37signals.com/)
+- [Documentation](https://github.com/basecamp/bc3-api)
+- [Sign Up](https://launchpad.37signals.com/)
 - [Blog](https://basecamp.com/blog)
-- [TermsOfService](https://basecamp.com/about/policies/terms)
-- [PrivacyPolicy](https://basecamp.com/about/policies/privacy)
-
-## Features
-
-| Name | Description |
-|------|-------------|
-| Project Management | Create and manage projects with team access controls. |
-| To-Do Lists | Hierarchical to-do lists with assignments, due dates, and completion tracking. |
-| Message Boards | Threaded message boards for team discussion and announcements. |
-| Campfire Chat | Real-time group chat within projects. |
-| Schedules | Project calendars with events and milestones. |
-| File Storage | Document and file storage with version history. |
-| Webhooks | Real-time event notifications for project activity. |
-| OAuth2 API | Full REST API with OAuth2 authentication for third-party integrations. |
-
-## Use Cases
-
-| Name | Description |
-|------|-------------|
-| Software Development | Track sprints, bugs, and feature development with to-do lists. |
-| Client Projects | Manage client deliverables, approvals, and communications. |
-| Remote Team Collaboration | Asynchronous team communication and project coordination. |
-| Project Automation | Automate project workflows and reporting via REST API. |
-| Agency Project Management | Multi-client project organization for agencies and consultancies. |
-
-## Artifacts
-
-### OpenAPI
-
-- [Basecamp API](openapi/basecamp-api-openapi.yml)
-
-### JSON-LD
-
-- [Basecamp JSON-LD Context](json-ld/basecamp-context.jsonld)
-
-## Capabilities
-
-### Shared Per-API Definitions
-
-- [Basecamp API](capabilities/shared/basecamp-api.yaml) — 10 key operations
-
-### Workflow Capabilities
-
-| Workflow | APIs Combined | Tools | Persona |
-|----------|--------------|-------|---------|
-| [Project Management](capabilities/project-management.yaml) | Basecamp | 7 | Project Manager, Team Member, Developer |
-
-## Vocabulary
-
-- [Basecamp Vocabulary](vocabulary/basecamp-vocabulary.yaml) — 6 resources, 6 actions, 1 workflow, 3 personas
-
-## Rules
-
-- [Basecamp Spectral Rules](rules/basecamp-spectral-rules.yml) — 15 rules enforcing API conventions
+- [Terms of Service](https://basecamp.com/about/policies/terms)
+- [Privacy Policy](https://basecamp.com/about/policies/privacy)
+- [Spectral Rules](rules/basecamp-spectral-rules.yml)
+- [Vocabulary](vocabulary/basecamp-vocabulary.yaml)
+- [JSON-LD](json-ld/basecamp-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Features](undefined)
+- [Use Cases](undefined)
+- [Integrations](undefined)
+- [Integrations](https://basecamp.com/integrations)
 
 ## Maintainers
 
 **FN:** Kin Lane
-
 **Email:** kin@apievangelist.com
