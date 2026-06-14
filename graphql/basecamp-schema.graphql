@@ -1,0 +1,948 @@
+"""
+Basecamp GraphQL Schema
+Conceptual schema derived from the Basecamp 3 REST API (bc3-api).
+Source: https://github.com/basecamp/bc3-api
+Base URL: https://3.basecampapi.com/{account_id}
+Authentication: OAuth 2.0 via 37signals Launchpad
+"""
+
+# ─── Scalars ────────────────────────────────────────────────────────────────
+
+scalar DateTime
+scalar URL
+scalar JSON
+
+# ─── Enums ──────────────────────────────────────────────────────────────────
+
+enum RecordingStatus {
+  active
+  archived
+  trashed
+}
+
+enum TodoStatus {
+  active
+  completed
+}
+
+enum PersonRole {
+  owner
+  member
+  client
+  guest
+}
+
+enum WebhookEventType {
+  client_approval_request_completed
+  client_approval_request_created
+  client_approval_request_rejected
+  comment_created
+  document_created
+  document_updated
+  message_created
+  message_updated
+  question_answer_created
+  schedule_entry_created
+  schedule_entry_updated
+  todo_assignment_created
+  todo_completion_created
+  todo_created
+  todo_updated
+  todolist_created
+  todolist_updated
+  upload_created
+}
+
+enum DockItemName {
+  campfire
+  message_board
+  todoset
+  schedule
+  questionnaire
+  vault
+  inbox
+}
+
+# ─── Types ──────────────────────────────────────────────────────────────────
+
+"""Top-level Basecamp account associated with a 37signals identity."""
+type BasecampAccount {
+  id: ID!
+  name: String!
+  product: String!
+  href: URL!
+  appHref: URL!
+}
+
+"""
+An Account represents a single Basecamp subscription / organization.
+Returned by the authorization endpoint alongside the identity.
+"""
+type Account {
+  id: ID!
+  name: String!
+  product: String!
+  href: URL!
+  appHref: URL!
+}
+
+"""
+A Project (internally called a Bucket) is the top-level container for all
+Basecamp content such as to-do lists, messages, schedules, and files.
+"""
+type Project {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  description: String
+  purpose: String
+  clientsEnabled: Boolean!
+  bookmarkUrl: URL!
+  url: URL!
+  appUrl: URL!
+  dock: [DockItem!]!
+  bookmarked: Boolean!
+}
+
+"""
+A ProjectTemplate is a saved project configuration that can be used to
+quickly create new projects with predefined structure.
+"""
+type ProjectTemplate {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  description: String
+  url: URL!
+  appUrl: URL!
+}
+
+"""
+A Bucket is the API-level synonym for a Project, used in URL paths and
+as the parent reference on all recordings.
+"""
+type Bucket {
+  id: ID!
+  name: String!
+  type: String!
+}
+
+"""
+BucketMembership tracks which people have access to a specific Bucket/Project.
+"""
+type BucketMembership {
+  id: ID!
+  bucket: Bucket!
+  person: Person!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A Dock is the navigation bar for a project, listing the tools (DockItems)
+enabled for that project.
+"""
+type Dock {
+  items: [DockItem!]!
+}
+
+"""
+A DockItem represents one tool available within a project, such as the
+Campfire chat, Todoset, MessageBoard, Schedule, Vault, or Questionnaire.
+"""
+type DockItem {
+  id: ID!
+  title: String!
+  name: DockItemName!
+  enabled: Boolean!
+  position: Int
+  url: URL!
+  appUrl: URL!
+}
+
+"""
+A Todoset is the root container for all to-do lists within a project.
+Each project has exactly one Todoset.
+"""
+type Todoset {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  todosCount: Int!
+  completedCount: Int!
+  position: Int
+  bucket: Bucket!
+  creator: Person!
+  url: URL!
+  appUrl: URL!
+  todolists: [Todolist!]!
+}
+
+"""
+A Todolist is a named list of Todo items within a Todoset.
+"""
+type Todolist {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  description: String
+  todosCount: Int!
+  completedCount: Int!
+  position: Int
+  bucket: Bucket!
+  creator: Person!
+  parent: Todoset!
+  url: URL!
+  appUrl: URL!
+  todos: [Todo!]!
+  comments: [Comment!]!
+  subscription: Subscription
+}
+
+"""
+A Todo is an individual task item within a Todolist.
+"""
+type Todo {
+  id: ID!
+  status: TodoStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  description: String
+  dueOn: String
+  startsOn: String
+  completedAt: DateTime
+  completionSubscribers: [Person!]!
+  assignees: [Person!]!
+  position: Int
+  bucket: Bucket!
+  creator: Person!
+  parent: Todolist!
+  url: URL!
+  appUrl: URL!
+  comments: [Comment!]!
+  subscription: Subscription
+}
+
+"""
+A Schedule is the calendar tool within a project, containing ScheduleEntries.
+"""
+type Schedule {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  entriesCount: Int!
+  position: Int
+  bucket: Bucket!
+  creator: Person!
+  url: URL!
+  appUrl: URL!
+  entries: [ScheduleEntry!]!
+}
+
+"""
+A ScheduleEntry is a calendar event or milestone within a project Schedule.
+"""
+type ScheduleEntry {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  description: String
+  startsAt: DateTime!
+  endsAt: DateTime!
+  allDay: Boolean!
+  recurrenceSchedule: JSON
+  participants: [Person!]!
+  bucket: Bucket!
+  creator: Person!
+  parent: Schedule!
+  url: URL!
+  appUrl: URL!
+  comments: [Comment!]!
+  subscription: Subscription
+}
+
+"""
+A MessageBoard is the discussion area within a project, containing Messages.
+"""
+type MessageBoard {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  messagesCount: Int!
+  position: Int
+  bucket: Bucket!
+  creator: Person!
+  url: URL!
+  appUrl: URL!
+  messages: [Message!]!
+}
+
+"""
+A Message is a threaded post on a project MessageBoard.
+"""
+type Message {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  content: String!
+  category: MessageType
+  bucket: Bucket!
+  creator: Person!
+  parent: MessageBoard!
+  url: URL!
+  appUrl: URL!
+  commentsCount: Int!
+  comments: [Comment!]!
+  subscription: Subscription
+}
+
+"""
+A MessageType is a category label (e.g. Announcement, FYI, Pitch) that can
+be applied to Messages on a MessageBoard.
+"""
+type MessageType {
+  id: ID!
+  name: String!
+  icon: String!
+  color: String!
+  url: URL!
+  appUrl: URL!
+}
+
+"""
+A Vault is the file and document storage tool within a project.
+"""
+type Vault {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  documentsCount: Int!
+  uploadsCount: Int!
+  position: Int
+  bucket: Bucket!
+  creator: Person!
+  url: URL!
+  appUrl: URL!
+  documents: [Document!]!
+  uploads: [Upload!]!
+  vaults: [Vault!]!
+}
+
+"""
+A Document is a rich-text file stored within a Vault.
+"""
+type Document {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  content: String!
+  bucket: Bucket!
+  creator: Person!
+  parent: Vault!
+  url: URL!
+  appUrl: URL!
+  commentsCount: Int!
+  comments: [Comment!]!
+  subscription: Subscription
+}
+
+"""
+An Upload is a binary file attachment stored within a Vault.
+"""
+type Upload {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  filename: String!
+  contentType: String!
+  byteSize: Int!
+  description: String
+  downloadUrl: URL!
+  appUrl: URL!
+  bucket: Bucket!
+  creator: Person!
+  parent: Vault!
+  commentsCount: Int!
+  comments: [Comment!]!
+  subscription: Subscription
+}
+
+"""
+A Questionnaire is the container for recurring check-in Questions in a project.
+"""
+type QuestionAnswerSet {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  questionsCount: Int!
+  position: Int
+  bucket: Bucket!
+  creator: Person!
+  url: URL!
+  appUrl: URL!
+  questions: [Question!]!
+}
+
+"""
+A Question is a recurring check-in prompt that collects Answers from team members.
+"""
+type Question {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  schedule: JSON
+  paused: Boolean!
+  bucket: Bucket!
+  creator: Person!
+  parent: QuestionAnswerSet!
+  url: URL!
+  appUrl: URL!
+  answers: [Answer!]!
+}
+
+"""
+A QuestionAnswer is the aggregated set of Answers submitted for one occurrence
+of a recurring check-in Question.
+"""
+type QuestionAnswer {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  answersCount: Int!
+  bucket: Bucket!
+  parent: Question!
+  url: URL!
+  appUrl: URL!
+  answers: [Answer!]!
+  comments: [Comment!]!
+}
+
+"""
+An Answer is a single response submitted by a Person to a recurring Question.
+"""
+type Answer {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  content: String!
+  creator: Person!
+  parent: QuestionAnswer!
+  url: URL!
+  appUrl: URL!
+  commentsCount: Int!
+  comments: [Comment!]!
+}
+
+"""
+A Comment is a reply on any Recording (Todo, Message, Document, Upload,
+ScheduleEntry, Answer, etc.).
+"""
+type Comment {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  content: String!
+  creator: Person!
+  bucket: Bucket!
+  parent: Recording!
+  url: URL!
+  appUrl: URL!
+}
+
+"""
+An Attachment is a file linked within a Comment or Message content body.
+"""
+type Attachment {
+  id: ID!
+  filename: String!
+  contentType: String!
+  byteSize: Int!
+  downloadUrl: URL!
+  creator: Person!
+  createdAt: DateTime!
+}
+
+"""
+A Clipboard holds in-progress attachment uploads before they are embedded
+into a recording.
+"""
+type Clipboard {
+  id: ID!
+  url: URL!
+  sgid: String!
+  filename: String!
+  contentType: String!
+  byteSize: Int!
+}
+
+"""
+A Subscription tracks which people are following (subscribed to) a Recording
+to receive notifications when new comments are posted.
+"""
+type Subscription {
+  subscribed: Boolean!
+  count: Int!
+  url: URL!
+}
+
+"""
+A GlobalSubscription manages a person's notification preferences across
+all projects and activity types.
+"""
+type GlobalSubscription {
+  id: ID!
+  personId: ID!
+  pauseNotificationsUntil: DateTime
+  subscribedToNewProjects: Boolean!
+  subscribedToSomeoneAddedToProject: Boolean!
+}
+
+"""
+A Person represents a Basecamp user (team member, client, or guest).
+"""
+type Person {
+  id: ID!
+  attachableSgid: String!
+  name: String!
+  emailAddress: String!
+  personableType: String!
+  title: String
+  bio: String
+  location: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  admin: Boolean!
+  owner: Boolean!
+  client: Boolean!
+  employee: Boolean!
+  timeZone: String!
+  utcOffset: Int!
+  avatarUrl: URL!
+  companyName: String
+  url: URL!
+  appUrl: URL!
+}
+
+"""
+A PersonProfile holds extended biographical and contact information for a Person.
+"""
+type PersonProfile {
+  id: ID!
+  person: Person!
+  bio: String
+  title: String
+  location: String
+  company: String
+  avatarUrl: URL!
+}
+
+"""
+A KeyPerson denotes a Person flagged as a key contact within a project or Client record.
+"""
+type KeyPerson {
+  id: ID!
+  person: Person!
+  role: String
+}
+
+"""
+A Client represents an external organization or individual given restricted
+access to a project via client collaboration features.
+"""
+type Client {
+  id: ID!
+  name: String!
+  people: [Person!]!
+  projectsCount: Int!
+}
+
+"""
+A ClientApproval represents a formal approval request sent to a Client
+for review of a deliverable.
+"""
+type ClientApproval {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  content: String!
+  approvalStatus: String!
+  bucket: Bucket!
+  creator: Person!
+  url: URL!
+  appUrl: URL!
+}
+
+"""
+ClientAccess controls which specific project content a Client can view.
+"""
+type ClientAccess {
+  id: ID!
+  projectId: ID!
+  clientId: ID!
+  grantedAt: DateTime!
+  recordings: [Recording!]!
+}
+
+"""
+A Grant represents access permissions given to a Person or Client for a Project.
+"""
+type Grant {
+  id: ID!
+  bucket: Bucket!
+  person: Person!
+  createdAt: DateTime!
+}
+
+"""
+A Campfire is the real-time group chat room within a project.
+"""
+type Campfire {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  position: Int
+  bucket: Bucket!
+  creator: Person!
+  url: URL!
+  appUrl: URL!
+  lines: [CampfireMessage!]!
+}
+
+"""
+A CampfireMessage (called a Line in the API) is a single chat message posted
+to a Campfire room.
+"""
+type CampfireMessage {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  content: String!
+  creator: Person!
+  parent: Campfire!
+  url: URL!
+  appUrl: URL!
+}
+
+"""
+A Ping is a direct one-on-one or small group chat conversation between Basecamp users.
+"""
+type Ping {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  participants: [Person!]!
+  url: URL!
+  appUrl: URL!
+  lines: [PingMessage!]!
+}
+
+"""
+A PingMessage is a single message within a Ping (direct message) conversation.
+"""
+type PingMessage {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  content: String!
+  creator: Person!
+  parent: Ping!
+}
+
+"""
+A Forward is an email-to-Basecamp forwarded message, appearing in a project inbox.
+"""
+type Forward {
+  id: ID!
+  status: RecordingStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  subject: String!
+  content: String!
+  from: String!
+  creator: Person!
+  bucket: Bucket!
+  url: URL!
+  appUrl: URL!
+  commentsCount: Int!
+  comments: [Comment!]!
+}
+
+"""
+A Recording is the generic base record for all Basecamp content items.
+Used in the Events API and as a parent reference for Comments.
+"""
+type Recording {
+  id: ID!
+  type: String!
+  status: RecordingStatus!
+  bucket: Bucket!
+  creator: Person!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  url: URL!
+  appUrl: URL!
+}
+
+"""
+An Event is an audit-log entry describing a change to any recording within
+a project (creation, update, trash, etc.).
+"""
+type Event {
+  id: ID!
+  createdAt: DateTime!
+  action: String!
+  details: JSON
+  ip: String
+  creator: Person!
+  recording: Recording!
+  bucket: Bucket!
+}
+
+"""
+A Webhook delivers real-time HTTP POST payloads to a configured URL when
+specified events occur within a project.
+"""
+type Webhook {
+  id: ID!
+  active: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  payloadUrl: URL!
+  types: [String!]!
+  url: URL!
+  appUrl: URL!
+}
+
+"""
+WebhookTypes enumerates the event types available when creating or updating
+a Webhook subscription.
+"""
+type WebhookTypes {
+  available: [WebhookEventType!]!
+}
+
+"""
+A Chatbot is an automated bot user that can post to Campfire rooms via a
+webhook-style integration URL.
+"""
+type Chatbot {
+  id: ID!
+  name: String!
+  commandUrl: URL
+  lines: [CampfireMessage!]!
+}
+
+"""
+An Authorization object is returned during the OAuth token exchange and
+describes the current identity and accessible accounts.
+"""
+type Authorization {
+  expiresAt: DateTime!
+  identity: Person!
+  accounts: [Account!]!
+}
+
+"""
+A Token holds OAuth 2.0 access and refresh tokens for API authentication.
+"""
+type Token {
+  accessToken: String!
+  refreshToken: String!
+  expiresIn: Int!
+  tokenType: String!
+}
+
+"""
+An OauthToken represents a stored OAuth token record associated with an
+app installation.
+"""
+type OauthToken {
+  id: ID!
+  accessToken: String!
+  refreshToken: String!
+  createdAt: DateTime!
+  expiresAt: DateTime!
+  personId: ID!
+  accountId: ID!
+}
+
+"""
+A LinkedAccount represents a 37signals product account (Basecamp, HEY, etc.)
+accessible under a single identity authorization.
+"""
+type LinkedAccount {
+  id: ID!
+  name: String!
+  product: String!
+  href: URL!
+  appHref: URL!
+}
+
+"""
+An AppInstall represents a third-party application integration installed
+within a Basecamp account.
+"""
+type AppInstall {
+  id: ID!
+  appId: ID!
+  accountId: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  integration: AppIntegration!
+}
+
+"""
+An AppIntegration describes a registered third-party application that can
+be installed within Basecamp accounts.
+"""
+type AppIntegration {
+  id: ID!
+  name: String!
+  description: String
+  logoUrl: URL
+  authorName: String
+  url: URL!
+}
+
+# ─── Root Operations ─────────────────────────────────────────────────────────
+
+type Query {
+  """Return all projects visible to the authenticated user."""
+  projects: [Project!]!
+
+  """Return a single project by ID."""
+  project(accountId: ID!, id: ID!): Project
+
+  """Return all project templates."""
+  projectTemplates(accountId: ID!): [ProjectTemplate!]!
+
+  """Return people in the account."""
+  people(accountId: ID!): [Person!]!
+
+  """Return a single person."""
+  person(accountId: ID!, id: ID!): Person
+
+  """Return the authenticated person's profile."""
+  me(accountId: ID!): Person
+
+  """Return all to-do lists in a project's todoset."""
+  todolists(accountId: ID!, projectId: ID!, todosetId: ID!): [Todolist!]!
+
+  """Return a single to-do list."""
+  todolist(accountId: ID!, projectId: ID!, id: ID!): Todolist
+
+  """Return all todos in a todolist."""
+  todos(accountId: ID!, projectId: ID!, todolistId: ID!): [Todo!]!
+
+  """Return a single todo."""
+  todo(accountId: ID!, projectId: ID!, id: ID!): Todo
+
+  """Return all messages in a message board."""
+  messages(accountId: ID!, projectId: ID!, messageBoardId: ID!): [Message!]!
+
+  """Return a single message."""
+  message(accountId: ID!, projectId: ID!, id: ID!): Message
+
+  """Return schedule entries."""
+  scheduleEntries(accountId: ID!, projectId: ID!, scheduleId: ID!): [ScheduleEntry!]!
+
+  """Return documents in a vault."""
+  documents(accountId: ID!, projectId: ID!, vaultId: ID!): [Document!]!
+
+  """Return uploads in a vault."""
+  uploads(accountId: ID!, projectId: ID!, vaultId: ID!): [Upload!]!
+
+  """Return questions in a questionnaire."""
+  questions(accountId: ID!, projectId: ID!, questionnaireId: ID!): [Question!]!
+
+  """Return events for a project."""
+  events(accountId: ID!, projectId: ID!): [Event!]!
+
+  """Return webhooks for a project."""
+  webhooks(accountId: ID!, projectId: ID!): [Webhook!]!
+
+  """Return the current OAuth authorization."""
+  authorization: Authorization
+}
+
+type Mutation {
+  """Create a new project."""
+  createProject(accountId: ID!, name: String!, description: String): Project
+
+  """Update an existing project."""
+  updateProject(accountId: ID!, id: ID!, name: String, description: String): Project
+
+  """Archive a project."""
+  archiveProject(accountId: ID!, id: ID!): Project
+
+  """Create a to-do list."""
+  createTodolist(accountId: ID!, projectId: ID!, todosetId: ID!, name: String!, description: String): Todolist
+
+  """Create a todo."""
+  createTodo(accountId: ID!, projectId: ID!, todolistId: ID!, content: String!, description: String, dueOn: String, assigneeIds: [ID!]): Todo
+
+  """Complete a todo."""
+  completeTodo(accountId: ID!, projectId: ID!, id: ID!): Todo
+
+  """Post a message."""
+  createMessage(accountId: ID!, projectId: ID!, messageBoardId: ID!, subject: String!, content: String!, categoryId: ID): Message
+
+  """Create a schedule entry."""
+  createScheduleEntry(accountId: ID!, projectId: ID!, scheduleId: ID!, summary: String!, startsAt: DateTime!, endsAt: DateTime!, allDay: Boolean): ScheduleEntry
+
+  """Create a document."""
+  createDocument(accountId: ID!, projectId: ID!, vaultId: ID!, title: String!, content: String!): Document
+
+  """Create a comment."""
+  createComment(accountId: ID!, projectId: ID!, recordingId: ID!, content: String!): Comment
+
+  """Create a webhook."""
+  createWebhook(accountId: ID!, projectId: ID!, payloadUrl: URL!, types: [String!]!): Webhook
+
+  """Update a webhook."""
+  updateWebhook(accountId: ID!, projectId: ID!, id: ID!, payloadUrl: URL, types: [String!], active: Boolean): Webhook
+
+  """Delete a webhook."""
+  deleteWebhook(accountId: ID!, projectId: ID!, id: ID!): Boolean
+
+  """Subscribe to a recording."""
+  subscribeToRecording(accountId: ID!, projectId: ID!, recordingId: ID!): Subscription
+
+  """Unsubscribe from a recording."""
+  unsubscribeFromRecording(accountId: ID!, projectId: ID!, recordingId: ID!): Subscription
+}
