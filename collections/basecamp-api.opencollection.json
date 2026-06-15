@@ -1,0 +1,1665 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/projects.json",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter projects by status. Omit for active projects."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active projects visible to the authenticated user. Use the optional status parameter to retrieve archived or trashed projects instead."
+        },
+        {
+          "info": {
+            "name": "Create a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/projects.json",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Basecamp project with the given name and optional description. Returns the new project with a 201 Created status."
+        },
+        {
+          "info": {
+            "name": "Get a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/projects/:projectId.json",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project (bucket)"
+              }
+            ]
+          },
+          "docs": "Returns the project with the given ID including its dock, which lists the tools enabled for that project."
+        },
+        {
+          "info": {
+            "name": "Update a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/projects/:projectId.json",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project (bucket)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the name, description, schedule dates, or admissions settings for an existing project. Returns the updated project."
+        },
+        {
+          "info": {
+            "name": "Delete a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://3.basecampapi.com/{accountId}/projects/:projectId.json",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project (bucket)"
+              }
+            ]
+          },
+          "docs": "Moves the project with the given ID to trash. Trashed projects can be permanently deleted from the Basecamp web interface."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "People",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all people",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/people.json"
+          },
+          "docs": "Returns a paginated list of all people visible to the authenticated user across the account."
+        },
+        {
+          "info": {
+            "name": "List people on a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/projects/:projectId/people.json",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project (bucket)"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all people with access to the specified project."
+        },
+        {
+          "info": {
+            "name": "Update project access",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/projects/:projectId/people/users.json",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project (bucket)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Grants or revokes access to the project for specific people. Accepts arrays of person IDs to grant or revoke, or new person objects to create and invite."
+        },
+        {
+          "info": {
+            "name": "List pingable people",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/circles/people.json"
+          },
+          "docs": "Returns a paginated list of all people the authenticated user can ping (direct message) within the account."
+        },
+        {
+          "info": {
+            "name": "Get a person",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/people/:personId.json",
+            "params": [
+              {
+                "name": "personId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the person"
+              }
+            ]
+          },
+          "docs": "Returns the profile of the person with the given ID."
+        },
+        {
+          "info": {
+            "name": "Get my profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/my/profile.json"
+          },
+          "docs": "Returns the profile of the currently authenticated user."
+        },
+        {
+          "info": {
+            "name": "Update my profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/my/profile.json",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates profile fields for the currently authenticated user including name, email address, title, bio, location, and time zone."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/templates.json",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter templates by status."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active project templates visible to the authenticated user. Optionally filter by status."
+        },
+        {
+          "info": {
+            "name": "Create a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/templates.json",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new project template with the given name and optional description. Returns the template with a 201 Created status."
+        },
+        {
+          "info": {
+            "name": "Get a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/templates/:templateId.json",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the template"
+              }
+            ]
+          },
+          "docs": "Returns the project template with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/templates/:templateId.json",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the template"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the name and description of an existing project template."
+        },
+        {
+          "info": {
+            "name": "Delete a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://3.basecampapi.com/{accountId}/templates/:templateId.json",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the template"
+              }
+            ]
+          },
+          "docs": "Moves the template with the given ID to trash."
+        },
+        {
+          "info": {
+            "name": "Create project from template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/templates/:templateId/project_constructions.json",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the template"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts the construction of a new project based on the given template. Returns a project construction object whose status can be polled until it transitions from \"pending\" to \"completed\"."
+        },
+        {
+          "info": {
+            "name": "Get project construction status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/templates/:templateId/project_constructions/:constructionId.json",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the template"
+              },
+              {
+                "name": "constructionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project construction job"
+              }
+            ]
+          },
+          "docs": "Returns the current status of a project construction job. Poll this endpoint until status changes from \"pending\" to \"completed\"."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Recordings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List recordings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/projects/recordings.json",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The recording type to list."
+              },
+              {
+                "name": "bucket",
+                "value": "",
+                "type": "query",
+                "description": "Filter to a specific project (bucket) ID."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by recording status."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of recordings of the specified type across all projects. Use the type parameter to specify the resource type (Comment, Document, Message, Todo, Upload, etc.)."
+        },
+        {
+          "info": {
+            "name": "Trash a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/status/trashed.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ]
+          },
+          "docs": "Moves the recording with the given ID to trash. Works for any recordable resource type including messages, to-dos, documents, and comments."
+        },
+        {
+          "info": {
+            "name": "Archive a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/status/archived.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ]
+          },
+          "docs": "Archives the recording with the given ID. Archived recordings are hidden from default views but remain accessible."
+        },
+        {
+          "info": {
+            "name": "Unarchive a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/status/active.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ]
+          },
+          "docs": "Restores an archived recording to active status, making it visible in default views again."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/message_boards/:messageBoardId/messages.json",
+            "params": [
+              {
+                "name": "messageBoardId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the message board"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active messages in the specified message board. Messages can be sorted by created_at or updated_at."
+        },
+        {
+          "info": {
+            "name": "Create a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/message_boards/:messageBoardId/messages.json",
+            "params": [
+              {
+                "name": "messageBoardId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the message board"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new message in the specified message board. Set status to \"active\" to publish immediately; otherwise the message is saved as a draft."
+        },
+        {
+          "info": {
+            "name": "Get a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/messages/:messageId.json",
+            "params": [
+              {
+                "name": "messageId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the message"
+              }
+            ]
+          },
+          "docs": "Returns the message with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/messages/:messageId.json",
+            "params": [
+              {
+                "name": "messageId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the message"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the subject, content, or category of the specified message."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Comments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/comments.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active comments on the specified recording. Any resource that exposes a comments_url can have its comments listed via this endpoint."
+        },
+        {
+          "info": {
+            "name": "Create a comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/comments.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new comment on the specified recording. All subscribers to the recording will be notified. Supports HTML-formatted content."
+        },
+        {
+          "info": {
+            "name": "Get a comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/comments/:commentId.json",
+            "params": [
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the comment"
+              }
+            ]
+          },
+          "docs": "Returns the comment with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update a comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/comments/:commentId.json",
+            "params": [
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the comment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the content of the specified comment."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "To-Do Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List to-do lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/todosets/:todosetId/todolists.json",
+            "params": [
+              {
+                "name": "todosetId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do set"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active to-do lists within the specified to-do set."
+        },
+        {
+          "info": {
+            "name": "Create a to-do list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/todosets/:todosetId/todolists.json",
+            "params": [
+              {
+                "name": "todosetId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do set"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new to-do list in the specified to-do set with the given name and optional description."
+        },
+        {
+          "info": {
+            "name": "Get a to-do list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/todolists/:todolistId.json",
+            "params": [
+              {
+                "name": "todolistId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do list"
+              }
+            ]
+          },
+          "docs": "Returns the to-do list with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update a to-do list",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/todolists/:todolistId.json",
+            "params": [
+              {
+                "name": "todolistId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do list"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the name and description of the specified to-do list."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "To-Dos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List to-dos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/todolists/:todolistId/todos.json",
+            "params": [
+              {
+                "name": "todolistId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do list"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status."
+              },
+              {
+                "name": "completed",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to return completed to-dos."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active to-dos in the specified to-do list. Set completed=true to retrieve completed items instead."
+        },
+        {
+          "info": {
+            "name": "Create a to-do",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/todolists/:todolistId/todos.json",
+            "params": [
+              {
+                "name": "todolistId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do list"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new to-do in the specified to-do list. Supports assignees, due dates, start dates, and completion subscriber notifications."
+        },
+        {
+          "info": {
+            "name": "Get a to-do",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/todos/:todoId.json",
+            "params": [
+              {
+                "name": "todoId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do"
+              }
+            ]
+          },
+          "docs": "Returns the to-do with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update a to-do",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/todos/:todoId.json",
+            "params": [
+              {
+                "name": "todoId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the content, description, assignees, due date, or other fields of the specified to-do."
+        },
+        {
+          "info": {
+            "name": "Complete a to-do",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/todos/:todoId/completion.json",
+            "params": [
+              {
+                "name": "todoId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do"
+              }
+            ]
+          },
+          "docs": "Marks the specified to-do as completed and notifies completion subscribers."
+        },
+        {
+          "info": {
+            "name": "Uncomplete a to-do",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://3.basecampapi.com/{accountId}/todos/:todoId/completion.json",
+            "params": [
+              {
+                "name": "todoId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do"
+              }
+            ]
+          },
+          "docs": "Marks the specified to-do as incomplete, reversing a previous completion."
+        },
+        {
+          "info": {
+            "name": "Reposition a to-do",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/todos/:todoId/position.json",
+            "params": [
+              {
+                "name": "todoId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Changes the position of the specified to-do within its to-do list. Position is 1-indexed."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/schedules/:scheduleId.json",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the schedule"
+              }
+            ]
+          },
+          "docs": "Returns the schedule with the given ID including its configuration and entry count."
+        },
+        {
+          "info": {
+            "name": "Update a schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/schedules/:scheduleId.json",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the schedule"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the schedule's configuration, including whether it should include due dates from to-dos, cards, and steps."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Schedule Entries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List schedule entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/schedules/:scheduleId/entries.json",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the schedule"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active schedule entries in the specified schedule."
+        },
+        {
+          "info": {
+            "name": "Create a schedule entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/schedules/:scheduleId/entries.json",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the schedule"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new schedule entry in the specified schedule. Requires a summary, start time, and end time."
+        },
+        {
+          "info": {
+            "name": "Get a schedule entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/schedule_entries/:entryId.json",
+            "params": [
+              {
+                "name": "entryId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the schedule entry"
+              }
+            ]
+          },
+          "docs": "Returns the schedule entry with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update a schedule entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/schedule_entries/:entryId.json",
+            "params": [
+              {
+                "name": "entryId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the schedule entry"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the summary, times, description, participants, or recurrence configuration of the specified schedule entry."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/vaults/:vaultId/documents.json",
+            "params": [
+              {
+                "name": "vaultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the vault"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active documents in the specified vault."
+        },
+        {
+          "info": {
+            "name": "Create a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/vaults/:vaultId/documents.json",
+            "params": [
+              {
+                "name": "vaultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the vault"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new document in the specified vault. Set status to \"active\" for immediate publication; otherwise it is saved as a draft."
+        },
+        {
+          "info": {
+            "name": "Get a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/documents/:documentId.json",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document"
+              }
+            ]
+          },
+          "docs": "Returns the document with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/documents/:documentId.json",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the title and content of the specified document."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Uploads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List uploads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/vaults/:vaultId/uploads.json",
+            "params": [
+              {
+                "name": "vaultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the vault"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active file uploads in the specified vault."
+        },
+        {
+          "info": {
+            "name": "Create an upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/vaults/:vaultId/uploads.json",
+            "params": [
+              {
+                "name": "vaultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the vault"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new upload entry in the specified vault using an attachable SGID obtained from the Basecamp attachment API."
+        },
+        {
+          "info": {
+            "name": "Get an upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/uploads/:uploadId.json",
+            "params": [
+              {
+                "name": "uploadId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the upload"
+              }
+            ]
+          },
+          "docs": "Returns the upload with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update an upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/uploads/:uploadId.json",
+            "params": [
+              {
+                "name": "uploadId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the upload"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the description or base name of the specified upload."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Campfires",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List campfires",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/chats.json"
+          },
+          "docs": "Returns a paginated list of all active campfire chat rooms visible to the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Get a campfire",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/chats/:campfireId.json",
+            "params": [
+              {
+                "name": "campfireId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the campfire chat room"
+              }
+            ]
+          },
+          "docs": "Returns the campfire with the given ID."
+        },
+        {
+          "info": {
+            "name": "List campfire lines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/chats/:campfireId/lines.json",
+            "params": [
+              {
+                "name": "campfireId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the campfire chat room"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of chat messages (lines) in the specified campfire, ordered newest first."
+        },
+        {
+          "info": {
+            "name": "Create a campfire line",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/chats/:campfireId/lines.json",
+            "params": [
+              {
+                "name": "campfireId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the campfire chat room"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Posts a new message to the specified campfire. Content must be plain text."
+        },
+        {
+          "info": {
+            "name": "Get a campfire line",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/chats/:campfireId/lines/:lineId.json",
+            "params": [
+              {
+                "name": "campfireId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the campfire chat room"
+              },
+              {
+                "name": "lineId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the campfire line"
+              }
+            ]
+          },
+          "docs": "Returns the specific campfire line with the given ID."
+        },
+        {
+          "info": {
+            "name": "Delete a campfire line",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://3.basecampapi.com/{accountId}/chats/:campfireId/lines/:lineId.json",
+            "params": [
+              {
+                "name": "campfireId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the campfire chat room"
+              },
+              {
+                "name": "lineId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the campfire line"
+              }
+            ]
+          },
+          "docs": "Deletes the campfire line with the given ID. Only the line creator or account admins can delete lines."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Card Tables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a card table",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/card_tables/:cardTableId.json",
+            "params": [
+              {
+                "name": "cardTableId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the card table"
+              }
+            ]
+          },
+          "docs": "Returns the card table with the given ID, including its columns and metadata such as card counts per column."
+        },
+        {
+          "info": {
+            "name": "Move a card",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/card_tables/:cardTableId/moves.json",
+            "params": [
+              {
+                "name": "cardTableId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the card table"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Moves a card to a different column on the card table at the specified zero-indexed position."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/buckets/:projectId/webhooks.json",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project (bucket)"
+              }
+            ]
+          },
+          "docs": "Returns all webhooks configured for the project with the given ID, including delivery history for each webhook."
+        },
+        {
+          "info": {
+            "name": "Create a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/buckets/:projectId/webhooks.json",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project (bucket)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new webhook for the specified project. The payload URL must be HTTPS. Optionally restrict to specific resource types; defaults to all types."
+        },
+        {
+          "info": {
+            "name": "Get a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/webhooks/:webhookId.json",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the webhook"
+              }
+            ]
+          },
+          "docs": "Returns the webhook with the given ID and its recent delivery history."
+        },
+        {
+          "info": {
+            "name": "Update a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/webhooks/:webhookId.json",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the webhook"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the payload URL, active status, or subscribed types of the specified webhook."
+        },
+        {
+          "info": {
+            "name": "Delete a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://3.basecampapi.com/{accountId}/webhooks/:webhookId.json",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the webhook"
+              }
+            ]
+          },
+          "docs": "Permanently deletes the webhook with the given ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/subscription.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ]
+          },
+          "docs": "Returns the current subscription status and list of subscribers for the specified recording."
+        },
+        {
+          "info": {
+            "name": "Subscribe to recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/subscription.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ]
+          },
+          "docs": "Adds the authenticated user as a subscriber to the specified recording."
+        },
+        {
+          "info": {
+            "name": "Update subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/subscription.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk adds or removes subscribers from the specified recording using arrays of person IDs."
+        },
+        {
+          "info": {
+            "name": "Unsubscribe from recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/subscription.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ]
+          },
+          "docs": "Removes the authenticated user as a subscriber from the specified recording."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

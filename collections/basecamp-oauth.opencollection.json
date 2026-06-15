@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp OAuth API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authorization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Authorize user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://launchpad.37signals.com/authorization",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Must be set to \"web_server\" for the authorization code flow"
+              },
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "query",
+                "description": "Your application's client ID from launchpad.37signals.com"
+              },
+              {
+                "name": "redirect_uri",
+                "value": "",
+                "type": "query",
+                "description": "The URI to redirect to after authorization. Must match a URI registered with your application."
+              }
+            ]
+          },
+          "docs": "Redirects the user to the Basecamp authorization page where they can grant your application access to their account. After the user approves, Basecamp redirects back to your redirect_uri with an authorization code."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Exchange code for token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://launchpad.37signals.com/authorization/token",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Exchanges an authorization code for an access token and refresh token. The authorization code is single-use and expires shortly after being issued. The resulting access token expires after two weeks."
+        },
+        {
+          "info": {
+            "name": "Refresh access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://launchpad.37signals.com/authorization/token/refresh",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Uses a refresh token to obtain a new access token without requiring the user to re-authorize. Refresh tokens do not expire but are revoked if the user revokes access."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Identity",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://launchpad.37signals.com/authorization.json",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the identity of the authenticated user along with the list of Basecamp accounts they have access to. This is typically the first call made after obtaining an access token to discover which account IDs to use in subsequent API requests."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
