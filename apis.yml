@@ -79,7 +79,7 @@ common:
 - type: Documentation
   url: https://github.com/basecamp/bc3-api
   name: Basecamp API Documentation
-- type: SignUp
+- type: Signup
   url: https://launchpad.37signals.com/
   name: 37signals Launchpad (App Registration)
 - type: Blog
