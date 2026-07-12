@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/basecamp-api-openapi.yml, openapi/basecamp-oauth-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: 'OAuth 2.0 Bearer token obtained via the Basecamp authorization code flow at
+    launchpad.37signals.com. Include as "Authorization: Bearer {token}" in all requests.'
+  sources:
+  - openapi/basecamp-api-openapi.yml
+  - openapi/basecamp-oauth-openapi.yml

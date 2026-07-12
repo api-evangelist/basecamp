@@ -71,6 +71,12 @@ apis:
     Launchpad. Register at launchpad.37signals.com for a client ID and secret, then
     implement the authorization code flow to obtain access tokens.
 common:
+- type: VulnerabilityDisclosure
+  url: security/basecamp-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/basecamp-domain-security.yml
+- type: Authentication
+  url: authentication/basecamp-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/37signals
 - type: Website
