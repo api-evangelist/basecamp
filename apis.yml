@@ -71,6 +71,8 @@ apis:
     Launchpad. Register at launchpad.37signals.com for a client ID and secret, then
     implement the authorization code flow to obtain access tokens.
 common:
+- type: AgenticAccess
+  url: agentic-access/basecamp-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/basecamp-vulnerability-disclosure.yml
 - type: DomainSecurity
