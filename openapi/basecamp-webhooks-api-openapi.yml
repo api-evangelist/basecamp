@@ -1,0 +1,261 @@
+openapi: 3.1.0
+info:
+  title: Basecamp Authorization Webhooks API
+  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
+  version: '1.0'
+  contact:
+    name: Basecamp Developer Support
+    url: https://github.com/basecamp/bc3-api
+  termsOfService: https://basecamp.com/terms
+servers:
+- url: https://3.basecampapi.com/{accountId}
+  description: Production Server
+  variables:
+    accountId:
+      description: Your Basecamp account ID
+      default: '999999999'
+security:
+- bearerAuth: []
+tags:
+- name: Webhooks
+  description: Manage webhook subscriptions for a project
+paths:
+  /buckets/{projectId}/webhooks.json:
+    get:
+      operationId: listWebhooks
+      summary: List webhooks
+      description: Returns all webhooks configured for the project with the given ID, including delivery history for each webhook.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '200':
+          description: List of webhooks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createWebhook
+      summary: Create a webhook
+      description: Creates a new webhook for the specified project. The payload URL must be HTTPS. Optionally restrict to specific resource types; defaults to all types.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookCreateRequest'
+      responses:
+        '201':
+          description: Webhook created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /webhooks/{webhookId}.json:
+    get:
+      operationId: getWebhook
+      summary: Get a webhook
+      description: Returns the webhook with the given ID and its recent delivery history.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/WebhookId'
+      responses:
+        '200':
+          description: Webhook details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateWebhook
+      summary: Update a webhook
+      description: Updates the payload URL, active status, or subscribed types of the specified webhook.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/WebhookId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookUpdateRequest'
+      responses:
+        '200':
+          description: Updated webhook
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteWebhook
+      summary: Delete a webhook
+      description: Permanently deletes the webhook with the given ID.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/WebhookId'
+      responses:
+        '204':
+          description: Webhook deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    WebhookUpdateRequest:
+      type: object
+      properties:
+        payload_url:
+          type: string
+          format: uri
+          description: Updated HTTPS URL for event delivery
+        types:
+          type: array
+          description: Updated list of subscribed resource types
+          items:
+            type: string
+        active:
+          type: boolean
+          description: Whether the webhook should be active
+    WebhookCreateRequest:
+      type: object
+      required:
+      - payload_url
+      properties:
+        payload_url:
+          type: string
+          format: uri
+          description: HTTPS URL to receive webhook event notifications
+        types:
+          type: array
+          description: Resource types to subscribe to. Omit to subscribe to all types.
+          items:
+            type: string
+            enum:
+            - Message
+            - Todo
+            - Todolist
+            - Document
+            - Comment
+            - Kanban::Card
+            - Schedule::Entry
+            - Vault
+            - Upload
+            - Client::Forward
+            - Client::Correspondence
+            - Question
+            - Question::Answer
+            - Inbox::Forward
+        active:
+          type: boolean
+          description: Whether the webhook should be active upon creation
+          default: true
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Webhook ID
+        active:
+          type: boolean
+          description: Whether this webhook is currently active
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the webhook was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the webhook was last updated
+        payload_url:
+          type: string
+          format: uri
+          description: HTTPS URL where Basecamp sends event notifications
+        types:
+          type: array
+          description: Resource types that trigger this webhook
+          items:
+            type: string
+        url:
+          type: string
+          format: uri
+          description: API URL for this webhook
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this webhook configuration
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+  responses:
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    WebhookId:
+      name: webhookId
+      in: path
+      required: true
+      description: Unique identifier of the webhook
+      schema:
+        type: integer
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the project (bucket)
+      schema:
+        type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth 2.0 Bearer token obtained via the Basecamp authorization code flow at launchpad.37signals.com. Include as "Authorization: Bearer {token}" in all requests.'
+externalDocs:
+  description: Basecamp API Documentation
+  url: https://github.com/basecamp/bc3-api

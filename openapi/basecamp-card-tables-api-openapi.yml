@@ -1,0 +1,294 @@
+openapi: 3.1.0
+info:
+  title: Basecamp Authorization Card Tables API
+  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
+  version: '1.0'
+  contact:
+    name: Basecamp Developer Support
+    url: https://github.com/basecamp/bc3-api
+  termsOfService: https://basecamp.com/terms
+servers:
+- url: https://3.basecampapi.com/{accountId}
+  description: Production Server
+  variables:
+    accountId:
+      description: Your Basecamp account ID
+      default: '999999999'
+security:
+- bearerAuth: []
+tags:
+- name: Card Tables
+  description: Manage kanban-style card tables and card movements
+paths:
+  /card_tables/{cardTableId}.json:
+    get:
+      operationId: getCardTable
+      summary: Get a card table
+      description: Returns the card table with the given ID, including its columns and metadata such as card counts per column.
+      tags:
+      - Card Tables
+      parameters:
+      - $ref: '#/components/parameters/CardTableId'
+      responses:
+        '200':
+          description: Card table details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardTable'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /card_tables/{cardTableId}/moves.json:
+    post:
+      operationId: moveCard
+      summary: Move a card
+      description: Moves a card to a different column on the card table at the specified zero-indexed position.
+      tags:
+      - Card Tables
+      parameters:
+      - $ref: '#/components/parameters/CardTableId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardMoveRequest'
+      responses:
+        '204':
+          description: Card moved
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Recording:
+      type: object
+      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
+      properties:
+        id:
+          type: integer
+          description: Recording ID
+        status:
+          type: string
+          description: Recording status
+          enum:
+          - active
+          - archived
+          - trashed
+        visible_to_clients:
+          type: boolean
+          description: Whether this recording is visible to client users
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was last updated
+        title:
+          type: string
+          description: Title or summary of the recording
+        inherits_status:
+          type: boolean
+          description: Whether this recording inherits its status from a parent
+        type:
+          type: string
+          description: Recording type (e.g., Message, Todo, Document)
+        url:
+          type: string
+          format: uri
+          description: API URL for this recording
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this recording
+        bucket:
+          $ref: '#/components/schemas/BucketRef'
+        creator:
+          $ref: '#/components/schemas/PersonRef'
+    CardMoveRequest:
+      type: object
+      required:
+      - source_id
+      - target_id
+      - position
+      properties:
+        source_id:
+          type: integer
+          description: Recording ID of the card to move
+        target_id:
+          type: integer
+          description: Recording ID of the destination column
+        position:
+          type: integer
+          description: Zero-indexed position within the destination column
+          minimum: 0
+    CardColumn:
+      type: object
+      description: A column within a card table
+      properties:
+        id:
+          type: integer
+          description: Column ID
+        title:
+          type: string
+          description: Column title
+        type:
+          type: string
+          description: Column type (Kanban::Column, Kanban::Triage, etc.)
+        color:
+          type: string
+          description: Column color
+          nullable: true
+        position:
+          type: integer
+          description: Column position within the table
+        cards_count:
+          type: integer
+          description: Number of cards in this column
+        cards_url:
+          type: string
+          format: uri
+          description: API URL to list cards in this column
+    PersonRef:
+      type: object
+      description: Minimal reference to a Basecamp person
+      properties:
+        id:
+          type: integer
+          description: Person ID
+        attachable_sgid:
+          type: string
+          description: Signed global ID for attaching this person
+        name:
+          type: string
+          description: Full name
+        email_address:
+          type: string
+          format: email
+          description: Email address
+        personable_type:
+          type: string
+          description: Type of personable (User, Client, etc.)
+        title:
+          type: string
+          description: Job title
+        bio:
+          type: string
+          description: Short biography
+        location:
+          type: string
+          description: Location string
+        created_at:
+          type: string
+          format: date-time
+          description: Account creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        admin:
+          type: boolean
+          description: Whether the person is an account administrator
+        owner:
+          type: boolean
+          description: Whether the person is the account owner
+        client:
+          type: boolean
+          description: Whether the person is a client user
+        employee:
+          type: boolean
+          description: Whether the person is an employee
+        time_zone:
+          type: string
+          description: IANA time zone name
+        avatar_url:
+          type: string
+          format: uri
+          description: URL to the person's avatar image
+        company:
+          type: object
+          description: Company the person belongs to
+          properties:
+            id:
+              type: integer
+              description: Company ID
+            name:
+              type: string
+              description: Company name
+    BucketRef:
+      type: object
+      description: Reference to the project (bucket) that contains a resource
+      properties:
+        id:
+          type: integer
+          description: Project ID
+        name:
+          type: string
+          description: Project name
+        type:
+          type: string
+          description: Resource type, always "Project"
+        url:
+          type: string
+          format: uri
+          description: API URL for the project
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for the project
+    CardTable:
+      allOf:
+      - $ref: '#/components/schemas/Recording'
+      - type: object
+        properties:
+          lists:
+            type: array
+            description: Columns in the card table
+            items:
+              $ref: '#/components/schemas/CardColumn'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+  responses:
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    CardTableId:
+      name: cardTableId
+      in: path
+      required: true
+      description: Unique identifier of the card table
+      schema:
+        type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth 2.0 Bearer token obtained via the Basecamp authorization code flow at launchpad.37signals.com. Include as "Authorization: Bearer {token}" in all requests.'
+externalDocs:
+  description: Basecamp API Documentation
+  url: https://github.com/basecamp/bc3-api

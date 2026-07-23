@@ -1,0 +1,345 @@
+openapi: 3.1.0
+info:
+  title: Basecamp Authorization To-Do Lists API
+  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
+  version: '1.0'
+  contact:
+    name: Basecamp Developer Support
+    url: https://github.com/basecamp/bc3-api
+  termsOfService: https://basecamp.com/terms
+servers:
+- url: https://3.basecampapi.com/{accountId}
+  description: Production Server
+  variables:
+    accountId:
+      description: Your Basecamp account ID
+      default: '999999999'
+security:
+- bearerAuth: []
+tags:
+- name: To-Do Lists
+  description: Manage to-do lists within a to-do set
+paths:
+  /todosets/{todosetId}/todolists.json:
+    get:
+      operationId: listTodoLists
+      summary: List to-do lists
+      description: Returns a paginated list of active to-do lists within the specified to-do set.
+      tags:
+      - To-Do Lists
+      parameters:
+      - $ref: '#/components/parameters/TodosetId'
+      - name: status
+        in: query
+        required: false
+        description: Filter by status.
+        schema:
+          type: string
+          enum:
+          - archived
+          - trashed
+      responses:
+        '200':
+          description: List of to-do lists
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createTodoList
+      summary: Create a to-do list
+      description: Creates a new to-do list in the specified to-do set with the given name and optional description.
+      tags:
+      - To-Do Lists
+      parameters:
+      - $ref: '#/components/parameters/TodosetId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoListCreateRequest'
+      responses:
+        '201':
+          description: To-do list created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /todolists/{todolistId}.json:
+    get:
+      operationId: getTodoList
+      summary: Get a to-do list
+      description: Returns the to-do list with the given ID.
+      tags:
+      - To-Do Lists
+      parameters:
+      - $ref: '#/components/parameters/TodolistId'
+      responses:
+        '200':
+          description: To-do list details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateTodoList
+      summary: Update a to-do list
+      description: Updates the name and description of the specified to-do list.
+      tags:
+      - To-Do Lists
+      parameters:
+      - $ref: '#/components/parameters/TodolistId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoListCreateRequest'
+      responses:
+        '200':
+          description: Updated to-do list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Recording:
+      type: object
+      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
+      properties:
+        id:
+          type: integer
+          description: Recording ID
+        status:
+          type: string
+          description: Recording status
+          enum:
+          - active
+          - archived
+          - trashed
+        visible_to_clients:
+          type: boolean
+          description: Whether this recording is visible to client users
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was last updated
+        title:
+          type: string
+          description: Title or summary of the recording
+        inherits_status:
+          type: boolean
+          description: Whether this recording inherits its status from a parent
+        type:
+          type: string
+          description: Recording type (e.g., Message, Todo, Document)
+        url:
+          type: string
+          format: uri
+          description: API URL for this recording
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this recording
+        bucket:
+          $ref: '#/components/schemas/BucketRef'
+        creator:
+          $ref: '#/components/schemas/PersonRef'
+    TodoListCreateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: To-do list name
+        description:
+          type: string
+          description: Optional description with supported HTML formatting
+    PersonRef:
+      type: object
+      description: Minimal reference to a Basecamp person
+      properties:
+        id:
+          type: integer
+          description: Person ID
+        attachable_sgid:
+          type: string
+          description: Signed global ID for attaching this person
+        name:
+          type: string
+          description: Full name
+        email_address:
+          type: string
+          format: email
+          description: Email address
+        personable_type:
+          type: string
+          description: Type of personable (User, Client, etc.)
+        title:
+          type: string
+          description: Job title
+        bio:
+          type: string
+          description: Short biography
+        location:
+          type: string
+          description: Location string
+        created_at:
+          type: string
+          format: date-time
+          description: Account creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        admin:
+          type: boolean
+          description: Whether the person is an account administrator
+        owner:
+          type: boolean
+          description: Whether the person is the account owner
+        client:
+          type: boolean
+          description: Whether the person is a client user
+        employee:
+          type: boolean
+          description: Whether the person is an employee
+        time_zone:
+          type: string
+          description: IANA time zone name
+        avatar_url:
+          type: string
+          format: uri
+          description: URL to the person's avatar image
+        company:
+          type: object
+          description: Company the person belongs to
+          properties:
+            id:
+              type: integer
+              description: Company ID
+            name:
+              type: string
+              description: Company name
+    BucketRef:
+      type: object
+      description: Reference to the project (bucket) that contains a resource
+      properties:
+        id:
+          type: integer
+          description: Project ID
+        name:
+          type: string
+          description: Project name
+        type:
+          type: string
+          description: Resource type, always "Project"
+        url:
+          type: string
+          format: uri
+          description: API URL for the project
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for the project
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    TodoList:
+      allOf:
+      - $ref: '#/components/schemas/Recording'
+      - type: object
+        properties:
+          completed:
+            type: boolean
+            description: Whether all to-dos in this list are completed
+          completed_ratio:
+            type: string
+            description: Completion ratio as a string (e.g., "2/5")
+          position:
+            type: integer
+            description: Display position within the to-do set
+          color:
+            type: string
+            description: List color identifier
+            nullable: true
+          todos_url:
+            type: string
+            format: uri
+            description: API URL to list to-dos in this list
+          comments_count:
+            type: integer
+            description: Number of comments on this list
+          boosts_count:
+            type: integer
+            description: Number of boosts on this list
+  parameters:
+    TodolistId:
+      name: todolistId
+      in: path
+      required: true
+      description: Unique identifier of the to-do list
+      schema:
+        type: integer
+    TodosetId:
+      name: todosetId
+      in: path
+      required: true
+      description: Unique identifier of the to-do set
+      schema:
+        type: integer
+  responses:
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth 2.0 Bearer token obtained via the Basecamp authorization code flow at launchpad.37signals.com. Include as "Authorization: Bearer {token}" in all requests.'
+externalDocs:
+  description: Basecamp API Documentation
+  url: https://github.com/basecamp/bc3-api

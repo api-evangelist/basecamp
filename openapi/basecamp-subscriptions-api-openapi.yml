@@ -1,0 +1,229 @@
+openapi: 3.1.0
+info:
+  title: Basecamp Authorization Subscriptions API
+  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
+  version: '1.0'
+  contact:
+    name: Basecamp Developer Support
+    url: https://github.com/basecamp/bc3-api
+  termsOfService: https://basecamp.com/terms
+servers:
+- url: https://3.basecampapi.com/{accountId}
+  description: Production Server
+  variables:
+    accountId:
+      description: Your Basecamp account ID
+      default: '999999999'
+security:
+- bearerAuth: []
+tags:
+- name: Subscriptions
+  description: Manage per-recording notification subscriptions
+paths:
+  /recordings/{recordingId}/subscription.json:
+    get:
+      operationId: getSubscription
+      summary: Get subscription
+      description: Returns the current subscription status and list of subscribers for the specified recording.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/RecordingId'
+      responses:
+        '200':
+          description: Subscription details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: subscribeToRecording
+      summary: Subscribe to recording
+      description: Adds the authenticated user as a subscriber to the specified recording.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/RecordingId'
+      responses:
+        '200':
+          description: Subscription updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: unsubscribeFromRecording
+      summary: Unsubscribe from recording
+      description: Removes the authenticated user as a subscriber from the specified recording.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/RecordingId'
+      responses:
+        '204':
+          description: Unsubscribed
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: updateSubscription
+      summary: Update subscription
+      description: Bulk adds or removes subscribers from the specified recording using arrays of person IDs.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/RecordingId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionUpdateRequest'
+      responses:
+        '200':
+          description: Updated subscription
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    RecordingId:
+      name: recordingId
+      in: path
+      required: true
+      description: Unique identifier of the recording
+      schema:
+        type: integer
+  schemas:
+    PersonRef:
+      type: object
+      description: Minimal reference to a Basecamp person
+      properties:
+        id:
+          type: integer
+          description: Person ID
+        attachable_sgid:
+          type: string
+          description: Signed global ID for attaching this person
+        name:
+          type: string
+          description: Full name
+        email_address:
+          type: string
+          format: email
+          description: Email address
+        personable_type:
+          type: string
+          description: Type of personable (User, Client, etc.)
+        title:
+          type: string
+          description: Job title
+        bio:
+          type: string
+          description: Short biography
+        location:
+          type: string
+          description: Location string
+        created_at:
+          type: string
+          format: date-time
+          description: Account creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        admin:
+          type: boolean
+          description: Whether the person is an account administrator
+        owner:
+          type: boolean
+          description: Whether the person is the account owner
+        client:
+          type: boolean
+          description: Whether the person is a client user
+        employee:
+          type: boolean
+          description: Whether the person is an employee
+        time_zone:
+          type: string
+          description: IANA time zone name
+        avatar_url:
+          type: string
+          format: uri
+          description: URL to the person's avatar image
+        company:
+          type: object
+          description: Company the person belongs to
+          properties:
+            id:
+              type: integer
+              description: Company ID
+            name:
+              type: string
+              description: Company name
+    Subscription:
+      type: object
+      properties:
+        subscribed:
+          type: boolean
+          description: Whether the authenticated user is subscribed
+        count:
+          type: integer
+          description: Total number of subscribers
+        url:
+          type: string
+          format: uri
+          description: API URL for this subscription resource
+        subscribers:
+          type: array
+          description: List of subscribed people
+          items:
+            $ref: '#/components/schemas/PersonRef'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    SubscriptionUpdateRequest:
+      type: object
+      properties:
+        subscriptions:
+          type: array
+          description: Person IDs to add as subscribers
+          items:
+            type: integer
+        unsubscriptions:
+          type: array
+          description: Person IDs to remove as subscribers
+          items:
+            type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth 2.0 Bearer token obtained via the Basecamp authorization code flow at launchpad.37signals.com. Include as "Authorization: Bearer {token}" in all requests.'
+externalDocs:
+  description: Basecamp API Documentation
+  url: https://github.com/basecamp/bc3-api

@@ -1,0 +1,411 @@
+openapi: 3.1.0
+info:
+  title: Basecamp Authorization Templates API
+  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
+  version: '1.0'
+  contact:
+    name: Basecamp Developer Support
+    url: https://github.com/basecamp/bc3-api
+  termsOfService: https://basecamp.com/terms
+servers:
+- url: https://3.basecampapi.com/{accountId}
+  description: Production Server
+  variables:
+    accountId:
+      description: Your Basecamp account ID
+      default: '999999999'
+security:
+- bearerAuth: []
+tags:
+- name: Templates
+  description: Manage project templates and construct projects from them
+paths:
+  /templates.json:
+    get:
+      operationId: listTemplates
+      summary: List templates
+      description: Returns a paginated list of active project templates visible to the authenticated user. Optionally filter by status.
+      tags:
+      - Templates
+      parameters:
+      - name: status
+        in: query
+        description: Filter templates by status.
+        required: false
+        schema:
+          type: string
+          enum:
+          - archived
+          - trashed
+      responses:
+        '200':
+          description: List of templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Template'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createTemplate
+      summary: Create a template
+      description: Creates a new project template with the given name and optional description. Returns the template with a 201 Created status.
+      tags:
+      - Templates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateCreateRequest'
+      responses:
+        '201':
+          description: Template created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /templates/{templateId}.json:
+    get:
+      operationId: getTemplate
+      summary: Get a template
+      description: Returns the project template with the given ID.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/TemplateId'
+      responses:
+        '200':
+          description: Template details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateTemplate
+      summary: Update a template
+      description: Updates the name and description of an existing project template.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/TemplateId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateCreateRequest'
+      responses:
+        '200':
+          description: Updated template
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteTemplate
+      summary: Delete a template
+      description: Moves the template with the given ID to trash.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/TemplateId'
+      responses:
+        '204':
+          description: Template trashed
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /templates/{templateId}/project_constructions.json:
+    post:
+      operationId: createProjectFromTemplate
+      summary: Create project from template
+      description: Starts the construction of a new project based on the given template. Returns a project construction object whose status can be polled until it transitions from "pending" to "completed".
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/TemplateId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectConstructionRequest'
+      responses:
+        '201':
+          description: Project construction initiated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectConstruction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /templates/{templateId}/project_constructions/{constructionId}.json:
+    get:
+      operationId: getProjectConstruction
+      summary: Get project construction status
+      description: Returns the current status of a project construction job. Poll this endpoint until status changes from "pending" to "completed".
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/TemplateId'
+      - $ref: '#/components/parameters/ConstructionId'
+      responses:
+        '200':
+          description: Project construction status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectConstruction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    ConstructionId:
+      name: constructionId
+      in: path
+      required: true
+      description: Unique identifier of the project construction job
+      schema:
+        type: integer
+    TemplateId:
+      name: templateId
+      in: path
+      required: true
+      description: Unique identifier of the template
+      schema:
+        type: integer
+  schemas:
+    Template:
+      type: object
+      required:
+      - id
+      - name
+      - status
+      properties:
+        id:
+          type: integer
+          description: Template ID
+        status:
+          type: string
+          description: Template status
+          enum:
+          - active
+          - archived
+          - trashed
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the template was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the template was last updated
+        name:
+          type: string
+          description: Template name
+        description:
+          type: string
+          description: Template description
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: API URL for this template
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this template
+        dock:
+          type: array
+          description: Tools available in this template
+          items:
+            $ref: '#/components/schemas/DockItem'
+    ProjectConstruction:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Project construction job ID
+        status:
+          type: string
+          description: Construction status
+          enum:
+          - pending
+          - completed
+        url:
+          type: string
+          format: uri
+          description: API URL to poll for this construction job
+        project:
+          $ref: '#/components/schemas/Project'
+          description: The resulting project once construction is completed
+    ProjectConstructionRequest:
+      type: object
+      required:
+      - project
+      properties:
+        project:
+          type: object
+          required:
+          - name
+          properties:
+            name:
+              type: string
+              description: Name for the new project being constructed
+            description:
+              type: string
+              description: Optional description for the new project
+    TemplateCreateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Template name
+        description:
+          type: string
+          description: Optional template description
+    DockItem:
+      type: object
+      description: A tool available on a project's dock
+      properties:
+        id:
+          type: integer
+          description: Dock item ID
+        title:
+          type: string
+          description: Display title of the tool
+        name:
+          type: string
+          description: Internal name of the tool (e.g., message_board, todoset)
+        enabled:
+          type: boolean
+          description: Whether this tool is enabled on the project
+        position:
+          type: integer
+          description: Display position of the tool in the dock
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: API URL for this tool's resource
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this tool's resource
+    Project:
+      type: object
+      required:
+      - id
+      - name
+      - status
+      properties:
+        id:
+          type: integer
+          description: Unique project identifier
+        status:
+          type: string
+          description: Project status (active, archived, trashed)
+          enum:
+          - active
+          - archived
+          - trashed
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the project was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the project was last updated
+        name:
+          type: string
+          description: Project name
+        description:
+          type: string
+          description: Project description
+          nullable: true
+        purpose:
+          type: string
+          description: Project purpose classification
+        clients_enabled:
+          type: boolean
+          description: Whether client access is enabled for this project
+        timesheet_enabled:
+          type: boolean
+          description: Whether timesheets are enabled for this project
+        color:
+          type: string
+          description: Project color identifier
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: API URL for this project
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this project
+        bookmark_url:
+          type: string
+          format: uri
+          description: API URL to bookmark this project
+        dock:
+          type: array
+          description: List of tools available on this project
+          items:
+            $ref: '#/components/schemas/DockItem'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+  responses:
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth 2.0 Bearer token obtained via the Basecamp authorization code flow at launchpad.37signals.com. Include as "Authorization: Bearer {token}" in all requests.'
+externalDocs:
+  description: Basecamp API Documentation
+  url: https://github.com/basecamp/bc3-api

@@ -1,0 +1,317 @@
+openapi: 3.1.0
+info:
+  title: Basecamp Authorization Projects API
+  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
+  version: '1.0'
+  contact:
+    name: Basecamp Developer Support
+    url: https://github.com/basecamp/bc3-api
+  termsOfService: https://basecamp.com/terms
+servers:
+- url: https://3.basecampapi.com/{accountId}
+  description: Production Server
+  variables:
+    accountId:
+      description: Your Basecamp account ID
+      default: '999999999'
+security:
+- bearerAuth: []
+tags:
+- name: Projects
+  description: Manage Basecamp projects (buckets)
+paths:
+  /projects.json:
+    get:
+      operationId: listProjects
+      summary: List projects
+      description: Returns a paginated list of active projects visible to the authenticated user. Use the optional status parameter to retrieve archived or trashed projects instead.
+      tags:
+      - Projects
+      parameters:
+      - name: status
+        in: query
+        description: Filter projects by status. Omit for active projects.
+        required: false
+        schema:
+          type: string
+          enum:
+          - archived
+          - trashed
+      responses:
+        '200':
+          description: Paginated list of projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createProject
+      summary: Create a project
+      description: Creates a new Basecamp project with the given name and optional description. Returns the new project with a 201 Created status.
+      tags:
+      - Projects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectCreateRequest'
+      responses:
+        '201':
+          description: Project created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /projects/{projectId}.json:
+    get:
+      operationId: getProject
+      summary: Get a project
+      description: Returns the project with the given ID including its dock, which lists the tools enabled for that project.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '200':
+          description: Project details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateProject
+      summary: Update a project
+      description: Updates the name, description, schedule dates, or admissions settings for an existing project. Returns the updated project.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectUpdateRequest'
+      responses:
+        '200':
+          description: Updated project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteProject
+      summary: Delete a project
+      description: Moves the project with the given ID to trash. Trashed projects can be permanently deleted from the Basecamp web interface.
+      tags:
+      - Projects
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '204':
+          description: Project moved to trash
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    ProjectUpdateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Updated project name
+        description:
+          type: string
+          description: Updated project description
+        schedule_attributes:
+          type: object
+          description: Optional schedule date range for the project
+          properties:
+            start_date:
+              type: string
+              format: date
+              description: Project start date in ISO 8601 format
+            end_date:
+              type: string
+              format: date
+              description: Project end date in ISO 8601 format
+        admissions:
+          type: string
+          description: Controls who can join the project
+          enum:
+          - invite
+          - employee
+          - team
+    ProjectCreateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name for the new project
+        description:
+          type: string
+          description: Optional description of the project
+    DockItem:
+      type: object
+      description: A tool available on a project's dock
+      properties:
+        id:
+          type: integer
+          description: Dock item ID
+        title:
+          type: string
+          description: Display title of the tool
+        name:
+          type: string
+          description: Internal name of the tool (e.g., message_board, todoset)
+        enabled:
+          type: boolean
+          description: Whether this tool is enabled on the project
+        position:
+          type: integer
+          description: Display position of the tool in the dock
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: API URL for this tool's resource
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this tool's resource
+    Project:
+      type: object
+      required:
+      - id
+      - name
+      - status
+      properties:
+        id:
+          type: integer
+          description: Unique project identifier
+        status:
+          type: string
+          description: Project status (active, archived, trashed)
+          enum:
+          - active
+          - archived
+          - trashed
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the project was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the project was last updated
+        name:
+          type: string
+          description: Project name
+        description:
+          type: string
+          description: Project description
+          nullable: true
+        purpose:
+          type: string
+          description: Project purpose classification
+        clients_enabled:
+          type: boolean
+          description: Whether client access is enabled for this project
+        timesheet_enabled:
+          type: boolean
+          description: Whether timesheets are enabled for this project
+        color:
+          type: string
+          description: Project color identifier
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: API URL for this project
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this project
+        bookmark_url:
+          type: string
+          format: uri
+          description: API URL to bookmark this project
+        dock:
+          type: array
+          description: List of tools available on this project
+          items:
+            $ref: '#/components/schemas/DockItem'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+  responses:
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests — rate limit exceeded. Retry after the interval indicated in the Retry-After response header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the project (bucket)
+      schema:
+        type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth 2.0 Bearer token obtained via the Basecamp authorization code flow at launchpad.37signals.com. Include as "Authorization: Bearer {token}" in all requests.'
+externalDocs:
+  description: Basecamp API Documentation
+  url: https://github.com/basecamp/bc3-api

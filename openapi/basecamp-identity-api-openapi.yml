@@ -1,0 +1,113 @@
+openapi: 3.1.0
+info:
+  title: Basecamp Authorization Identity API
+  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
+  version: '1.0'
+  contact:
+    name: Basecamp Developer Support
+    url: https://github.com/basecamp/bc3-api
+  termsOfService: https://basecamp.com/terms
+servers:
+- url: https://3.basecampapi.com/{accountId}
+  description: Production Server
+  variables:
+    accountId:
+      description: Your Basecamp account ID
+      default: '999999999'
+security:
+- bearerAuth: []
+tags:
+- name: Identity
+  description: Retrieve authenticated user identity
+paths:
+  /authorization.json:
+    get:
+      operationId: getIdentity
+      summary: Get identity
+      description: Returns the identity of the authenticated user along with the list of Basecamp accounts they have access to. This is typically the first call made after obtaining an access token to discover which account IDs to use in subsequent API requests.
+      tags:
+      - Identity
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Authenticated user identity and accessible accounts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Identity'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized — invalid or expired credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Identity:
+      type: object
+      properties:
+        expires_at:
+          type: string
+          format: date-time
+          description: Timestamp when the current access token expires
+        identity:
+          $ref: '#/components/schemas/IdentityUser'
+        accounts:
+          type: array
+          description: Basecamp accounts the authenticated user has access to
+          items:
+            $ref: '#/components/schemas/Account'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    Account:
+      type: object
+      properties:
+        product:
+          type: string
+          description: Product name (e.g., "bc3")
+        id:
+          type: integer
+          description: Account ID used in API base URLs
+        name:
+          type: string
+          description: Account name
+        href:
+          type: string
+          format: uri
+          description: API base URL for this account
+        app_href:
+          type: string
+          format: uri
+          description: Web URL for this account
+    IdentityUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: User ID
+        first_name:
+          type: string
+          description: User's first name
+        last_name:
+          type: string
+          description: User's last name
+        email_address:
+          type: string
+          format: email
+          description: User's email address
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth 2.0 Bearer token obtained via the Basecamp authorization code flow at launchpad.37signals.com. Include as "Authorization: Bearer {token}" in all requests.'
+externalDocs:
+  description: Basecamp API Documentation
+  url: https://github.com/basecamp/bc3-api

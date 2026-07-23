@@ -1,0 +1,379 @@
+openapi: 3.1.0
+info:
+  title: Basecamp Authorization Campfires API
+  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
+  version: '1.0'
+  contact:
+    name: Basecamp Developer Support
+    url: https://github.com/basecamp/bc3-api
+  termsOfService: https://basecamp.com/terms
+servers:
+- url: https://3.basecampapi.com/{accountId}
+  description: Production Server
+  variables:
+    accountId:
+      description: Your Basecamp account ID
+      default: '999999999'
+security:
+- bearerAuth: []
+tags:
+- name: Campfires
+  description: Manage project campfire chat rooms and lines
+paths:
+  /chats.json:
+    get:
+      operationId: listCampfires
+      summary: List campfires
+      description: Returns a paginated list of all active campfire chat rooms visible to the authenticated user.
+      tags:
+      - Campfires
+      responses:
+        '200':
+          description: List of campfires
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Campfire'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /chats/{campfireId}.json:
+    get:
+      operationId: getCampfire
+      summary: Get a campfire
+      description: Returns the campfire with the given ID.
+      tags:
+      - Campfires
+      parameters:
+      - $ref: '#/components/parameters/CampfireId'
+      responses:
+        '200':
+          description: Campfire details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campfire'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /chats/{campfireId}/lines.json:
+    get:
+      operationId: listCampfireLines
+      summary: List campfire lines
+      description: Returns a paginated list of chat messages (lines) in the specified campfire, ordered newest first.
+      tags:
+      - Campfires
+      parameters:
+      - $ref: '#/components/parameters/CampfireId'
+      responses:
+        '200':
+          description: List of campfire lines
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CampfireLine'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createCampfireLine
+      summary: Create a campfire line
+      description: Posts a new message to the specified campfire. Content must be plain text.
+      tags:
+      - Campfires
+      parameters:
+      - $ref: '#/components/parameters/CampfireId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampfireLineCreateRequest'
+      responses:
+        '201':
+          description: Line posted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampfireLine'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /chats/{campfireId}/lines/{lineId}.json:
+    get:
+      operationId: getCampfireLine
+      summary: Get a campfire line
+      description: Returns the specific campfire line with the given ID.
+      tags:
+      - Campfires
+      parameters:
+      - $ref: '#/components/parameters/CampfireId'
+      - $ref: '#/components/parameters/LineId'
+      responses:
+        '200':
+          description: Campfire line details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampfireLine'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCampfireLine
+      summary: Delete a campfire line
+      description: Deletes the campfire line with the given ID. Only the line creator or account admins can delete lines.
+      tags:
+      - Campfires
+      parameters:
+      - $ref: '#/components/parameters/CampfireId'
+      - $ref: '#/components/parameters/LineId'
+      responses:
+        '204':
+          description: Line deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Recording:
+      type: object
+      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
+      properties:
+        id:
+          type: integer
+          description: Recording ID
+        status:
+          type: string
+          description: Recording status
+          enum:
+          - active
+          - archived
+          - trashed
+        visible_to_clients:
+          type: boolean
+          description: Whether this recording is visible to client users
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was last updated
+        title:
+          type: string
+          description: Title or summary of the recording
+        inherits_status:
+          type: boolean
+          description: Whether this recording inherits its status from a parent
+        type:
+          type: string
+          description: Recording type (e.g., Message, Todo, Document)
+        url:
+          type: string
+          format: uri
+          description: API URL for this recording
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this recording
+        bucket:
+          $ref: '#/components/schemas/BucketRef'
+        creator:
+          $ref: '#/components/schemas/PersonRef'
+    PersonRef:
+      type: object
+      description: Minimal reference to a Basecamp person
+      properties:
+        id:
+          type: integer
+          description: Person ID
+        attachable_sgid:
+          type: string
+          description: Signed global ID for attaching this person
+        name:
+          type: string
+          description: Full name
+        email_address:
+          type: string
+          format: email
+          description: Email address
+        personable_type:
+          type: string
+          description: Type of personable (User, Client, etc.)
+        title:
+          type: string
+          description: Job title
+        bio:
+          type: string
+          description: Short biography
+        location:
+          type: string
+          description: Location string
+        created_at:
+          type: string
+          format: date-time
+          description: Account creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        admin:
+          type: boolean
+          description: Whether the person is an account administrator
+        owner:
+          type: boolean
+          description: Whether the person is the account owner
+        client:
+          type: boolean
+          description: Whether the person is a client user
+        employee:
+          type: boolean
+          description: Whether the person is an employee
+        time_zone:
+          type: string
+          description: IANA time zone name
+        avatar_url:
+          type: string
+          format: uri
+          description: URL to the person's avatar image
+        company:
+          type: object
+          description: Company the person belongs to
+          properties:
+            id:
+              type: integer
+              description: Company ID
+            name:
+              type: string
+              description: Company name
+    BucketRef:
+      type: object
+      description: Reference to the project (bucket) that contains a resource
+      properties:
+        id:
+          type: integer
+          description: Project ID
+        name:
+          type: string
+          description: Project name
+        type:
+          type: string
+          description: Resource type, always "Project"
+        url:
+          type: string
+          format: uri
+          description: API URL for the project
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for the project
+    CampfireLine:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Line ID
+        status:
+          type: string
+          description: Line status
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the line was posted
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the line was last updated
+        title:
+          type: string
+          description: Line title (summary)
+        content:
+          type: string
+          description: Plain text message content
+        type:
+          type: string
+          description: Line type
+        creator:
+          $ref: '#/components/schemas/PersonRef'
+        bucket:
+          $ref: '#/components/schemas/BucketRef'
+        parent:
+          $ref: '#/components/schemas/Recording'
+        boosts_count:
+          type: integer
+          description: Number of boosts on this line
+    CampfireLineCreateRequest:
+      type: object
+      required:
+      - content
+      properties:
+        content:
+          type: string
+          description: Plain text content of the campfire message
+    Campfire:
+      allOf:
+      - $ref: '#/components/schemas/Recording'
+      - type: object
+        properties:
+          lines_url:
+            type: string
+            format: uri
+            description: API URL to list campfire lines
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+  responses:
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    LineId:
+      name: lineId
+      in: path
+      required: true
+      description: Unique identifier of the campfire line
+      schema:
+        type: integer
+    CampfireId:
+      name: campfireId
+      in: path
+      required: true
+      description: Unique identifier of the campfire chat room
+      schema:
+        type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth 2.0 Bearer token obtained via the Basecamp authorization code flow at launchpad.37signals.com. Include as "Authorization: Bearer {token}" in all requests.'
+externalDocs:
+  description: Basecamp API Documentation
+  url: https://github.com/basecamp/bc3-api

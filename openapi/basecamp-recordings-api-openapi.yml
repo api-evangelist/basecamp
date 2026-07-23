@@ -1,0 +1,308 @@
+openapi: 3.1.0
+info:
+  title: Basecamp Authorization Recordings API
+  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
+  version: '1.0'
+  contact:
+    name: Basecamp Developer Support
+    url: https://github.com/basecamp/bc3-api
+  termsOfService: https://basecamp.com/terms
+servers:
+- url: https://3.basecampapi.com/{accountId}
+  description: Production Server
+  variables:
+    accountId:
+      description: Your Basecamp account ID
+      default: '999999999'
+security:
+- bearerAuth: []
+tags:
+- name: Recordings
+  description: Common actions for all recordable resources (archive, trash, restore)
+paths:
+  /projects/recordings.json:
+    get:
+      operationId: listRecordings
+      summary: List recordings
+      description: Returns a paginated list of recordings of the specified type across all projects. Use the type parameter to specify the resource type (Comment, Document, Message, Todo, Upload, etc.).
+      tags:
+      - Recordings
+      parameters:
+      - name: type
+        in: query
+        description: The recording type to list.
+        required: true
+        schema:
+          type: string
+          enum:
+          - Comment
+          - Document
+          - Message
+          - Todo
+          - TodoList
+          - Schedule::Entry
+          - Upload
+          - Vault
+      - name: bucket
+        in: query
+        description: Filter to a specific project (bucket) ID.
+        required: false
+        schema:
+          type: integer
+      - name: status
+        in: query
+        description: Filter by recording status.
+        required: false
+        schema:
+          type: string
+          enum:
+          - active
+          - archived
+          - trashed
+      - name: sort
+        in: query
+        description: Sort field.
+        required: false
+        schema:
+          type: string
+          enum:
+          - created_at
+          - updated_at
+      - name: direction
+        in: query
+        description: Sort direction.
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+      responses:
+        '200':
+          description: List of recordings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recording'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /recordings/{recordingId}/status/trashed.json:
+    put:
+      operationId: trashRecording
+      summary: Trash a recording
+      description: Moves the recording with the given ID to trash. Works for any recordable resource type including messages, to-dos, documents, and comments.
+      tags:
+      - Recordings
+      parameters:
+      - $ref: '#/components/parameters/RecordingId'
+      responses:
+        '204':
+          description: Recording trashed
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /recordings/{recordingId}/status/archived.json:
+    put:
+      operationId: archiveRecording
+      summary: Archive a recording
+      description: Archives the recording with the given ID. Archived recordings are hidden from default views but remain accessible.
+      tags:
+      - Recordings
+      parameters:
+      - $ref: '#/components/parameters/RecordingId'
+      responses:
+        '204':
+          description: Recording archived
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /recordings/{recordingId}/status/active.json:
+    put:
+      operationId: unarchiveRecording
+      summary: Unarchive a recording
+      description: Restores an archived recording to active status, making it visible in default views again.
+      tags:
+      - Recordings
+      parameters:
+      - $ref: '#/components/parameters/RecordingId'
+      responses:
+        '204':
+          description: Recording restored to active
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Recording:
+      type: object
+      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
+      properties:
+        id:
+          type: integer
+          description: Recording ID
+        status:
+          type: string
+          description: Recording status
+          enum:
+          - active
+          - archived
+          - trashed
+        visible_to_clients:
+          type: boolean
+          description: Whether this recording is visible to client users
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was last updated
+        title:
+          type: string
+          description: Title or summary of the recording
+        inherits_status:
+          type: boolean
+          description: Whether this recording inherits its status from a parent
+        type:
+          type: string
+          description: Recording type (e.g., Message, Todo, Document)
+        url:
+          type: string
+          format: uri
+          description: API URL for this recording
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this recording
+        bucket:
+          $ref: '#/components/schemas/BucketRef'
+        creator:
+          $ref: '#/components/schemas/PersonRef'
+    PersonRef:
+      type: object
+      description: Minimal reference to a Basecamp person
+      properties:
+        id:
+          type: integer
+          description: Person ID
+        attachable_sgid:
+          type: string
+          description: Signed global ID for attaching this person
+        name:
+          type: string
+          description: Full name
+        email_address:
+          type: string
+          format: email
+          description: Email address
+        personable_type:
+          type: string
+          description: Type of personable (User, Client, etc.)
+        title:
+          type: string
+          description: Job title
+        bio:
+          type: string
+          description: Short biography
+        location:
+          type: string
+          description: Location string
+        created_at:
+          type: string
+          format: date-time
+          description: Account creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        admin:
+          type: boolean
+          description: Whether the person is an account administrator
+        owner:
+          type: boolean
+          description: Whether the person is the account owner
+        client:
+          type: boolean
+          description: Whether the person is a client user
+        employee:
+          type: boolean
+          description: Whether the person is an employee
+        time_zone:
+          type: string
+          description: IANA time zone name
+        avatar_url:
+          type: string
+          format: uri
+          description: URL to the person's avatar image
+        company:
+          type: object
+          description: Company the person belongs to
+          properties:
+            id:
+              type: integer
+              description: Company ID
+            name:
+              type: string
+              description: Company name
+    BucketRef:
+      type: object
+      description: Reference to the project (bucket) that contains a resource
+      properties:
+        id:
+          type: integer
+          description: Project ID
+        name:
+          type: string
+          description: Project name
+        type:
+          type: string
+          description: Resource type, always "Project"
+        url:
+          type: string
+          format: uri
+          description: API URL for the project
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for the project
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+  responses:
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    RecordingId:
+      name: recordingId
+      in: path
+      required: true
+      description: Unique identifier of the recording
+      schema:
+        type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth 2.0 Bearer token obtained via the Basecamp authorization code flow at launchpad.37signals.com. Include as "Authorization: Bearer {token}" in all requests.'
+externalDocs:
+  description: Basecamp API Documentation
+  url: https://github.com/basecamp/bc3-api

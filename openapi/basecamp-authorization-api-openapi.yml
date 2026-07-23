@@ -1,0 +1,79 @@
+openapi: 3.1.0
+info:
+  title: Basecamp Authorization API
+  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
+  version: '1.0'
+  contact:
+    name: Basecamp Developer Support
+    url: https://github.com/basecamp/bc3-api
+  termsOfService: https://basecamp.com/terms
+servers:
+- url: https://3.basecampapi.com/{accountId}
+  description: Production Server
+  variables:
+    accountId:
+      description: Your Basecamp account ID
+      default: '999999999'
+security:
+- bearerAuth: []
+tags:
+- name: Authorization
+  description: OAuth 2.0 authorization code flow endpoints
+paths:
+  /authorization:
+    get:
+      operationId: authorizeUser
+      summary: Authorize user
+      description: Redirects the user to the Basecamp authorization page where they can grant your application access to their account. After the user approves, Basecamp redirects back to your redirect_uri with an authorization code.
+      tags:
+      - Authorization
+      parameters:
+      - name: type
+        in: query
+        required: true
+        description: Must be set to "web_server" for the authorization code flow
+        schema:
+          type: string
+          enum:
+          - web_server
+      - name: client_id
+        in: query
+        required: true
+        description: Your application's client ID from launchpad.37signals.com
+        schema:
+          type: string
+      - name: redirect_uri
+        in: query
+        required: true
+        description: The URI to redirect to after authorization. Must match a URI registered with your application.
+        schema:
+          type: string
+          format: uri
+      responses:
+        '302':
+          description: Redirect to Basecamp authorization page or back to redirect_uri with code parameter on approval
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  responses:
+    BadRequest:
+      description: Bad request — missing or invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth 2.0 Bearer token obtained via the Basecamp authorization code flow at launchpad.37signals.com. Include as "Authorization: Bearer {token}" in all requests.'
+externalDocs:
+  description: Basecamp API Documentation
+  url: https://github.com/basecamp/bc3-api

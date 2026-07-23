@@ -1,0 +1,165 @@
+openapi: 3.1.0
+info:
+  title: Basecamp Authorization Token API
+  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
+  version: '1.0'
+  contact:
+    name: Basecamp Developer Support
+    url: https://github.com/basecamp/bc3-api
+  termsOfService: https://basecamp.com/terms
+servers:
+- url: https://3.basecampapi.com/{accountId}
+  description: Production Server
+  variables:
+    accountId:
+      description: Your Basecamp account ID
+      default: '999999999'
+security:
+- bearerAuth: []
+tags:
+- name: Token
+  description: Token exchange and refresh endpoints
+paths:
+  /authorization/token:
+    post:
+      operationId: exchangeCodeForToken
+      summary: Exchange code for token
+      description: Exchanges an authorization code for an access token and refresh token. The authorization code is single-use and expires shortly after being issued. The resulting access token expires after two weeks.
+      tags:
+      - Token
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+      responses:
+        '200':
+          description: Access token and refresh token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /authorization/token/refresh:
+    post:
+      operationId: refreshAccessToken
+      summary: Refresh access token
+      description: Uses a refresh token to obtain a new access token without requiring the user to re-authorize. Refresh tokens do not expire but are revoked if the user revokes access.
+      tags:
+      - Token
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+      responses:
+        '200':
+          description: New access token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    TokenRequest:
+      type: object
+      required:
+      - type
+      - client_id
+      - client_secret
+      - code
+      - redirect_uri
+      properties:
+        type:
+          type: string
+          description: Must be set to "web_server"
+          enum:
+          - web_server
+        client_id:
+          type: string
+          description: Your application's client ID
+        client_secret:
+          type: string
+          description: Your application's client secret
+        code:
+          type: string
+          description: The authorization code received from the authorization redirect
+        redirect_uri:
+          type: string
+          format: uri
+          description: The redirect URI used in the authorization request
+    RefreshTokenRequest:
+      type: object
+      required:
+      - type
+      - client_id
+      - client_secret
+      - refresh_token
+      properties:
+        type:
+          type: string
+          description: Must be set to "refresh"
+          enum:
+          - refresh
+        client_id:
+          type: string
+          description: Your application's client ID
+        client_secret:
+          type: string
+          description: Your application's client secret
+        refresh_token:
+          type: string
+          description: The refresh token from a previous token exchange
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: Bearer token to use in API requests
+        refresh_token:
+          type: string
+          description: Token used to obtain new access tokens after expiry
+        expires_in:
+          type: integer
+          description: Access token lifetime in seconds (approximately two weeks)
+        token_type:
+          type: string
+          description: Token type, always "Bearer"
+          enum:
+          - Bearer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+  responses:
+    Unauthorized:
+      description: Unauthorized — invalid or expired credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — missing or invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth 2.0 Bearer token obtained via the Basecamp authorization code flow at launchpad.37signals.com. Include as "Authorization: Bearer {token}" in all requests.'
+externalDocs:
+  description: Basecamp API Documentation
+  url: https://github.com/basecamp/bc3-api
