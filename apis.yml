@@ -1,4 +1,18 @@
 aid: basecamp
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: true
+  try_now: true
+  public: false
+  label: Freemium (free trial) · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/basecamp.png
 url: https://raw.githubusercontent.com/api-evangelist/basecamp/refs/heads/main/apis.yml
 name: Basecamp
 tags:
@@ -14,26 +28,6 @@ description: Basecamp is a project management and team collaboration platform de
   via the 37signals Launchpad is required. The API returns JSON and is documented
   on GitHub at github.com/basecamp/bc3-api.
 apis:
-- aid: basecamp:basecamp-api
-  name: Basecamp API
-  tags:
-  - Collaboration
-  - Project Management
-  - REST
-  - Team Communication
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://3.basecampapi.com
-  humanURL: https://github.com/basecamp/bc3-api
-  properties:
-  - url: https://github.com/basecamp/bc3-api
-    type: Documentation
-  - url: openapi/basecamp-api-openapi.yml
-    type: OpenAPI
-  - url: graphql/basecamp-graphql.md
-    type: GraphQL
-  description: The Basecamp API is a REST API providing programmatic access to Basecamp's
-    project management platform. Manage projects, to-do lists, messages, documents,
-    schedules, and team members. Uses OAuth 2.0 for authentication and returns JSON.
 - aid: basecamp:basecamp-webhooks
   name: Basecamp Webhooks
   tags:
@@ -49,27 +43,313 @@ apis:
     type: Documentation
   - url: asyncapi/basecamp-webhooks-asyncapi.yml
     type: AsyncAPI
-  description: Basecamp Webhooks deliver real-time HTTP notifications when events
-    occur within a project. Configure webhooks per project with an HTTPS payload URL
-    and resource types.
-- aid: basecamp:basecamp-oauth
-  name: Basecamp OAuth
+  description: >-
+    Basecamp Webhooks deliver real-time HTTP notifications when events occur within a project. Configure
+    webhooks per project with an HTTPS payload URL and resource types.
+- aid: basecamp:basecamp-authorization-api
+  name: Basecamp Authorization API
+  description: OAuth 2.0 authorization code flow endpoints
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
   tags:
-  - Authentication
   - Authorization
-  - OAuth
-  - Security
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://launchpad.37signals.com
-  humanURL: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
   properties:
-  - url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
-    type: Documentation
-  - url: openapi/basecamp-oauth-openapi.yml
-    type: OpenAPI
-  description: OAuth 2.0 authentication for Basecamp API access via the 37signals
-    Launchpad. Register at launchpad.37signals.com for a client ID and secret, then
-    implement the authorization code flow to obtain access tokens.
+  - type: OpenAPI
+    url: openapi/basecamp-authorization-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-campfires-api
+  name: Basecamp Campfires API
+  description: Manage project campfire chat rooms and lines
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - Campfires
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-campfires-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-card-tables-api
+  name: Basecamp Card Tables API
+  description: Manage kanban-style card tables and card movements
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - Card Tables
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-card-tables-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-comments-api
+  name: Basecamp Comments API
+  description: Manage comments on any commentable recording
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - Comments
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-comments-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-documents-api
+  name: Basecamp Documents API
+  description: Manage documents stored in vaults
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-documents-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-identity-api
+  name: Basecamp Identity API
+  description: Retrieve authenticated user identity
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - Identity
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-identity-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-messages-api
+  name: Basecamp Messages API
+  description: Manage messages on message boards
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-messages-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-people-api
+  name: Basecamp People API
+  description: Manage people, profiles, and project access
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - People
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-people-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-projects-api
+  name: Basecamp Projects API
+  description: Manage Basecamp projects (buckets)
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-projects-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-recordings-api
+  name: Basecamp Recordings API
+  description: Common actions for all recordable resources (archive, trash, restore)
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - Recordings
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-recordings-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-schedule-entries-api
+  name: Basecamp Schedule Entries API
+  description: Manage individual schedule events and recurring entries
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - Schedule Entries
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-schedule-entries-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-schedules-api
+  name: Basecamp Schedules API
+  description: Manage project schedules
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - Schedules
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-schedules-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-subscriptions-api
+  name: Basecamp Subscriptions API
+  description: Manage per-recording notification subscriptions
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-templates-api
+  name: Basecamp Templates API
+  description: Manage project templates and construct projects from them
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-templates-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-to-do-lists-api
+  name: Basecamp To-Do Lists API
+  description: Manage to-do lists within a to-do set
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - To-Do Lists
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-to-do-lists-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-to-dos-api
+  name: Basecamp To-Dos API
+  description: Manage individual to-do items
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - To-Dos
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-to-dos-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-token-api
+  name: Basecamp Token API
+  description: Token exchange and refresh endpoints
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - Token
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-token-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-uploads-api
+  name: Basecamp Uploads API
+  description: Manage file uploads stored in vaults
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - Uploads
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-uploads-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
+- aid: basecamp:basecamp-webhooks-api
+  name: Basecamp Webhooks API
+  description: Manage webhook subscriptions for a project
+  humanURL: https://github.com/basecamp/bc3-api
+  baseURL: https://3.basecampapi.com
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/basecamp-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api
+  - type: GraphQL
+    url: graphql/basecamp-graphql.md
+  - type: Documentation
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 common:
 - type: AgenticAccess
   url: agentic-access/basecamp-agentic-access.yml
