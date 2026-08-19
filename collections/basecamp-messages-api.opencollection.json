@@ -1,0 +1,120 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization Messages API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/message_boards/:messageBoardId/messages.json",
+            "params": [
+              {
+                "name": "messageBoardId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the message board"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active messages in the specified message board. Messages can be sorted by created_at or updated_at."
+        },
+        {
+          "info": {
+            "name": "Create a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/message_boards/:messageBoardId/messages.json",
+            "params": [
+              {
+                "name": "messageBoardId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the message board"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new message in the specified message board. Set status to \"active\" to publish immediately; otherwise the message is saved as a draft."
+        },
+        {
+          "info": {
+            "name": "Get a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/messages/:messageId.json",
+            "params": [
+              {
+                "name": "messageId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the message"
+              }
+            ]
+          },
+          "docs": "Returns the message with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/messages/:messageId.json",
+            "params": [
+              {
+                "name": "messageId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the message"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the subject, content, or category of the specified message."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,233 @@
+{
+  "item": [
+    {
+      "id": "ae82e6f1-5fd4-483c-924a-3f41e8dd44c9",
+      "name": "Authorization",
+      "description": {
+        "content": "OAuth 2.0 authorization code flow endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0e6a7b50-3eb1-45c8-b0e6-6b664584d220",
+          "name": "Authorize user",
+          "request": {
+            "name": "Authorize user",
+            "description": {
+              "content": "Redirects the user to the Basecamp authorization page where they can grant your application access to their account. After the user approves, Basecamp redirects back to your redirect_uri with an authorization code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "authorization"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) Must be set to \"web_server\" for the authorization code flow"
+                },
+                {
+                  "disabled": false,
+                  "key": "client_id",
+                  "value": "<string>",
+                  "description": "(Required) Your application's client ID from launchpad.37signals.com"
+                },
+                {
+                  "disabled": false,
+                  "key": "redirect_uri",
+                  "value": "<uri>",
+                  "description": "(Required) The URI to redirect to after authorization. Must match a URI registered with your application."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "196ca35c-e1da-4617-ab11-54a1bbfda100",
+              "name": "Redirect to Basecamp authorization page or back to redirect_uri with code parameter on approval",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorization"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "redirect_uri",
+                      "value": "<uri>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "98f24070-2621-4d88-933c-3f20923d878c",
+              "name": "Bad request — missing or invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorization"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "client_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "redirect_uri",
+                      "value": "<uri>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Basecamp account ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "999999999",
+      "key": "accountId"
+    },
+    {
+      "type": "string",
+      "value": "https://3.basecampapi.com/{{accountId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1a0e9c94-f59c-4903-863a-59e71ad19709",
+    "name": "Basecamp Authorization API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.\n\nContact Support:\n Name: Basecamp Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

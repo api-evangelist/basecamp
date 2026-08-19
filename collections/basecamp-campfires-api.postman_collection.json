@@ -1,0 +1,1361 @@
+{
+  "item": [
+    {
+      "id": "d101aa5f-1106-4d53-838f-87fd52d28a03",
+      "name": "Campfires",
+      "description": {
+        "content": "Manage project campfire chat rooms and lines",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2ea70c49-fdff-4689-b36c-e2a24c7a4f03",
+          "name": "List campfires",
+          "request": {
+            "name": "List campfires",
+            "description": {
+              "content": "Returns a paginated list of all active campfire chat rooms visible to the authenticated user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chats.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1112f55d-84ba-44a0-8b34-d9ba5581d088",
+              "name": "List of campfires",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 3684,\n    \"status\": \"archived\",\n    \"visible_to_clients\": true,\n    \"created_at\": \"1971-05-16T23:40:15.349Z\",\n    \"updated_at\": \"1965-12-18T11:51:03.909Z\",\n    \"title\": \"string\",\n    \"inherits_status\": false,\n    \"type\": \"string\",\n    \"url\": \"http://TMqOyStduwPRijhPz.xvrmKDN+7SUttx\",\n    \"app_url\": \"https://JYOsimnZIiAkrwZzBTQq.yjsbcY45oPckDsnjYhXz2R,iWC\",\n    \"bucket\": {\n      \"id\": 1124,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"https://eqaUgrZMcysKAkIezKOTFZb.beiBMUeoffOVSZ7hgtWADt-AqvQ23KvQuKOnbNM.NL\",\n      \"app_url\": \"https://SbLXByaeWvDrXykbspuqh.fosfSxoXTFZLriZVm1bCdOr9Y3SsguWiW1IlN\"\n    },\n    \"creator\": {\n      \"id\": 7072,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"XHttNIn6Ic7zM@sJqwmIJZBjwpI.sxuh\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1993-05-24T03:24:22.964Z\",\n      \"updated_at\": \"1950-02-26T16:50:30.587Z\",\n      \"admin\": true,\n      \"owner\": true,\n      \"client\": false,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://PKIEtQeMUnDS.yblsQB,1Nk\",\n      \"company\": {\n        \"id\": 6035,\n        \"name\": \"string\"\n      }\n    },\n    \"lines_url\": \"http://tCOZqNe.rydAu9XHlXZ+dPSfiCqMfW2PWDAOueEvVQSX8Ss9EkCiUZrE6\"\n  },\n  {\n    \"id\": 5178,\n    \"status\": \"trashed\",\n    \"visible_to_clients\": true,\n    \"created_at\": \"1999-05-27T19:20:27.237Z\",\n    \"updated_at\": \"2006-04-16T20:13:02.693Z\",\n    \"title\": \"string\",\n    \"inherits_status\": true,\n    \"type\": \"string\",\n    \"url\": \"http://krzPnYQltiiHqxlMa.bgg0,dGXnGe7Se6.tGPgm8XCbjS.82ntnahejFYCqQ,cc5WqqtnZi\",\n    \"app_url\": \"https://HkgmJJiLye.kse0V5K6fLTzYGa5pp,4a18n\",\n    \"bucket\": {\n      \"id\": 2894,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"http://hstde.odkoroXOgfMtp0yAFePgLgAbTZmRxg+GEdLOUSMXCjYAK04RSLPyB3B\",\n      \"app_url\": \"http://PMNNUcT.qpHhskPcmkohnFUA+VACH\"\n    },\n    \"creator\": {\n      \"id\": 1739,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"ertukeNoD7c1CvS@jLXWOudUwnpxYCTsRASJSHgqkLaJST.sf\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1971-06-26T16:05:44.497Z\",\n      \"updated_at\": \"1989-05-12T01:11:57.705Z\",\n      \"admin\": false,\n      \"owner\": false,\n      \"client\": false,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://AljBfVAMLenpFATViB.ptma\",\n      \"company\": {\n        \"id\": 1561,\n        \"name\": \"string\"\n      }\n    },\n    \"lines_url\": \"http://FcypvNvMGSiOAW.pqclKL65Q6b.4LsylyF1Fs6,tyK.4urPygZyi4sqgt.qWv,vtslrUwwCxybmRvf5+f5wm0JW1IBrDu\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5914b92-4e62-4693-8f65-6a957aa6f015",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2731e142-4151-46fc-a027-90564c810ab9",
+          "name": "Get a campfire",
+          "request": {
+            "name": "Get a campfire",
+            "description": {
+              "content": "Returns the campfire with the given ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chats",
+                "{{campfireId}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9ac06245-f678-4747-9c12-3271a0875acf",
+              "name": "Campfire details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    "{{campfireId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 8200,\n  \"status\": \"active\",\n  \"visible_to_clients\": true,\n  \"created_at\": \"1993-06-24T05:51:33.440Z\",\n  \"updated_at\": \"2014-03-07T14:59:56.004Z\",\n  \"title\": \"string\",\n  \"inherits_status\": true,\n  \"type\": \"string\",\n  \"url\": \"https://LCaTjQHbvEmojeZm.xcitiW3WKOpdVxq7Z6lyJFMxsUXKi1ec4KjAKBir,CaM4g30kMt\",\n  \"app_url\": \"https://rCujDiXiefFGamcEHkLThLAJKsFKD.jzrpa5Y8MUgzrXJsXgf7S-UpySXmbHWPwO5o7W0YM1.ibb,lmGTINp3,5\",\n  \"bucket\": {\n    \"id\": 9397,\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"url\": \"http://QiCPklKIrHMNdyHyijLBqAnt.fiyhpQ\",\n    \"app_url\": \"https://UAKSUdZoVNCPYlMnPVfpWp.yurhYL9CjDoc\"\n  },\n  \"creator\": {\n    \"id\": 5394,\n    \"attachable_sgid\": \"string\",\n    \"name\": \"string\",\n    \"email_address\": \"ve5PVnnV2u@URTSWsDAkVNmhVnnPk.uv\",\n    \"personable_type\": \"string\",\n    \"title\": \"string\",\n    \"bio\": \"string\",\n    \"location\": \"string\",\n    \"created_at\": \"2006-08-28T20:24:22.133Z\",\n    \"updated_at\": \"1972-08-28T03:06:39.107Z\",\n    \"admin\": false,\n    \"owner\": false,\n    \"client\": true,\n    \"employee\": false,\n    \"time_zone\": \"string\",\n    \"avatar_url\": \"https://YSPTzLwUnnBsyDYiyADyGlfRhiSFDefrt.gdfqCscm8rOc+qTFuB-rmPyMrbuTkXK0q96ke,MxvFE6vf7\",\n    \"company\": {\n      \"id\": 287,\n      \"name\": \"string\"\n    }\n  },\n  \"lines_url\": \"https://AThAuIp.ckhN+rP3.JnuRfiBPtueeHoO35JuFdrAiKr\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d7275c4-6a08-4252-bf17-bd9cb1675883",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    "{{campfireId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9437ccc7-1518-42e9-ba66-ab30e7ff1c79",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    "{{campfireId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f89b9a5d-ac6a-4c28-ae70-c26629a7ac70",
+          "name": "List campfire lines",
+          "request": {
+            "name": "List campfire lines",
+            "description": {
+              "content": "Returns a paginated list of chat messages (lines) in the specified campfire, ordered newest first.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chats",
+                ":campfireId",
+                "lines.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "campfireId",
+                  "description": "(Required) Unique identifier of the campfire chat room"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d94ae976-7458-42b6-a8f4-da689885f24b",
+              "name": "List of campfire lines",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    ":campfireId",
+                    "lines.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campfireId",
+                      "description": "(Required) Unique identifier of the campfire chat room"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 7185,\n    \"status\": \"string\",\n    \"created_at\": \"1995-11-10T02:01:11.984Z\",\n    \"updated_at\": \"2013-03-09T21:11:15.750Z\",\n    \"title\": \"string\",\n    \"content\": \"string\",\n    \"type\": \"string\",\n    \"creator\": {\n      \"id\": 4029,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"auxPDOf6uVCf@fXclawcfhJe.cth\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1991-07-13T17:40:57.389Z\",\n      \"updated_at\": \"1975-12-20T07:54:25.632Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://saYUVNRPkBE.cwoDF3x,IjJN0Ma+-K\",\n      \"company\": {\n        \"id\": 2837,\n        \"name\": \"string\"\n      }\n    },\n    \"bucket\": {\n      \"id\": 560,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"http://qwLwgBqryNARlTNzdOdnetWx.eryLXrglsOeogsymu0xZKzmlMF-KWDZsdEp-XgDF+,T\",\n      \"app_url\": \"https://BkyGXZZrJsbIMVrymGtXqkRJ.fwx3NtkAVbJzO-qEOR9OaW39DaxEjnzJ-oBFUf\"\n    },\n    \"parent\": {\n      \"id\": 9728,\n      \"status\": \"trashed\",\n      \"visible_to_clients\": false,\n      \"created_at\": \"2006-04-04T05:49:46.526Z\",\n      \"updated_at\": \"1969-01-02T00:14:36.755Z\",\n      \"title\": \"string\",\n      \"inherits_status\": false,\n      \"type\": \"string\",\n      \"url\": \"http://sCX.uptYmE2nV+lD67oHhjPVrzF1afWL9T4uNv6EMPdse7ZU7NWncR\",\n      \"app_url\": \"https://WbWoTqinimJFWqqHGPDZSIk.hdrIewWMYOm.a4aesLIye9,AflIR4SpvUdla2,76+z5m\",\n      \"bucket\": {\n        \"id\": 669,\n        \"name\": \"string\",\n        \"type\": \"string\",\n        \"url\": \"https://zzwwsmGoHhQNlkjyssZMDfeyCxSZjIi.gxtnUCzyfeJoBW0yY.YruC-1twLL5QraD4tJLzEI7nLh4PY6HlI0j\",\n        \"app_url\": \"http://EqSMe.cmedCz+y10b.iGjnQw9-wmecbh\"\n      },\n      \"creator\": {\n        \"id\": 6837,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"AMI5@DYPjgqqTEhW.lr\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"1961-07-09T16:12:10.497Z\",\n        \"updated_at\": \"2015-05-31T00:02:07.705Z\",\n        \"admin\": false,\n        \"owner\": false,\n        \"client\": false,\n        \"employee\": true,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"http://BAEhGdOXsTOgxDjYkoYEbozJwQypDq.ofwfIlaJN.BWWxiUEkQsAYqcFbSYGw,vTJgvnMK4C9.Pnr5v\",\n        \"company\": {\n          \"id\": 9159,\n          \"name\": \"string\"\n        }\n      }\n    },\n    \"boosts_count\": 7649\n  },\n  {\n    \"id\": 4651,\n    \"status\": \"string\",\n    \"created_at\": \"1968-09-13T08:53:25.220Z\",\n    \"updated_at\": \"1997-06-21T01:44:12.509Z\",\n    \"title\": \"string\",\n    \"content\": \"string\",\n    \"type\": \"string\",\n    \"creator\": {\n      \"id\": 8664,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"6BMv@uKGewqJqBkbkkt.ntb\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1950-09-14T06:27:07.607Z\",\n      \"updated_at\": \"2008-12-31T14:47:54.387Z\",\n      \"admin\": false,\n      \"owner\": false,\n      \"client\": false,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://iSARnhEKUQy.pmeyCJfZ1jozO\",\n      \"company\": {\n        \"id\": 2754,\n        \"name\": \"string\"\n      }\n    },\n    \"bucket\": {\n      \"id\": 2092,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"https://cOI.idqjzRYQd3moUVDwz92uBU,x.BEBfTWknb5ThtExVUx+vXLx2NKirkII4hduCFPKCjyRds+gDj\",\n      \"app_url\": \"http://hREf.dwRhG8FdNag6ptV+LwRz3pLPKD,DFzklbC7VAZYVu7YATVyRrcR7gn8gIDb\"\n    },\n    \"parent\": {\n      \"id\": 9250,\n      \"status\": \"trashed\",\n      \"visible_to_clients\": false,\n      \"created_at\": \"2006-11-20T18:32:44.347Z\",\n      \"updated_at\": \"1982-12-05T15:45:43.598Z\",\n      \"title\": \"string\",\n      \"inherits_status\": false,\n      \"type\": \"string\",\n      \"url\": \"http://dcoLpOGlyXJlHHGGSe.gnaOxerpEDfCPbHIvMiKH7yU2gsHKzlC4AIiHXkFDW,pj8ag2Bnp7cZ\",\n      \"app_url\": \"http://WEfQxjXwmlsOVegHfNV.xghXynO8aKKj3wXzD+AYAz3UrvK3Moib-b\",\n      \"bucket\": {\n        \"id\": 7408,\n        \"name\": \"string\",\n        \"type\": \"string\",\n        \"url\": \"https://NKpfXfNYyTOQlVhahGKNr.uhjx3r+BBXLtH84pH5\",\n        \"app_url\": \"https://SciUYPTdQLcbVFuZuQJw.zjx9QzCUIlP-le4Q6,uLhn15\"\n      },\n      \"creator\": {\n        \"id\": 2127,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"iyAE1u266yVc@AOMRlCYfChDc.hrz\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"2013-10-30T00:38:03.771Z\",\n        \"updated_at\": \"2016-07-12T04:20:58.985Z\",\n        \"admin\": false,\n        \"owner\": true,\n        \"client\": true,\n        \"employee\": false,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"https://omWSbfRQUfUlViFkkNhoKFEZg.quVsG4fOCzYDLAAIrHmviGzI4f,K9m6uyuJBpmCeZTnp,oU\",\n        \"company\": {\n          \"id\": 7475,\n          \"name\": \"string\"\n        }\n      }\n    },\n    \"boosts_count\": 2116\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bbeeff0e-818d-4bd9-9c24-7cc295ddb854",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    ":campfireId",
+                    "lines.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campfireId",
+                      "description": "(Required) Unique identifier of the campfire chat room"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f91ef9a9-10fb-4aca-8ded-740eab2599e8",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    ":campfireId",
+                    "lines.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campfireId",
+                      "description": "(Required) Unique identifier of the campfire chat room"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9336c49-c1eb-4859-bb89-7cc3e98c1d61",
+          "name": "Create a campfire line",
+          "request": {
+            "name": "Create a campfire line",
+            "description": {
+              "content": "Posts a new message to the specified campfire. Content must be plain text.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chats",
+                ":campfireId",
+                "lines.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "campfireId",
+                  "description": "(Required) Unique identifier of the campfire chat room"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "18ee7161-5e62-4c0a-a931-1db75ab079cc",
+              "name": "Line posted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    ":campfireId",
+                    "lines.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campfireId",
+                      "description": "(Required) Unique identifier of the campfire chat room"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5845,\n  \"status\": \"string\",\n  \"created_at\": \"1973-10-08T14:36:20.328Z\",\n  \"updated_at\": \"1952-09-11T21:30:15.928Z\",\n  \"title\": \"string\",\n  \"content\": \"string\",\n  \"type\": \"string\",\n  \"creator\": {\n    \"id\": 4038,\n    \"attachable_sgid\": \"string\",\n    \"name\": \"string\",\n    \"email_address\": \"PvVy3qbb-kSxaN@PajMdZAKdCDzDQT.eck\",\n    \"personable_type\": \"string\",\n    \"title\": \"string\",\n    \"bio\": \"string\",\n    \"location\": \"string\",\n    \"created_at\": \"2012-09-23T03:42:14.666Z\",\n    \"updated_at\": \"1953-11-02T05:31:21.530Z\",\n    \"admin\": false,\n    \"owner\": true,\n    \"client\": false,\n    \"employee\": true,\n    \"time_zone\": \"string\",\n    \"avatar_url\": \"http://ikIbxHaoYbSAYPKCpDLTYas.afsoq7qj3ClMIwuPxdLJwuQ1WPvnrCNw+B\",\n    \"company\": {\n      \"id\": 3149,\n      \"name\": \"string\"\n    }\n  },\n  \"bucket\": {\n    \"id\": 1260,\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"url\": \"https://LFoAWlHAIviiCVKxYcyrSaNJPOOSscHrv.tnxvBZBksK+esR5Ga3GSzKLXXknN96oRKpJFhDGVJtlbIX1bOsrDW,P6aoSsBwu7U-xcNCd-sBg8,e1Tgl4FDVK08\",\n    \"app_url\": \"http://RtOUnAmfzUKtprlmXkYhLST.qcZ736r2To6QIpA9yAAnVZpNE-R0yrLbLMHvE3WBw8-AJf,RSeAIBBF3zjlleTlutpkgOVQiOl4V6YZ\"\n  },\n  \"parent\": {\n    \"id\": 5703,\n    \"status\": \"archived\",\n    \"visible_to_clients\": false,\n    \"created_at\": \"1972-07-18T05:42:47.568Z\",\n    \"updated_at\": \"2016-08-17T16:21:07.206Z\",\n    \"title\": \"string\",\n    \"inherits_status\": false,\n    \"type\": \"string\",\n    \"url\": \"http://UfBUrcoCuMujE.hcQ269U-aUS,\",\n    \"app_url\": \"https://POhsFcsIBAcmEOTsCQXqjB.dijX1w1-gVnFayEiFGffy1FTdq\",\n    \"bucket\": {\n      \"id\": 6168,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"http://FsGhCfwUnri.lileF7QQYpIzlJg4glVjTKUyOxhT6F90l1K1fYRIp7Dq6Ctb9\",\n      \"app_url\": \"https://KGZBkQFREnnEHPMXelZpvXE.hmnCZeFNW5UgCRyKEDrpvgUqDmRaEYZBDVbVBEYXw\"\n    },\n    \"creator\": {\n      \"id\": 3764,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"YBU18Vk2x7pSq@IDueL.ud\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1977-02-06T05:27:30.247Z\",\n      \"updated_at\": \"1963-10-20T05:33:07.724Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": false,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://MPjihheqATWx.wwyqFt.\",\n      \"company\": {\n        \"id\": 9922,\n        \"name\": \"string\"\n      }\n    }\n  },\n  \"boosts_count\": 5248\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33f63481-4713-4ade-bc30-d8999ab40cae",
+              "name": "Bad request — missing required fields or invalid values",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    ":campfireId",
+                    "lines.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campfireId",
+                      "description": "(Required) Unique identifier of the campfire chat room"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14827ab2-1c54-40a3-bb40-6b362aa8671e",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    ":campfireId",
+                    "lines.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campfireId",
+                      "description": "(Required) Unique identifier of the campfire chat room"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84aa7a70-1867-40a7-ae9c-9ddd262758dd",
+          "name": "Get a campfire line",
+          "request": {
+            "name": "Get a campfire line",
+            "description": {
+              "content": "Returns the specific campfire line with the given ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chats",
+                ":campfireId",
+                "lines",
+                "{{lineId}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "campfireId",
+                  "description": "(Required) Unique identifier of the campfire chat room"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "99d50ce9-0ef0-44b9-ac99-fbdd7d6dc3d4",
+              "name": "Campfire line details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    ":campfireId",
+                    "lines",
+                    "{{lineId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campfireId",
+                      "description": "(Required) Unique identifier of the campfire chat room"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5845,\n  \"status\": \"string\",\n  \"created_at\": \"1973-10-08T14:36:20.328Z\",\n  \"updated_at\": \"1952-09-11T21:30:15.928Z\",\n  \"title\": \"string\",\n  \"content\": \"string\",\n  \"type\": \"string\",\n  \"creator\": {\n    \"id\": 4038,\n    \"attachable_sgid\": \"string\",\n    \"name\": \"string\",\n    \"email_address\": \"PvVy3qbb-kSxaN@PajMdZAKdCDzDQT.eck\",\n    \"personable_type\": \"string\",\n    \"title\": \"string\",\n    \"bio\": \"string\",\n    \"location\": \"string\",\n    \"created_at\": \"2012-09-23T03:42:14.666Z\",\n    \"updated_at\": \"1953-11-02T05:31:21.530Z\",\n    \"admin\": false,\n    \"owner\": true,\n    \"client\": false,\n    \"employee\": true,\n    \"time_zone\": \"string\",\n    \"avatar_url\": \"http://ikIbxHaoYbSAYPKCpDLTYas.afsoq7qj3ClMIwuPxdLJwuQ1WPvnrCNw+B\",\n    \"company\": {\n      \"id\": 3149,\n      \"name\": \"string\"\n    }\n  },\n  \"bucket\": {\n    \"id\": 1260,\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"url\": \"https://LFoAWlHAIviiCVKxYcyrSaNJPOOSscHrv.tnxvBZBksK+esR5Ga3GSzKLXXknN96oRKpJFhDGVJtlbIX1bOsrDW,P6aoSsBwu7U-xcNCd-sBg8,e1Tgl4FDVK08\",\n    \"app_url\": \"http://RtOUnAmfzUKtprlmXkYhLST.qcZ736r2To6QIpA9yAAnVZpNE-R0yrLbLMHvE3WBw8-AJf,RSeAIBBF3zjlleTlutpkgOVQiOl4V6YZ\"\n  },\n  \"parent\": {\n    \"id\": 5703,\n    \"status\": \"archived\",\n    \"visible_to_clients\": false,\n    \"created_at\": \"1972-07-18T05:42:47.568Z\",\n    \"updated_at\": \"2016-08-17T16:21:07.206Z\",\n    \"title\": \"string\",\n    \"inherits_status\": false,\n    \"type\": \"string\",\n    \"url\": \"http://UfBUrcoCuMujE.hcQ269U-aUS,\",\n    \"app_url\": \"https://POhsFcsIBAcmEOTsCQXqjB.dijX1w1-gVnFayEiFGffy1FTdq\",\n    \"bucket\": {\n      \"id\": 6168,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"http://FsGhCfwUnri.lileF7QQYpIzlJg4glVjTKUyOxhT6F90l1K1fYRIp7Dq6Ctb9\",\n      \"app_url\": \"https://KGZBkQFREnnEHPMXelZpvXE.hmnCZeFNW5UgCRyKEDrpvgUqDmRaEYZBDVbVBEYXw\"\n    },\n    \"creator\": {\n      \"id\": 3764,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"YBU18Vk2x7pSq@IDueL.ud\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1977-02-06T05:27:30.247Z\",\n      \"updated_at\": \"1963-10-20T05:33:07.724Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": false,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://MPjihheqATWx.wwyqFt.\",\n      \"company\": {\n        \"id\": 9922,\n        \"name\": \"string\"\n      }\n    }\n  },\n  \"boosts_count\": 5248\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00b0658a-e07d-40b7-9672-37eb86675851",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    ":campfireId",
+                    "lines",
+                    "{{lineId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campfireId",
+                      "description": "(Required) Unique identifier of the campfire chat room"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3cb5b198-9f39-48b2-a9dc-c2cfaa25ce4e",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    ":campfireId",
+                    "lines",
+                    "{{lineId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campfireId",
+                      "description": "(Required) Unique identifier of the campfire chat room"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "899030f8-ea69-4c11-8f3f-c1b0025a4d5b",
+          "name": "Delete a campfire line",
+          "request": {
+            "name": "Delete a campfire line",
+            "description": {
+              "content": "Deletes the campfire line with the given ID. Only the line creator or account admins can delete lines.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "chats",
+                ":campfireId",
+                "lines",
+                "{{lineId}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "campfireId",
+                  "description": "(Required) Unique identifier of the campfire chat room"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dba9d78d-dd3b-42ac-b6d9-609664eaf5d1",
+              "name": "Line deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    ":campfireId",
+                    "lines",
+                    "{{lineId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campfireId",
+                      "description": "(Required) Unique identifier of the campfire chat room"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "095b4a97-1828-43e8-b666-7ba32c2bf749",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    ":campfireId",
+                    "lines",
+                    "{{lineId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campfireId",
+                      "description": "(Required) Unique identifier of the campfire chat room"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ecb2f94-2647-4719-8ebb-1e4e09797d44",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chats",
+                    ":campfireId",
+                    "lines",
+                    "{{lineId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campfireId",
+                      "description": "(Required) Unique identifier of the campfire chat room"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Basecamp account ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "999999999",
+      "key": "accountId"
+    },
+    {
+      "type": "string",
+      "value": "https://3.basecampapi.com/{{accountId}}",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Unique identifier of the campfire chat room",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<integer>",
+      "key": "campfireId"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Unique identifier of the campfire line",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<integer>",
+      "key": "lineId"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d12d87c9-51fb-4100-a738-badeb8c209f8",
+    "name": "Basecamp Authorization Campfires API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.\n\nContact Support:\n Name: Basecamp Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

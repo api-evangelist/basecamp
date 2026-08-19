@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization Uploads API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Uploads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List uploads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/vaults/:vaultId/uploads.json",
+            "params": [
+              {
+                "name": "vaultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the vault"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active file uploads in the specified vault."
+        },
+        {
+          "info": {
+            "name": "Create an upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/vaults/:vaultId/uploads.json",
+            "params": [
+              {
+                "name": "vaultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the vault"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new upload entry in the specified vault using an attachable SGID obtained from the Basecamp attachment API."
+        },
+        {
+          "info": {
+            "name": "Get an upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/uploads/:uploadId.json",
+            "params": [
+              {
+                "name": "uploadId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the upload"
+              }
+            ]
+          },
+          "docs": "Returns the upload with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update an upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/uploads/:uploadId.json",
+            "params": [
+              {
+                "name": "uploadId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the upload"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the description or base name of the specified upload."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

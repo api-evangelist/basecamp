@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization Schedules API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/schedules/:scheduleId.json",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the schedule"
+              }
+            ]
+          },
+          "docs": "Returns the schedule with the given ID including its configuration and entry count."
+        },
+        {
+          "info": {
+            "name": "Update a schedule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/schedules/:scheduleId.json",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the schedule"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the schedule's configuration, including whether it should include due dates from to-dos, cards, and steps."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

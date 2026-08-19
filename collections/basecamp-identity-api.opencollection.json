@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization Identity API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Identity",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get identity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/authorization.json",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the identity of the authenticated user along with the list of Basecamp accounts they have access to. This is typically the first call made after obtaining an access token to discover which account IDs to use in subsequent API requests."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization Templates API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/templates.json",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter templates by status."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active project templates visible to the authenticated user. Optionally filter by status."
+        },
+        {
+          "info": {
+            "name": "Create a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/templates.json",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new project template with the given name and optional description. Returns the template with a 201 Created status."
+        },
+        {
+          "info": {
+            "name": "Get a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/templates/:templateId.json",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the template"
+              }
+            ]
+          },
+          "docs": "Returns the project template with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/templates/:templateId.json",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the template"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the name and description of an existing project template."
+        },
+        {
+          "info": {
+            "name": "Delete a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://3.basecampapi.com/{accountId}/templates/:templateId.json",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the template"
+              }
+            ]
+          },
+          "docs": "Moves the template with the given ID to trash."
+        },
+        {
+          "info": {
+            "name": "Create project from template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/templates/:templateId/project_constructions.json",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the template"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts the construction of a new project based on the given template. Returns a project construction object whose status can be polled until it transitions from \"pending\" to \"completed\"."
+        },
+        {
+          "info": {
+            "name": "Get project construction status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/templates/:templateId/project_constructions/:constructionId.json",
+            "params": [
+              {
+                "name": "templateId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the template"
+              },
+              {
+                "name": "constructionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project construction job"
+              }
+            ]
+          },
+          "docs": "Returns the current status of a project construction job. Poll this endpoint until status changes from \"pending\" to \"completed\"."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

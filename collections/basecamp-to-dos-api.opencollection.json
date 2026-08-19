@@ -1,0 +1,181 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization To-Dos API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "To-Dos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List to-dos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/todolists/:todolistId/todos.json",
+            "params": [
+              {
+                "name": "todolistId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do list"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status."
+              },
+              {
+                "name": "completed",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to return completed to-dos."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active to-dos in the specified to-do list. Set completed=true to retrieve completed items instead."
+        },
+        {
+          "info": {
+            "name": "Create a to-do",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/todolists/:todolistId/todos.json",
+            "params": [
+              {
+                "name": "todolistId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do list"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new to-do in the specified to-do list. Supports assignees, due dates, start dates, and completion subscriber notifications."
+        },
+        {
+          "info": {
+            "name": "Get a to-do",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/todos/:todoId.json",
+            "params": [
+              {
+                "name": "todoId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do"
+              }
+            ]
+          },
+          "docs": "Returns the to-do with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update a to-do",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/todos/:todoId.json",
+            "params": [
+              {
+                "name": "todoId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the content, description, assignees, due date, or other fields of the specified to-do."
+        },
+        {
+          "info": {
+            "name": "Complete a to-do",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/todos/:todoId/completion.json",
+            "params": [
+              {
+                "name": "todoId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do"
+              }
+            ]
+          },
+          "docs": "Marks the specified to-do as completed and notifies completion subscribers."
+        },
+        {
+          "info": {
+            "name": "Uncomplete a to-do",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://3.basecampapi.com/{accountId}/todos/:todoId/completion.json",
+            "params": [
+              {
+                "name": "todoId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do"
+              }
+            ]
+          },
+          "docs": "Marks the specified to-do as incomplete, reversing a previous completion."
+        },
+        {
+          "info": {
+            "name": "Reposition a to-do",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/todos/:todoId/position.json",
+            "params": [
+              {
+                "name": "todoId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Changes the position of the specified to-do within its to-do list. Position is 1-indexed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

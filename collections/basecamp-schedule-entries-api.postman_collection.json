@@ -1,0 +1,1004 @@
+{
+  "item": [
+    {
+      "id": "1e666a6c-99a3-40d4-965c-42498c75364a",
+      "name": "Schedule Entries",
+      "description": {
+        "content": "Manage individual schedule events and recurring entries",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3fd037f8-d054-4f83-b519-108bc8a147e2",
+          "name": "List schedule entries",
+          "request": {
+            "name": "List schedule entries",
+            "description": {
+              "content": "Returns a paginated list of active schedule entries in the specified schedule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedules",
+                ":scheduleId",
+                "entries.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by status."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "scheduleId",
+                  "description": "(Required) Unique identifier of the schedule"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "547d993a-3c98-419d-9032-0da382e60167",
+              "name": "List of schedule entries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":scheduleId",
+                    "entries.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "scheduleId",
+                      "description": "(Required) Unique identifier of the schedule"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 3003,\n    \"status\": \"trashed\",\n    \"visible_to_clients\": true,\n    \"created_at\": \"1981-01-30T07:24:47.665Z\",\n    \"updated_at\": \"2011-07-08T21:41:35.096Z\",\n    \"title\": \"string\",\n    \"inherits_status\": true,\n    \"type\": \"string\",\n    \"url\": \"http://YMQluCkrAFSmgIHnxYGyHHIfjsKWgDA.qfosCMwQuN6JVWB2DB+j278Jkt3aVF\",\n    \"app_url\": \"http://NqNSXOIgeXLxjcVQSHyQfdlBbJH.dehiX,TvpdIhcPmH1NV8WEb1AIJ83p4gY\",\n    \"bucket\": {\n      \"id\": 2542,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"https://DpDttEjg.mlpl-4,GU0KAulJKoO2UGaHfJb51jb71CcmWg21VJi+I65txxjf63K1CFFYXRYUSo\",\n      \"app_url\": \"https://WrvdxmqxpdsPZBOKqqWy.pifhtfcW1F82Qr2StrHPca.zepYlQdZ4\"\n    },\n    \"creator\": {\n      \"id\": 246,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"vZ7A242wp@k.jrm\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2005-07-23T09:11:35.863Z\",\n      \"updated_at\": \"1994-01-20T17:23:09.205Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://SjTqSwlOpLIx.uct2MW7ZizfeeeDo6-TCk1oucqfdMmg\",\n      \"company\": {\n        \"id\": 5420,\n        \"name\": \"string\"\n      }\n    },\n    \"summary\": \"string\",\n    \"description\": \"string\",\n    \"all_day\": true,\n    \"starts_at\": \"1976-08-26T20:34:54.101Z\",\n    \"ends_at\": \"2005-12-11T12:22:21.440Z\",\n    \"participants\": [\n      {\n        \"id\": 1394,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"pgRjSM0DhL@JDuYr.kah\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"1967-09-15T20:04:51.982Z\",\n        \"updated_at\": \"1983-05-18T17:45:42.753Z\",\n        \"admin\": false,\n        \"owner\": false,\n        \"client\": false,\n        \"employee\": true,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"https://lWyfoDAs.uyvzlkivcPNedwsoI+neNUOaCxlrFmKK4DaCU1vVXVmC2-bPFWF,Klz-1\",\n        \"company\": {\n          \"id\": 9417,\n          \"name\": \"string\"\n        }\n      },\n      {\n        \"id\": 4837,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"sqH@cXdhKUAIJtADgKKpscoWlguBHCb.yv\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"2018-12-01T03:54:19.380Z\",\n        \"updated_at\": \"2007-02-27T22:23:40.400Z\",\n        \"admin\": true,\n        \"owner\": false,\n        \"client\": false,\n        \"employee\": false,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"http://yQMsoaBnhsWTdnMzMVSfzJpwZscNLVgk.ttC-Su0UWLIqzVe7NJk4lV4K1UVageFMaqhgH-xCSLYEQzJDNrd\",\n        \"company\": {\n          \"id\": 7149,\n          \"name\": \"string\"\n        }\n      }\n    ],\n    \"comments_count\": 8342,\n    \"recurrence_schedule\": {\n      \"frequency\": \"yearly\",\n      \"days\": [\n        \"string\",\n        \"string\"\n      ],\n      \"hour\": 565,\n      \"minute\": 2562,\n      \"week_instance\": 9149,\n      \"start_date\": \"1970-02-13\",\n      \"end_date\": \"1991-12-09\"\n    }\n  },\n  {\n    \"id\": 6201,\n    \"status\": \"archived\",\n    \"visible_to_clients\": false,\n    \"created_at\": \"2012-03-23T18:40:32.513Z\",\n    \"updated_at\": \"1978-11-07T16:05:01.514Z\",\n    \"title\": \"string\",\n    \"inherits_status\": true,\n    \"type\": \"string\",\n    \"url\": \"http://hUB.ewxU2jwFP4spU4qJcn\",\n    \"app_url\": \"https://QTwCx.bcB3grH2CCUBhuqYhycODOedROcnj8JWvMgANKmk4lKitdK8ec1\",\n    \"bucket\": {\n      \"id\": 5107,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"https://L.rvjddniiatq-VbX546u13LmgRL.f\",\n      \"app_url\": \"https://vpt.xadvMa+0hF-rwCT0HrahNtapUthZcjFqyqvtR0uOCsg+R7BR80xqUv934T-\"\n    },\n    \"creator\": {\n      \"id\": 4157,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"9HnhnOJ7@sLNqoYRyw.fju\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1985-12-21T23:00:58.171Z\",\n      \"updated_at\": \"1959-01-31T08:28:43.501Z\",\n      \"admin\": false,\n      \"owner\": false,\n      \"client\": true,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://GWjuQAHyCbWPMq.kjkpL+U58O7mkC1s,poagl,\",\n      \"company\": {\n        \"id\": 7086,\n        \"name\": \"string\"\n      }\n    },\n    \"summary\": \"string\",\n    \"description\": \"string\",\n    \"all_day\": false,\n    \"starts_at\": \"1973-08-02T00:08:04.778Z\",\n    \"ends_at\": \"1963-05-14T01:27:19.948Z\",\n    \"participants\": [\n      {\n        \"id\": 969,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"87c4E0zgcAQ8x@DxWaffbkhQzs.aqr\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"1978-03-05T08:55:02.805Z\",\n        \"updated_at\": \"1988-03-08T12:22:01.763Z\",\n        \"admin\": false,\n        \"owner\": false,\n        \"client\": true,\n        \"employee\": false,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"http://TlHlhIcFV.qjzaiKliV-Wwcg.WcNBPjYskOm.xLjSaDL\",\n        \"company\": {\n          \"id\": 8732,\n          \"name\": \"string\"\n        }\n      },\n      {\n        \"id\": 2912,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"wGTIu4C5@KtElUtfllrGRBDqajH.rd\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"1950-04-15T23:17:11.222Z\",\n        \"updated_at\": \"1978-05-11T23:58:01.159Z\",\n        \"admin\": true,\n        \"owner\": true,\n        \"client\": false,\n        \"employee\": true,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"https://KOCfWtjPVoAZRxYVORPrJJmQfT.uftqIDY+eEVXAAjrrU+Zm8m1cbuccNfQNm6tduzmDZRzLzt5rmPZ5WjAH\",\n        \"company\": {\n          \"id\": 222,\n          \"name\": \"string\"\n        }\n      }\n    ],\n    \"comments_count\": 2434,\n    \"recurrence_schedule\": {\n      \"frequency\": \"daily\",\n      \"days\": [\n        \"string\",\n        \"string\"\n      ],\n      \"hour\": 1237,\n      \"minute\": 4803,\n      \"week_instance\": 1893,\n      \"start_date\": \"2016-05-26\",\n      \"end_date\": \"1954-06-06\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6de37a30-7427-470f-8ca1-7fbe98d3d662",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":scheduleId",
+                    "entries.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "scheduleId",
+                      "description": "(Required) Unique identifier of the schedule"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28e2b345-6e52-42c0-a7a8-b0ffb9dad5cc",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":scheduleId",
+                    "entries.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "scheduleId",
+                      "description": "(Required) Unique identifier of the schedule"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5f46410-1013-47e1-a1bc-49d8df80a924",
+          "name": "Create a schedule entry",
+          "request": {
+            "name": "Create a schedule entry",
+            "description": {
+              "content": "Creates a new schedule entry in the specified schedule. Requires a summary, start time, and end time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedules",
+                ":scheduleId",
+                "entries.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "scheduleId",
+                  "description": "(Required) Unique identifier of the schedule"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"summary\": \"<string>\",\n  \"starts_at\": \"<dateTime>\",\n  \"ends_at\": \"<dateTime>\",\n  \"description\": \"<string>\",\n  \"participant_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"all_day\": \"<boolean>\",\n  \"notify\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "63afcd16-5c77-4604-93f3-dee2c449087d",
+              "name": "Schedule entry created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":scheduleId",
+                    "entries.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "scheduleId",
+                      "description": "(Required) Unique identifier of the schedule"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"summary\": \"<string>\",\n  \"starts_at\": \"<dateTime>\",\n  \"ends_at\": \"<dateTime>\",\n  \"description\": \"<string>\",\n  \"participant_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"all_day\": \"<boolean>\",\n  \"notify\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 890,\n  \"status\": \"archived\",\n  \"visible_to_clients\": true,\n  \"created_at\": \"1965-06-20T15:40:23.549Z\",\n  \"updated_at\": \"2014-01-04T14:17:25.745Z\",\n  \"title\": \"string\",\n  \"inherits_status\": false,\n  \"type\": \"string\",\n  \"url\": \"http://TbsrS.jgtpWtzmbcXrk\",\n  \"app_url\": \"https://kWlS.pqtzS0+rf.dcIsKBTpigE-QP1x.ySyo75I\",\n  \"bucket\": {\n    \"id\": 3550,\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"url\": \"https://GOTIg.ylgmdqNCzbSiQgKGVLI8smnsV+Tj,C0Nym0C-oVB9lAxdcjXJ5wx\",\n    \"app_url\": \"http://NXmKnRMzdWVKSOeUaaWWHPV.uaJYxInxBVJVIVPBWvlhbVfW9uTM-XAkv+4cpI5k+Y0r9dm8XL+S7OfSnEIUNWa8\"\n  },\n  \"creator\": {\n    \"id\": 9100,\n    \"attachable_sgid\": \"string\",\n    \"name\": \"string\",\n    \"email_address\": \"jQh@vMnpyQIgWAybNivQKca.cjxj\",\n    \"personable_type\": \"string\",\n    \"title\": \"string\",\n    \"bio\": \"string\",\n    \"location\": \"string\",\n    \"created_at\": \"2024-03-31T07:57:35.051Z\",\n    \"updated_at\": \"1968-10-14T00:46:59.469Z\",\n    \"admin\": false,\n    \"owner\": true,\n    \"client\": true,\n    \"employee\": true,\n    \"time_zone\": \"string\",\n    \"avatar_url\": \"https://PCm.pqB+utEYkDBeX,.cyWEFaYExvWd0l\",\n    \"company\": {\n      \"id\": 1355,\n      \"name\": \"string\"\n    }\n  },\n  \"summary\": \"string\",\n  \"description\": \"string\",\n  \"all_day\": true,\n  \"starts_at\": \"2016-04-11T08:47:28.377Z\",\n  \"ends_at\": \"1978-01-08T22:15:42.000Z\",\n  \"participants\": [\n    {\n      \"id\": 2837,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"0LWEv@FuHAQlNldapTWmxPNBI.tqr\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1981-11-21T03:06:22.115Z\",\n      \"updated_at\": \"2019-05-28T09:09:31.999Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://nipmBABtE.kgqtO+OSpi6M3XGIRkjXbGgZzHn-FZoAEvzs-boqkbDpDRJuN,tDTvp-yEMalsL\",\n      \"company\": {\n        \"id\": 7997,\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": 4955,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"z52Egefqw1eab@tzZSvEpIDoibpccBSGbf.tw\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2008-03-26T22:32:18.824Z\",\n      \"updated_at\": \"2022-04-02T16:46:16.625Z\",\n      \"admin\": false,\n      \"owner\": false,\n      \"client\": false,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://ctNUbmXE.gdbyb\",\n      \"company\": {\n        \"id\": 7781,\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"comments_count\": 9033,\n  \"recurrence_schedule\": {\n    \"frequency\": \"monthly\",\n    \"days\": [\n      \"string\",\n      \"string\"\n    ],\n    \"hour\": 9923,\n    \"minute\": 9268,\n    \"week_instance\": 4491,\n    \"start_date\": \"1982-03-18\",\n    \"end_date\": \"2003-09-19\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42eba7c8-0e68-458b-8fb0-2d9520ce5278",
+              "name": "Bad request — missing required fields or invalid values",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":scheduleId",
+                    "entries.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "scheduleId",
+                      "description": "(Required) Unique identifier of the schedule"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"summary\": \"<string>\",\n  \"starts_at\": \"<dateTime>\",\n  \"ends_at\": \"<dateTime>\",\n  \"description\": \"<string>\",\n  \"participant_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"all_day\": \"<boolean>\",\n  \"notify\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "153f4a20-1207-4476-a0af-c28a5fb3d60d",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedules",
+                    ":scheduleId",
+                    "entries.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "scheduleId",
+                      "description": "(Required) Unique identifier of the schedule"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"summary\": \"<string>\",\n  \"starts_at\": \"<dateTime>\",\n  \"ends_at\": \"<dateTime>\",\n  \"description\": \"<string>\",\n  \"participant_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"all_day\": \"<boolean>\",\n  \"notify\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b4e5f0a0-447b-431a-b2b4-caa0c9d9c4bb",
+          "name": "Get a schedule entry",
+          "request": {
+            "name": "Get a schedule entry",
+            "description": {
+              "content": "Returns the schedule entry with the given ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule_entries",
+                "{{entryId}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "25675a5c-ea7d-44e0-990f-4c63854e6d21",
+              "name": "Schedule entry details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule_entries",
+                    "{{entryId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 890,\n  \"status\": \"archived\",\n  \"visible_to_clients\": true,\n  \"created_at\": \"1965-06-20T15:40:23.549Z\",\n  \"updated_at\": \"2014-01-04T14:17:25.745Z\",\n  \"title\": \"string\",\n  \"inherits_status\": false,\n  \"type\": \"string\",\n  \"url\": \"http://TbsrS.jgtpWtzmbcXrk\",\n  \"app_url\": \"https://kWlS.pqtzS0+rf.dcIsKBTpigE-QP1x.ySyo75I\",\n  \"bucket\": {\n    \"id\": 3550,\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"url\": \"https://GOTIg.ylgmdqNCzbSiQgKGVLI8smnsV+Tj,C0Nym0C-oVB9lAxdcjXJ5wx\",\n    \"app_url\": \"http://NXmKnRMzdWVKSOeUaaWWHPV.uaJYxInxBVJVIVPBWvlhbVfW9uTM-XAkv+4cpI5k+Y0r9dm8XL+S7OfSnEIUNWa8\"\n  },\n  \"creator\": {\n    \"id\": 9100,\n    \"attachable_sgid\": \"string\",\n    \"name\": \"string\",\n    \"email_address\": \"jQh@vMnpyQIgWAybNivQKca.cjxj\",\n    \"personable_type\": \"string\",\n    \"title\": \"string\",\n    \"bio\": \"string\",\n    \"location\": \"string\",\n    \"created_at\": \"2024-03-31T07:57:35.051Z\",\n    \"updated_at\": \"1968-10-14T00:46:59.469Z\",\n    \"admin\": false,\n    \"owner\": true,\n    \"client\": true,\n    \"employee\": true,\n    \"time_zone\": \"string\",\n    \"avatar_url\": \"https://PCm.pqB+utEYkDBeX,.cyWEFaYExvWd0l\",\n    \"company\": {\n      \"id\": 1355,\n      \"name\": \"string\"\n    }\n  },\n  \"summary\": \"string\",\n  \"description\": \"string\",\n  \"all_day\": true,\n  \"starts_at\": \"2016-04-11T08:47:28.377Z\",\n  \"ends_at\": \"1978-01-08T22:15:42.000Z\",\n  \"participants\": [\n    {\n      \"id\": 2837,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"0LWEv@FuHAQlNldapTWmxPNBI.tqr\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1981-11-21T03:06:22.115Z\",\n      \"updated_at\": \"2019-05-28T09:09:31.999Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://nipmBABtE.kgqtO+OSpi6M3XGIRkjXbGgZzHn-FZoAEvzs-boqkbDpDRJuN,tDTvp-yEMalsL\",\n      \"company\": {\n        \"id\": 7997,\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": 4955,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"z52Egefqw1eab@tzZSvEpIDoibpccBSGbf.tw\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2008-03-26T22:32:18.824Z\",\n      \"updated_at\": \"2022-04-02T16:46:16.625Z\",\n      \"admin\": false,\n      \"owner\": false,\n      \"client\": false,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://ctNUbmXE.gdbyb\",\n      \"company\": {\n        \"id\": 7781,\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"comments_count\": 9033,\n  \"recurrence_schedule\": {\n    \"frequency\": \"monthly\",\n    \"days\": [\n      \"string\",\n      \"string\"\n    ],\n    \"hour\": 9923,\n    \"minute\": 9268,\n    \"week_instance\": 4491,\n    \"start_date\": \"1982-03-18\",\n    \"end_date\": \"2003-09-19\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49dddd56-6da4-4150-bf03-13656751901d",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule_entries",
+                    "{{entryId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33aa2d58-081e-4b07-96fb-91dc11f98e3a",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule_entries",
+                    "{{entryId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a0e5108-c9b4-4171-b208-1cd1e24a8e06",
+          "name": "Update a schedule entry",
+          "request": {
+            "name": "Update a schedule entry",
+            "description": {
+              "content": "Updates the summary, times, description, participants, or recurrence configuration of the specified schedule entry.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "schedule_entries",
+                "{{entryId}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"summary\": \"<string>\",\n  \"starts_at\": \"<dateTime>\",\n  \"ends_at\": \"<dateTime>\",\n  \"description\": \"<string>\",\n  \"participant_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"all_day\": \"<boolean>\",\n  \"notify\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b21f3912-8d36-4fea-ad7f-a45cd91186f2",
+              "name": "Updated schedule entry",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule_entries",
+                    "{{entryId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"summary\": \"<string>\",\n  \"starts_at\": \"<dateTime>\",\n  \"ends_at\": \"<dateTime>\",\n  \"description\": \"<string>\",\n  \"participant_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"all_day\": \"<boolean>\",\n  \"notify\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 890,\n  \"status\": \"archived\",\n  \"visible_to_clients\": true,\n  \"created_at\": \"1965-06-20T15:40:23.549Z\",\n  \"updated_at\": \"2014-01-04T14:17:25.745Z\",\n  \"title\": \"string\",\n  \"inherits_status\": false,\n  \"type\": \"string\",\n  \"url\": \"http://TbsrS.jgtpWtzmbcXrk\",\n  \"app_url\": \"https://kWlS.pqtzS0+rf.dcIsKBTpigE-QP1x.ySyo75I\",\n  \"bucket\": {\n    \"id\": 3550,\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"url\": \"https://GOTIg.ylgmdqNCzbSiQgKGVLI8smnsV+Tj,C0Nym0C-oVB9lAxdcjXJ5wx\",\n    \"app_url\": \"http://NXmKnRMzdWVKSOeUaaWWHPV.uaJYxInxBVJVIVPBWvlhbVfW9uTM-XAkv+4cpI5k+Y0r9dm8XL+S7OfSnEIUNWa8\"\n  },\n  \"creator\": {\n    \"id\": 9100,\n    \"attachable_sgid\": \"string\",\n    \"name\": \"string\",\n    \"email_address\": \"jQh@vMnpyQIgWAybNivQKca.cjxj\",\n    \"personable_type\": \"string\",\n    \"title\": \"string\",\n    \"bio\": \"string\",\n    \"location\": \"string\",\n    \"created_at\": \"2024-03-31T07:57:35.051Z\",\n    \"updated_at\": \"1968-10-14T00:46:59.469Z\",\n    \"admin\": false,\n    \"owner\": true,\n    \"client\": true,\n    \"employee\": true,\n    \"time_zone\": \"string\",\n    \"avatar_url\": \"https://PCm.pqB+utEYkDBeX,.cyWEFaYExvWd0l\",\n    \"company\": {\n      \"id\": 1355,\n      \"name\": \"string\"\n    }\n  },\n  \"summary\": \"string\",\n  \"description\": \"string\",\n  \"all_day\": true,\n  \"starts_at\": \"2016-04-11T08:47:28.377Z\",\n  \"ends_at\": \"1978-01-08T22:15:42.000Z\",\n  \"participants\": [\n    {\n      \"id\": 2837,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"0LWEv@FuHAQlNldapTWmxPNBI.tqr\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1981-11-21T03:06:22.115Z\",\n      \"updated_at\": \"2019-05-28T09:09:31.999Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://nipmBABtE.kgqtO+OSpi6M3XGIRkjXbGgZzHn-FZoAEvzs-boqkbDpDRJuN,tDTvp-yEMalsL\",\n      \"company\": {\n        \"id\": 7997,\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": 4955,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"z52Egefqw1eab@tzZSvEpIDoibpccBSGbf.tw\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2008-03-26T22:32:18.824Z\",\n      \"updated_at\": \"2022-04-02T16:46:16.625Z\",\n      \"admin\": false,\n      \"owner\": false,\n      \"client\": false,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://ctNUbmXE.gdbyb\",\n      \"company\": {\n        \"id\": 7781,\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"comments_count\": 9033,\n  \"recurrence_schedule\": {\n    \"frequency\": \"monthly\",\n    \"days\": [\n      \"string\",\n      \"string\"\n    ],\n    \"hour\": 9923,\n    \"minute\": 9268,\n    \"week_instance\": 4491,\n    \"start_date\": \"1982-03-18\",\n    \"end_date\": \"2003-09-19\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d184bf82-9072-4ce6-ad18-bf18071f99f6",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule_entries",
+                    "{{entryId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"summary\": \"<string>\",\n  \"starts_at\": \"<dateTime>\",\n  \"ends_at\": \"<dateTime>\",\n  \"description\": \"<string>\",\n  \"participant_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"all_day\": \"<boolean>\",\n  \"notify\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0306fdd-c7f1-495d-8dc1-5cebe92d6b4b",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "schedule_entries",
+                    "{{entryId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"summary\": \"<string>\",\n  \"starts_at\": \"<dateTime>\",\n  \"ends_at\": \"<dateTime>\",\n  \"description\": \"<string>\",\n  \"participant_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"all_day\": \"<boolean>\",\n  \"notify\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Basecamp account ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "999999999",
+      "key": "accountId"
+    },
+    {
+      "type": "string",
+      "value": "https://3.basecampapi.com/{{accountId}}",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Unique identifier of the schedule entry",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<integer>",
+      "key": "entryId"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1cea8932-e754-4d54-862b-8152c1793fa8",
+    "name": "Basecamp Authorization Schedule Entries API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.\n\nContact Support:\n Name: Basecamp Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

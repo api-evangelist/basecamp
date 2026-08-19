@@ -1,0 +1,133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization People API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "People",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all people",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/people.json"
+          },
+          "docs": "Returns a paginated list of all people visible to the authenticated user across the account."
+        },
+        {
+          "info": {
+            "name": "List people on a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/projects/:projectId/people.json",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project (bucket)"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all people with access to the specified project."
+        },
+        {
+          "info": {
+            "name": "Update project access",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/projects/:projectId/people/users.json",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project (bucket)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Grants or revokes access to the project for specific people. Accepts arrays of person IDs to grant or revoke, or new person objects to create and invite."
+        },
+        {
+          "info": {
+            "name": "List pingable people",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/circles/people.json"
+          },
+          "docs": "Returns a paginated list of all people the authenticated user can ping (direct message) within the account."
+        },
+        {
+          "info": {
+            "name": "Get a person",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/people/:personId.json",
+            "params": [
+              {
+                "name": "personId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the person"
+              }
+            ]
+          },
+          "docs": "Returns the profile of the person with the given ID."
+        },
+        {
+          "info": {
+            "name": "Get my profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/my/profile.json"
+          },
+          "docs": "Returns the profile of the currently authenticated user."
+        },
+        {
+          "info": {
+            "name": "Update my profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/my/profile.json",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates profile fields for the currently authenticated user including name, email address, title, bio, location, and time zone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

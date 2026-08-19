@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization Comments API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Comments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/comments.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active comments on the specified recording. Any resource that exposes a comments_url can have its comments listed via this endpoint."
+        },
+        {
+          "info": {
+            "name": "Create a comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/comments.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new comment on the specified recording. All subscribers to the recording will be notified. Supports HTML-formatted content."
+        },
+        {
+          "info": {
+            "name": "Get a comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/comments/:commentId.json",
+            "params": [
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the comment"
+              }
+            ]
+          },
+          "docs": "Returns the comment with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update a comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/comments/:commentId.json",
+            "params": [
+              {
+                "name": "commentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the comment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the content of the specified comment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

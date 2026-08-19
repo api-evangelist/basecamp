@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authorization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Authorize user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/authorization",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Must be set to \"web_server\" for the authorization code flow"
+              },
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "query",
+                "description": "Your application's client ID from launchpad.37signals.com"
+              },
+              {
+                "name": "redirect_uri",
+                "value": "",
+                "type": "query",
+                "description": "The URI to redirect to after authorization. Must match a URI registered with your application."
+              }
+            ]
+          },
+          "docs": "Redirects the user to the Basecamp authorization page where they can grant your application access to their account. After the user approves, Basecamp redirects back to your redirect_uri with an authorization code."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

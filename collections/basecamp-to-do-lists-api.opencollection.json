@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization To-Do Lists API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "To-Do Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List to-do lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/todosets/:todosetId/todolists.json",
+            "params": [
+              {
+                "name": "todosetId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do set"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active to-do lists within the specified to-do set."
+        },
+        {
+          "info": {
+            "name": "Create a to-do list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/todosets/:todosetId/todolists.json",
+            "params": [
+              {
+                "name": "todosetId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do set"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new to-do list in the specified to-do set with the given name and optional description."
+        },
+        {
+          "info": {
+            "name": "Get a to-do list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/todolists/:todolistId.json",
+            "params": [
+              {
+                "name": "todolistId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do list"
+              }
+            ]
+          },
+          "docs": "Returns the to-do list with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update a to-do list",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/todolists/:todolistId.json",
+            "params": [
+              {
+                "name": "todolistId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the to-do list"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the name and description of the specified to-do list."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

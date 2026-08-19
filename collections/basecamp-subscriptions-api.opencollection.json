@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization Subscriptions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/subscription.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ]
+          },
+          "docs": "Returns the current subscription status and list of subscribers for the specified recording."
+        },
+        {
+          "info": {
+            "name": "Subscribe to recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/subscription.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ]
+          },
+          "docs": "Adds the authenticated user as a subscriber to the specified recording."
+        },
+        {
+          "info": {
+            "name": "Update subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/subscription.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk adds or removes subscribers from the specified recording using arrays of person IDs."
+        },
+        {
+          "info": {
+            "name": "Unsubscribe from recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/subscription.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ]
+          },
+          "docs": "Removes the authenticated user as a subscriber from the specified recording."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

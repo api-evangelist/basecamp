@@ -1,0 +1,1731 @@
+{
+  "item": [
+    {
+      "id": "9b9804b0-a7e5-43e4-9c4d-5ae4eb631d14",
+      "name": "To-Dos",
+      "description": {
+        "content": "Manage individual to-do items",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2327514a-f97c-40c3-8780-fa4f24fda513",
+          "name": "List to-dos",
+          "request": {
+            "name": "List to-dos",
+            "description": {
+              "content": "Returns a paginated list of active to-dos in the specified to-do list. Set completed=true to retrieve completed items instead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "todolists",
+                ":todolistId",
+                "todos.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by status."
+                },
+                {
+                  "disabled": false,
+                  "key": "completed",
+                  "value": "<boolean>",
+                  "description": "Set to true to return completed to-dos."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "todolistId",
+                  "description": "(Required) Unique identifier of the to-do list"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "12ae471c-a308-424b-a79c-f419188d5918",
+              "name": "List of to-dos",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todolists",
+                    ":todolistId",
+                    "todos.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "completed",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "todolistId",
+                      "description": "(Required) Unique identifier of the to-do list"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 515,\n    \"status\": \"trashed\",\n    \"visible_to_clients\": true,\n    \"created_at\": \"1957-10-04T09:02:21.120Z\",\n    \"updated_at\": \"1970-02-17T16:08:06.893Z\",\n    \"title\": \"string\",\n    \"inherits_status\": true,\n    \"type\": \"string\",\n    \"url\": \"http://CoLmuRaeWItJXyJcJOdbW.lynnkIL2yVXLsfX3-nsUolirjcb\",\n    \"app_url\": \"http://PgSlmceFVimdbUwgintZePjuJyuOBYhNc.mrzo-lBPii+xPEawNyF0f.I2ORS+6VuU7vewWNcxjdicWqsdYXEMw62SZaE.iPqvO+-XkU8ZTMd\",\n    \"bucket\": {\n      \"id\": 6360,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"https://dtenTshJPkJAOULHevKINm.ktoPbeejKWHfacWe-tE-Jmfo64sOqx-RuHfkaRzw8Eq8FFBIpWC7Oamcm1bdkXgcPULgV,9pf\",\n      \"app_url\": \"https://etukTG.dtdRQWY5on+D9SkBMbWA+EAP9dlo-Xz1R,b8d.KQvrzej3eg0z8zY8q+1G6SV\"\n    },\n    \"creator\": {\n      \"id\": 6077,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"4zk1aR-qjsJTv0l@yVDqBTpAxgPHiZMVGkNGPgYuG.wt\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2001-03-11T13:13:37.705Z\",\n      \"updated_at\": \"1952-11-24T00:08:47.028Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": false,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://PgbwJLyaLlyyjbeZAqyO.zmmq4CwITwzlIJ\",\n      \"company\": {\n        \"id\": 1421,\n        \"name\": \"string\"\n      }\n    },\n    \"content\": \"string\",\n    \"description\": \"string\",\n    \"completed\": true,\n    \"due_on\": \"1989-02-12\",\n    \"starts_on\": \"2016-01-31\",\n    \"position\": 8833,\n    \"assignees\": [\n      {\n        \"id\": 9243,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"CqokXDw73@PWQrlRJabkqqyIwMlHI.osio\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"1968-12-29T23:04:59.403Z\",\n        \"updated_at\": \"2015-05-14T07:29:39.180Z\",\n        \"admin\": false,\n        \"owner\": false,\n        \"client\": true,\n        \"employee\": true,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"http://JkDZXiUzLpkCKcUghrUx.skquNT04ngU7rGQM0mgojaGvUqbfchHXVweDGWowSxJZ2by.wi49OS\",\n        \"company\": {\n          \"id\": 5157,\n          \"name\": \"string\"\n        }\n      },\n      {\n        \"id\": 3685,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"nHLXfnA8tvghGkD@YiGrXoTBEKkrXnLOmZGX.wfn\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"1980-11-18T03:01:39.245Z\",\n        \"updated_at\": \"2018-07-02T05:30:57.835Z\",\n        \"admin\": true,\n        \"owner\": true,\n        \"client\": true,\n        \"employee\": false,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"http://QvpVWCMYCTUbbfZiXMHlY.qnvIm-iTwIiJJuAsCb4C2vX6Ab9aowgQFKg5Cx7btjipm\",\n        \"company\": {\n          \"id\": 3055,\n          \"name\": \"string\"\n        }\n      }\n    ],\n    \"completion_subscribers\": [\n      {\n        \"id\": 2974,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"LI4MfeHcYWEl4@mUjMHjSFwTgkl.usjg\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"1962-09-10T10:18:38.086Z\",\n        \"updated_at\": \"1949-04-02T05:36:51.308Z\",\n        \"admin\": false,\n        \"owner\": true,\n        \"client\": false,\n        \"employee\": true,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"https://xnKuaDvZLyNKMNJua.rqaqGfm4+ZX5,VZpUxuZAKknFNTQLRW8xx.FV0oToYbchGD4LwCGqdCD.3qMsawyhuK\",\n        \"company\": {\n          \"id\": 7648,\n          \"name\": \"string\"\n        }\n      },\n      {\n        \"id\": 3488,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"D3PzWYUwU@nswANAujlNdUKWCTtxAUAbph.lswn\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"1950-05-02T05:13:42.703Z\",\n        \"updated_at\": \"1965-09-28T06:58:07.595Z\",\n        \"admin\": true,\n        \"owner\": false,\n        \"client\": false,\n        \"employee\": false,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"https://gUuPNqcOhAtAeEgWrDPRXcpMorO.nsJfuNyLO3-bZusOd,NPhGkybaZ9dxYA6kobN\",\n        \"company\": {\n          \"id\": 1893,\n          \"name\": \"string\"\n        }\n      }\n    ],\n    \"comments_count\": 7925,\n    \"parent\": {\n      \"id\": 1306,\n      \"status\": \"archived\",\n      \"visible_to_clients\": true,\n      \"created_at\": \"1983-12-18T23:35:04.449Z\",\n      \"updated_at\": \"2000-07-31T02:39:03.222Z\",\n      \"title\": \"string\",\n      \"inherits_status\": true,\n      \"type\": \"string\",\n      \"url\": \"https://uxbcgZvTlBOLol.adxiljXKgqMJSLo7SA2Xg9vIt\",\n      \"app_url\": \"http://xIWZxMwLuxZRZHs.kwKxCQhTl.azYkb9T0fKQHMwoU3gMk4Rq6IRVVje,s7xTxhrLU+cmoHns9kJGS3CJR5D103DpjkUvYX\",\n      \"bucket\": {\n        \"id\": 7694,\n        \"name\": \"string\",\n        \"type\": \"string\",\n        \"url\": \"http://eQemDAqGehBhFCoTgglVUy.dxV3m4NCkQaZXkN8FYoJgtm9+EXGf,WJ8IhZX5EnPw6e\",\n        \"app_url\": \"http://MkNWZNljiAKGdElRgTrZyCwiIWdqJ.vtSe5wEhWgag9PeA9O8Plq5MSQM5UcCYCTGUdRS0D4pOrrutSPTiBkFqSXCMkCPlVn6ia0x\"\n      },\n      \"creator\": {\n        \"id\": 8860,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"ktU@EeydHtLfRGUbzn.vhv\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"1952-03-05T16:38:10.892Z\",\n        \"updated_at\": \"2010-09-20T18:25:28.759Z\",\n        \"admin\": false,\n        \"owner\": false,\n        \"client\": true,\n        \"employee\": true,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"http://ytPSdecFfXoAqYPFBMMfUFX.qcekIc17OthRq5eTy,M-F3WGqhzoIC\",\n        \"company\": {\n          \"id\": 8298,\n          \"name\": \"string\"\n        }\n      }\n    }\n  },\n  {\n    \"id\": 7781,\n    \"status\": \"archived\",\n    \"visible_to_clients\": true,\n    \"created_at\": \"2006-10-19T06:57:52.119Z\",\n    \"updated_at\": \"2001-11-17T19:28:01.547Z\",\n    \"title\": \"string\",\n    \"inherits_status\": false,\n    \"type\": \"string\",\n    \"url\": \"http://XWJMhaHTbEtGe.zogyzqMrRZCEQOnhHVzm\",\n    \"app_url\": \"https://jZAZCdKqefSj.hbMSmsuPlWxpfxSQPfdey.,nWopZrkOR+KrU,vi-bNy-KrHGsnv30ivIW\",\n    \"bucket\": {\n      \"id\": 5774,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"http://O.jqtLO0XtbszbPb3vz1lWffPnY05aSpobHczG3cLf6rgOauPg\",\n      \"app_url\": \"http://ViXtacVMRkSLeKDXzutILwcIgvRqB.hezExA+02wUYS6AfmOrqzGfcGbOuT3ac2UxY6iqmy\"\n    },\n    \"creator\": {\n      \"id\": 572,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"gP4dl44a7C@XqWBzMXGEJJo.rb\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1961-08-28T19:09:56.452Z\",\n      \"updated_at\": \"1991-05-10T10:04:35.266Z\",\n      \"admin\": true,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://BURhnhgNaJr.kkzsPu+YCu9dbXfXrYLMnnm1A1a\",\n      \"company\": {\n        \"id\": 1495,\n        \"name\": \"string\"\n      }\n    },\n    \"content\": \"string\",\n    \"description\": \"string\",\n    \"completed\": false,\n    \"due_on\": \"2012-02-28\",\n    \"starts_on\": \"1955-08-02\",\n    \"position\": 5932,\n    \"assignees\": [\n      {\n        \"id\": 276,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"EJuNgQ@ab.jiqr\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"1953-08-15T09:19:20.782Z\",\n        \"updated_at\": \"1989-09-22T09:58:33.006Z\",\n        \"admin\": false,\n        \"owner\": true,\n        \"client\": false,\n        \"employee\": false,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"http://Bk.skag32mfeGXQL\",\n        \"company\": {\n          \"id\": 1361,\n          \"name\": \"string\"\n        }\n      },\n      {\n        \"id\": 8863,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"xfAEfPVO@wqiOoNFjhDkCRBfwUXIUROFoIdjgswcu.thqe\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"2017-03-30T09:55:04.074Z\",\n        \"updated_at\": \"1993-02-06T03:18:53.983Z\",\n        \"admin\": true,\n        \"owner\": true,\n        \"client\": true,\n        \"employee\": true,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"http://KDBcwkn.obfcOmS5ghy2FqWJKUofrFwS2ddrE9O-nBLwqszAADa+d8AoC-Pcr\",\n        \"company\": {\n          \"id\": 7791,\n          \"name\": \"string\"\n        }\n      }\n    ],\n    \"completion_subscribers\": [\n      {\n        \"id\": 9622,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"WxQ5HR@lTLYksALMRgcbia.vsen\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"2019-01-10T20:15:47.394Z\",\n        \"updated_at\": \"1954-05-18T17:33:07.181Z\",\n        \"admin\": true,\n        \"owner\": false,\n        \"client\": true,\n        \"employee\": true,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"https://bIiZOeyaSHGHCQjnMMxffzVPyzRh.ygmPk.OTAYFZgcTNOo4aB5l7SK-GH1HPiQmnWF2CptUkvh8Jn4YTsV,16Se\",\n        \"company\": {\n          \"id\": 1777,\n          \"name\": \"string\"\n        }\n      },\n      {\n        \"id\": 6286,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"YIFbHg@OBVJQCMldrvcfJAf.rwzd\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"1953-10-20T15:34:44.260Z\",\n        \"updated_at\": \"1978-10-11T20:26:09.383Z\",\n        \"admin\": true,\n        \"owner\": true,\n        \"client\": false,\n        \"employee\": true,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"http://aaXYtrCrRmniJXqszxgHUmojc.pjrdbtZa+pgwkl8FAgdHHgrMxbJuD+As\",\n        \"company\": {\n          \"id\": 2162,\n          \"name\": \"string\"\n        }\n      }\n    ],\n    \"comments_count\": 9278,\n    \"parent\": {\n      \"id\": 8280,\n      \"status\": \"trashed\",\n      \"visible_to_clients\": true,\n      \"created_at\": \"1997-06-07T22:07:40.642Z\",\n      \"updated_at\": \"1970-08-05T12:49:21.347Z\",\n      \"title\": \"string\",\n      \"inherits_status\": true,\n      \"type\": \"string\",\n      \"url\": \"http://nZvlcalpzohCreQa.inqsNQZI8jr,j.IQntLTxTfYvBgX.yDzDYDt0gMlKzDcxhI\",\n      \"app_url\": \"https://ibYlzKSwcwNTwGKy.due4zKY8+cBXcE9A2cRK9VEWWlPxyxvVvuQW0oyAnhrRDHzZZhu63+uyajslu.F\",\n      \"bucket\": {\n        \"id\": 7415,\n        \"name\": \"string\",\n        \"type\": \"string\",\n        \"url\": \"http://VhIhSNSISRxWbWuvStYB.muWWLjMiEm-LW4r6T5KRm\",\n        \"app_url\": \"http://DyMBlEhxbramRpMYrbBG.crFa4DOfwx5QPGG1CGh3BRrl6wDTQ+okXUmDdlldn71jXHxP9fT2KgblqnpejbD\"\n      },\n      \"creator\": {\n        \"id\": 4130,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"8V6tE@Rap.yf\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"1968-04-09T16:39:46.779Z\",\n        \"updated_at\": \"1985-09-09T12:50:59.722Z\",\n        \"admin\": true,\n        \"owner\": false,\n        \"client\": false,\n        \"employee\": true,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"http://GIO.tqyjjHChlqr64yrDUufdknNOpp,1GN5CWO.+YeAjC2WnIJUU4i232R-q1n-F\",\n        \"company\": {\n          \"id\": 364,\n          \"name\": \"string\"\n        }\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c7149f4-467f-43b9-a9f1-3adf777e684c",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todolists",
+                    ":todolistId",
+                    "todos.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "completed",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "todolistId",
+                      "description": "(Required) Unique identifier of the to-do list"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88480955-6855-481d-8284-bdb9de348625",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todolists",
+                    ":todolistId",
+                    "todos.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "completed",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "todolistId",
+                      "description": "(Required) Unique identifier of the to-do list"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db1cceea-a2ba-40e6-8d03-d7ee96d3bb8f",
+          "name": "Create a to-do",
+          "request": {
+            "name": "Create a to-do",
+            "description": {
+              "content": "Creates a new to-do in the specified to-do list. Supports assignees, due dates, start dates, and completion subscriber notifications.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "todolists",
+                ":todolistId",
+                "todos.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "todolistId",
+                  "description": "(Required) Unique identifier of the to-do list"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"<string>\",\n  \"description\": \"<string>\",\n  \"assignee_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"completion_subscriber_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"notify\": \"<boolean>\",\n  \"due_on\": \"<date>\",\n  \"starts_on\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8d4e5cd5-5890-4dc7-b517-8e7417febf20",
+              "name": "To-do created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todolists",
+                    ":todolistId",
+                    "todos.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "todolistId",
+                      "description": "(Required) Unique identifier of the to-do list"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"description\": \"<string>\",\n  \"assignee_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"completion_subscriber_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"notify\": \"<boolean>\",\n  \"due_on\": \"<date>\",\n  \"starts_on\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5125,\n  \"status\": \"active\",\n  \"visible_to_clients\": false,\n  \"created_at\": \"2007-12-16T10:13:41.321Z\",\n  \"updated_at\": \"1997-01-17T06:41:27.442Z\",\n  \"title\": \"string\",\n  \"inherits_status\": true,\n  \"type\": \"string\",\n  \"url\": \"http://clsDoXmm.izif57KGjkYtiSMoG+CCCK\",\n  \"app_url\": \"https://gpNTdnejcRf.bjjo1Q0vs0x,SuFgWyZvqqsTd7REUMZkJUVgmTTOCUejh3\",\n  \"bucket\": {\n    \"id\": 9477,\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"url\": \"http://MPpXYSqASCxlGpHLcq.yveu38Mf3IvwqnBpT7tXrbx+8phvxb1tW\",\n    \"app_url\": \"http://UifKNfsDyZEbLoefBa.fdbaQOd3C2OF-zvU6uUMjOo8wUYNhGuiuRyzjCeyfM57jZ-QmsF8YUzkBfnf\"\n  },\n  \"creator\": {\n    \"id\": 7802,\n    \"attachable_sgid\": \"string\",\n    \"name\": \"string\",\n    \"email_address\": \"szHM3OjEi@ZAMHHYimqZVWJDDPOoPm.plop\",\n    \"personable_type\": \"string\",\n    \"title\": \"string\",\n    \"bio\": \"string\",\n    \"location\": \"string\",\n    \"created_at\": \"2014-02-15T15:08:27.509Z\",\n    \"updated_at\": \"2025-03-27T11:37:27.555Z\",\n    \"admin\": true,\n    \"owner\": false,\n    \"client\": false,\n    \"employee\": false,\n    \"time_zone\": \"string\",\n    \"avatar_url\": \"https://YrzNX.wgMjq-IyQ2in+pbbUIE19mdOoir2hb6xImz2hYfN9cJvIFvkd6nAOshvbTUzUc9acW\",\n    \"company\": {\n      \"id\": 6776,\n      \"name\": \"string\"\n    }\n  },\n  \"content\": \"string\",\n  \"description\": \"string\",\n  \"completed\": false,\n  \"due_on\": \"1985-01-21\",\n  \"starts_on\": \"1990-05-19\",\n  \"position\": 8457,\n  \"assignees\": [\n    {\n      \"id\": 2995,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"fAh8tFXflj@oiRlal.snzx\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2015-12-14T08:17:29.235Z\",\n      \"updated_at\": \"1980-02-17T19:26:42.266Z\",\n      \"admin\": false,\n      \"owner\": false,\n      \"client\": false,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://PtPAfLJNAoFQcJHhEyUeSfwb.bpIJ6LWE7IyR\",\n      \"company\": {\n        \"id\": 2987,\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": 9523,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"l7Z@gLDFXKgrWPtPrpQjpbJRuQZEyouY.gg\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2018-02-07T16:15:02.458Z\",\n      \"updated_at\": \"2017-05-29T05:29:10.189Z\",\n      \"admin\": true,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://zmfcHhiBqSmaTgeEPPRIJhUc.jmvqy8hJzbj6PXN7VgpsTya6-0Q6y8dxLoRsaJh94SmBNvxnpnr4sDmP5PpL\",\n      \"company\": {\n        \"id\": 6173,\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"completion_subscribers\": [\n    {\n      \"id\": 5791,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"HOFa@btxqAbtpElFKL.tal\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2011-11-20T21:37:40.015Z\",\n      \"updated_at\": \"2007-08-17T15:19:18.458Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://ApELAoHMkwnjzMDCwtqJBm.pxoiY0bQ22i,FWUm\",\n      \"company\": {\n        \"id\": 5260,\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": 9785,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"1TU1BFIJN7Nf@vdaKVeKSguffRLvEUZHTIL.fkk\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1946-09-29T15:48:46.493Z\",\n      \"updated_at\": \"2002-08-24T23:53:37.983Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://lxOmkxylMJQejcG.hgboJOxrYVhcLRjO90\",\n      \"company\": {\n        \"id\": 1434,\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"comments_count\": 4014,\n  \"parent\": {\n    \"id\": 5243,\n    \"status\": \"trashed\",\n    \"visible_to_clients\": false,\n    \"created_at\": \"1996-01-15T16:05:09.406Z\",\n    \"updated_at\": \"2010-04-14T01:21:47.994Z\",\n    \"title\": \"string\",\n    \"inherits_status\": false,\n    \"type\": \"string\",\n    \"url\": \"https://FxwSahOFBUQSd.kbiJyBpPi4vcBuOLj3pQ8qsslttwyjTpUaKdDdj+4B\",\n    \"app_url\": \"http://XhOhKgRdZCxQdJWYiKn.esSNhekrH3QMd,ZeyaWRQDCGeU59qV\",\n    \"bucket\": {\n      \"id\": 5275,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"https://yUIs.smdoAIZSpAW\",\n      \"app_url\": \"http://YTOjLuvYYpjTMPRVvJyc.tpEVTSLorU\"\n    },\n    \"creator\": {\n      \"id\": 322,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"1onsZ@pZQlJssxtnVgDWvshFuiSzlANM.av\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1981-03-23T06:14:08.308Z\",\n      \"updated_at\": \"1950-01-17T13:48:54.818Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://lXpsEl.uzhhM8qFQFnBwrhfVZXjC.3ErF47NUnbjfD.dSyQNKose0xh-2FZ4y9MY+LisSDV\",\n      \"company\": {\n        \"id\": 5359,\n        \"name\": \"string\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec4115ee-5f4e-4846-aafa-89224c3b87ac",
+              "name": "Bad request — missing required fields or invalid values",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todolists",
+                    ":todolistId",
+                    "todos.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "todolistId",
+                      "description": "(Required) Unique identifier of the to-do list"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"description\": \"<string>\",\n  \"assignee_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"completion_subscriber_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"notify\": \"<boolean>\",\n  \"due_on\": \"<date>\",\n  \"starts_on\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0c9080b-13d8-4056-9b11-4c9c36f359ab",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todolists",
+                    ":todolistId",
+                    "todos.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "todolistId",
+                      "description": "(Required) Unique identifier of the to-do list"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"description\": \"<string>\",\n  \"assignee_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"completion_subscriber_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"notify\": \"<boolean>\",\n  \"due_on\": \"<date>\",\n  \"starts_on\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69594c72-507f-4abc-b8d6-6a38fa9833f8",
+          "name": "Get a to-do",
+          "request": {
+            "name": "Get a to-do",
+            "description": {
+              "content": "Returns the to-do with the given ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "todos",
+                "{{todoId}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c1034ff-2619-41a4-975c-09d8caf28db2",
+              "name": "To-do details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todos",
+                    "{{todoId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5125,\n  \"status\": \"active\",\n  \"visible_to_clients\": false,\n  \"created_at\": \"2007-12-16T10:13:41.321Z\",\n  \"updated_at\": \"1997-01-17T06:41:27.442Z\",\n  \"title\": \"string\",\n  \"inherits_status\": true,\n  \"type\": \"string\",\n  \"url\": \"http://clsDoXmm.izif57KGjkYtiSMoG+CCCK\",\n  \"app_url\": \"https://gpNTdnejcRf.bjjo1Q0vs0x,SuFgWyZvqqsTd7REUMZkJUVgmTTOCUejh3\",\n  \"bucket\": {\n    \"id\": 9477,\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"url\": \"http://MPpXYSqASCxlGpHLcq.yveu38Mf3IvwqnBpT7tXrbx+8phvxb1tW\",\n    \"app_url\": \"http://UifKNfsDyZEbLoefBa.fdbaQOd3C2OF-zvU6uUMjOo8wUYNhGuiuRyzjCeyfM57jZ-QmsF8YUzkBfnf\"\n  },\n  \"creator\": {\n    \"id\": 7802,\n    \"attachable_sgid\": \"string\",\n    \"name\": \"string\",\n    \"email_address\": \"szHM3OjEi@ZAMHHYimqZVWJDDPOoPm.plop\",\n    \"personable_type\": \"string\",\n    \"title\": \"string\",\n    \"bio\": \"string\",\n    \"location\": \"string\",\n    \"created_at\": \"2014-02-15T15:08:27.509Z\",\n    \"updated_at\": \"2025-03-27T11:37:27.555Z\",\n    \"admin\": true,\n    \"owner\": false,\n    \"client\": false,\n    \"employee\": false,\n    \"time_zone\": \"string\",\n    \"avatar_url\": \"https://YrzNX.wgMjq-IyQ2in+pbbUIE19mdOoir2hb6xImz2hYfN9cJvIFvkd6nAOshvbTUzUc9acW\",\n    \"company\": {\n      \"id\": 6776,\n      \"name\": \"string\"\n    }\n  },\n  \"content\": \"string\",\n  \"description\": \"string\",\n  \"completed\": false,\n  \"due_on\": \"1985-01-21\",\n  \"starts_on\": \"1990-05-19\",\n  \"position\": 8457,\n  \"assignees\": [\n    {\n      \"id\": 2995,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"fAh8tFXflj@oiRlal.snzx\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2015-12-14T08:17:29.235Z\",\n      \"updated_at\": \"1980-02-17T19:26:42.266Z\",\n      \"admin\": false,\n      \"owner\": false,\n      \"client\": false,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://PtPAfLJNAoFQcJHhEyUeSfwb.bpIJ6LWE7IyR\",\n      \"company\": {\n        \"id\": 2987,\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": 9523,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"l7Z@gLDFXKgrWPtPrpQjpbJRuQZEyouY.gg\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2018-02-07T16:15:02.458Z\",\n      \"updated_at\": \"2017-05-29T05:29:10.189Z\",\n      \"admin\": true,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://zmfcHhiBqSmaTgeEPPRIJhUc.jmvqy8hJzbj6PXN7VgpsTya6-0Q6y8dxLoRsaJh94SmBNvxnpnr4sDmP5PpL\",\n      \"company\": {\n        \"id\": 6173,\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"completion_subscribers\": [\n    {\n      \"id\": 5791,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"HOFa@btxqAbtpElFKL.tal\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2011-11-20T21:37:40.015Z\",\n      \"updated_at\": \"2007-08-17T15:19:18.458Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://ApELAoHMkwnjzMDCwtqJBm.pxoiY0bQ22i,FWUm\",\n      \"company\": {\n        \"id\": 5260,\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": 9785,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"1TU1BFIJN7Nf@vdaKVeKSguffRLvEUZHTIL.fkk\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1946-09-29T15:48:46.493Z\",\n      \"updated_at\": \"2002-08-24T23:53:37.983Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://lxOmkxylMJQejcG.hgboJOxrYVhcLRjO90\",\n      \"company\": {\n        \"id\": 1434,\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"comments_count\": 4014,\n  \"parent\": {\n    \"id\": 5243,\n    \"status\": \"trashed\",\n    \"visible_to_clients\": false,\n    \"created_at\": \"1996-01-15T16:05:09.406Z\",\n    \"updated_at\": \"2010-04-14T01:21:47.994Z\",\n    \"title\": \"string\",\n    \"inherits_status\": false,\n    \"type\": \"string\",\n    \"url\": \"https://FxwSahOFBUQSd.kbiJyBpPi4vcBuOLj3pQ8qsslttwyjTpUaKdDdj+4B\",\n    \"app_url\": \"http://XhOhKgRdZCxQdJWYiKn.esSNhekrH3QMd,ZeyaWRQDCGeU59qV\",\n    \"bucket\": {\n      \"id\": 5275,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"https://yUIs.smdoAIZSpAW\",\n      \"app_url\": \"http://YTOjLuvYYpjTMPRVvJyc.tpEVTSLorU\"\n    },\n    \"creator\": {\n      \"id\": 322,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"1onsZ@pZQlJssxtnVgDWvshFuiSzlANM.av\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1981-03-23T06:14:08.308Z\",\n      \"updated_at\": \"1950-01-17T13:48:54.818Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://lXpsEl.uzhhM8qFQFnBwrhfVZXjC.3ErF47NUnbjfD.dSyQNKose0xh-2FZ4y9MY+LisSDV\",\n      \"company\": {\n        \"id\": 5359,\n        \"name\": \"string\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b1e42c1-c6ce-463a-b886-56222959a870",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todos",
+                    "{{todoId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "95051c95-3e67-45f1-9481-55b4f650bf34",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todos",
+                    "{{todoId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5990207b-1916-4a66-81f1-92d9f3469ec9",
+          "name": "Update a to-do",
+          "request": {
+            "name": "Update a to-do",
+            "description": {
+              "content": "Updates the content, description, assignees, due date, or other fields of the specified to-do.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "todos",
+                "{{todoId}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"<string>\",\n  \"description\": \"<string>\",\n  \"assignee_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"completion_subscriber_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"notify\": \"<boolean>\",\n  \"due_on\": \"<date>\",\n  \"starts_on\": \"<date>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "86050831-918d-4de9-bcc8-9170bde83e90",
+              "name": "Updated to-do",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todos",
+                    "{{todoId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"description\": \"<string>\",\n  \"assignee_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"completion_subscriber_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"notify\": \"<boolean>\",\n  \"due_on\": \"<date>\",\n  \"starts_on\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5125,\n  \"status\": \"active\",\n  \"visible_to_clients\": false,\n  \"created_at\": \"2007-12-16T10:13:41.321Z\",\n  \"updated_at\": \"1997-01-17T06:41:27.442Z\",\n  \"title\": \"string\",\n  \"inherits_status\": true,\n  \"type\": \"string\",\n  \"url\": \"http://clsDoXmm.izif57KGjkYtiSMoG+CCCK\",\n  \"app_url\": \"https://gpNTdnejcRf.bjjo1Q0vs0x,SuFgWyZvqqsTd7REUMZkJUVgmTTOCUejh3\",\n  \"bucket\": {\n    \"id\": 9477,\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"url\": \"http://MPpXYSqASCxlGpHLcq.yveu38Mf3IvwqnBpT7tXrbx+8phvxb1tW\",\n    \"app_url\": \"http://UifKNfsDyZEbLoefBa.fdbaQOd3C2OF-zvU6uUMjOo8wUYNhGuiuRyzjCeyfM57jZ-QmsF8YUzkBfnf\"\n  },\n  \"creator\": {\n    \"id\": 7802,\n    \"attachable_sgid\": \"string\",\n    \"name\": \"string\",\n    \"email_address\": \"szHM3OjEi@ZAMHHYimqZVWJDDPOoPm.plop\",\n    \"personable_type\": \"string\",\n    \"title\": \"string\",\n    \"bio\": \"string\",\n    \"location\": \"string\",\n    \"created_at\": \"2014-02-15T15:08:27.509Z\",\n    \"updated_at\": \"2025-03-27T11:37:27.555Z\",\n    \"admin\": true,\n    \"owner\": false,\n    \"client\": false,\n    \"employee\": false,\n    \"time_zone\": \"string\",\n    \"avatar_url\": \"https://YrzNX.wgMjq-IyQ2in+pbbUIE19mdOoir2hb6xImz2hYfN9cJvIFvkd6nAOshvbTUzUc9acW\",\n    \"company\": {\n      \"id\": 6776,\n      \"name\": \"string\"\n    }\n  },\n  \"content\": \"string\",\n  \"description\": \"string\",\n  \"completed\": false,\n  \"due_on\": \"1985-01-21\",\n  \"starts_on\": \"1990-05-19\",\n  \"position\": 8457,\n  \"assignees\": [\n    {\n      \"id\": 2995,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"fAh8tFXflj@oiRlal.snzx\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2015-12-14T08:17:29.235Z\",\n      \"updated_at\": \"1980-02-17T19:26:42.266Z\",\n      \"admin\": false,\n      \"owner\": false,\n      \"client\": false,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://PtPAfLJNAoFQcJHhEyUeSfwb.bpIJ6LWE7IyR\",\n      \"company\": {\n        \"id\": 2987,\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": 9523,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"l7Z@gLDFXKgrWPtPrpQjpbJRuQZEyouY.gg\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2018-02-07T16:15:02.458Z\",\n      \"updated_at\": \"2017-05-29T05:29:10.189Z\",\n      \"admin\": true,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://zmfcHhiBqSmaTgeEPPRIJhUc.jmvqy8hJzbj6PXN7VgpsTya6-0Q6y8dxLoRsaJh94SmBNvxnpnr4sDmP5PpL\",\n      \"company\": {\n        \"id\": 6173,\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"completion_subscribers\": [\n    {\n      \"id\": 5791,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"HOFa@btxqAbtpElFKL.tal\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2011-11-20T21:37:40.015Z\",\n      \"updated_at\": \"2007-08-17T15:19:18.458Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://ApELAoHMkwnjzMDCwtqJBm.pxoiY0bQ22i,FWUm\",\n      \"company\": {\n        \"id\": 5260,\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": 9785,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"1TU1BFIJN7Nf@vdaKVeKSguffRLvEUZHTIL.fkk\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1946-09-29T15:48:46.493Z\",\n      \"updated_at\": \"2002-08-24T23:53:37.983Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://lxOmkxylMJQejcG.hgboJOxrYVhcLRjO90\",\n      \"company\": {\n        \"id\": 1434,\n        \"name\": \"string\"\n      }\n    }\n  ],\n  \"comments_count\": 4014,\n  \"parent\": {\n    \"id\": 5243,\n    \"status\": \"trashed\",\n    \"visible_to_clients\": false,\n    \"created_at\": \"1996-01-15T16:05:09.406Z\",\n    \"updated_at\": \"2010-04-14T01:21:47.994Z\",\n    \"title\": \"string\",\n    \"inherits_status\": false,\n    \"type\": \"string\",\n    \"url\": \"https://FxwSahOFBUQSd.kbiJyBpPi4vcBuOLj3pQ8qsslttwyjTpUaKdDdj+4B\",\n    \"app_url\": \"http://XhOhKgRdZCxQdJWYiKn.esSNhekrH3QMd,ZeyaWRQDCGeU59qV\",\n    \"bucket\": {\n      \"id\": 5275,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"https://yUIs.smdoAIZSpAW\",\n      \"app_url\": \"http://YTOjLuvYYpjTMPRVvJyc.tpEVTSLorU\"\n    },\n    \"creator\": {\n      \"id\": 322,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"1onsZ@pZQlJssxtnVgDWvshFuiSzlANM.av\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1981-03-23T06:14:08.308Z\",\n      \"updated_at\": \"1950-01-17T13:48:54.818Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://lXpsEl.uzhhM8qFQFnBwrhfVZXjC.3ErF47NUnbjfD.dSyQNKose0xh-2FZ4y9MY+LisSDV\",\n      \"company\": {\n        \"id\": 5359,\n        \"name\": \"string\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "186ffe29-8dba-42b4-b2ae-4d47a0878a41",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todos",
+                    "{{todoId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"description\": \"<string>\",\n  \"assignee_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"completion_subscriber_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"notify\": \"<boolean>\",\n  \"due_on\": \"<date>\",\n  \"starts_on\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b414f91a-e156-4464-a2ed-19721f2000e9",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todos",
+                    "{{todoId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"description\": \"<string>\",\n  \"assignee_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"completion_subscriber_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"notify\": \"<boolean>\",\n  \"due_on\": \"<date>\",\n  \"starts_on\": \"<date>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3657427-9653-4d4f-b9a4-9d0365171317",
+          "name": "Complete a to-do",
+          "request": {
+            "name": "Complete a to-do",
+            "description": {
+              "content": "Marks the specified to-do as completed and notifies completion subscribers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "todos",
+                ":todoId",
+                "completion.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "todoId",
+                  "description": "(Required) Unique identifier of the to-do"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "65d9595f-c311-43a2-98b0-028293e48cf4",
+              "name": "To-do marked as completed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todos",
+                    ":todoId",
+                    "completion.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "todoId",
+                      "description": "(Required) Unique identifier of the to-do"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eb977083-0bf0-437d-bc6b-34da4f8fcca4",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todos",
+                    ":todoId",
+                    "completion.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "todoId",
+                      "description": "(Required) Unique identifier of the to-do"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96682673-cd17-4ddc-a62a-2c78086338d4",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todos",
+                    ":todoId",
+                    "completion.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "todoId",
+                      "description": "(Required) Unique identifier of the to-do"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "915d3236-1ccc-4be6-956b-176f53414482",
+          "name": "Uncomplete a to-do",
+          "request": {
+            "name": "Uncomplete a to-do",
+            "description": {
+              "content": "Marks the specified to-do as incomplete, reversing a previous completion.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "todos",
+                ":todoId",
+                "completion.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "todoId",
+                  "description": "(Required) Unique identifier of the to-do"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a3956c50-f620-4fa5-afd0-b8a6ca76934c",
+              "name": "To-do marked as incomplete",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todos",
+                    ":todoId",
+                    "completion.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "todoId",
+                      "description": "(Required) Unique identifier of the to-do"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4c250d70-e33c-423d-9531-32d0a191c4c8",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todos",
+                    ":todoId",
+                    "completion.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "todoId",
+                      "description": "(Required) Unique identifier of the to-do"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3af951ce-7da6-4b17-95a2-605bfd45a39e",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todos",
+                    ":todoId",
+                    "completion.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "todoId",
+                      "description": "(Required) Unique identifier of the to-do"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6e3620a-a58a-4991-a8e3-199deb4642c3",
+          "name": "Reposition a to-do",
+          "request": {
+            "name": "Reposition a to-do",
+            "description": {
+              "content": "Changes the position of the specified to-do within its to-do list. Position is 1-indexed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "todos",
+                ":todoId",
+                "position.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "todoId",
+                  "description": "(Required) Unique identifier of the to-do"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"position\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1223047e-467a-4971-a899-4362953bb7ae",
+              "name": "Position updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todos",
+                    ":todoId",
+                    "position.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "todoId",
+                      "description": "(Required) Unique identifier of the to-do"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"position\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "71d13d13-293b-4e02-8106-9631961a39d2",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todos",
+                    ":todoId",
+                    "position.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "todoId",
+                      "description": "(Required) Unique identifier of the to-do"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"position\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f852d245-29d5-4021-9fa1-5bfe5e225bf7",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "todos",
+                    ":todoId",
+                    "position.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "todoId",
+                      "description": "(Required) Unique identifier of the to-do"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"position\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Basecamp account ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "999999999",
+      "key": "accountId"
+    },
+    {
+      "type": "string",
+      "value": "https://3.basecampapi.com/{{accountId}}",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Unique identifier of the to-do",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<integer>",
+      "key": "todoId"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2cd56f44-a854-4ac4-8405-25420f9b9a82",
+    "name": "Basecamp Authorization To-Dos API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.\n\nContact Support:\n Name: Basecamp Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

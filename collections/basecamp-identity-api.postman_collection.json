@@ -1,0 +1,200 @@
+{
+  "item": [
+    {
+      "id": "6c968d53-07d8-4c5d-bc88-74ae1fa1b53d",
+      "name": "Identity",
+      "description": {
+        "content": "Retrieve authenticated user identity",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fdd4ed9e-da9c-4939-a1f8-cedac3706f9c",
+          "name": "Get identity",
+          "request": {
+            "name": "Get identity",
+            "description": {
+              "content": "Returns the identity of the authenticated user along with the list of Basecamp accounts they have access to. This is typically the first call made after obtaining an access token to discover which account IDs to use in subsequent API requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "authorization.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "53c2e2a5-ac9c-410c-b9fa-d0b14fb2abb8",
+              "name": "Authenticated user identity and accessible accounts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorization.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"expires_at\": \"1963-03-09T04:29:28.069Z\",\n  \"identity\": {\n    \"id\": 7242,\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email_address\": \"y-NCsUVa@jQrxVhOikOhlCgJuACQc.lg\"\n  },\n  \"accounts\": [\n    {\n      \"product\": \"string\",\n      \"id\": 7610,\n      \"name\": \"string\",\n      \"href\": \"https://BwprBNOCYNqBDRMdumDsgMzXYNfmKbfbK.gmWRoXxtRroXQme3ZkKvmHasKAm43KW7vd.6vbS6XlhTjhUxqKj5J3W18wbOcDalBq\",\n      \"app_href\": \"http://OlHnuakssvAemkSBidAaRy.komV5oeZYO+a0R0kXiDNdcuOuRwUP.T2aEUlavYeQa02LzU0TB\"\n    },\n    {\n      \"product\": \"string\",\n      \"id\": 5023,\n      \"name\": \"string\",\n      \"href\": \"https://UfLruDoSzHzcdUjMyEJHxxSea.iuDqYMZu\",\n      \"app_href\": \"https://IpTvsfCoDKiGDNMMKmKbQUwVRTNoFqT.ngzlxmtlvIzCE4\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00d673d2-d6b7-4782-8c15-4e7bb818476b",
+              "name": "Unauthorized — invalid or expired credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorization.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Basecamp account ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "999999999",
+      "key": "accountId"
+    },
+    {
+      "type": "string",
+      "value": "https://3.basecampapi.com/{{accountId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "769dd2d1-70c8-4f5f-9fba-5a1730708547",
+    "name": "Basecamp Authorization Identity API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.\n\nContact Support:\n Name: Basecamp Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

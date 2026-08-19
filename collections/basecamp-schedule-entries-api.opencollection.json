@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization Schedule Entries API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Schedule Entries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List schedule entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/schedules/:scheduleId/entries.json",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the schedule"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active schedule entries in the specified schedule."
+        },
+        {
+          "info": {
+            "name": "Create a schedule entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/schedules/:scheduleId/entries.json",
+            "params": [
+              {
+                "name": "scheduleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the schedule"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new schedule entry in the specified schedule. Requires a summary, start time, and end time."
+        },
+        {
+          "info": {
+            "name": "Get a schedule entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/schedule_entries/:entryId.json",
+            "params": [
+              {
+                "name": "entryId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the schedule entry"
+              }
+            ]
+          },
+          "docs": "Returns the schedule entry with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update a schedule entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/schedule_entries/:entryId.json",
+            "params": [
+              {
+                "name": "entryId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the schedule entry"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the summary, times, description, participants, or recurrence configuration of the specified schedule entry."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,982 @@
+{
+  "item": [
+    {
+      "id": "f1efc32f-1514-4a1f-9e64-2e5d373fb452",
+      "name": "Comments",
+      "description": {
+        "content": "Manage comments on any commentable recording",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bea31dfd-94ad-4147-b544-04bdf8f3c3e5",
+          "name": "List comments",
+          "request": {
+            "name": "List comments",
+            "description": {
+              "content": "Returns a paginated list of active comments on the specified recording. Any resource that exposes a comments_url can have its comments listed via this endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recordings",
+                ":recordingId",
+                "comments.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recordingId",
+                  "description": "(Required) Unique identifier of the recording"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ab21e3cc-d47b-412f-b9c8-27bd3b1c3bbd",
+              "name": "List of comments",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId",
+                    "comments.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique identifier of the recording"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 6637,\n    \"status\": \"trashed\",\n    \"visible_to_clients\": true,\n    \"created_at\": \"2000-07-03T14:33:24.704Z\",\n    \"updated_at\": \"1964-08-19T03:02:48.842Z\",\n    \"title\": \"string\",\n    \"inherits_status\": false,\n    \"type\": \"string\",\n    \"url\": \"http://JzmhzytfXtrcyMWKWQDvumh.izdzjS0IQRgrvPzNSqLLl7tacxYStyfEgBAhhwKJeMcGaFgLcLWodTcakLyf6\",\n    \"app_url\": \"https://PBXAyHHxSGDYpNbzdNlKumHJuJwfQ.kqxxbYQ1oLkOtL7rAsYc7j4k0hSkcj8opiEt8xKvcJifgFisMvAJsTDwMm+izzAiaRtrVBsB4gw2\",\n    \"bucket\": {\n      \"id\": 7140,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"https://rZGUCzIsOWAZGTTCm.erabM86049NrsodMkQfO4L0cjzypvRyyhee44VUHR6H\",\n      \"app_url\": \"https://qIcjmD.dirdXKWn8y2XXiEX4YDvDkgIbTpYs,-5UrtcDoyYI7T\"\n    },\n    \"creator\": {\n      \"id\": 8683,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"Hmv56YS@adcooyqksNaFbI.ir\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1975-06-28T03:08:21.843Z\",\n      \"updated_at\": \"1969-06-26T17:57:05.579Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://m.fwjHBR,vnmi0d49yqVAqUsexutKbYZ3WsJMeHFZYkfegvHHZ3axMZ3YAg5QY\",\n      \"company\": {\n        \"id\": 2846,\n        \"name\": \"string\"\n      }\n    },\n    \"content\": \"string\",\n    \"boosts_count\": 6269,\n    \"parent\": {\n      \"id\": 6904,\n      \"status\": \"trashed\",\n      \"visible_to_clients\": false,\n      \"created_at\": \"1953-06-09T03:55:27.176Z\",\n      \"updated_at\": \"2020-01-12T13:57:42.432Z\",\n      \"title\": \"string\",\n      \"inherits_status\": false,\n      \"type\": \"string\",\n      \"url\": \"http://okKryKsNPkUMbNFqTpZ.ylwfuIcOKMI.jp9I9r.,vrNc+tV0fC9rrUmJT1RuN1Dx\",\n      \"app_url\": \"http://dIpTPAjxZHHYepNGklCjoMDcMqm.ywjQz+pV.b6N2Zp7RZCjlAOPCbw8uXTjzn02auUaVgu9\",\n      \"bucket\": {\n        \"id\": 8871,\n        \"name\": \"string\",\n        \"type\": \"string\",\n        \"url\": \"http://VhSHNOfFZnKqzSVymqggADFkbhhuDGOhb.omevBez,mjdHELj7eP.PqhzTaBxmIUZnOUGhIVvMurYUu2D6UhB\",\n        \"app_url\": \"http://tvmumVnlJZAPmduDNzbiMyHByIRiG.djmnnTs-aZb2ZOLCTqOQmCrdgW6Bo\"\n      },\n      \"creator\": {\n        \"id\": 8476,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"lvSPymI1i9e@THa.runf\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"1981-02-24T13:57:56.748Z\",\n        \"updated_at\": \"1962-04-14T05:14:33.917Z\",\n        \"admin\": true,\n        \"owner\": false,\n        \"client\": true,\n        \"employee\": false,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"https://UANUwXSZ.qdegCe16fCsOLxIM+jdsJ0U0Fc4aPZt6ByZ8GJX9qB\",\n        \"company\": {\n          \"id\": 5477,\n          \"name\": \"string\"\n        }\n      }\n    }\n  },\n  {\n    \"id\": 1262,\n    \"status\": \"active\",\n    \"visible_to_clients\": false,\n    \"created_at\": \"2015-12-23T08:11:06.169Z\",\n    \"updated_at\": \"1954-02-16T15:31:16.339Z\",\n    \"title\": \"string\",\n    \"inherits_status\": true,\n    \"type\": \"string\",\n    \"url\": \"https://CExObrprh.dryba,+EzPDTa4JdwLSbV6.9PhCXbdgCFxsi.k2XpWGMBdLcT2tjZmImx\",\n    \"app_url\": \"https://ILCLPdWCzMrGPMtcfkbWkEtMsnkmEfq.pjkL28c.lnmp\",\n    \"bucket\": {\n      \"id\": 3429,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"https://JSkEtqAevjlqkz.nboKxhT5zYAtOGI0DKYbJdC3Nab7,CR\",\n      \"app_url\": \"http://E.cbbbAWvwXWIxXTZmb1fRSEouJnfel2Ggap8WrkdzeJ.OibKpKwJttR\"\n    },\n    \"creator\": {\n      \"id\": 7366,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"GGBXe2uHySpml@OMXPagp.moe\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1947-01-14T03:09:52.043Z\",\n      \"updated_at\": \"2003-05-11T17:14:33.184Z\",\n      \"admin\": false,\n      \"owner\": false,\n      \"client\": false,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://gVbcWhXdcPa.zqgbrjGBI2Abp\",\n      \"company\": {\n        \"id\": 6498,\n        \"name\": \"string\"\n      }\n    },\n    \"content\": \"string\",\n    \"boosts_count\": 3091,\n    \"parent\": {\n      \"id\": 3971,\n      \"status\": \"archived\",\n      \"visible_to_clients\": false,\n      \"created_at\": \"1979-02-25T13:36:04.132Z\",\n      \"updated_at\": \"1967-07-21T15:23:31.187Z\",\n      \"title\": \"string\",\n      \"inherits_status\": false,\n      \"type\": \"string\",\n      \"url\": \"https://vzsreDHfNMcLK.fheOFq7NPNlnGuwx5lEOyHpKnN03C3a.i\",\n      \"app_url\": \"https://AafyelAxkL.eafllWi\",\n      \"bucket\": {\n        \"id\": 6112,\n        \"name\": \"string\",\n        \"type\": \"string\",\n        \"url\": \"http://EaUSkAhPVjQaOLhoOatmBt.gnbQ4XPAZWQ1n5uNOLboCzjghAulz5UMv7X420HbJhp2p\",\n        \"app_url\": \"http://bkwfvpAFJCRhVgfn.jkwdyVw-LffHrQ674J5ZbEovPZb1eev\"\n      },\n      \"creator\": {\n        \"id\": 7062,\n        \"attachable_sgid\": \"string\",\n        \"name\": \"string\",\n        \"email_address\": \"E4rxp8@v.raf\",\n        \"personable_type\": \"string\",\n        \"title\": \"string\",\n        \"bio\": \"string\",\n        \"location\": \"string\",\n        \"created_at\": \"2001-05-13T11:04:13.060Z\",\n        \"updated_at\": \"1970-01-10T20:08:31.415Z\",\n        \"admin\": false,\n        \"owner\": true,\n        \"client\": false,\n        \"employee\": true,\n        \"time_zone\": \"string\",\n        \"avatar_url\": \"https://AtDVWHYGJLaXdZqdSdNNrcIfkZlt.hbgd0trTrqLDCqCl,V0pcI9.YpstGeRHWD-7,5.ZkiYepjPUa7gcvjtmlof\",\n        \"company\": {\n          \"id\": 7138,\n          \"name\": \"string\"\n        }\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4917b225-7e6c-4881-99e9-6f7615303596",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId",
+                    "comments.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique identifier of the recording"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d091ef0c-bd28-4967-9df2-4b1eb8228857",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId",
+                    "comments.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique identifier of the recording"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b842783-3726-4cea-ab49-aa63907ecd11",
+          "name": "Create a comment",
+          "request": {
+            "name": "Create a comment",
+            "description": {
+              "content": "Creates a new comment on the specified recording. All subscribers to the recording will be notified. Supports HTML-formatted content.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recordings",
+                ":recordingId",
+                "comments.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recordingId",
+                  "description": "(Required) Unique identifier of the recording"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "21284097-8160-44fd-a2b0-3967dc9a0bc5",
+              "name": "Comment created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId",
+                    "comments.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique identifier of the recording"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 8198,\n  \"status\": \"archived\",\n  \"visible_to_clients\": false,\n  \"created_at\": \"2021-01-04T06:51:22.042Z\",\n  \"updated_at\": \"2024-01-30T05:09:04.602Z\",\n  \"title\": \"string\",\n  \"inherits_status\": false,\n  \"type\": \"string\",\n  \"url\": \"http://sjkqac.wzjdE+Ucf.Gz.3hWoDUDYDc5gQL\",\n  \"app_url\": \"https://VPYZRORZHPPGxBMIIQmhZsOdNt.csfcCp6Cy2xpt.Xlr1uGyJY.aW5LqJLgK395E+1D\",\n  \"bucket\": {\n    \"id\": 2532,\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"url\": \"https://km.zctp4lKdVE3klyAtOY6meiiyfWh.PLB2YH0Lmoy7KWzeOpdMVRtJ\",\n    \"app_url\": \"http://s.utHVK.F.ftK7bNzEGKhI61M\"\n  },\n  \"creator\": {\n    \"id\": 7858,\n    \"attachable_sgid\": \"string\",\n    \"name\": \"string\",\n    \"email_address\": \"zHrfmvg5rcox@vIUeCmeeujWKahKTJezgYwyJlvU.wj\",\n    \"personable_type\": \"string\",\n    \"title\": \"string\",\n    \"bio\": \"string\",\n    \"location\": \"string\",\n    \"created_at\": \"1956-04-08T07:22:57.732Z\",\n    \"updated_at\": \"2018-12-12T22:50:26.504Z\",\n    \"admin\": false,\n    \"owner\": true,\n    \"client\": false,\n    \"employee\": false,\n    \"time_zone\": \"string\",\n    \"avatar_url\": \"https://tiyF.nwhyebCsTHVvuZ0b\",\n    \"company\": {\n      \"id\": 7883,\n      \"name\": \"string\"\n    }\n  },\n  \"content\": \"string\",\n  \"boosts_count\": 9809,\n  \"parent\": {\n    \"id\": 5798,\n    \"status\": \"trashed\",\n    \"visible_to_clients\": true,\n    \"created_at\": \"1996-03-08T21:37:28.709Z\",\n    \"updated_at\": \"1958-07-04T06:23:41.735Z\",\n    \"title\": \"string\",\n    \"inherits_status\": true,\n    \"type\": \"string\",\n    \"url\": \"https://kchVRcg.wcxbDQ3JZApiuhz\",\n    \"app_url\": \"http://UKhoNI.ganGeYC2NlAXZeiGWq0kN17.lSzMerYHcWWXHmt\",\n    \"bucket\": {\n      \"id\": 1450,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"http://ffnFmGzHRDQP.ygegbawCnwv0OWQfMvAZLOV8Nvdel650zmg\",\n      \"app_url\": \"https://zqRYmS.zbwwhJObKvTOflJURMW+90iucI.9mak3O\"\n    },\n    \"creator\": {\n      \"id\": 1749,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"LoN8b6seVvc@oqZyVriBZ.chny\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1981-06-18T06:09:32.015Z\",\n      \"updated_at\": \"1975-01-27T18:45:37.706Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://DLrkBaFAjopUhPgGdTTxD.kwugTttIHtsxHP9+8egJxY9\",\n      \"company\": {\n        \"id\": 5616,\n        \"name\": \"string\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "feaa9628-bc81-4344-8a09-8c27cb9173e1",
+              "name": "Bad request — missing required fields or invalid values",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId",
+                    "comments.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique identifier of the recording"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b24a8992-4861-4133-99a4-0a5b717b5e5c",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId",
+                    "comments.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique identifier of the recording"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5df48a70-88e8-4006-9041-9cf21cff9da9",
+          "name": "Get a comment",
+          "request": {
+            "name": "Get a comment",
+            "description": {
+              "content": "Returns the comment with the given ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "comments",
+                "{{commentId}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d6492cca-14bf-421a-893f-6277d19f36f7",
+              "name": "Comment details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    "{{commentId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 8198,\n  \"status\": \"archived\",\n  \"visible_to_clients\": false,\n  \"created_at\": \"2021-01-04T06:51:22.042Z\",\n  \"updated_at\": \"2024-01-30T05:09:04.602Z\",\n  \"title\": \"string\",\n  \"inherits_status\": false,\n  \"type\": \"string\",\n  \"url\": \"http://sjkqac.wzjdE+Ucf.Gz.3hWoDUDYDc5gQL\",\n  \"app_url\": \"https://VPYZRORZHPPGxBMIIQmhZsOdNt.csfcCp6Cy2xpt.Xlr1uGyJY.aW5LqJLgK395E+1D\",\n  \"bucket\": {\n    \"id\": 2532,\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"url\": \"https://km.zctp4lKdVE3klyAtOY6meiiyfWh.PLB2YH0Lmoy7KWzeOpdMVRtJ\",\n    \"app_url\": \"http://s.utHVK.F.ftK7bNzEGKhI61M\"\n  },\n  \"creator\": {\n    \"id\": 7858,\n    \"attachable_sgid\": \"string\",\n    \"name\": \"string\",\n    \"email_address\": \"zHrfmvg5rcox@vIUeCmeeujWKahKTJezgYwyJlvU.wj\",\n    \"personable_type\": \"string\",\n    \"title\": \"string\",\n    \"bio\": \"string\",\n    \"location\": \"string\",\n    \"created_at\": \"1956-04-08T07:22:57.732Z\",\n    \"updated_at\": \"2018-12-12T22:50:26.504Z\",\n    \"admin\": false,\n    \"owner\": true,\n    \"client\": false,\n    \"employee\": false,\n    \"time_zone\": \"string\",\n    \"avatar_url\": \"https://tiyF.nwhyebCsTHVvuZ0b\",\n    \"company\": {\n      \"id\": 7883,\n      \"name\": \"string\"\n    }\n  },\n  \"content\": \"string\",\n  \"boosts_count\": 9809,\n  \"parent\": {\n    \"id\": 5798,\n    \"status\": \"trashed\",\n    \"visible_to_clients\": true,\n    \"created_at\": \"1996-03-08T21:37:28.709Z\",\n    \"updated_at\": \"1958-07-04T06:23:41.735Z\",\n    \"title\": \"string\",\n    \"inherits_status\": true,\n    \"type\": \"string\",\n    \"url\": \"https://kchVRcg.wcxbDQ3JZApiuhz\",\n    \"app_url\": \"http://UKhoNI.ganGeYC2NlAXZeiGWq0kN17.lSzMerYHcWWXHmt\",\n    \"bucket\": {\n      \"id\": 1450,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"http://ffnFmGzHRDQP.ygegbawCnwv0OWQfMvAZLOV8Nvdel650zmg\",\n      \"app_url\": \"https://zqRYmS.zbwwhJObKvTOflJURMW+90iucI.9mak3O\"\n    },\n    \"creator\": {\n      \"id\": 1749,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"LoN8b6seVvc@oqZyVriBZ.chny\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1981-06-18T06:09:32.015Z\",\n      \"updated_at\": \"1975-01-27T18:45:37.706Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://DLrkBaFAjopUhPgGdTTxD.kwugTttIHtsxHP9+8egJxY9\",\n      \"company\": {\n        \"id\": 5616,\n        \"name\": \"string\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9670af59-5b99-4901-9e7c-684030be0927",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    "{{commentId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09a0abe4-a2b0-448c-b630-65b52b292e1c",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    "{{commentId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f4d84eb-4b19-4255-8d4c-3ab1d681b1a9",
+          "name": "Update a comment",
+          "request": {
+            "name": "Update a comment",
+            "description": {
+              "content": "Updates the content of the specified comment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "comments",
+                "{{commentId}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fdf7a4d4-e876-407d-95b8-69f7559a87d5",
+              "name": "Updated comment",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    "{{commentId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 8198,\n  \"status\": \"archived\",\n  \"visible_to_clients\": false,\n  \"created_at\": \"2021-01-04T06:51:22.042Z\",\n  \"updated_at\": \"2024-01-30T05:09:04.602Z\",\n  \"title\": \"string\",\n  \"inherits_status\": false,\n  \"type\": \"string\",\n  \"url\": \"http://sjkqac.wzjdE+Ucf.Gz.3hWoDUDYDc5gQL\",\n  \"app_url\": \"https://VPYZRORZHPPGxBMIIQmhZsOdNt.csfcCp6Cy2xpt.Xlr1uGyJY.aW5LqJLgK395E+1D\",\n  \"bucket\": {\n    \"id\": 2532,\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"url\": \"https://km.zctp4lKdVE3klyAtOY6meiiyfWh.PLB2YH0Lmoy7KWzeOpdMVRtJ\",\n    \"app_url\": \"http://s.utHVK.F.ftK7bNzEGKhI61M\"\n  },\n  \"creator\": {\n    \"id\": 7858,\n    \"attachable_sgid\": \"string\",\n    \"name\": \"string\",\n    \"email_address\": \"zHrfmvg5rcox@vIUeCmeeujWKahKTJezgYwyJlvU.wj\",\n    \"personable_type\": \"string\",\n    \"title\": \"string\",\n    \"bio\": \"string\",\n    \"location\": \"string\",\n    \"created_at\": \"1956-04-08T07:22:57.732Z\",\n    \"updated_at\": \"2018-12-12T22:50:26.504Z\",\n    \"admin\": false,\n    \"owner\": true,\n    \"client\": false,\n    \"employee\": false,\n    \"time_zone\": \"string\",\n    \"avatar_url\": \"https://tiyF.nwhyebCsTHVvuZ0b\",\n    \"company\": {\n      \"id\": 7883,\n      \"name\": \"string\"\n    }\n  },\n  \"content\": \"string\",\n  \"boosts_count\": 9809,\n  \"parent\": {\n    \"id\": 5798,\n    \"status\": \"trashed\",\n    \"visible_to_clients\": true,\n    \"created_at\": \"1996-03-08T21:37:28.709Z\",\n    \"updated_at\": \"1958-07-04T06:23:41.735Z\",\n    \"title\": \"string\",\n    \"inherits_status\": true,\n    \"type\": \"string\",\n    \"url\": \"https://kchVRcg.wcxbDQ3JZApiuhz\",\n    \"app_url\": \"http://UKhoNI.ganGeYC2NlAXZeiGWq0kN17.lSzMerYHcWWXHmt\",\n    \"bucket\": {\n      \"id\": 1450,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"http://ffnFmGzHRDQP.ygegbawCnwv0OWQfMvAZLOV8Nvdel650zmg\",\n      \"app_url\": \"https://zqRYmS.zbwwhJObKvTOflJURMW+90iucI.9mak3O\"\n    },\n    \"creator\": {\n      \"id\": 1749,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"LoN8b6seVvc@oqZyVriBZ.chny\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1981-06-18T06:09:32.015Z\",\n      \"updated_at\": \"1975-01-27T18:45:37.706Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://DLrkBaFAjopUhPgGdTTxD.kwugTttIHtsxHP9+8egJxY9\",\n      \"company\": {\n        \"id\": 5616,\n        \"name\": \"string\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "470fb4be-d4d7-4b97-bebf-586e0131e999",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    "{{commentId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23b85ce4-0377-4559-99a6-e1635e709938",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "comments",
+                    "{{commentId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Basecamp account ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "999999999",
+      "key": "accountId"
+    },
+    {
+      "type": "string",
+      "value": "https://3.basecampapi.com/{{accountId}}",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Unique identifier of the comment",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<integer>",
+      "key": "commentId"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1fe387da-a6bb-444a-8b86-30dbdf97f80e",
+    "name": "Basecamp Authorization Comments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.\n\nContact Support:\n Name: Basecamp Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

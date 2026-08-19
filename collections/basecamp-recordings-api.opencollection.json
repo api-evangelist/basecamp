@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization Recordings API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Recordings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List recordings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/projects/recordings.json",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The recording type to list."
+              },
+              {
+                "name": "bucket",
+                "value": "",
+                "type": "query",
+                "description": "Filter to a specific project (bucket) ID."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by recording status."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field."
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of recordings of the specified type across all projects. Use the type parameter to specify the resource type (Comment, Document, Message, Todo, Upload, etc.)."
+        },
+        {
+          "info": {
+            "name": "Trash a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/status/trashed.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ]
+          },
+          "docs": "Moves the recording with the given ID to trash. Works for any recordable resource type including messages, to-dos, documents, and comments."
+        },
+        {
+          "info": {
+            "name": "Archive a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/status/archived.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ]
+          },
+          "docs": "Archives the recording with the given ID. Archived recordings are hidden from default views but remain accessible."
+        },
+        {
+          "info": {
+            "name": "Unarchive a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/recordings/:recordingId/status/active.json",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the recording"
+              }
+            ]
+          },
+          "docs": "Restores an archived recording to active status, making it visible in default views again."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization Documents API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/vaults/:vaultId/documents.json",
+            "params": [
+              {
+                "name": "vaultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the vault"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active documents in the specified vault."
+        },
+        {
+          "info": {
+            "name": "Create a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/vaults/:vaultId/documents.json",
+            "params": [
+              {
+                "name": "vaultId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the vault"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new document in the specified vault. Set status to \"active\" for immediate publication; otherwise it is saved as a draft."
+        },
+        {
+          "info": {
+            "name": "Get a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/documents/:documentId.json",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document"
+              }
+            ]
+          },
+          "docs": "Returns the document with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/documents/:documentId.json",
+            "params": [
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the document"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the title and content of the specified document."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

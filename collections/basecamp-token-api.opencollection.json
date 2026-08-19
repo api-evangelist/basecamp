@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization Token API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Exchange code for token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/authorization/token",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Exchanges an authorization code for an access token and refresh token. The authorization code is single-use and expires shortly after being issued. The resulting access token expires after two weeks."
+        },
+        {
+          "info": {
+            "name": "Refresh access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/authorization/token/refresh",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Uses a refresh token to obtain a new access token without requiring the user to re-authorize. Refresh tokens do not expire but are revoked if the user revokes access."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

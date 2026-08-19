@@ -1,0 +1,127 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization Webhooks API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/buckets/:projectId/webhooks.json",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project (bucket)"
+              }
+            ]
+          },
+          "docs": "Returns all webhooks configured for the project with the given ID, including delivery history for each webhook."
+        },
+        {
+          "info": {
+            "name": "Create a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/buckets/:projectId/webhooks.json",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project (bucket)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new webhook for the specified project. The payload URL must be HTTPS. Optionally restrict to specific resource types; defaults to all types."
+        },
+        {
+          "info": {
+            "name": "Get a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/webhooks/:webhookId.json",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the webhook"
+              }
+            ]
+          },
+          "docs": "Returns the webhook with the given ID and its recent delivery history."
+        },
+        {
+          "info": {
+            "name": "Update a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/webhooks/:webhookId.json",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the webhook"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the payload URL, active status, or subscribed types of the specified webhook."
+        },
+        {
+          "info": {
+            "name": "Delete a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://3.basecampapi.com/{accountId}/webhooks/:webhookId.json",
+            "params": [
+              {
+                "name": "webhookId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the webhook"
+              }
+            ]
+          },
+          "docs": "Permanently deletes the webhook with the given ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

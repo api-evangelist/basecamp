@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization Card Tables API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Card Tables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a card table",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/card_tables/:cardTableId.json",
+            "params": [
+              {
+                "name": "cardTableId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the card table"
+              }
+            ]
+          },
+          "docs": "Returns the card table with the given ID, including its columns and metadata such as card counts per column."
+        },
+        {
+          "info": {
+            "name": "Move a card",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/card_tables/:cardTableId/moves.json",
+            "params": [
+              {
+                "name": "cardTableId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the card table"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Moves a card to a different column on the card table at the specified zero-indexed position."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

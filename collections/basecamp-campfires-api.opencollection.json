@@ -1,0 +1,146 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization Campfires API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campfires",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List campfires",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/chats.json"
+          },
+          "docs": "Returns a paginated list of all active campfire chat rooms visible to the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Get a campfire",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/chats/:campfireId.json",
+            "params": [
+              {
+                "name": "campfireId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the campfire chat room"
+              }
+            ]
+          },
+          "docs": "Returns the campfire with the given ID."
+        },
+        {
+          "info": {
+            "name": "List campfire lines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/chats/:campfireId/lines.json",
+            "params": [
+              {
+                "name": "campfireId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the campfire chat room"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of chat messages (lines) in the specified campfire, ordered newest first."
+        },
+        {
+          "info": {
+            "name": "Create a campfire line",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/chats/:campfireId/lines.json",
+            "params": [
+              {
+                "name": "campfireId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the campfire chat room"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Posts a new message to the specified campfire. Content must be plain text."
+        },
+        {
+          "info": {
+            "name": "Get a campfire line",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/chats/:campfireId/lines/:lineId.json",
+            "params": [
+              {
+                "name": "campfireId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the campfire chat room"
+              },
+              {
+                "name": "lineId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the campfire line"
+              }
+            ]
+          },
+          "docs": "Returns the specific campfire line with the given ID."
+        },
+        {
+          "info": {
+            "name": "Delete a campfire line",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://3.basecampapi.com/{accountId}/chats/:campfireId/lines/:lineId.json",
+            "params": [
+              {
+                "name": "campfireId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the campfire chat room"
+              },
+              {
+                "name": "lineId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the campfire line"
+              }
+            ]
+          },
+          "docs": "Deletes the campfire line with the given ID. Only the line creator or account admins can delete lines."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

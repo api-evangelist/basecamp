@@ -1,0 +1,810 @@
+{
+  "item": [
+    {
+      "id": "2ace12a8-c26f-4284-a32c-57ca8bb1103c",
+      "name": "Subscriptions",
+      "description": {
+        "content": "Manage per-recording notification subscriptions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "102f9c89-3d91-4d53-885c-32718bc8a095",
+          "name": "Get subscription",
+          "request": {
+            "name": "Get subscription",
+            "description": {
+              "content": "Returns the current subscription status and list of subscribers for the specified recording.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recordings",
+                ":recordingId",
+                "subscription.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recordingId",
+                  "description": "(Required) Unique identifier of the recording"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "62c014e1-97fe-4f8e-a1b3-3550ba83f706",
+              "name": "Subscription details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId",
+                    "subscription.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique identifier of the recording"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"subscribed\": false,\n  \"count\": 8430,\n  \"url\": \"https://mjvlIHNtTbOFSFc.cmaMpNzhkZA-O098XuclQOPpYU.fzK7lL\",\n  \"subscribers\": [\n    {\n      \"id\": 999,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"9cOZAM9t1as0tt@cKtGRUgwKiUZSZij.jhi\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1975-06-03T07:42:54.660Z\",\n      \"updated_at\": \"2018-02-21T07:06:38.333Z\",\n      \"admin\": false,\n      \"owner\": false,\n      \"client\": false,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://sDzDFbRe.sgJE6d\",\n      \"company\": {\n        \"id\": 8477,\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": 6343,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"6INz1@oMoVZkQNaGioshhvR.avk\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2020-04-12T20:35:35.430Z\",\n      \"updated_at\": \"2018-02-15T02:23:09.508Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": false,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://TDOhxWortdzdZzYpkF.nlifGIynLKKqLM0Bp6zsHylfJ6pzlDLbsEU45G2HzdGfo0AaZmf.5O9HX1yq\",\n      \"company\": {\n        \"id\": 6588,\n        \"name\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4363c4dd-6347-4070-9c78-35863d37feef",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId",
+                    "subscription.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique identifier of the recording"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6e04975-50f0-4432-9026-24f7baf9b1e4",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId",
+                    "subscription.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique identifier of the recording"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f4d0282-b06e-4616-96f9-5f1b07846171",
+          "name": "Subscribe to recording",
+          "request": {
+            "name": "Subscribe to recording",
+            "description": {
+              "content": "Adds the authenticated user as a subscriber to the specified recording.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recordings",
+                ":recordingId",
+                "subscription.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recordingId",
+                  "description": "(Required) Unique identifier of the recording"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6345cdb7-35b9-4264-9af1-2ecfa46748c4",
+              "name": "Subscription updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId",
+                    "subscription.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique identifier of the recording"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"subscribed\": false,\n  \"count\": 8430,\n  \"url\": \"https://mjvlIHNtTbOFSFc.cmaMpNzhkZA-O098XuclQOPpYU.fzK7lL\",\n  \"subscribers\": [\n    {\n      \"id\": 999,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"9cOZAM9t1as0tt@cKtGRUgwKiUZSZij.jhi\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1975-06-03T07:42:54.660Z\",\n      \"updated_at\": \"2018-02-21T07:06:38.333Z\",\n      \"admin\": false,\n      \"owner\": false,\n      \"client\": false,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://sDzDFbRe.sgJE6d\",\n      \"company\": {\n        \"id\": 8477,\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": 6343,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"6INz1@oMoVZkQNaGioshhvR.avk\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2020-04-12T20:35:35.430Z\",\n      \"updated_at\": \"2018-02-15T02:23:09.508Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": false,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://TDOhxWortdzdZzYpkF.nlifGIynLKKqLM0Bp6zsHylfJ6pzlDLbsEU45G2HzdGfo0AaZmf.5O9HX1yq\",\n      \"company\": {\n        \"id\": 6588,\n        \"name\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "956892e7-a2a2-4f6e-a62c-3da201d88712",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId",
+                    "subscription.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique identifier of the recording"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a0d1d09-93cd-43a3-8c70-e2ca5651d15a",
+          "name": "Unsubscribe from recording",
+          "request": {
+            "name": "Unsubscribe from recording",
+            "description": {
+              "content": "Removes the authenticated user as a subscriber from the specified recording.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recordings",
+                ":recordingId",
+                "subscription.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recordingId",
+                  "description": "(Required) Unique identifier of the recording"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "576d73cc-9a3a-4fc4-a00f-cf2200e2ae4a",
+              "name": "Unsubscribed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId",
+                    "subscription.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique identifier of the recording"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4c8b318c-d03d-4f2a-ba5c-7bc2c1a3f1c0",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId",
+                    "subscription.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique identifier of the recording"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3f4306b-84ea-4651-9c84-f6049d5507b9",
+          "name": "Update subscription",
+          "request": {
+            "name": "Update subscription",
+            "description": {
+              "content": "Bulk adds or removes subscribers from the specified recording using arrays of person IDs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recordings",
+                ":recordingId",
+                "subscription.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recordingId",
+                  "description": "(Required) Unique identifier of the recording"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subscriptions\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"unsubscriptions\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "071e6c5f-3f9d-4e61-9031-757d9797c55a",
+              "name": "Updated subscription",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId",
+                    "subscription.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique identifier of the recording"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscriptions\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"unsubscriptions\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"subscribed\": false,\n  \"count\": 8430,\n  \"url\": \"https://mjvlIHNtTbOFSFc.cmaMpNzhkZA-O098XuclQOPpYU.fzK7lL\",\n  \"subscribers\": [\n    {\n      \"id\": 999,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"9cOZAM9t1as0tt@cKtGRUgwKiUZSZij.jhi\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1975-06-03T07:42:54.660Z\",\n      \"updated_at\": \"2018-02-21T07:06:38.333Z\",\n      \"admin\": false,\n      \"owner\": false,\n      \"client\": false,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://sDzDFbRe.sgJE6d\",\n      \"company\": {\n        \"id\": 8477,\n        \"name\": \"string\"\n      }\n    },\n    {\n      \"id\": 6343,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"6INz1@oMoVZkQNaGioshhvR.avk\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2020-04-12T20:35:35.430Z\",\n      \"updated_at\": \"2018-02-15T02:23:09.508Z\",\n      \"admin\": false,\n      \"owner\": true,\n      \"client\": false,\n      \"employee\": false,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"http://TDOhxWortdzdZzYpkF.nlifGIynLKKqLM0Bp6zsHylfJ6pzlDLbsEU45G2HzdGfo0AaZmf.5O9HX1yq\",\n      \"company\": {\n        \"id\": 6588,\n        \"name\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ddd8c9eb-4b1e-40aa-9d7b-0998cea4c0e1",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId",
+                    "subscription.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique identifier of the recording"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subscriptions\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"unsubscriptions\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Basecamp account ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "999999999",
+      "key": "accountId"
+    },
+    {
+      "type": "string",
+      "value": "https://3.basecampapi.com/{{accountId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fbd04ae3-e3ae-410b-9624-b89ec3a33b27",
+    "name": "Basecamp Authorization Subscriptions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.\n\nContact Support:\n Name: Basecamp Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

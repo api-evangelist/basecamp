@@ -1,0 +1,119 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Basecamp Authorization Projects API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/projects.json",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter projects by status. Omit for active projects."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of active projects visible to the authenticated user. Use the optional status parameter to retrieve archived or trashed projects instead."
+        },
+        {
+          "info": {
+            "name": "Create a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://3.basecampapi.com/{accountId}/projects.json",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Basecamp project with the given name and optional description. Returns the new project with a 201 Created status."
+        },
+        {
+          "info": {
+            "name": "Get a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://3.basecampapi.com/{accountId}/projects/:projectId.json",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project (bucket)"
+              }
+            ]
+          },
+          "docs": "Returns the project with the given ID including its dock, which lists the tools enabled for that project."
+        },
+        {
+          "info": {
+            "name": "Update a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://3.basecampapi.com/{accountId}/projects/:projectId.json",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project (bucket)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the name, description, schedule dates, or admissions settings for an existing project. Returns the updated project."
+        },
+        {
+          "info": {
+            "name": "Delete a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://3.basecampapi.com/{accountId}/projects/:projectId.json",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the project (bucket)"
+              }
+            ]
+          },
+          "docs": "Moves the project with the given ID to trash. Trashed projects can be permanently deleted from the Basecamp web interface."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

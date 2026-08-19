@@ -1,0 +1,517 @@
+{
+  "item": [
+    {
+      "id": "479cd9c5-c522-4107-8d8f-804ef09ba4a0",
+      "name": "Card Tables",
+      "description": {
+        "content": "Manage kanban-style card tables and card movements",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "22e53fd7-8ed1-4cb9-8dd7-2d62c9356158",
+          "name": "Get a card table",
+          "request": {
+            "name": "Get a card table",
+            "description": {
+              "content": "Returns the card table with the given ID, including its columns and metadata such as card counts per column.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "card_tables",
+                "{{cardTableId}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "09c9bac5-59d6-4364-8094-a69f162d78f2",
+              "name": "Card table details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "card_tables",
+                    "{{cardTableId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 7264,\n  \"status\": \"archived\",\n  \"visible_to_clients\": false,\n  \"created_at\": \"2009-05-15T09:15:31.752Z\",\n  \"updated_at\": \"1988-07-05T11:33:28.278Z\",\n  \"title\": \"string\",\n  \"inherits_status\": false,\n  \"type\": \"string\",\n  \"url\": \"https://NFHeDqaFhjaBjDVWtO.cpudPFPappD-K129PMaGnohI6MwApRW\",\n  \"app_url\": \"https://z.fbhtTeaAQSCOFFIqTIT4nANUi+aEHr,nFQ-Foixmi301iRZZqOcFfIbO+.\",\n  \"bucket\": {\n    \"id\": 8165,\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"url\": \"http://DJcjMYztsUDaoCVDayFtqyuqUIWFUbnL.uzrgsPu2.rT.Bncp6730AWEehwXfPjVs\",\n    \"app_url\": \"http://VurQmvRAWfGzLoDSMP.azduNGyb5HoUL4s+iPDm723AWc+aLv9cJLF4kztOgEHpPsTXS2W-qRwtWE19FEkIj\"\n  },\n  \"creator\": {\n    \"id\": 7656,\n    \"attachable_sgid\": \"string\",\n    \"name\": \"string\",\n    \"email_address\": \"qBvgY4U@hTuenUzkMMnJMnWLnt.xenl\",\n    \"personable_type\": \"string\",\n    \"title\": \"string\",\n    \"bio\": \"string\",\n    \"location\": \"string\",\n    \"created_at\": \"1999-03-15T16:03:47.992Z\",\n    \"updated_at\": \"2000-02-23T06:02:28.046Z\",\n    \"admin\": true,\n    \"owner\": true,\n    \"client\": true,\n    \"employee\": false,\n    \"time_zone\": \"string\",\n    \"avatar_url\": \"https://YMnuSKaeARKyhUPJjxKPxMFifhEZXgkbT.twwId8u0yG-aVQYJxB70E-ZEygf-p4dTRc4N1\",\n    \"company\": {\n      \"id\": 1049,\n      \"name\": \"string\"\n    }\n  },\n  \"lists\": [\n    {\n      \"id\": 6359,\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"color\": \"string\",\n      \"position\": 4967,\n      \"cards_count\": 1874,\n      \"cards_url\": \"http://YGQeMRLsgF.etRyGJsZgE7XcOYXQHVxWEtccupVhfp9\"\n    },\n    {\n      \"id\": 1436,\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"color\": \"string\",\n      \"position\": 3037,\n      \"cards_count\": 5863,\n      \"cards_url\": \"https://RBYUeTUerFrXDaa.umgzTwzaAbeQDes752Y5NaIpqa0m52EPBiHFzhC\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4bc7b0a0-ccb2-450c-8d52-37603c5f4707",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "card_tables",
+                    "{{cardTableId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3a4b9b8-3577-42ba-a73a-9d45541e6980",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "card_tables",
+                    "{{cardTableId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d057222-dc68-4e33-aff1-266ac1afcb50",
+          "name": "Move a card",
+          "request": {
+            "name": "Move a card",
+            "description": {
+              "content": "Moves a card to a different column on the card table at the specified zero-indexed position.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "card_tables",
+                ":cardTableId",
+                "moves.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "cardTableId",
+                  "description": "(Required) Unique identifier of the card table"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source_id\": \"<integer>\",\n  \"target_id\": \"<integer>\",\n  \"position\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7ad58a94-6f97-4710-b9cc-8f66311ad506",
+              "name": "Card moved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "card_tables",
+                    ":cardTableId",
+                    "moves.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "cardTableId",
+                      "description": "(Required) Unique identifier of the card table"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_id\": \"<integer>\",\n  \"target_id\": \"<integer>\",\n  \"position\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0da89b01-fef0-4408-ba2e-7ea1cdd0303e",
+              "name": "Bad request — missing required fields or invalid values",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "card_tables",
+                    ":cardTableId",
+                    "moves.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "cardTableId",
+                      "description": "(Required) Unique identifier of the card table"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_id\": \"<integer>\",\n  \"target_id\": \"<integer>\",\n  \"position\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "886ab6f4-8a60-4f15-9cec-5dc7e8291821",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "card_tables",
+                    ":cardTableId",
+                    "moves.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "cardTableId",
+                      "description": "(Required) Unique identifier of the card table"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_id\": \"<integer>\",\n  \"target_id\": \"<integer>\",\n  \"position\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Basecamp account ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "999999999",
+      "key": "accountId"
+    },
+    {
+      "type": "string",
+      "value": "https://3.basecampapi.com/{{accountId}}",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Unique identifier of the card table",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<integer>",
+      "key": "cardTableId"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f2943737-3537-4861-810d-e8665f26e1e3",
+    "name": "Basecamp Authorization Card Tables API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.\n\nContact Support:\n Name: Basecamp Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

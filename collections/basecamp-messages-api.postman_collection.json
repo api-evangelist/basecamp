@@ -1,0 +1,1022 @@
+{
+  "item": [
+    {
+      "id": "5cfac29a-3775-4a61-bb38-cf56cc6f8d2f",
+      "name": "Messages",
+      "description": {
+        "content": "Manage messages on message boards",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7b3df14a-bb63-42e2-9559-13cfb572338b",
+          "name": "List messages",
+          "request": {
+            "name": "List messages",
+            "description": {
+              "content": "Returns a paginated list of active messages in the specified message board. Messages can be sorted by created_at or updated_at.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "message_boards",
+                ":messageBoardId",
+                "messages.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort field."
+                },
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>",
+                  "description": "Sort direction."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "messageBoardId",
+                  "description": "(Required) Unique identifier of the message board"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ec5f8a7a-b078-487d-b25b-977e592a3ec7",
+              "name": "List of messages",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "message_boards",
+                    ":messageBoardId",
+                    "messages.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "messageBoardId",
+                      "description": "(Required) Unique identifier of the message board"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 6245,\n    \"status\": \"active\",\n    \"visible_to_clients\": false,\n    \"created_at\": \"2017-05-01T21:50:27.228Z\",\n    \"updated_at\": \"1962-09-23T11:30:00.304Z\",\n    \"title\": \"string\",\n    \"inherits_status\": false,\n    \"type\": \"string\",\n    \"url\": \"https://HwWdesPyGuVrprpltOVfNLaEkQTXhsm.lwwlYtMOOWLrkBro8fshveLZoex8VpZ2NcwIkqdPL4DEIJy8rhh4E8x-+NRWCypTdCIblc+AZ9yyrEvphMEhPo.\",\n    \"app_url\": \"http://bjpVAsYCMstWOfPGhDmOJwTIm.yhqav-i9A1Uz4yLHoctcDYZXM.SDfCvXNVx3.AgT2zWEVFZ1uQsf1tpBYxUOpA9k1BpWB7sEqUa,\",\n    \"bucket\": {\n      \"id\": 7478,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"http://TJAIwBRF.nbzjytxd9ZV6MKGE+\",\n      \"app_url\": \"https://LXJrxoMF.oeLRiVswysU2JOxJTPHeqUFrHEFUE2JsKM49c04TeFx.pggAtY7zxDnQXVU31kWdy2pFZ8SZ\"\n    },\n    \"creator\": {\n      \"id\": 7606,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"rGHe@OxVCzzIpBxMama.gvas\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"2004-11-26T13:58:57.880Z\",\n      \"updated_at\": \"1980-12-26T05:58:19.112Z\",\n      \"admin\": true,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://O.urcP0St4uPEz7TDDoJJ8A\",\n      \"company\": {\n        \"id\": 9900,\n        \"name\": \"string\"\n      }\n    },\n    \"subject\": \"string\",\n    \"content\": \"string\",\n    \"comments_count\": 2477,\n    \"comments_url\": \"https://NlipMvRRsrxNslhRF.bosJAq2eKszupcsAHocbUotffH+eqnUizH1wpSsRYZU1aLjjM76ZnGl1y0CITEKHDl.Ve+kcqAI0Pqjb5\",\n    \"boosts_count\": 1218\n  },\n  {\n    \"id\": 7252,\n    \"status\": \"active\",\n    \"visible_to_clients\": true,\n    \"created_at\": \"2023-01-13T01:54:36.771Z\",\n    \"updated_at\": \"1999-09-29T16:15:13.764Z\",\n    \"title\": \"string\",\n    \"inherits_status\": true,\n    \"type\": \"string\",\n    \"url\": \"http://ALIxrhCKQYEYTspCkDEdLzNPMsFUSzLS.ilae4VKO0pdMDs9Guc+vWWHgRjm+aOw0SLeCOz1MX1RAnpuPYcdTM9\",\n    \"app_url\": \"https://pfE.bcksYkPF7adc,GIRfRot4qQWOnv\",\n    \"bucket\": {\n      \"id\": 2048,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"url\": \"http://mOPpvaHHxYMuLpdndSyOdov.bzydteJuOf-mponfdRxe9ibTKZ-8bOKdCfll\",\n      \"app_url\": \"http://cDn.slIBGN\"\n    },\n    \"creator\": {\n      \"id\": 1803,\n      \"attachable_sgid\": \"string\",\n      \"name\": \"string\",\n      \"email_address\": \"kAbMRrWfw8@SowHfgliZUYREdoSoRtnZBlOEhwSxGG.brr\",\n      \"personable_type\": \"string\",\n      \"title\": \"string\",\n      \"bio\": \"string\",\n      \"location\": \"string\",\n      \"created_at\": \"1984-05-21T02:34:09.806Z\",\n      \"updated_at\": \"2016-11-19T23:48:21.590Z\",\n      \"admin\": true,\n      \"owner\": true,\n      \"client\": true,\n      \"employee\": true,\n      \"time_zone\": \"string\",\n      \"avatar_url\": \"https://IW.gkexZE374rWlxrQmZyDXmdnVfmeKHyXDVZB8tFx5ykwP\",\n      \"company\": {\n        \"id\": 9288,\n        \"name\": \"string\"\n      }\n    },\n    \"subject\": \"string\",\n    \"content\": \"string\",\n    \"comments_count\": 5341,\n    \"comments_url\": \"http://MMhkq.uuxK,nG0TfWkODY8Ex1dnEE2A2vcoe,hy+aLVJOjU0LL0kpshKshDUiA36ZETASQqeyzl\",\n    \"boosts_count\": 5407\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e105e65-8193-44a7-8697-96a90f4162e9",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "message_boards",
+                    ":messageBoardId",
+                    "messages.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "messageBoardId",
+                      "description": "(Required) Unique identifier of the message board"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4de6968-6ddd-470d-a03d-9d28fb832d76",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "message_boards",
+                    ":messageBoardId",
+                    "messages.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "messageBoardId",
+                      "description": "(Required) Unique identifier of the message board"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "337da7d5-9714-4cbc-93c9-395ff6773490",
+          "name": "Create a message",
+          "request": {
+            "name": "Create a message",
+            "description": {
+              "content": "Creates a new message in the specified message board. Set status to \"active\" to publish immediately; otherwise the message is saved as a draft.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "message_boards",
+                ":messageBoardId",
+                "messages.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "messageBoardId",
+                  "description": "(Required) Unique identifier of the message board"
+                },
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subject\": \"<string>\",\n  \"content\": \"<string>\",\n  \"status\": \"<string>\",\n  \"category_id\": \"<integer>\",\n  \"subscriptions\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6d61abe4-f846-4257-a6b9-31eb15a505ff",
+              "name": "Message created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "message_boards",
+                    ":messageBoardId",
+                    "messages.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "messageBoardId",
+                      "description": "(Required) Unique identifier of the message board"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subject\": \"<string>\",\n  \"content\": \"<string>\",\n  \"status\": \"<string>\",\n  \"category_id\": \"<integer>\",\n  \"subscriptions\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 2064,\n  \"status\": \"active\",\n  \"visible_to_clients\": true,\n  \"created_at\": \"1999-05-21T23:09:43.989Z\",\n  \"updated_at\": \"1956-08-19T06:26:39.777Z\",\n  \"title\": \"string\",\n  \"inherits_status\": false,\n  \"type\": \"string\",\n  \"url\": \"http://yZaCXCocNUGEqjGNqbYepKolAaS.vkObNvNp1msmMq\",\n  \"app_url\": \"http://lSbDkHLXSeIMQTLxKJ.mvYJKC-lvkE+A,DGnQjKei6L9O7ASGbtV.5rBUTbm5.BeRIQhqlnbCHgSO65Dy69f1776LI,\",\n  \"bucket\": {\n    \"id\": 9591,\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"url\": \"http://mRtQDhPL.fdasc9pAkWPBPSkDloy1X,ErDIx1yKLPmPDOv3JXCwKHj0u9b1Stk\",\n    \"app_url\": \"https://svmcOMFypWHMtqJZJK.npOmbkdXNnLfg15yy1qrPBc5nrUBFL.swzfRaROdF0n8AmOEcK\"\n  },\n  \"creator\": {\n    \"id\": 6887,\n    \"attachable_sgid\": \"string\",\n    \"name\": \"string\",\n    \"email_address\": \"1Y6ApYwsXmHVDqL@yPAdqIxadikbQSdLwkWWityLaVoBoYt.ldw\",\n    \"personable_type\": \"string\",\n    \"title\": \"string\",\n    \"bio\": \"string\",\n    \"location\": \"string\",\n    \"created_at\": \"1952-08-07T14:01:21.534Z\",\n    \"updated_at\": \"1958-11-28T21:57:05.738Z\",\n    \"admin\": false,\n    \"owner\": false,\n    \"client\": true,\n    \"employee\": true,\n    \"time_zone\": \"string\",\n    \"avatar_url\": \"http://JeAKiGDuBn.gkbdNpo9-h2aizbW.LXAktZgj4wnzpSadUzqSz,Je7DDso+UxvmbggaaT-IeZESI\",\n    \"company\": {\n      \"id\": 4500,\n      \"name\": \"string\"\n    }\n  },\n  \"subject\": \"string\",\n  \"content\": \"string\",\n  \"comments_count\": 4521,\n  \"comments_url\": \"http://WKeyRfnBbMlXtDwF.bzadbEW0RvQUuB103V\",\n  \"boosts_count\": 2749\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f19ad1fd-a5f0-448a-943d-e971080b7493",
+              "name": "Bad request — missing required fields or invalid values",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "message_boards",
+                    ":messageBoardId",
+                    "messages.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "messageBoardId",
+                      "description": "(Required) Unique identifier of the message board"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subject\": \"<string>\",\n  \"content\": \"<string>\",\n  \"status\": \"<string>\",\n  \"category_id\": \"<integer>\",\n  \"subscriptions\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20a80a45-7a72-4c97-ae31-f1da46e14527",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "message_boards",
+                    ":messageBoardId",
+                    "messages.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "messageBoardId",
+                      "description": "(Required) Unique identifier of the message board"
+                    },
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subject\": \"<string>\",\n  \"content\": \"<string>\",\n  \"status\": \"<string>\",\n  \"category_id\": \"<integer>\",\n  \"subscriptions\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3fc26d6-9b99-4749-a1a1-a7da9d5ba6ea",
+          "name": "Get a message",
+          "request": {
+            "name": "Get a message",
+            "description": {
+              "content": "Returns the message with the given ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messages",
+                "{{messageId}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b4f3b9a3-36d1-4413-b0a8-6b10dd101d5a",
+              "name": "Message details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    "{{messageId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 2064,\n  \"status\": \"active\",\n  \"visible_to_clients\": true,\n  \"created_at\": \"1999-05-21T23:09:43.989Z\",\n  \"updated_at\": \"1956-08-19T06:26:39.777Z\",\n  \"title\": \"string\",\n  \"inherits_status\": false,\n  \"type\": \"string\",\n  \"url\": \"http://yZaCXCocNUGEqjGNqbYepKolAaS.vkObNvNp1msmMq\",\n  \"app_url\": \"http://lSbDkHLXSeIMQTLxKJ.mvYJKC-lvkE+A,DGnQjKei6L9O7ASGbtV.5rBUTbm5.BeRIQhqlnbCHgSO65Dy69f1776LI,\",\n  \"bucket\": {\n    \"id\": 9591,\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"url\": \"http://mRtQDhPL.fdasc9pAkWPBPSkDloy1X,ErDIx1yKLPmPDOv3JXCwKHj0u9b1Stk\",\n    \"app_url\": \"https://svmcOMFypWHMtqJZJK.npOmbkdXNnLfg15yy1qrPBc5nrUBFL.swzfRaROdF0n8AmOEcK\"\n  },\n  \"creator\": {\n    \"id\": 6887,\n    \"attachable_sgid\": \"string\",\n    \"name\": \"string\",\n    \"email_address\": \"1Y6ApYwsXmHVDqL@yPAdqIxadikbQSdLwkWWityLaVoBoYt.ldw\",\n    \"personable_type\": \"string\",\n    \"title\": \"string\",\n    \"bio\": \"string\",\n    \"location\": \"string\",\n    \"created_at\": \"1952-08-07T14:01:21.534Z\",\n    \"updated_at\": \"1958-11-28T21:57:05.738Z\",\n    \"admin\": false,\n    \"owner\": false,\n    \"client\": true,\n    \"employee\": true,\n    \"time_zone\": \"string\",\n    \"avatar_url\": \"http://JeAKiGDuBn.gkbdNpo9-h2aizbW.LXAktZgj4wnzpSadUzqSz,Je7DDso+UxvmbggaaT-IeZESI\",\n    \"company\": {\n      \"id\": 4500,\n      \"name\": \"string\"\n    }\n  },\n  \"subject\": \"string\",\n  \"content\": \"string\",\n  \"comments_count\": 4521,\n  \"comments_url\": \"http://WKeyRfnBbMlXtDwF.bzadbEW0RvQUuB103V\",\n  \"boosts_count\": 2749\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e41ac35b-0c30-45fe-87a3-8e6bebe8a234",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    "{{messageId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ec8d694-e4b3-4117-bb5c-64a02f120ab5",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    "{{messageId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "22d86027-1f39-4c9e-a1bb-1365d3a94eb6",
+          "name": "Update a message",
+          "request": {
+            "name": "Update a message",
+            "description": {
+              "content": "Updates the subject, content, or category of the specified message.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messages",
+                "{{messageId}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Basecamp account ID",
+                  "type": "any",
+                  "value": "{{accountId}}",
+                  "key": "accountId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subject\": \"<string>\",\n  \"content\": \"<string>\",\n  \"category_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4560ee5f-4132-4dec-b874-02d03b889631",
+              "name": "Updated message",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    "{{messageId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subject\": \"<string>\",\n  \"content\": \"<string>\",\n  \"category_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 2064,\n  \"status\": \"active\",\n  \"visible_to_clients\": true,\n  \"created_at\": \"1999-05-21T23:09:43.989Z\",\n  \"updated_at\": \"1956-08-19T06:26:39.777Z\",\n  \"title\": \"string\",\n  \"inherits_status\": false,\n  \"type\": \"string\",\n  \"url\": \"http://yZaCXCocNUGEqjGNqbYepKolAaS.vkObNvNp1msmMq\",\n  \"app_url\": \"http://lSbDkHLXSeIMQTLxKJ.mvYJKC-lvkE+A,DGnQjKei6L9O7ASGbtV.5rBUTbm5.BeRIQhqlnbCHgSO65Dy69f1776LI,\",\n  \"bucket\": {\n    \"id\": 9591,\n    \"name\": \"string\",\n    \"type\": \"string\",\n    \"url\": \"http://mRtQDhPL.fdasc9pAkWPBPSkDloy1X,ErDIx1yKLPmPDOv3JXCwKHj0u9b1Stk\",\n    \"app_url\": \"https://svmcOMFypWHMtqJZJK.npOmbkdXNnLfg15yy1qrPBc5nrUBFL.swzfRaROdF0n8AmOEcK\"\n  },\n  \"creator\": {\n    \"id\": 6887,\n    \"attachable_sgid\": \"string\",\n    \"name\": \"string\",\n    \"email_address\": \"1Y6ApYwsXmHVDqL@yPAdqIxadikbQSdLwkWWityLaVoBoYt.ldw\",\n    \"personable_type\": \"string\",\n    \"title\": \"string\",\n    \"bio\": \"string\",\n    \"location\": \"string\",\n    \"created_at\": \"1952-08-07T14:01:21.534Z\",\n    \"updated_at\": \"1958-11-28T21:57:05.738Z\",\n    \"admin\": false,\n    \"owner\": false,\n    \"client\": true,\n    \"employee\": true,\n    \"time_zone\": \"string\",\n    \"avatar_url\": \"http://JeAKiGDuBn.gkbdNpo9-h2aizbW.LXAktZgj4wnzpSadUzqSz,Je7DDso+UxvmbggaaT-IeZESI\",\n    \"company\": {\n      \"id\": 4500,\n      \"name\": \"string\"\n    }\n  },\n  \"subject\": \"string\",\n  \"content\": \"string\",\n  \"comments_count\": 4521,\n  \"comments_url\": \"http://WKeyRfnBbMlXtDwF.bzadbEW0RvQUuB103V\",\n  \"boosts_count\": 2749\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e59e0bbf-184f-44bd-90c0-f329c32b39df",
+              "name": "Unauthorized — missing or invalid Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    "{{messageId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subject\": \"<string>\",\n  \"content\": \"<string>\",\n  \"category_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b35dfbb6-65f3-4d80-ad71-59b8797d1af9",
+              "name": "Not found — the requested resource does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messages",
+                    "{{messageId}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Basecamp account ID",
+                      "type": "any",
+                      "value": "{{accountId}}",
+                      "key": "accountId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"subject\": \"<string>\",\n  \"content\": \"<string>\",\n  \"category_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Basecamp account ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "999999999",
+      "key": "accountId"
+    },
+    {
+      "type": "string",
+      "value": "https://3.basecampapi.com/{{accountId}}",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Unique identifier of the message",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<integer>",
+      "key": "messageId"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1be4be12-5ce0-4d14-ae12-1805c8e51748",
+    "name": "Basecamp Authorization Messages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.\n\nContact Support:\n Name: Basecamp Developer Support",
+      "type": "text/plain"
+    }
+  }
+}
