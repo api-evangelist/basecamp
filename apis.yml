@@ -19,6 +19,12 @@ tags:
 - Collaboration
 - Project Management
 - REST
+- Software-as-a-Service
+- Team Communication
+tags_raw:
+- Collaboration
+- Project Management
+- REST
 - SaaS
 - Team Communication
 modified: '2026-05-19'
@@ -31,6 +37,11 @@ apis:
 - aid: basecamp:basecamp-webhooks
   name: Basecamp Webhooks
   tags:
+  - Event
+  - Notification
+  - Project Management
+  - Webhook
+  tags_raw:
   - Events
   - Notifications
   - Project Management
@@ -148,6 +159,8 @@ apis:
   humanURL: https://github.com/basecamp/bc3-api
   baseURL: https://3.basecampapi.com
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
@@ -180,6 +193,8 @@ apis:
   humanURL: https://github.com/basecamp/bc3-api
   baseURL: https://3.basecampapi.com
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -244,6 +259,8 @@ apis:
   humanURL: https://github.com/basecamp/bc3-api
   baseURL: https://3.basecampapi.com
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
@@ -340,6 +357,8 @@ apis:
   humanURL: https://github.com/basecamp/bc3-api
   baseURL: https://3.basecampapi.com
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
