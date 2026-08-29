@@ -1,21 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Basecamp Authorization Token API
-  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
+  title: Basecamp OAuth Token API
+  description: The Basecamp OAuth 2.0 API provides the authorization code flow for obtaining access tokens on behalf of Basecamp users. Developers register their applications at launchpad.37signals.com to receive a client ID and client secret, then redirect users through the authorization flow. Access tokens expire after two weeks and can be refreshed using refresh tokens without requiring the user to re-authorize. All Basecamp API requests must include a valid Bearer token obtained through this flow.
   version: '1.0'
   contact:
     name: Basecamp Developer Support
-    url: https://github.com/basecamp/bc3-api
+    url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
   termsOfService: https://basecamp.com/terms
 servers:
-- url: https://3.basecampapi.com/{accountId}
-  description: Production Server
-  variables:
-    accountId:
-      description: Your Basecamp account ID
-      default: '999999999'
-security:
-- bearerAuth: []
+- url: https://launchpad.37signals.com
+  description: Basecamp Authorization Server
 tags:
 - name: Token
   description: Token exchange and refresh endpoints
@@ -69,7 +63,26 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: Bad request — missing or invalid parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — invalid or expired credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
     TokenRequest:
       type: object
       required:
@@ -97,6 +110,23 @@ components:
           type: string
           format: uri
           description: The redirect URI used in the authorization request
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: Bearer token to use in API requests
+        refresh_token:
+          type: string
+          description: Token used to obtain new access tokens after expiry
+        expires_in:
+          type: integer
+          description: Access token lifetime in seconds (approximately two weeks)
+        token_type:
+          type: string
+          description: Token type, always "Bearer"
+          enum:
+          - Bearer
     RefreshTokenRequest:
       type: object
       required:
@@ -119,47 +149,11 @@ components:
         refresh_token:
           type: string
           description: The refresh token from a previous token exchange
-    TokenResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-          description: Bearer token to use in API requests
-        refresh_token:
-          type: string
-          description: Token used to obtain new access tokens after expiry
-        expires_in:
-          type: integer
-          description: Access token lifetime in seconds (approximately two weeks)
-        token_type:
-          type: string
-          description: Token type, always "Bearer"
-          enum:
-          - Bearer
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-  responses:
-    Unauthorized:
-      description: Unauthorized — invalid or expired credentials
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — missing or invalid parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
-      description: 'OAuth 2.0 Bearer token obtained via the Basecamp authorization code flow at launchpad.37signals.com. Include as "Authorization: Bearer {token}" in all requests.'
+      description: 'OAuth 2.0 Bearer token obtained via the authorization code flow. Include as "Authorization: Bearer {token}" in all API requests.'
 externalDocs:
-  description: Basecamp API Documentation
-  url: https://github.com/basecamp/bc3-api
+  description: Basecamp Authentication Documentation
+  url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md

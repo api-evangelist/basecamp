@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Basecamp Authorization Campfires API
+  title: Basecamp Campfires API
   description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
   version: '1.0'
   contact:
@@ -143,53 +143,70 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Recording:
+    Error:
       type: object
-      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    BucketRef:
+      type: object
+      description: Reference to the project (bucket) that contains a resource
       properties:
         id:
           type: integer
-          description: Recording ID
-        status:
+          description: Project ID
+        name:
           type: string
-          description: Recording status
-          enum:
-          - active
-          - archived
-          - trashed
-        visible_to_clients:
-          type: boolean
-          description: Whether this recording is visible to client users
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the recording was created
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when the recording was last updated
-        title:
-          type: string
-          description: Title or summary of the recording
-        inherits_status:
-          type: boolean
-          description: Whether this recording inherits its status from a parent
+          description: Project name
         type:
           type: string
-          description: Recording type (e.g., Message, Todo, Document)
+          description: Resource type, always "Project"
         url:
           type: string
           format: uri
-          description: API URL for this recording
+          description: API URL for the project
         app_url:
           type: string
           format: uri
-          description: Web URL for this recording
-        bucket:
-          $ref: '#/components/schemas/BucketRef'
-        creator:
-          $ref: '#/components/schemas/PersonRef'
+          description: Web URL for the project
+    CampfireLineCreateRequest:
+      type: object
+      required:
+      - content
+      properties:
+        content:
+          type: string
+          description: Plain text content of the campfire message
+    Campfire:
+      allOf:
+      - $ref: '#/components/schemas/Recording'
+      - type: object
+        properties:
+          lines_url:
+            type: string
+            format: uri
+            description: API URL to list campfire lines
     PersonRef:
       type: object
       description: Minimal reference to a Basecamp person
@@ -256,27 +273,6 @@ components:
             name:
               type: string
               description: Company name
-    BucketRef:
-      type: object
-      description: Reference to the project (bucket) that contains a resource
-      properties:
-        id:
-          type: integer
-          description: Project ID
-        name:
-          type: string
-          description: Project name
-        type:
-          type: string
-          description: Resource type, always "Project"
-        url:
-          type: string
-          format: uri
-          description: API URL for the project
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for the project
     CampfireLine:
       type: object
       properties:
@@ -312,61 +308,65 @@ components:
         boosts_count:
           type: integer
           description: Number of boosts on this line
-    CampfireLineCreateRequest:
+    Recording:
       type: object
-      required:
-      - content
+      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
       properties:
-        content:
+        id:
+          type: integer
+          description: Recording ID
+        status:
           type: string
-          description: Plain text content of the campfire message
-    Campfire:
-      allOf:
-      - $ref: '#/components/schemas/Recording'
-      - type: object
-        properties:
-          lines_url:
-            type: string
-            format: uri
-            description: API URL to list campfire lines
-    Error:
-      type: object
-      properties:
-        error:
+          description: Recording status
+          enum:
+          - active
+          - archived
+          - trashed
+        visible_to_clients:
+          type: boolean
+          description: Whether this recording is visible to client users
+        created_at:
           type: string
-          description: Human-readable error message
-  responses:
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+          format: date-time
+          description: Timestamp when the recording was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was last updated
+        title:
+          type: string
+          description: Title or summary of the recording
+        inherits_status:
+          type: boolean
+          description: Whether this recording inherits its status from a parent
+        type:
+          type: string
+          description: Recording type (e.g., Message, Todo, Document)
+        url:
+          type: string
+          format: uri
+          description: API URL for this recording
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this recording
+        bucket:
+          $ref: '#/components/schemas/BucketRef'
+        creator:
+          $ref: '#/components/schemas/PersonRef'
   parameters:
-    LineId:
-      name: lineId
-      in: path
-      required: true
-      description: Unique identifier of the campfire line
-      schema:
-        type: integer
     CampfireId:
       name: campfireId
       in: path
       required: true
       description: Unique identifier of the campfire chat room
+      schema:
+        type: integer
+    LineId:
+      name: lineId
+      in: path
+      required: true
+      description: Unique identifier of the campfire line
       schema:
         type: integer
   securitySchemes:

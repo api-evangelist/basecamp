@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Basecamp Authorization Templates API
+  title: Basecamp Templates API
   description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
   version: '1.0'
   contact:
@@ -179,67 +179,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    ConstructionId:
-      name: constructionId
-      in: path
-      required: true
-      description: Unique identifier of the project construction job
-      schema:
-        type: integer
-    TemplateId:
-      name: templateId
-      in: path
-      required: true
-      description: Unique identifier of the template
-      schema:
-        type: integer
   schemas:
-    Template:
-      type: object
-      required:
-      - id
-      - name
-      - status
-      properties:
-        id:
-          type: integer
-          description: Template ID
-        status:
-          type: string
-          description: Template status
-          enum:
-          - active
-          - archived
-          - trashed
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the template was created
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when the template was last updated
-        name:
-          type: string
-          description: Template name
-        description:
-          type: string
-          description: Template description
-          nullable: true
-        url:
-          type: string
-          format: uri
-          description: API URL for this template
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for this template
-        dock:
-          type: array
-          description: Tools available in this template
-          items:
-            $ref: '#/components/schemas/DockItem'
     ProjectConstruction:
       type: object
       properties:
@@ -259,22 +199,12 @@ components:
         project:
           $ref: '#/components/schemas/Project'
           description: The resulting project once construction is completed
-    ProjectConstructionRequest:
+    Error:
       type: object
-      required:
-      - project
       properties:
-        project:
-          type: object
-          required:
-          - name
-          properties:
-            name:
-              type: string
-              description: Name for the new project being constructed
-            description:
-              type: string
-              description: Optional description for the new project
+        error:
+          type: string
+          description: Human-readable error message
     TemplateCreateRequest:
       type: object
       required:
@@ -376,21 +306,76 @@ components:
           description: List of tools available on this project
           items:
             $ref: '#/components/schemas/DockItem'
-    Error:
+    Template:
       type: object
+      required:
+      - id
+      - name
+      - status
       properties:
-        error:
+        id:
+          type: integer
+          description: Template ID
+        status:
           type: string
-          description: Human-readable error message
+          description: Template status
+          enum:
+          - active
+          - archived
+          - trashed
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the template was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the template was last updated
+        name:
+          type: string
+          description: Template name
+        description:
+          type: string
+          description: Template description
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: API URL for this template
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this template
+        dock:
+          type: array
+          description: Tools available in this template
+          items:
+            $ref: '#/components/schemas/DockItem'
+    ProjectConstructionRequest:
+      type: object
+      required:
+      - project
+      properties:
+        project:
+          type: object
+          required:
+          - name
+          properties:
+            name:
+              type: string
+              description: Name for the new project being constructed
+            description:
+              type: string
+              description: Optional description for the new project
   responses:
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
+    NotFound:
+      description: Not found — the requested resource does not exist
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found — the requested resource does not exist
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
       content:
         application/json:
           schema:
@@ -401,6 +386,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    ConstructionId:
+      name: constructionId
+      in: path
+      required: true
+      description: Unique identifier of the project construction job
+      schema:
+        type: integer
+    TemplateId:
+      name: templateId
+      in: path
+      required: true
+      description: Unique identifier of the template
+      schema:
+        type: integer
   securitySchemes:
     bearerAuth:
       type: http

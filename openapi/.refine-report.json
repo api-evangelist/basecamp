@@ -1,33 +1,14 @@
 {
   "provider": "basecamp",
   "sources": [
-    "basecamp-authorization-api-openapi.yml",
-    "basecamp-campfires-api-openapi.yml",
-    "basecamp-card-tables-api-openapi.yml",
-    "basecamp-comments-api-openapi.yml",
-    "basecamp-documents-api-openapi.yml",
-    "basecamp-identity-api-openapi.yml",
-    "basecamp-messages-api-openapi.yml",
-    "basecamp-people-api-openapi.yml",
-    "basecamp-projects-api-openapi.yml",
-    "basecamp-recordings-api-openapi.yml",
-    "basecamp-schedule-entries-api-openapi.yml",
-    "basecamp-schedules-api-openapi.yml",
-    "basecamp-subscriptions-api-openapi.yml",
-    "basecamp-templates-api-openapi.yml",
-    "basecamp-to-do-lists-api-openapi.yml",
-    "basecamp-to-dos-api-openapi.yml",
-    "basecamp-token-api-openapi.yml",
-    "basecamp-uploads-api-openapi.yml",
-    "basecamp-webhooks-api-openapi.yml"
+    "_original/basecamp-api-openapi.yml",
+    "_original/basecamp-oauth-openapi.yml"
   ],
   "outputs": [
-    "basecamp-authorization-api-openapi.yml",
     "basecamp-campfires-api-openapi.yml",
     "basecamp-card-tables-api-openapi.yml",
     "basecamp-comments-api-openapi.yml",
     "basecamp-documents-api-openapi.yml",
-    "basecamp-identity-api-openapi.yml",
     "basecamp-messages-api-openapi.yml",
     "basecamp-people-api-openapi.yml",
     "basecamp-projects-api-openapi.yml",
@@ -38,13 +19,39 @@
     "basecamp-templates-api-openapi.yml",
     "basecamp-to-do-lists-api-openapi.yml",
     "basecamp-to-dos-api-openapi.yml",
-    "basecamp-token-api-openapi.yml",
     "basecamp-uploads-api-openapi.yml",
-    "basecamp-webhooks-api-openapi.yml"
+    "basecamp-webhooks-api-openapi.yml",
+    "basecamp-authorization-api-openapi.yml",
+    "basecamp-identity-api-openapi.yml",
+    "basecamp-token-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "basecamp-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "basecamp-oauth-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0"
+  ],
+  "skipped": [
+    "basecamp-authorization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-campfires-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-card-tables-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-comments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-identity-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-people-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-recordings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-schedule-entries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-schedules-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-subscriptions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-to-do-lists-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-to-dos-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-token-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-uploads-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "basecamp-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

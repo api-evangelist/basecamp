@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Basecamp Authorization Projects API
+  title: Basecamp Projects API
   description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
   version: '1.0'
   contact:
@@ -136,48 +136,38 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests — rate limit exceeded. Retry after the interval indicated in the Retry-After response header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    ProjectUpdateRequest:
+    Error:
       type: object
-      required:
-      - name
       properties:
-        name:
+        error:
           type: string
-          description: Updated project name
-        description:
-          type: string
-          description: Updated project description
-        schedule_attributes:
-          type: object
-          description: Optional schedule date range for the project
-          properties:
-            start_date:
-              type: string
-              format: date
-              description: Project start date in ISO 8601 format
-            end_date:
-              type: string
-              format: date
-              description: Project end date in ISO 8601 format
-        admissions:
-          type: string
-          description: Controls who can join the project
-          enum:
-          - invite
-          - employee
-          - team
-    ProjectCreateRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Name for the new project
-        description:
-          type: string
-          description: Optional description of the project
+          description: Human-readable error message
     DockItem:
       type: object
       description: A tool available on a project's dock
@@ -206,6 +196,17 @@ components:
           type: string
           format: uri
           description: Web URL for this tool's resource
+    ProjectCreateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name for the new project
+        description:
+          type: string
+          description: Optional description of the project
     Project:
       type: object
       required:
@@ -268,37 +269,36 @@ components:
           description: List of tools available on this project
           items:
             $ref: '#/components/schemas/DockItem'
-    Error:
+    ProjectUpdateRequest:
       type: object
+      required:
+      - name
       properties:
-        error:
+        name:
           type: string
-          description: Human-readable error message
-  responses:
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too many requests — rate limit exceeded. Retry after the interval indicated in the Retry-After response header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+          description: Updated project name
+        description:
+          type: string
+          description: Updated project description
+        schedule_attributes:
+          type: object
+          description: Optional schedule date range for the project
+          properties:
+            start_date:
+              type: string
+              format: date
+              description: Project start date in ISO 8601 format
+            end_date:
+              type: string
+              format: date
+              description: Project end date in ISO 8601 format
+        admissions:
+          type: string
+          description: Controls who can join the project
+          enum:
+          - invite
+          - employee
+          - team
   parameters:
     ProjectId:
       name: projectId

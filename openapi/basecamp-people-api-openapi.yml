@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Basecamp Authorization People API
+  title: Basecamp People API
   description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
   version: '1.0'
   contact:
@@ -167,19 +167,45 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: Not found — the requested resource does not exist
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    Person:
+      allOf:
+      - $ref: '#/components/schemas/PersonRef'
+      - type: object
+        properties:
+          can_ping:
+            type: boolean
+            description: Whether the authenticated user can direct message this person
+          can_manage_projects:
+            type: boolean
+            description: Whether the person can manage projects
+          can_manage_people:
+            type: boolean
+            description: Whether the person can manage people
+          can_access_timesheet:
+            type: boolean
+            description: Whether the person can access timesheets
+          can_access_hill_charts:
+            type: boolean
+            description: Whether the person can access hill charts
     PersonRef:
       type: object
       description: Minimal reference to a Basecamp person
@@ -246,28 +272,6 @@ components:
             name:
               type: string
               description: Company name
-    ProfileUpdateRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Full name
-        email_address:
-          type: string
-          format: email
-          description: Email address
-        title:
-          type: string
-          description: Job title
-        bio:
-          type: string
-          description: Short biography
-        location:
-          type: string
-          description: Location string
-        time_zone_name:
-          type: string
-          description: IANA time zone name
     ProjectAccessRequest:
       type: object
       properties:
@@ -303,32 +307,28 @@ components:
               company_name:
                 type: string
                 description: Company name
-    Error:
+    ProfileUpdateRequest:
       type: object
       properties:
-        error:
+        name:
           type: string
-          description: Human-readable error message
-    Person:
-      allOf:
-      - $ref: '#/components/schemas/PersonRef'
-      - type: object
-        properties:
-          can_ping:
-            type: boolean
-            description: Whether the authenticated user can direct message this person
-          can_manage_projects:
-            type: boolean
-            description: Whether the person can manage projects
-          can_manage_people:
-            type: boolean
-            description: Whether the person can manage people
-          can_access_timesheet:
-            type: boolean
-            description: Whether the person can access timesheets
-          can_access_hill_charts:
-            type: boolean
-            description: Whether the person can access hill charts
+          description: Full name
+        email_address:
+          type: string
+          format: email
+          description: Email address
+        title:
+          type: string
+          description: Job title
+        bio:
+          type: string
+          description: Short biography
+        location:
+          type: string
+          description: Location string
+        time_zone_name:
+          type: string
+          description: IANA time zone name
   parameters:
     ProjectId:
       name: projectId

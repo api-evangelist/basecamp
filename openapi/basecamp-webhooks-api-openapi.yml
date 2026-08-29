@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Basecamp Authorization Webhooks API
+  title: Basecamp Webhooks API
   description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
   version: '1.0'
   contact:
@@ -128,7 +128,32 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
     WebhookUpdateRequest:
       type: object
       properties:
@@ -144,39 +169,6 @@ components:
         active:
           type: boolean
           description: Whether the webhook should be active
-    WebhookCreateRequest:
-      type: object
-      required:
-      - payload_url
-      properties:
-        payload_url:
-          type: string
-          format: uri
-          description: HTTPS URL to receive webhook event notifications
-        types:
-          type: array
-          description: Resource types to subscribe to. Omit to subscribe to all types.
-          items:
-            type: string
-            enum:
-            - Message
-            - Todo
-            - Todolist
-            - Document
-            - Comment
-            - Kanban::Card
-            - Schedule::Entry
-            - Vault
-            - Upload
-            - Client::Forward
-            - Client::Correspondence
-            - Question
-            - Question::Answer
-            - Inbox::Forward
-        active:
-          type: boolean
-          description: Whether the webhook should be active upon creation
-          default: true
     Webhook:
       type: object
       properties:
@@ -211,44 +203,52 @@ components:
           type: string
           format: uri
           description: Web URL for this webhook configuration
-    Error:
+    WebhookCreateRequest:
       type: object
+      required:
+      - payload_url
       properties:
-        error:
+        payload_url:
           type: string
-          description: Human-readable error message
-  responses:
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+          format: uri
+          description: HTTPS URL to receive webhook event notifications
+        types:
+          type: array
+          description: Resource types to subscribe to. Omit to subscribe to all types.
+          items:
+            type: string
+            enum:
+            - Message
+            - Todo
+            - Todolist
+            - Document
+            - Comment
+            - Kanban::Card
+            - Schedule::Entry
+            - Vault
+            - Upload
+            - Client::Forward
+            - Client::Correspondence
+            - Question
+            - Question::Answer
+            - Inbox::Forward
+        active:
+          type: boolean
+          description: Whether the webhook should be active upon creation
+          default: true
   parameters:
-    WebhookId:
-      name: webhookId
-      in: path
-      required: true
-      description: Unique identifier of the webhook
-      schema:
-        type: integer
     ProjectId:
       name: projectId
       in: path
       required: true
       description: Unique identifier of the project (bucket)
+      schema:
+        type: integer
+    WebhookId:
+      name: webhookId
+      in: path
+      required: true
+      description: Unique identifier of the webhook
       schema:
         type: integer
   securitySchemes:
