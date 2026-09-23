@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Basecamp Projects API
-  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
+  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform.
   version: '1.0'
   contact:
     name: Basecamp Developer Support
@@ -136,66 +136,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too many requests — rate limit exceeded. Retry after the interval indicated in the Retry-After response header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-    DockItem:
-      type: object
-      description: A tool available on a project's dock
-      properties:
-        id:
-          type: integer
-          description: Dock item ID
-        title:
-          type: string
-          description: Display title of the tool
-        name:
-          type: string
-          description: Internal name of the tool (e.g., message_board, todoset)
-        enabled:
-          type: boolean
-          description: Whether this tool is enabled on the project
-        position:
-          type: integer
-          description: Display position of the tool in the dock
-          nullable: true
-        url:
-          type: string
-          format: uri
-          description: API URL for this tool's resource
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for this tool's resource
     ProjectCreateRequest:
       type: object
       required:
@@ -269,6 +210,40 @@ components:
           description: List of tools available on this project
           items:
             $ref: '#/components/schemas/DockItem'
+    DockItem:
+      type: object
+      description: A tool available on a project's dock
+      properties:
+        id:
+          type: integer
+          description: Dock item ID
+        title:
+          type: string
+          description: Display title of the tool
+        name:
+          type: string
+          description: Internal name of the tool (e.g., message_board, todoset)
+        enabled:
+          type: boolean
+          description: Whether this tool is enabled on the project
+        position:
+          type: integer
+          description: Display position of the tool in the dock
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: API URL for this tool's resource
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this tool's resource
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
     ProjectUpdateRequest:
       type: object
       required:
@@ -299,6 +274,31 @@ components:
           - invite
           - employee
           - team
+  responses:
+    TooManyRequests:
+      description: Too many requests — rate limit exceeded. Retry after the interval indicated in the Retry-After response header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     ProjectId:
       name: projectId

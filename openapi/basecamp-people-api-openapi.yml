@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Basecamp People API
-  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
+  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform.
   version: '1.0'
   contact:
     name: Basecamp Developer Support
@@ -160,26 +160,64 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    ProfileUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Full name
+        email_address:
+          type: string
+          format: email
+          description: Email address
+        title:
+          type: string
+          description: Job title
+        bio:
+          type: string
+          description: Short biography
+        location:
+          type: string
+          description: Location string
+        time_zone_name:
+          type: string
+          description: IANA time zone name
+    ProjectAccessRequest:
+      type: object
+      properties:
+        grant:
+          type: array
+          description: Array of person IDs to grant access
+          items:
+            type: integer
+        revoke:
+          type: array
+          description: Array of person IDs to revoke access
+          items:
+            type: integer
+        create:
+          type: array
+          description: New people to invite to the project
+          items:
+            type: object
+            required:
+            - name
+            - email_address
+            properties:
+              name:
+                type: string
+                description: Full name of the new person
+              email_address:
+                type: string
+                format: email
+                description: Email address of the new person
+              title:
+                type: string
+                description: Job title
+              company_name:
+                type: string
+                description: Company name
     Error:
       type: object
       properties:
@@ -272,63 +310,25 @@ components:
             name:
               type: string
               description: Company name
-    ProjectAccessRequest:
-      type: object
-      properties:
-        grant:
-          type: array
-          description: Array of person IDs to grant access
-          items:
-            type: integer
-        revoke:
-          type: array
-          description: Array of person IDs to revoke access
-          items:
-            type: integer
-        create:
-          type: array
-          description: New people to invite to the project
-          items:
-            type: object
-            required:
-            - name
-            - email_address
-            properties:
-              name:
-                type: string
-                description: Full name of the new person
-              email_address:
-                type: string
-                format: email
-                description: Email address of the new person
-              title:
-                type: string
-                description: Job title
-              company_name:
-                type: string
-                description: Company name
-    ProfileUpdateRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Full name
-        email_address:
-          type: string
-          format: email
-          description: Email address
-        title:
-          type: string
-          description: Job title
-        bio:
-          type: string
-          description: Short biography
-        location:
-          type: string
-          description: Location string
-        time_zone_name:
-          type: string
-          description: IANA time zone name
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     ProjectId:
       name: projectId

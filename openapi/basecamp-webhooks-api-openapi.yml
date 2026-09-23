@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Basecamp Webhooks API
-  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform. It enables developers to manage projects, to-do lists, messages, documents, schedules, campfires, uploads, card tables, templates, and team members across Basecamp accounts. The API uses OAuth 2.0 for authentication and returns JSON responses, with all requests scoped to an account ID in the base URL path. Resources include projects, people, to-dos, message boards, documents, card tables, campfires, questionnaires, and webhooks, covering the full breadth of Basecamp's collaboration toolset.
+  description: The Basecamp API is a REST API that provides programmatic access to Basecamp's project management and team communication platform.
   version: '1.0'
   contact:
     name: Basecamp Developer Support
@@ -128,47 +128,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-    WebhookUpdateRequest:
-      type: object
-      properties:
-        payload_url:
-          type: string
-          format: uri
-          description: Updated HTTPS URL for event delivery
-        types:
-          type: array
-          description: Updated list of subscribed resource types
-          items:
-            type: string
-        active:
-          type: boolean
-          description: Whether the webhook should be active
     Webhook:
       type: object
       properties:
@@ -203,6 +163,12 @@ components:
           type: string
           format: uri
           description: Web URL for this webhook configuration
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
     WebhookCreateRequest:
       type: object
       required:
@@ -236,6 +202,40 @@ components:
           type: boolean
           description: Whether the webhook should be active upon creation
           default: true
+    WebhookUpdateRequest:
+      type: object
+      properties:
+        payload_url:
+          type: string
+          format: uri
+          description: Updated HTTPS URL for event delivery
+        types:
+          type: array
+          description: Updated list of subscribed resource types
+          items:
+            type: string
+        active:
+          type: boolean
+          description: Whether the webhook should be active
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     ProjectId:
       name: projectId
