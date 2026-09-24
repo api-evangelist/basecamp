@@ -81,8 +81,6 @@ apis:
     url: openapi/basecamp-authorization-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-campfires-api
@@ -97,8 +95,6 @@ apis:
     url: openapi/basecamp-campfires-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-card-tables-api
@@ -113,8 +109,6 @@ apis:
     url: openapi/basecamp-card-tables-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-comments-api
@@ -129,8 +123,6 @@ apis:
     url: openapi/basecamp-comments-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-documents-api
@@ -145,8 +137,6 @@ apis:
     url: openapi/basecamp-documents-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-identity-api
@@ -161,8 +151,6 @@ apis:
     url: openapi/basecamp-identity-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-messages-api
@@ -179,8 +167,6 @@ apis:
     url: openapi/basecamp-messages-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-people-api
@@ -195,8 +181,6 @@ apis:
     url: openapi/basecamp-people-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-projects-api
@@ -213,8 +197,6 @@ apis:
     url: openapi/basecamp-projects-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-recordings-api
@@ -231,8 +213,6 @@ apis:
     url: openapi/basecamp-recordings-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-schedule-entries-api
@@ -247,8 +227,6 @@ apis:
     url: openapi/basecamp-schedule-entries-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-schedules-api
@@ -265,8 +243,6 @@ apis:
     url: openapi/basecamp-schedules-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-subscriptions-api
@@ -283,8 +259,6 @@ apis:
     url: openapi/basecamp-subscriptions-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-templates-api
@@ -299,8 +273,6 @@ apis:
     url: openapi/basecamp-templates-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-to-do-lists-api
@@ -315,8 +287,6 @@ apis:
     url: openapi/basecamp-to-do-lists-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-to-dos-api
@@ -331,8 +301,6 @@ apis:
     url: openapi/basecamp-to-dos-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-token-api
@@ -349,8 +317,6 @@ apis:
     url: openapi/basecamp-token-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-uploads-api
@@ -365,8 +331,6 @@ apis:
     url: openapi/basecamp-uploads-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 - aid: basecamp:basecamp-webhooks-api
@@ -383,8 +347,6 @@ apis:
     url: openapi/basecamp-webhooks-api-openapi.yml
   - type: Documentation
     url: https://github.com/basecamp/bc3-api
-  - type: GraphQL
-    url: graphql/basecamp-graphql.md
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 common:
