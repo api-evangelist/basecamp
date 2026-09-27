@@ -161,89 +161,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    ProfileUpdateRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Full name
-        email_address:
-          type: string
-          format: email
-          description: Email address
-        title:
-          type: string
-          description: Job title
-        bio:
-          type: string
-          description: Short biography
-        location:
-          type: string
-          description: Location string
-        time_zone_name:
-          type: string
-          description: IANA time zone name
-    ProjectAccessRequest:
-      type: object
-      properties:
-        grant:
-          type: array
-          description: Array of person IDs to grant access
-          items:
-            type: integer
-        revoke:
-          type: array
-          description: Array of person IDs to revoke access
-          items:
-            type: integer
-        create:
-          type: array
-          description: New people to invite to the project
-          items:
-            type: object
-            required:
-            - name
-            - email_address
-            properties:
-              name:
-                type: string
-                description: Full name of the new person
-              email_address:
-                type: string
-                format: email
-                description: Email address of the new person
-              title:
-                type: string
-                description: Job title
-              company_name:
-                type: string
-                description: Company name
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-    Person:
-      allOf:
-      - $ref: '#/components/schemas/PersonRef'
-      - type: object
-        properties:
-          can_ping:
-            type: boolean
-            description: Whether the authenticated user can direct message this person
-          can_manage_projects:
-            type: boolean
-            description: Whether the person can manage projects
-          can_manage_people:
-            type: boolean
-            description: Whether the person can manage people
-          can_access_timesheet:
-            type: boolean
-            description: Whether the person can access timesheets
-          can_access_hill_charts:
-            type: boolean
-            description: Whether the person can access hill charts
     PersonRef:
       type: object
       description: Minimal reference to a Basecamp person
@@ -310,6 +227,104 @@ components:
             name:
               type: string
               description: Company name
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    ProfileUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Full name
+        email_address:
+          type: string
+          format: email
+          description: Email address
+        title:
+          type: string
+          description: Job title
+        bio:
+          type: string
+          description: Short biography
+        location:
+          type: string
+          description: Location string
+        time_zone_name:
+          type: string
+          description: IANA time zone name
+    Person:
+      allOf:
+      - $ref: '#/components/schemas/PersonRef'
+      - type: object
+        properties:
+          can_ping:
+            type: boolean
+            description: Whether the authenticated user can direct message this person
+          can_manage_projects:
+            type: boolean
+            description: Whether the person can manage projects
+          can_manage_people:
+            type: boolean
+            description: Whether the person can manage people
+          can_access_timesheet:
+            type: boolean
+            description: Whether the person can access timesheets
+          can_access_hill_charts:
+            type: boolean
+            description: Whether the person can access hill charts
+    ProjectAccessRequest:
+      type: object
+      properties:
+        grant:
+          type: array
+          description: Array of person IDs to grant access
+          items:
+            type: integer
+        revoke:
+          type: array
+          description: Array of person IDs to revoke access
+          items:
+            type: integer
+        create:
+          type: array
+          description: New people to invite to the project
+          items:
+            type: object
+            required:
+            - name
+            - email_address
+            properties:
+              name:
+                type: string
+                description: Full name of the new person
+              email_address:
+                type: string
+                format: email
+                description: Email address of the new person
+              title:
+                type: string
+                description: Job title
+              company_name:
+                type: string
+                description: Company name
+  parameters:
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the project (bucket)
+      schema:
+        type: integer
+    PersonId:
+      name: personId
+      in: path
+      required: true
+      description: Unique identifier of the person
+      schema:
+        type: integer
   responses:
     NotFound:
       description: Not found — the requested resource does not exist
@@ -329,21 +344,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    ProjectId:
-      name: projectId
-      in: path
-      required: true
-      description: Unique identifier of the project (bucket)
-      schema:
-        type: integer
-    PersonId:
-      name: personId
-      in: path
-      required: true
-      description: Unique identifier of the person
-      schema:
-        type: integer
   securitySchemes:
     bearerAuth:
       type: http

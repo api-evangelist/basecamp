@@ -144,6 +144,27 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    BucketRef:
+      type: object
+      description: Reference to the project (bucket) that contains a resource
+      properties:
+        id:
+          type: integer
+          description: Project ID
+        name:
+          type: string
+          description: Project name
+        type:
+          type: string
+          description: Resource type, always "Project"
+        url:
+          type: string
+          format: uri
+          description: API URL for the project
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for the project
     Recording:
       type: object
       description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
@@ -190,85 +211,6 @@ components:
           $ref: '#/components/schemas/BucketRef'
         creator:
           $ref: '#/components/schemas/PersonRef'
-    Campfire:
-      allOf:
-      - $ref: '#/components/schemas/Recording'
-      - type: object
-        properties:
-          lines_url:
-            type: string
-            format: uri
-            description: API URL to list campfire lines
-    CampfireLine:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Line ID
-        status:
-          type: string
-          description: Line status
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the line was posted
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when the line was last updated
-        title:
-          type: string
-          description: Line title (summary)
-        content:
-          type: string
-          description: Plain text message content
-        type:
-          type: string
-          description: Line type
-        creator:
-          $ref: '#/components/schemas/PersonRef'
-        bucket:
-          $ref: '#/components/schemas/BucketRef'
-        parent:
-          $ref: '#/components/schemas/Recording'
-        boosts_count:
-          type: integer
-          description: Number of boosts on this line
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-    BucketRef:
-      type: object
-      description: Reference to the project (bucket) that contains a resource
-      properties:
-        id:
-          type: integer
-          description: Project ID
-        name:
-          type: string
-          description: Project name
-        type:
-          type: string
-          description: Resource type, always "Project"
-        url:
-          type: string
-          format: uri
-          description: API URL for the project
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for the project
-    CampfireLineCreateRequest:
-      type: object
-      required:
-      - content
-      properties:
-        content:
-          type: string
-          description: Plain text content of the campfire message
     PersonRef:
       type: object
       description: Minimal reference to a Basecamp person
@@ -335,6 +277,79 @@ components:
             name:
               type: string
               description: Company name
+    Campfire:
+      allOf:
+      - $ref: '#/components/schemas/Recording'
+      - type: object
+        properties:
+          lines_url:
+            type: string
+            format: uri
+            description: API URL to list campfire lines
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    CampfireLine:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Line ID
+        status:
+          type: string
+          description: Line status
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the line was posted
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the line was last updated
+        title:
+          type: string
+          description: Line title (summary)
+        content:
+          type: string
+          description: Plain text message content
+        type:
+          type: string
+          description: Line type
+        creator:
+          $ref: '#/components/schemas/PersonRef'
+        bucket:
+          $ref: '#/components/schemas/BucketRef'
+        parent:
+          $ref: '#/components/schemas/Recording'
+        boosts_count:
+          type: integer
+          description: Number of boosts on this line
+    CampfireLineCreateRequest:
+      type: object
+      required:
+      - content
+      properties:
+        content:
+          type: string
+          description: Plain text content of the campfire message
+  parameters:
+    CampfireId:
+      name: campfireId
+      in: path
+      required: true
+      description: Unique identifier of the campfire chat room
+      schema:
+        type: integer
+    LineId:
+      name: lineId
+      in: path
+      required: true
+      description: Unique identifier of the campfire line
+      schema:
+        type: integer
   responses:
     NotFound:
       description: Not found — the requested resource does not exist
@@ -354,21 +369,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    LineId:
-      name: lineId
-      in: path
-      required: true
-      description: Unique identifier of the campfire line
-      schema:
-        type: integer
-    CampfireId:
-      name: campfireId
-      in: path
-      required: true
-      description: Unique identifier of the campfire chat room
-      schema:
-        type: integer
   securitySchemes:
     bearerAuth:
       type: http

@@ -163,12 +163,21 @@ components:
           type: string
           format: uri
           description: Web URL for this webhook configuration
-    Error:
+    WebhookUpdateRequest:
       type: object
       properties:
-        error:
+        payload_url:
           type: string
-          description: Human-readable error message
+          format: uri
+          description: Updated HTTPS URL for event delivery
+        types:
+          type: array
+          description: Updated list of subscribed resource types
+          items:
+            type: string
+        active:
+          type: boolean
+          description: Whether the webhook should be active
     WebhookCreateRequest:
       type: object
       required:
@@ -202,21 +211,27 @@ components:
           type: boolean
           description: Whether the webhook should be active upon creation
           default: true
-    WebhookUpdateRequest:
+    Error:
       type: object
       properties:
-        payload_url:
+        error:
           type: string
-          format: uri
-          description: Updated HTTPS URL for event delivery
-        types:
-          type: array
-          description: Updated list of subscribed resource types
-          items:
-            type: string
-        active:
-          type: boolean
-          description: Whether the webhook should be active
+          description: Human-readable error message
+  parameters:
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the project (bucket)
+      schema:
+        type: integer
+    WebhookId:
+      name: webhookId
+      in: path
+      required: true
+      description: Unique identifier of the webhook
+      schema:
+        type: integer
   responses:
     NotFound:
       description: Not found — the requested resource does not exist
@@ -236,21 +251,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    ProjectId:
-      name: projectId
-      in: path
-      required: true
-      description: Unique identifier of the project (bucket)
-      schema:
-        type: integer
-    WebhookId:
-      name: webhookId
-      in: path
-      required: true
-      description: Unique identifier of the webhook
-      schema:
-        type: integer
   securitySchemes:
     bearerAuth:
       type: http

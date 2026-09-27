@@ -179,22 +179,68 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    TemplateId:
-      name: templateId
-      in: path
-      required: true
-      description: Unique identifier of the template
-      schema:
-        type: integer
-    ConstructionId:
-      name: constructionId
-      in: path
-      required: true
-      description: Unique identifier of the project construction job
-      schema:
-        type: integer
   schemas:
+    ProjectConstructionRequest:
+      type: object
+      required:
+      - project
+      properties:
+        project:
+          type: object
+          required:
+          - name
+          properties:
+            name:
+              type: string
+              description: Name for the new project being constructed
+            description:
+              type: string
+              description: Optional description for the new project
+    Template:
+      type: object
+      required:
+      - id
+      - name
+      - status
+      properties:
+        id:
+          type: integer
+          description: Template ID
+        status:
+          type: string
+          description: Template status
+          enum:
+          - active
+          - archived
+          - trashed
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the template was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the template was last updated
+        name:
+          type: string
+          description: Template name
+        description:
+          type: string
+          description: Template description
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: API URL for this template
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this template
+        dock:
+          type: array
+          description: Tools available in this template
+          items:
+            $ref: '#/components/schemas/DockItem'
     Project:
       type: object
       required:
@@ -257,17 +303,31 @@ components:
           description: List of tools available on this project
           items:
             $ref: '#/components/schemas/DockItem'
-    TemplateCreateRequest:
+    Error:
       type: object
-      required:
-      - name
       properties:
-        name:
+        error:
           type: string
-          description: Template name
-        description:
+          description: Human-readable error message
+    ProjectConstruction:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Project construction job ID
+        status:
           type: string
-          description: Optional template description
+          description: Construction status
+          enum:
+          - pending
+          - completed
+        url:
+          type: string
+          format: uri
+          description: API URL to poll for this construction job
+        project:
+          $ref: '#/components/schemas/Project'
+          description: The resulting project once construction is completed
     DockItem:
       type: object
       description: A tool available on a project's dock
@@ -296,92 +356,17 @@ components:
           type: string
           format: uri
           description: Web URL for this tool's resource
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-    Template:
+    TemplateCreateRequest:
       type: object
       required:
-      - id
       - name
-      - status
       properties:
-        id:
-          type: integer
-          description: Template ID
-        status:
-          type: string
-          description: Template status
-          enum:
-          - active
-          - archived
-          - trashed
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the template was created
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when the template was last updated
         name:
           type: string
           description: Template name
         description:
           type: string
-          description: Template description
-          nullable: true
-        url:
-          type: string
-          format: uri
-          description: API URL for this template
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for this template
-        dock:
-          type: array
-          description: Tools available in this template
-          items:
-            $ref: '#/components/schemas/DockItem'
-    ProjectConstructionRequest:
-      type: object
-      required:
-      - project
-      properties:
-        project:
-          type: object
-          required:
-          - name
-          properties:
-            name:
-              type: string
-              description: Name for the new project being constructed
-            description:
-              type: string
-              description: Optional description for the new project
-    ProjectConstruction:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Project construction job ID
-        status:
-          type: string
-          description: Construction status
-          enum:
-          - pending
-          - completed
-        url:
-          type: string
-          format: uri
-          description: API URL to poll for this construction job
-        project:
-          $ref: '#/components/schemas/Project'
-          description: The resulting project once construction is completed
+          description: Optional template description
   responses:
     NotFound:
       description: Not found — the requested resource does not exist
@@ -401,6 +386,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    ConstructionId:
+      name: constructionId
+      in: path
+      required: true
+      description: Unique identifier of the project construction job
+      schema:
+        type: integer
+    TemplateId:
+      name: templateId
+      in: path
+      required: true
+      description: Unique identifier of the template
+      schema:
+        type: integer
   securitySchemes:
     bearerAuth:
       type: http

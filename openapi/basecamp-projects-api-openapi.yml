@@ -136,18 +136,15 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the project (bucket)
+      schema:
+        type: integer
   schemas:
-    ProjectCreateRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Name for the new project
-        description:
-          type: string
-          description: Optional description of the project
     Project:
       type: object
       required:
@@ -210,34 +207,6 @@ components:
           description: List of tools available on this project
           items:
             $ref: '#/components/schemas/DockItem'
-    DockItem:
-      type: object
-      description: A tool available on a project's dock
-      properties:
-        id:
-          type: integer
-          description: Dock item ID
-        title:
-          type: string
-          description: Display title of the tool
-        name:
-          type: string
-          description: Internal name of the tool (e.g., message_board, todoset)
-        enabled:
-          type: boolean
-          description: Whether this tool is enabled on the project
-        position:
-          type: integer
-          description: Display position of the tool in the dock
-          nullable: true
-        url:
-          type: string
-          format: uri
-          description: API URL for this tool's resource
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for this tool's resource
     Error:
       type: object
       properties:
@@ -274,13 +243,46 @@ components:
           - invite
           - employee
           - team
+    ProjectCreateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name for the new project
+        description:
+          type: string
+          description: Optional description of the project
+    DockItem:
+      type: object
+      description: A tool available on a project's dock
+      properties:
+        id:
+          type: integer
+          description: Dock item ID
+        title:
+          type: string
+          description: Display title of the tool
+        name:
+          type: string
+          description: Internal name of the tool (e.g., message_board, todoset)
+        enabled:
+          type: boolean
+          description: Whether this tool is enabled on the project
+        position:
+          type: integer
+          description: Display position of the tool in the dock
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: API URL for this tool's resource
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this tool's resource
   responses:
-    TooManyRequests:
-      description: Too many requests — rate limit exceeded. Retry after the interval indicated in the Retry-After response header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: Not found — the requested resource does not exist
       content:
@@ -299,14 +301,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    ProjectId:
-      name: projectId
-      in: path
-      required: true
-      description: Unique identifier of the project (bucket)
-      schema:
-        type: integer
+    TooManyRequests:
+      description: Too many requests — rate limit exceeded. Retry after the interval indicated in the Retry-After response header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

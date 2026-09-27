@@ -132,52 +132,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Recording:
-      type: object
-      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
-      properties:
-        id:
-          type: integer
-          description: Recording ID
-        status:
-          type: string
-          description: Recording status
-          enum:
-          - active
-          - archived
-          - trashed
-        visible_to_clients:
-          type: boolean
-          description: Whether this recording is visible to client users
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the recording was created
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when the recording was last updated
-        title:
-          type: string
-          description: Title or summary of the recording
-        inherits_status:
-          type: boolean
-          description: Whether this recording inherits its status from a parent
-        type:
-          type: string
-          description: Recording type (e.g., Message, Todo, Document)
-        url:
-          type: string
-          format: uri
-          description: API URL for this recording
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for this recording
-        bucket:
-          $ref: '#/components/schemas/BucketRef'
-        creator:
-          $ref: '#/components/schemas/PersonRef'
     BucketRef:
       type: object
       description: Reference to the project (bucket) that contains a resource
@@ -199,49 +153,6 @@ components:
           type: string
           format: uri
           description: Web URL for the project
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-    MessageUpdateRequest:
-      type: object
-      properties:
-        subject:
-          type: string
-          description: Updated message subject
-        content:
-          type: string
-          description: Updated message body in HTML format
-        category_id:
-          type: integer
-          description: Updated message category ID
-    MessageCreateRequest:
-      type: object
-      required:
-      - subject
-      properties:
-        subject:
-          type: string
-          description: Message subject (title)
-        content:
-          type: string
-          description: Message body in HTML format
-        status:
-          type: string
-          description: Set to "active" to publish immediately
-          enum:
-          - active
-          - draft
-        category_id:
-          type: integer
-          description: Optional message category ID
-        subscriptions:
-          type: array
-          description: Person IDs to notify about this message
-          items:
-            type: integer
     PersonRef:
       type: object
       description: Minimal reference to a Basecamp person
@@ -308,6 +219,95 @@ components:
             name:
               type: string
               description: Company name
+    Recording:
+      type: object
+      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
+      properties:
+        id:
+          type: integer
+          description: Recording ID
+        status:
+          type: string
+          description: Recording status
+          enum:
+          - active
+          - archived
+          - trashed
+        visible_to_clients:
+          type: boolean
+          description: Whether this recording is visible to client users
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was last updated
+        title:
+          type: string
+          description: Title or summary of the recording
+        inherits_status:
+          type: boolean
+          description: Whether this recording inherits its status from a parent
+        type:
+          type: string
+          description: Recording type (e.g., Message, Todo, Document)
+        url:
+          type: string
+          format: uri
+          description: API URL for this recording
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this recording
+        bucket:
+          $ref: '#/components/schemas/BucketRef'
+        creator:
+          $ref: '#/components/schemas/PersonRef'
+    MessageCreateRequest:
+      type: object
+      required:
+      - subject
+      properties:
+        subject:
+          type: string
+          description: Message subject (title)
+        content:
+          type: string
+          description: Message body in HTML format
+        status:
+          type: string
+          description: Set to "active" to publish immediately
+          enum:
+          - active
+          - draft
+        category_id:
+          type: integer
+          description: Optional message category ID
+        subscriptions:
+          type: array
+          description: Person IDs to notify about this message
+          items:
+            type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    MessageUpdateRequest:
+      type: object
+      properties:
+        subject:
+          type: string
+          description: Updated message subject
+        content:
+          type: string
+          description: Updated message body in HTML format
+        category_id:
+          type: integer
+          description: Updated message category ID
     Message:
       allOf:
       - $ref: '#/components/schemas/Recording'
@@ -349,18 +349,18 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
-    MessageId:
-      name: messageId
-      in: path
-      required: true
-      description: Unique identifier of the message
-      schema:
-        type: integer
     MessageBoardId:
       name: messageBoardId
       in: path
       required: true
       description: Unique identifier of the message board
+      schema:
+        type: integer
+    MessageId:
+      name: messageId
+      in: path
+      required: true
+      description: Unique identifier of the message
       schema:
         type: integer
   securitySchemes:

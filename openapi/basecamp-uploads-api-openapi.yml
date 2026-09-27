@@ -114,61 +114,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    UploadUpdateRequest:
-      type: object
-      properties:
-        description:
-          type: string
-          description: Revised upload description in HTML format
-        base_name:
-          type: string
-          description: New filename without extension
-    Recording:
-      type: object
-      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
-      properties:
-        id:
-          type: integer
-          description: Recording ID
-        status:
-          type: string
-          description: Recording status
-          enum:
-          - active
-          - archived
-          - trashed
-        visible_to_clients:
-          type: boolean
-          description: Whether this recording is visible to client users
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the recording was created
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when the recording was last updated
-        title:
-          type: string
-          description: Title or summary of the recording
-        inherits_status:
-          type: boolean
-          description: Whether this recording inherits its status from a parent
-        type:
-          type: string
-          description: Recording type (e.g., Message, Todo, Document)
-        url:
-          type: string
-          format: uri
-          description: API URL for this recording
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for this recording
-        bucket:
-          $ref: '#/components/schemas/BucketRef'
-        creator:
-          $ref: '#/components/schemas/PersonRef'
     UploadCreateRequest:
       type: object
       required:
@@ -183,12 +128,6 @@ components:
         base_name:
           type: string
           description: Filename without extension
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
     BucketRef:
       type: object
       description: Reference to the project (bucket) that contains a resource
@@ -276,6 +215,67 @@ components:
             name:
               type: string
               description: Company name
+    Recording:
+      type: object
+      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
+      properties:
+        id:
+          type: integer
+          description: Recording ID
+        status:
+          type: string
+          description: Recording status
+          enum:
+          - active
+          - archived
+          - trashed
+        visible_to_clients:
+          type: boolean
+          description: Whether this recording is visible to client users
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was last updated
+        title:
+          type: string
+          description: Title or summary of the recording
+        inherits_status:
+          type: boolean
+          description: Whether this recording inherits its status from a parent
+        type:
+          type: string
+          description: Recording type (e.g., Message, Todo, Document)
+        url:
+          type: string
+          format: uri
+          description: API URL for this recording
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this recording
+        bucket:
+          $ref: '#/components/schemas/BucketRef'
+        creator:
+          $ref: '#/components/schemas/PersonRef'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    UploadUpdateRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Revised upload description in HTML format
+        base_name:
+          type: string
+          description: New filename without extension
     Upload:
       allOf:
       - $ref: '#/components/schemas/Recording'
