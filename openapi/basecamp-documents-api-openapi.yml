@@ -135,6 +135,69 @@ components:
           type: string
           format: uri
           description: Web URL for the project
+    Document:
+      allOf:
+      - $ref: '#/components/schemas/Recording'
+      - type: object
+        properties:
+          content:
+            type: string
+            description: HTML-formatted document body
+          comments_count:
+            type: integer
+            description: Number of comments on this document
+          boosts_count:
+            type: integer
+            description: Number of boosts on this document
+          position:
+            type: integer
+            description: Display position within the vault
+    Recording:
+      type: object
+      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
+      properties:
+        id:
+          type: integer
+          description: Recording ID
+        status:
+          type: string
+          description: Recording status
+          enum:
+          - active
+          - archived
+          - trashed
+        visible_to_clients:
+          type: boolean
+          description: Whether this recording is visible to client users
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was last updated
+        title:
+          type: string
+          description: Title or summary of the recording
+        inherits_status:
+          type: boolean
+          description: Whether this recording inherits its status from a parent
+        type:
+          type: string
+          description: Recording type (e.g., Message, Todo, Document)
+        url:
+          type: string
+          format: uri
+          description: API URL for this recording
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this recording
+        bucket:
+          $ref: '#/components/schemas/BucketRef'
+        creator:
+          $ref: '#/components/schemas/PersonRef'
     PersonRef:
       type: object
       description: Minimal reference to a Basecamp person
@@ -201,58 +264,6 @@ components:
             name:
               type: string
               description: Company name
-    Recording:
-      type: object
-      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
-      properties:
-        id:
-          type: integer
-          description: Recording ID
-        status:
-          type: string
-          description: Recording status
-          enum:
-          - active
-          - archived
-          - trashed
-        visible_to_clients:
-          type: boolean
-          description: Whether this recording is visible to client users
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the recording was created
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when the recording was last updated
-        title:
-          type: string
-          description: Title or summary of the recording
-        inherits_status:
-          type: boolean
-          description: Whether this recording inherits its status from a parent
-        type:
-          type: string
-          description: Recording type (e.g., Message, Todo, Document)
-        url:
-          type: string
-          format: uri
-          description: API URL for this recording
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for this recording
-        bucket:
-          $ref: '#/components/schemas/BucketRef'
-        creator:
-          $ref: '#/components/schemas/PersonRef'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
     DocumentCreateRequest:
       type: object
       required:
@@ -271,47 +282,15 @@ components:
           enum:
           - active
           - draft
-    Document:
-      allOf:
-      - $ref: '#/components/schemas/Recording'
-      - type: object
-        properties:
-          content:
-            type: string
-            description: HTML-formatted document body
-          comments_count:
-            type: integer
-            description: Number of comments on this document
-          boosts_count:
-            type: integer
-            description: Number of boosts on this document
-          position:
-            type: integer
-            description: Display position within the vault
-  parameters:
-    DocumentId:
-      name: documentId
-      in: path
-      required: true
-      description: Unique identifier of the document
-      schema:
-        type: integer
-    VaultId:
-      name: vaultId
-      in: path
-      required: true
-      description: Unique identifier of the vault
-      schema:
-        type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
   responses:
     NotFound:
       description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
       content:
         application/json:
           schema:
@@ -322,6 +301,27 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    VaultId:
+      name: vaultId
+      in: path
+      required: true
+      description: Unique identifier of the vault
+      schema:
+        type: integer
+    DocumentId:
+      name: documentId
+      in: path
+      required: true
+      description: Unique identifier of the document
+      schema:
+        type: integer
   securitySchemes:
     bearerAuth:
       type: http

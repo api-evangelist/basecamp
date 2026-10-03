@@ -94,7 +94,38 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Subscription:
+      type: object
+      properties:
+        subscribed:
+          type: boolean
+          description: Whether the authenticated user is subscribed
+        count:
+          type: integer
+          description: Total number of subscribers
+        url:
+          type: string
+          format: uri
+          description: API URL for this subscription resource
+        subscribers:
+          type: array
+          description: List of subscribed people
+          items:
+            $ref: '#/components/schemas/PersonRef'
     SubscriptionUpdateRequest:
       type: object
       properties:
@@ -174,24 +205,6 @@ components:
             name:
               type: string
               description: Company name
-    Subscription:
-      type: object
-      properties:
-        subscribed:
-          type: boolean
-          description: Whether the authenticated user is subscribed
-        count:
-          type: integer
-          description: Total number of subscribers
-        url:
-          type: string
-          format: uri
-          description: API URL for this subscription resource
-        subscribers:
-          type: array
-          description: List of subscribed people
-          items:
-            $ref: '#/components/schemas/PersonRef'
     Error:
       type: object
       properties:
@@ -206,19 +219,6 @@ components:
       description: Unique identifier of the recording
       schema:
         type: integer
-  responses:
-    NotFound:
-      description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

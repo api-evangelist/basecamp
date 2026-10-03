@@ -63,28 +63,107 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    CardTableId:
+      name: cardTableId
+      in: path
+      required: true
+      description: Unique identifier of the card table
+      schema:
+        type: integer
   schemas:
-    BucketRef:
+    CardTable:
+      allOf:
+      - $ref: '#/components/schemas/Recording'
+      - type: object
+        properties:
+          lists:
+            type: array
+            description: Columns in the card table
+            items:
+              $ref: '#/components/schemas/CardColumn'
+    CardMoveRequest:
       type: object
-      description: Reference to the project (bucket) that contains a resource
+      required:
+      - source_id
+      - target_id
+      - position
+      properties:
+        source_id:
+          type: integer
+          description: Recording ID of the card to move
+        target_id:
+          type: integer
+          description: Recording ID of the destination column
+        position:
+          type: integer
+          description: Zero-indexed position within the destination column
+          minimum: 0
+    Recording:
+      type: object
+      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
       properties:
         id:
           type: integer
-          description: Project ID
-        name:
+          description: Recording ID
+        status:
           type: string
-          description: Project name
+          description: Recording status
+          enum:
+          - active
+          - archived
+          - trashed
+        visible_to_clients:
+          type: boolean
+          description: Whether this recording is visible to client users
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was last updated
+        title:
+          type: string
+          description: Title or summary of the recording
+        inherits_status:
+          type: boolean
+          description: Whether this recording inherits its status from a parent
         type:
           type: string
-          description: Resource type, always "Project"
+          description: Recording type (e.g., Message, Todo, Document)
         url:
           type: string
           format: uri
-          description: API URL for the project
+          description: API URL for this recording
         app_url:
           type: string
           format: uri
-          description: Web URL for the project
+          description: Web URL for this recording
+        bucket:
+          $ref: '#/components/schemas/BucketRef'
+        creator:
+          $ref: '#/components/schemas/PersonRef'
     PersonRef:
       type: object
       description: Minimal reference to a Basecamp person
@@ -151,69 +230,6 @@ components:
             name:
               type: string
               description: Company name
-    Recording:
-      type: object
-      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
-      properties:
-        id:
-          type: integer
-          description: Recording ID
-        status:
-          type: string
-          description: Recording status
-          enum:
-          - active
-          - archived
-          - trashed
-        visible_to_clients:
-          type: boolean
-          description: Whether this recording is visible to client users
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the recording was created
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when the recording was last updated
-        title:
-          type: string
-          description: Title or summary of the recording
-        inherits_status:
-          type: boolean
-          description: Whether this recording inherits its status from a parent
-        type:
-          type: string
-          description: Recording type (e.g., Message, Todo, Document)
-        url:
-          type: string
-          format: uri
-          description: API URL for this recording
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for this recording
-        bucket:
-          $ref: '#/components/schemas/BucketRef'
-        creator:
-          $ref: '#/components/schemas/PersonRef'
-    CardMoveRequest:
-      type: object
-      required:
-      - source_id
-      - target_id
-      - position
-      properties:
-        source_id:
-          type: integer
-          description: Recording ID of the card to move
-        target_id:
-          type: integer
-          description: Recording ID of the destination column
-        position:
-          type: integer
-          description: Zero-indexed position within the destination column
-          minimum: 0
     CardColumn:
       type: object
       description: A column within a card table
@@ -241,49 +257,33 @@ components:
           type: string
           format: uri
           description: API URL to list cards in this column
-    CardTable:
-      allOf:
-      - $ref: '#/components/schemas/Recording'
-      - type: object
-        properties:
-          lists:
-            type: array
-            description: Columns in the card table
-            items:
-              $ref: '#/components/schemas/CardColumn'
+    BucketRef:
+      type: object
+      description: Reference to the project (bucket) that contains a resource
+      properties:
+        id:
+          type: integer
+          description: Project ID
+        name:
+          type: string
+          description: Project name
+        type:
+          type: string
+          description: Resource type, always "Project"
+        url:
+          type: string
+          format: uri
+          description: API URL for the project
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for the project
     Error:
       type: object
       properties:
         error:
           type: string
           description: Human-readable error message
-  parameters:
-    CardTableId:
-      name: cardTableId
-      in: path
-      required: true
-      description: Unique identifier of the card table
-      schema:
-        type: integer
-  responses:
-    NotFound:
-      description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

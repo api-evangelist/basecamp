@@ -34,6 +34,22 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    IdentityUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: User ID
+        first_name:
+          type: string
+          description: User's first name
+        last_name:
+          type: string
+          description: User's last name
+        email_address:
+          type: string
+          format: email
+          description: User's email address
     Account:
       type: object
       properties:
@@ -54,28 +70,6 @@ components:
           type: string
           format: uri
           description: Web URL for this account
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-    IdentityUser:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: User ID
-        first_name:
-          type: string
-          description: User's first name
-        last_name:
-          type: string
-          description: User's last name
-        email_address:
-          type: string
-          format: email
-          description: User's email address
     Identity:
       type: object
       properties:
@@ -90,6 +84,12 @@ components:
           description: Basecamp accounts the authenticated user has access to
           items:
             $ref: '#/components/schemas/Account'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
   responses:
     Unauthorized:
       description: Unauthorized — invalid or expired credentials

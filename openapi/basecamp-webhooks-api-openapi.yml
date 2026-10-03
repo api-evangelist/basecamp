@@ -128,7 +128,59 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    WebhookCreateRequest:
+      type: object
+      required:
+      - payload_url
+      properties:
+        payload_url:
+          type: string
+          format: uri
+          description: HTTPS URL to receive webhook event notifications
+        types:
+          type: array
+          description: Resource types to subscribe to. Omit to subscribe to all types.
+          items:
+            type: string
+            enum:
+            - Message
+            - Todo
+            - Todolist
+            - Document
+            - Comment
+            - Kanban::Card
+            - Schedule::Entry
+            - Vault
+            - Upload
+            - Client::Forward
+            - Client::Correspondence
+            - Question
+            - Question::Answer
+            - Inbox::Forward
+        active:
+          type: boolean
+          description: Whether the webhook should be active upon creation
+          default: true
     Webhook:
       type: object
       properties:
@@ -178,39 +230,6 @@ components:
         active:
           type: boolean
           description: Whether the webhook should be active
-    WebhookCreateRequest:
-      type: object
-      required:
-      - payload_url
-      properties:
-        payload_url:
-          type: string
-          format: uri
-          description: HTTPS URL to receive webhook event notifications
-        types:
-          type: array
-          description: Resource types to subscribe to. Omit to subscribe to all types.
-          items:
-            type: string
-            enum:
-            - Message
-            - Todo
-            - Todolist
-            - Document
-            - Comment
-            - Kanban::Card
-            - Schedule::Entry
-            - Vault
-            - Upload
-            - Client::Forward
-            - Client::Correspondence
-            - Question
-            - Question::Answer
-            - Inbox::Forward
-        active:
-          type: boolean
-          description: Whether the webhook should be active upon creation
-          default: true
     Error:
       type: object
       properties:
@@ -232,25 +251,6 @@ components:
       description: Unique identifier of the webhook
       schema:
         type: integer
-  responses:
-    NotFound:
-      description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

@@ -123,6 +123,34 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    TodoList:
+      allOf:
+      - $ref: '#/components/schemas/Recording'
+      - type: object
+        properties:
+          completed:
+            type: boolean
+            description: Whether all to-dos in this list are completed
+          completed_ratio:
+            type: string
+            description: Completion ratio as a string (e.g., "2/5")
+          position:
+            type: integer
+            description: Display position within the to-do set
+          color:
+            type: string
+            description: List color identifier
+            nullable: true
+          todos_url:
+            type: string
+            format: uri
+            description: API URL to list to-dos in this list
+          comments_count:
+            type: integer
+            description: Number of comments on this list
+          boosts_count:
+            type: integer
+            description: Number of boosts on this list
     BucketRef:
       type: object
       description: Reference to the project (bucket) that contains a resource
@@ -144,6 +172,17 @@ components:
           type: string
           format: uri
           description: Web URL for the project
+    TodoListCreateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: To-do list name
+        description:
+          type: string
+          description: Optional description with supported HTML formatting
     Recording:
       type: object
       description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
@@ -262,45 +301,6 @@ components:
         error:
           type: string
           description: Human-readable error message
-    TodoList:
-      allOf:
-      - $ref: '#/components/schemas/Recording'
-      - type: object
-        properties:
-          completed:
-            type: boolean
-            description: Whether all to-dos in this list are completed
-          completed_ratio:
-            type: string
-            description: Completion ratio as a string (e.g., "2/5")
-          position:
-            type: integer
-            description: Display position within the to-do set
-          color:
-            type: string
-            description: List color identifier
-            nullable: true
-          todos_url:
-            type: string
-            format: uri
-            description: API URL to list to-dos in this list
-          comments_count:
-            type: integer
-            description: Number of comments on this list
-          boosts_count:
-            type: integer
-            description: Number of boosts on this list
-    TodoListCreateRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: To-do list name
-        description:
-          type: string
-          description: Optional description with supported HTML formatting
   responses:
     NotFound:
       description: Not found — the requested resource does not exist
@@ -308,14 +308,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
       content:
         application/json:
           schema:

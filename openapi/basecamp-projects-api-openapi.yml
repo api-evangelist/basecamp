@@ -136,6 +136,31 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests — rate limit exceeded. Retry after the interval indicated in the Retry-After response header.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     ProjectId:
       name: projectId
@@ -145,6 +170,75 @@ components:
       schema:
         type: integer
   schemas:
+    DockItem:
+      type: object
+      description: A tool available on a project's dock
+      properties:
+        id:
+          type: integer
+          description: Dock item ID
+        title:
+          type: string
+          description: Display title of the tool
+        name:
+          type: string
+          description: Internal name of the tool (e.g., message_board, todoset)
+        enabled:
+          type: boolean
+          description: Whether this tool is enabled on the project
+        position:
+          type: integer
+          description: Display position of the tool in the dock
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: API URL for this tool's resource
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this tool's resource
+    ProjectCreateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name for the new project
+        description:
+          type: string
+          description: Optional description of the project
+    ProjectUpdateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Updated project name
+        description:
+          type: string
+          description: Updated project description
+        schedule_attributes:
+          type: object
+          description: Optional schedule date range for the project
+          properties:
+            start_date:
+              type: string
+              format: date
+              description: Project start date in ISO 8601 format
+            end_date:
+              type: string
+              format: date
+              description: Project end date in ISO 8601 format
+        admissions:
+          type: string
+          description: Controls who can join the project
+          enum:
+          - invite
+          - employee
+          - team
     Project:
       type: object
       required:
@@ -213,100 +307,6 @@ components:
         error:
           type: string
           description: Human-readable error message
-    ProjectUpdateRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Updated project name
-        description:
-          type: string
-          description: Updated project description
-        schedule_attributes:
-          type: object
-          description: Optional schedule date range for the project
-          properties:
-            start_date:
-              type: string
-              format: date
-              description: Project start date in ISO 8601 format
-            end_date:
-              type: string
-              format: date
-              description: Project end date in ISO 8601 format
-        admissions:
-          type: string
-          description: Controls who can join the project
-          enum:
-          - invite
-          - employee
-          - team
-    ProjectCreateRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Name for the new project
-        description:
-          type: string
-          description: Optional description of the project
-    DockItem:
-      type: object
-      description: A tool available on a project's dock
-      properties:
-        id:
-          type: integer
-          description: Dock item ID
-        title:
-          type: string
-          description: Display title of the tool
-        name:
-          type: string
-          description: Internal name of the tool (e.g., message_board, todoset)
-        enabled:
-          type: boolean
-          description: Whether this tool is enabled on the project
-        position:
-          type: integer
-          description: Display position of the tool in the dock
-          nullable: true
-        url:
-          type: string
-          format: uri
-          description: API URL for this tool's resource
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for this tool's resource
-  responses:
-    NotFound:
-      description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too many requests — rate limit exceeded. Retry after the interval indicated in the Retry-After response header.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
