@@ -350,6 +350,9 @@ apis:
   - type: Documentation
     url: https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md
 common:
+- type: CapabilityMap
+  url: capabilities/basecamp-capability-edges.yml
+  name: Basecamp Business Capability Map
 - type: AgenticAccess
   url: agentic-access/basecamp-agentic-access.yml
 - type: VulnerabilityDisclosure

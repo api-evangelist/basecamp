@@ -1,0 +1,51 @@
+slug: basecamp
+provider: Basecamp
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Projects
+  spec_file: basecamp-projects-api-openapi.yml
+  capability_id: BC-900.30
+  capability_id_l1: BC-900
+  capability_name: Project Management
+  confidence: 0.85
+  evidence: POST /projects.json createProject; "Basecamp is a project management and team collaboration
+    platform"
+  reason: CRUD over projects in a project management platform directly realises project execution/tracking.
+- tag: To Dos
+  spec_file: basecamp-to-dos-api-openapi.yml
+  capability_id: BC-900.30
+  capability_id_l1: BC-900
+  capability_name: Project Management
+  confidence: 0.8
+  evidence: POST /todolists/{todolistId}/todos.json createTodo; POST /todos/{todoId}/completion.json completeTodo
+  reason: Task creation, assignment and completion tracking inside projects is project execution/tracking.
+- tag: To-Do Lists
+  spec_file: basecamp-to-do-lists-api-openapi.yml
+  capability_id: BC-900.30
+  capability_id_l1: BC-900
+  capability_name: Project Management
+  confidence: 0.78
+  evidence: POST /todosets/{todosetId}/todolists.json createTodoList
+  reason: To-do lists organise project work items, part of project planning and tracking in a project
+    management platform.
+- tag: Card Tables
+  spec_file: basecamp-card-tables-api-openapi.yml
+  capability_id: BC-900.30
+  capability_id_l1: BC-900
+  capability_name: Project Management
+  confidence: 0.75
+  evidence: GET /card_tables/{cardTableId}.json  getCardTable; POST /card_tables/{cardTableId}/moves.json  moveCard;
+    schemas CardTable, CardColumn
+  reason: Kanban-style card table within a Basecamp project — work tracking and task movement across columns,
+    i.e. project execution/tracking.
