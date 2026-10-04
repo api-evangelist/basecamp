@@ -94,19 +94,14 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    NotFound:
-      description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    RecordingId:
+      name: recordingId
+      in: path
+      required: true
+      description: Unique identifier of the recording
+      schema:
+        type: integer
   schemas:
     Subscription:
       type: object
@@ -126,6 +121,12 @@ components:
           description: List of subscribed people
           items:
             $ref: '#/components/schemas/PersonRef'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
     SubscriptionUpdateRequest:
       type: object
       properties:
@@ -205,20 +206,19 @@ components:
             name:
               type: string
               description: Company name
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-  parameters:
-    RecordingId:
-      name: recordingId
-      in: path
-      required: true
-      description: Unique identifier of the recording
-      schema:
-        type: integer
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

@@ -179,40 +179,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    ConstructionId:
-      name: constructionId
-      in: path
-      required: true
-      description: Unique identifier of the project construction job
-      schema:
-        type: integer
-    TemplateId:
-      name: templateId
-      in: path
-      required: true
-      description: Unique identifier of the template
-      schema:
-        type: integer
   schemas:
     DockItem:
       type: object
@@ -242,6 +208,28 @@ components:
           type: string
           format: uri
           description: Web URL for this tool's resource
+    ProjectConstructionRequest:
+      type: object
+      required:
+      - project
+      properties:
+        project:
+          type: object
+          required:
+          - name
+          properties:
+            name:
+              type: string
+              description: Name for the new project being constructed
+            description:
+              type: string
+              description: Optional description for the new project
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
     Template:
       type: object
       required:
@@ -287,23 +275,6 @@ components:
           description: Tools available in this template
           items:
             $ref: '#/components/schemas/DockItem'
-    TemplateCreateRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Template name
-        description:
-          type: string
-          description: Optional template description
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
     ProjectConstruction:
       type: object
       properties:
@@ -323,6 +294,17 @@ components:
         project:
           $ref: '#/components/schemas/Project'
           description: The resulting project once construction is completed
+    TemplateCreateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Template name
+        description:
+          type: string
+          description: Optional template description
     Project:
       type: object
       required:
@@ -385,22 +367,40 @@ components:
           description: List of tools available on this project
           items:
             $ref: '#/components/schemas/DockItem'
-    ProjectConstructionRequest:
-      type: object
-      required:
-      - project
-      properties:
-        project:
-          type: object
-          required:
-          - name
-          properties:
-            name:
-              type: string
-              description: Name for the new project being constructed
-            description:
-              type: string
-              description: Optional description for the new project
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    ConstructionId:
+      name: constructionId
+      in: path
+      required: true
+      description: Unique identifier of the project construction job
+      schema:
+        type: integer
+    TemplateId:
+      name: templateId
+      in: path
+      required: true
+      description: Unique identifier of the template
+      schema:
+        type: integer
   securitySchemes:
     bearerAuth:
       type: http

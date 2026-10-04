@@ -114,20 +114,27 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    UploadCreateRequest:
+    BucketRef:
       type: object
-      required:
-      - attachable_sgid
+      description: Reference to the project (bucket) that contains a resource
       properties:
-        attachable_sgid:
+        id:
+          type: integer
+          description: Project ID
+        name:
           type: string
-          description: Signed global ID of the attachment obtained from the Basecamp attachment API
-        description:
+          description: Project name
+        type:
           type: string
-          description: HTML-formatted information about the upload
-        base_name:
+          description: Resource type, always "Project"
+        url:
           type: string
-          description: Filename without extension
+          format: uri
+          description: API URL for the project
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for the project
     Upload:
       allOf:
       - $ref: '#/components/schemas/Recording'
@@ -163,52 +170,6 @@ components:
           comments_count:
             type: integer
             description: Number of comments on this upload
-    Recording:
-      type: object
-      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
-      properties:
-        id:
-          type: integer
-          description: Recording ID
-        status:
-          type: string
-          description: Recording status
-          enum:
-          - active
-          - archived
-          - trashed
-        visible_to_clients:
-          type: boolean
-          description: Whether this recording is visible to client users
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the recording was created
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when the recording was last updated
-        title:
-          type: string
-          description: Title or summary of the recording
-        inherits_status:
-          type: boolean
-          description: Whether this recording inherits its status from a parent
-        type:
-          type: string
-          description: Recording type (e.g., Message, Todo, Document)
-        url:
-          type: string
-          format: uri
-          description: API URL for this recording
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for this recording
-        bucket:
-          $ref: '#/components/schemas/BucketRef'
-        creator:
-          $ref: '#/components/schemas/PersonRef'
     UploadUpdateRequest:
       type: object
       properties:
@@ -218,6 +179,26 @@ components:
         base_name:
           type: string
           description: New filename without extension
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    UploadCreateRequest:
+      type: object
+      required:
+      - attachable_sgid
+      properties:
+        attachable_sgid:
+          type: string
+          description: Signed global ID of the attachment obtained from the Basecamp attachment API
+        description:
+          type: string
+          description: HTML-formatted information about the upload
+        base_name:
+          type: string
+          description: Filename without extension
     PersonRef:
       type: object
       description: Minimal reference to a Basecamp person
@@ -284,52 +265,52 @@ components:
             name:
               type: string
               description: Company name
-    BucketRef:
+    Recording:
       type: object
-      description: Reference to the project (bucket) that contains a resource
+      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
       properties:
         id:
           type: integer
-          description: Project ID
-        name:
+          description: Recording ID
+        status:
           type: string
-          description: Project name
+          description: Recording status
+          enum:
+          - active
+          - archived
+          - trashed
+        visible_to_clients:
+          type: boolean
+          description: Whether this recording is visible to client users
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was last updated
+        title:
+          type: string
+          description: Title or summary of the recording
+        inherits_status:
+          type: boolean
+          description: Whether this recording inherits its status from a parent
         type:
           type: string
-          description: Resource type, always "Project"
+          description: Recording type (e.g., Message, Todo, Document)
         url:
           type: string
           format: uri
-          description: API URL for the project
+          description: API URL for this recording
         app_url:
           type: string
           format: uri
-          description: Web URL for the project
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-  responses:
-    NotFound:
-      description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+          description: Web URL for this recording
+        bucket:
+          $ref: '#/components/schemas/BucketRef'
+        creator:
+          $ref: '#/components/schemas/PersonRef'
   parameters:
     UploadId:
       name: uploadId
@@ -345,6 +326,25 @@ components:
       description: Unique identifier of the vault
       schema:
         type: integer
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

@@ -64,23 +64,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    TokenResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-          description: Bearer token to use in API requests
-        refresh_token:
-          type: string
-          description: Token used to obtain new access tokens after expiry
-        expires_in:
-          type: integer
-          description: Access token lifetime in seconds (approximately two weeks)
-        token_type:
-          type: string
-          description: Token type, always "Bearer"
-          enum:
-          - Bearer
     RefreshTokenRequest:
       type: object
       required:
@@ -130,6 +113,23 @@ components:
           type: string
           format: uri
           description: The redirect URI used in the authorization request
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: Bearer token to use in API requests
+        refresh_token:
+          type: string
+          description: Token used to obtain new access tokens after expiry
+        expires_in:
+          type: integer
+          description: Access token lifetime in seconds (approximately two weeks)
+        token_type:
+          type: string
+          description: Token type, always "Bearer"
+          enum:
+          - Bearer
     Error:
       type: object
       properties:
@@ -137,14 +137,14 @@ components:
           type: string
           description: Human-readable error message
   responses:
-    BadRequest:
-      description: Bad request — missing or invalid parameters
+    Unauthorized:
+      description: Unauthorized — invalid or expired credentials
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — invalid or expired credentials
+    BadRequest:
+      description: Bad request — missing or invalid parameters
       content:
         application/json:
           schema:

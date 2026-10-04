@@ -114,13 +114,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   parameters:
-    CommentId:
-      name: commentId
-      in: path
-      required: true
-      description: Unique identifier of the comment
-      schema:
-        type: integer
     RecordingId:
       name: recordingId
       in: path
@@ -128,7 +121,20 @@ components:
       description: Unique identifier of the recording
       schema:
         type: integer
+    CommentId:
+      name: commentId
+      in: path
+      required: true
+      description: Unique identifier of the comment
+      schema:
+        type: integer
   responses:
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: Not found — the requested resource does not exist
       content:
@@ -141,13 +147,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    CommentCreateRequest:
+      type: object
+      required:
+      - content
+      properties:
+        content:
+          type: string
+          description: Comment body in HTML format
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
     Comment:
       allOf:
       - $ref: '#/components/schemas/Recording'
@@ -161,52 +175,27 @@ components:
             description: Number of boosts on this comment
           parent:
             $ref: '#/components/schemas/Recording'
-    Recording:
+    BucketRef:
       type: object
-      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
+      description: Reference to the project (bucket) that contains a resource
       properties:
         id:
           type: integer
-          description: Recording ID
-        status:
+          description: Project ID
+        name:
           type: string
-          description: Recording status
-          enum:
-          - active
-          - archived
-          - trashed
-        visible_to_clients:
-          type: boolean
-          description: Whether this recording is visible to client users
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the recording was created
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when the recording was last updated
-        title:
-          type: string
-          description: Title or summary of the recording
-        inherits_status:
-          type: boolean
-          description: Whether this recording inherits its status from a parent
+          description: Project name
         type:
           type: string
-          description: Recording type (e.g., Message, Todo, Document)
+          description: Resource type, always "Project"
         url:
           type: string
           format: uri
-          description: API URL for this recording
+          description: API URL for the project
         app_url:
           type: string
           format: uri
-          description: Web URL for this recording
-        bucket:
-          $ref: '#/components/schemas/BucketRef'
-        creator:
-          $ref: '#/components/schemas/PersonRef'
+          description: Web URL for the project
     PersonRef:
       type: object
       description: Minimal reference to a Basecamp person
@@ -273,41 +262,52 @@ components:
             name:
               type: string
               description: Company name
-    Error:
+    Recording:
       type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-    BucketRef:
-      type: object
-      description: Reference to the project (bucket) that contains a resource
+      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
       properties:
         id:
           type: integer
-          description: Project ID
-        name:
+          description: Recording ID
+        status:
           type: string
-          description: Project name
+          description: Recording status
+          enum:
+          - active
+          - archived
+          - trashed
+        visible_to_clients:
+          type: boolean
+          description: Whether this recording is visible to client users
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was last updated
+        title:
+          type: string
+          description: Title or summary of the recording
+        inherits_status:
+          type: boolean
+          description: Whether this recording inherits its status from a parent
         type:
           type: string
-          description: Resource type, always "Project"
+          description: Recording type (e.g., Message, Todo, Document)
         url:
           type: string
           format: uri
-          description: API URL for the project
+          description: API URL for this recording
         app_url:
           type: string
           format: uri
-          description: Web URL for the project
-    CommentCreateRequest:
-      type: object
-      required:
-      - content
-      properties:
-        content:
-          type: string
-          description: Comment body in HTML format
+          description: Web URL for this recording
+        bucket:
+          $ref: '#/components/schemas/BucketRef'
+        creator:
+          $ref: '#/components/schemas/PersonRef'
   securitySchemes:
     bearerAuth:
       type: http

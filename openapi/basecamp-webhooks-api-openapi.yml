@@ -128,15 +128,24 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    WebhookId:
+      name: webhookId
+      in: path
+      required: true
+      description: Unique identifier of the webhook
+      schema:
+        type: integer
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the project (bucket)
+      schema:
+        type: integer
   responses:
     NotFound:
       description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
       content:
         application/json:
           schema:
@@ -147,40 +156,34 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    WebhookCreateRequest:
+    Error:
       type: object
-      required:
-      - payload_url
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    WebhookUpdateRequest:
+      type: object
       properties:
         payload_url:
           type: string
           format: uri
-          description: HTTPS URL to receive webhook event notifications
+          description: Updated HTTPS URL for event delivery
         types:
           type: array
-          description: Resource types to subscribe to. Omit to subscribe to all types.
+          description: Updated list of subscribed resource types
           items:
             type: string
-            enum:
-            - Message
-            - Todo
-            - Todolist
-            - Document
-            - Comment
-            - Kanban::Card
-            - Schedule::Entry
-            - Vault
-            - Upload
-            - Client::Forward
-            - Client::Correspondence
-            - Question
-            - Question::Answer
-            - Inbox::Forward
         active:
           type: boolean
-          description: Whether the webhook should be active upon creation
-          default: true
+          description: Whether the webhook should be active
     Webhook:
       type: object
       properties:
@@ -215,42 +218,39 @@ components:
           type: string
           format: uri
           description: Web URL for this webhook configuration
-    WebhookUpdateRequest:
+    WebhookCreateRequest:
       type: object
+      required:
+      - payload_url
       properties:
         payload_url:
           type: string
           format: uri
-          description: Updated HTTPS URL for event delivery
+          description: HTTPS URL to receive webhook event notifications
         types:
           type: array
-          description: Updated list of subscribed resource types
+          description: Resource types to subscribe to. Omit to subscribe to all types.
           items:
             type: string
+            enum:
+            - Message
+            - Todo
+            - Todolist
+            - Document
+            - Comment
+            - Kanban::Card
+            - Schedule::Entry
+            - Vault
+            - Upload
+            - Client::Forward
+            - Client::Correspondence
+            - Question
+            - Question::Answer
+            - Inbox::Forward
         active:
           type: boolean
-          description: Whether the webhook should be active
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-  parameters:
-    ProjectId:
-      name: projectId
-      in: path
-      required: true
-      description: Unique identifier of the project (bucket)
-      schema:
-        type: integer
-    WebhookId:
-      name: webhookId
-      in: path
-      required: true
-      description: Unique identifier of the webhook
-      schema:
-        type: integer
+          description: Whether the webhook should be active upon creation
+          default: true
   securitySchemes:
     bearerAuth:
       type: http

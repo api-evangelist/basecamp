@@ -181,41 +181,49 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    TodoId:
-      name: todoId
-      in: path
-      required: true
-      description: Unique identifier of the to-do
-      schema:
-        type: integer
-    TodolistId:
-      name: todolistId
-      in: path
-      required: true
-      description: Unique identifier of the to-do list
-      schema:
-        type: integer
   schemas:
+    Todo:
+      allOf:
+      - $ref: '#/components/schemas/Recording'
+      - type: object
+        properties:
+          content:
+            type: string
+            description: To-do text content
+          description:
+            type: string
+            description: HTML-formatted additional details
+          completed:
+            type: boolean
+            description: Whether this to-do has been completed
+          due_on:
+            type: string
+            format: date
+            description: Due date in ISO 8601 format
+            nullable: true
+          starts_on:
+            type: string
+            format: date
+            description: Start date in ISO 8601 format
+            nullable: true
+          position:
+            type: integer
+            description: Position within the to-do list
+          assignees:
+            type: array
+            description: People assigned to this to-do
+            items:
+              $ref: '#/components/schemas/PersonRef'
+          completion_subscribers:
+            type: array
+            description: People notified when this to-do is completed
+            items:
+              $ref: '#/components/schemas/PersonRef'
+          comments_count:
+            type: integer
+            description: Number of comments on this to-do
+          parent:
+            $ref: '#/components/schemas/Recording'
     TodoCreateRequest:
       type: object
       required:
@@ -248,52 +256,12 @@ components:
           type: string
           format: date
           description: Start date in ISO 8601 format
-    Recording:
+    Error:
       type: object
-      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
       properties:
-        id:
-          type: integer
-          description: Recording ID
-        status:
+        error:
           type: string
-          description: Recording status
-          enum:
-          - active
-          - archived
-          - trashed
-        visible_to_clients:
-          type: boolean
-          description: Whether this recording is visible to client users
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the recording was created
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when the recording was last updated
-        title:
-          type: string
-          description: Title or summary of the recording
-        inherits_status:
-          type: boolean
-          description: Whether this recording inherits its status from a parent
-        type:
-          type: string
-          description: Recording type (e.g., Message, Todo, Document)
-        url:
-          type: string
-          format: uri
-          description: API URL for this recording
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for this recording
-        bucket:
-          $ref: '#/components/schemas/BucketRef'
-        creator:
-          $ref: '#/components/schemas/PersonRef'
+          description: Human-readable error message
     PositionRequest:
       type: object
       required:
@@ -303,6 +271,27 @@ components:
           type: integer
           description: New position within the list (1-indexed)
           minimum: 1
+    BucketRef:
+      type: object
+      description: Reference to the project (bucket) that contains a resource
+      properties:
+        id:
+          type: integer
+          description: Project ID
+        name:
+          type: string
+          description: Project name
+        type:
+          type: string
+          description: Resource type, always "Project"
+        url:
+          type: string
+          format: uri
+          description: API URL for the project
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for the project
     PersonRef:
       type: object
       description: Minimal reference to a Basecamp person
@@ -369,75 +358,86 @@ components:
             name:
               type: string
               description: Company name
-    Todo:
-      allOf:
-      - $ref: '#/components/schemas/Recording'
-      - type: object
-        properties:
-          content:
-            type: string
-            description: To-do text content
-          description:
-            type: string
-            description: HTML-formatted additional details
-          completed:
-            type: boolean
-            description: Whether this to-do has been completed
-          due_on:
-            type: string
-            format: date
-            description: Due date in ISO 8601 format
-            nullable: true
-          starts_on:
-            type: string
-            format: date
-            description: Start date in ISO 8601 format
-            nullable: true
-          position:
-            type: integer
-            description: Position within the to-do list
-          assignees:
-            type: array
-            description: People assigned to this to-do
-            items:
-              $ref: '#/components/schemas/PersonRef'
-          completion_subscribers:
-            type: array
-            description: People notified when this to-do is completed
-            items:
-              $ref: '#/components/schemas/PersonRef'
-          comments_count:
-            type: integer
-            description: Number of comments on this to-do
-          parent:
-            $ref: '#/components/schemas/Recording'
-    BucketRef:
+    Recording:
       type: object
-      description: Reference to the project (bucket) that contains a resource
+      description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
       properties:
         id:
           type: integer
-          description: Project ID
-        name:
+          description: Recording ID
+        status:
           type: string
-          description: Project name
+          description: Recording status
+          enum:
+          - active
+          - archived
+          - trashed
+        visible_to_clients:
+          type: boolean
+          description: Whether this recording is visible to client users
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the recording was last updated
+        title:
+          type: string
+          description: Title or summary of the recording
+        inherits_status:
+          type: boolean
+          description: Whether this recording inherits its status from a parent
         type:
           type: string
-          description: Resource type, always "Project"
+          description: Recording type (e.g., Message, Todo, Document)
         url:
           type: string
           format: uri
-          description: API URL for the project
+          description: API URL for this recording
         app_url:
           type: string
           format: uri
-          description: Web URL for the project
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
+          description: Web URL for this recording
+        bucket:
+          $ref: '#/components/schemas/BucketRef'
+        creator:
+          $ref: '#/components/schemas/PersonRef'
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    TodolistId:
+      name: todolistId
+      in: path
+      required: true
+      description: Unique identifier of the to-do list
+      schema:
+        type: integer
+    TodoId:
+      name: todoId
+      in: path
+      required: true
+      description: Unique identifier of the to-do
+      schema:
+        type: integer
   securitySchemes:
     bearerAuth:
       type: http
