@@ -137,10 +137,8 @@ apis:
 unitEconomics:
   - name: Cost per Active Seat
     metric: billed_cost / active_seats
-    target: '<= $15/seat/month on Plus; switch to Pro Unlimited above ~20 seats'
   - name: Storage Cost Ratio
     metric: storage_overage_cost / total_billed
-    target: minimize via retention policies
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

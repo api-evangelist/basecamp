@@ -254,3 +254,55 @@ plans:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - subscription
+  - tiered
+  units:
+  - data
+  - object
+  - period
+  - seat
+  plans:
+  - name: Basecamp Free
+    access: freemium
+    model: free
+    model_how: derived
+    units:
+    - data
+    - object
+    - seat
+    periods:
+    - per-use
+  - name: Basecamp Plus
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - data
+    - period
+    - seat
+    periods:
+    - month
+    - per-use
+  - name: Basecamp Pro Unlimited
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - data
+    - period
+    periods:
+    - month
+    - per-use
+  - name: Special Discounts
+    access: other
+    model: tiered
+    model_how: stated
+    units:
+    - period
+    periods:
+    - month
