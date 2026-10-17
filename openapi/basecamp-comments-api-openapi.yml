@@ -113,89 +113,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    RecordingId:
-      name: recordingId
-      in: path
-      required: true
-      description: Unique identifier of the recording
-      schema:
-        type: integer
-    CommentId:
-      name: commentId
-      in: path
-      required: true
-      description: Unique identifier of the comment
-      schema:
-        type: integer
-  responses:
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    CommentCreateRequest:
-      type: object
-      required:
-      - content
-      properties:
-        content:
-          type: string
-          description: Comment body in HTML format
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-    Comment:
-      allOf:
-      - $ref: '#/components/schemas/Recording'
-      - type: object
-        properties:
-          content:
-            type: string
-            description: HTML-formatted comment body
-          boosts_count:
-            type: integer
-            description: Number of boosts on this comment
-          parent:
-            $ref: '#/components/schemas/Recording'
-    BucketRef:
-      type: object
-      description: Reference to the project (bucket) that contains a resource
-      properties:
-        id:
-          type: integer
-          description: Project ID
-        name:
-          type: string
-          description: Project name
-        type:
-          type: string
-          description: Resource type, always "Project"
-        url:
-          type: string
-          format: uri
-          description: API URL for the project
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for the project
     PersonRef:
       type: object
       description: Minimal reference to a Basecamp person
@@ -262,6 +180,41 @@ components:
             name:
               type: string
               description: Company name
+    CommentCreateRequest:
+      type: object
+      required:
+      - content
+      properties:
+        content:
+          type: string
+          description: Comment body in HTML format
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    BucketRef:
+      type: object
+      description: Reference to the project (bucket) that contains a resource
+      properties:
+        id:
+          type: integer
+          description: Project ID
+        name:
+          type: string
+          description: Project name
+        type:
+          type: string
+          description: Resource type, always "Project"
+        url:
+          type: string
+          format: uri
+          description: API URL for the project
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for the project
     Recording:
       type: object
       description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
@@ -308,6 +261,53 @@ components:
           $ref: '#/components/schemas/BucketRef'
         creator:
           $ref: '#/components/schemas/PersonRef'
+    Comment:
+      allOf:
+      - $ref: '#/components/schemas/Recording'
+      - type: object
+        properties:
+          content:
+            type: string
+            description: HTML-formatted comment body
+          boosts_count:
+            type: integer
+            description: Number of boosts on this comment
+          parent:
+            $ref: '#/components/schemas/Recording'
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    RecordingId:
+      name: recordingId
+      in: path
+      required: true
+      description: Unique identifier of the recording
+      schema:
+        type: integer
+    CommentId:
+      name: commentId
+      in: path
+      required: true
+      description: Unique identifier of the comment
+      schema:
+        type: integer
   securitySchemes:
     bearerAuth:
       type: http

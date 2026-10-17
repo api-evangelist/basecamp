@@ -129,18 +129,18 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   parameters:
-    WebhookId:
-      name: webhookId
-      in: path
-      required: true
-      description: Unique identifier of the webhook
-      schema:
-        type: integer
     ProjectId:
       name: projectId
       in: path
       required: true
       description: Unique identifier of the project (bucket)
+      schema:
+        type: integer
+    WebhookId:
+      name: webhookId
+      in: path
+      required: true
+      description: Unique identifier of the webhook
       schema:
         type: integer
   responses:
@@ -163,12 +163,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
     WebhookUpdateRequest:
       type: object
       properties:
@@ -184,6 +178,45 @@ components:
         active:
           type: boolean
           description: Whether the webhook should be active
+    WebhookCreateRequest:
+      type: object
+      required:
+      - payload_url
+      properties:
+        payload_url:
+          type: string
+          format: uri
+          description: HTTPS URL to receive webhook event notifications
+        types:
+          type: array
+          description: Resource types to subscribe to. Omit to subscribe to all types.
+          items:
+            type: string
+            enum:
+            - Message
+            - Todo
+            - Todolist
+            - Document
+            - Comment
+            - Kanban::Card
+            - Schedule::Entry
+            - Vault
+            - Upload
+            - Client::Forward
+            - Client::Correspondence
+            - Question
+            - Question::Answer
+            - Inbox::Forward
+        active:
+          type: boolean
+          description: Whether the webhook should be active upon creation
+          default: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
     Webhook:
       type: object
       properties:
@@ -218,39 +251,6 @@ components:
           type: string
           format: uri
           description: Web URL for this webhook configuration
-    WebhookCreateRequest:
-      type: object
-      required:
-      - payload_url
-      properties:
-        payload_url:
-          type: string
-          format: uri
-          description: HTTPS URL to receive webhook event notifications
-        types:
-          type: array
-          description: Resource types to subscribe to. Omit to subscribe to all types.
-          items:
-            type: string
-            enum:
-            - Message
-            - Todo
-            - Todolist
-            - Document
-            - Comment
-            - Kanban::Card
-            - Schedule::Entry
-            - Vault
-            - Upload
-            - Client::Forward
-            - Client::Correspondence
-            - Question
-            - Question::Answer
-            - Inbox::Forward
-        active:
-          type: boolean
-          description: Whether the webhook should be active upon creation
-          default: true
   securitySchemes:
     bearerAuth:
       type: http

@@ -94,52 +94,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    RecordingId:
-      name: recordingId
-      in: path
-      required: true
-      description: Unique identifier of the recording
-      schema:
-        type: integer
   schemas:
-    Subscription:
-      type: object
-      properties:
-        subscribed:
-          type: boolean
-          description: Whether the authenticated user is subscribed
-        count:
-          type: integer
-          description: Total number of subscribers
-        url:
-          type: string
-          format: uri
-          description: API URL for this subscription resource
-        subscribers:
-          type: array
-          description: List of subscribed people
-          items:
-            $ref: '#/components/schemas/PersonRef'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-    SubscriptionUpdateRequest:
-      type: object
-      properties:
-        subscriptions:
-          type: array
-          description: Person IDs to add as subscribers
-          items:
-            type: integer
-        unsubscriptions:
-          type: array
-          description: Person IDs to remove as subscribers
-          items:
-            type: integer
     PersonRef:
       type: object
       description: Minimal reference to a Basecamp person
@@ -206,6 +161,43 @@ components:
             name:
               type: string
               description: Company name
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    Subscription:
+      type: object
+      properties:
+        subscribed:
+          type: boolean
+          description: Whether the authenticated user is subscribed
+        count:
+          type: integer
+          description: Total number of subscribers
+        url:
+          type: string
+          format: uri
+          description: API URL for this subscription resource
+        subscribers:
+          type: array
+          description: List of subscribed people
+          items:
+            $ref: '#/components/schemas/PersonRef'
+    SubscriptionUpdateRequest:
+      type: object
+      properties:
+        subscriptions:
+          type: array
+          description: Person IDs to add as subscribers
+          items:
+            type: integer
+        unsubscriptions:
+          type: array
+          description: Person IDs to remove as subscribers
+          items:
+            type: integer
   responses:
     NotFound:
       description: Not found — the requested resource does not exist
@@ -219,6 +211,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    RecordingId:
+      name: recordingId
+      in: path
+      required: true
+      description: Unique identifier of the recording
+      schema:
+        type: integer
   securitySchemes:
     bearerAuth:
       type: http

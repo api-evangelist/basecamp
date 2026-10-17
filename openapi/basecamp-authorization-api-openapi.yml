@@ -49,13 +49,6 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
 components:
-  schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
   responses:
     BadRequest:
       description: Bad request — missing or invalid parameters
@@ -63,6 +56,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
   securitySchemes:
     bearerAuth:
       type: http

@@ -182,48 +182,72 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Todo:
-      allOf:
-      - $ref: '#/components/schemas/Recording'
-      - type: object
-        properties:
-          content:
-            type: string
-            description: To-do text content
-          description:
-            type: string
-            description: HTML-formatted additional details
-          completed:
-            type: boolean
-            description: Whether this to-do has been completed
-          due_on:
-            type: string
-            format: date
-            description: Due date in ISO 8601 format
-            nullable: true
-          starts_on:
-            type: string
-            format: date
-            description: Start date in ISO 8601 format
-            nullable: true
-          position:
-            type: integer
-            description: Position within the to-do list
-          assignees:
-            type: array
-            description: People assigned to this to-do
-            items:
-              $ref: '#/components/schemas/PersonRef'
-          completion_subscribers:
-            type: array
-            description: People notified when this to-do is completed
-            items:
-              $ref: '#/components/schemas/PersonRef'
-          comments_count:
-            type: integer
-            description: Number of comments on this to-do
-          parent:
-            $ref: '#/components/schemas/Recording'
+    PersonRef:
+      type: object
+      description: Minimal reference to a Basecamp person
+      properties:
+        id:
+          type: integer
+          description: Person ID
+        attachable_sgid:
+          type: string
+          description: Signed global ID for attaching this person
+        name:
+          type: string
+          description: Full name
+        email_address:
+          type: string
+          format: email
+          description: Email address
+        personable_type:
+          type: string
+          description: Type of personable (User, Client, etc.)
+        title:
+          type: string
+          description: Job title
+        bio:
+          type: string
+          description: Short biography
+        location:
+          type: string
+          description: Location string
+        created_at:
+          type: string
+          format: date-time
+          description: Account creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        admin:
+          type: boolean
+          description: Whether the person is an account administrator
+        owner:
+          type: boolean
+          description: Whether the person is the account owner
+        client:
+          type: boolean
+          description: Whether the person is a client user
+        employee:
+          type: boolean
+          description: Whether the person is an employee
+        time_zone:
+          type: string
+          description: IANA time zone name
+        avatar_url:
+          type: string
+          format: uri
+          description: URL to the person's avatar image
+        company:
+          type: object
+          description: Company the person belongs to
+          properties:
+            id:
+              type: integer
+              description: Company ID
+            name:
+              type: string
+              description: Company name
     TodoCreateRequest:
       type: object
       required:
@@ -292,72 +316,6 @@ components:
           type: string
           format: uri
           description: Web URL for the project
-    PersonRef:
-      type: object
-      description: Minimal reference to a Basecamp person
-      properties:
-        id:
-          type: integer
-          description: Person ID
-        attachable_sgid:
-          type: string
-          description: Signed global ID for attaching this person
-        name:
-          type: string
-          description: Full name
-        email_address:
-          type: string
-          format: email
-          description: Email address
-        personable_type:
-          type: string
-          description: Type of personable (User, Client, etc.)
-        title:
-          type: string
-          description: Job title
-        bio:
-          type: string
-          description: Short biography
-        location:
-          type: string
-          description: Location string
-        created_at:
-          type: string
-          format: date-time
-          description: Account creation timestamp
-        updated_at:
-          type: string
-          format: date-time
-          description: Last update timestamp
-        admin:
-          type: boolean
-          description: Whether the person is an account administrator
-        owner:
-          type: boolean
-          description: Whether the person is the account owner
-        client:
-          type: boolean
-          description: Whether the person is a client user
-        employee:
-          type: boolean
-          description: Whether the person is an employee
-        time_zone:
-          type: string
-          description: IANA time zone name
-        avatar_url:
-          type: string
-          format: uri
-          description: URL to the person's avatar image
-        company:
-          type: object
-          description: Company the person belongs to
-          properties:
-            id:
-              type: integer
-              description: Company ID
-            name:
-              type: string
-              description: Company name
     Recording:
       type: object
       description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
@@ -404,6 +362,48 @@ components:
           $ref: '#/components/schemas/BucketRef'
         creator:
           $ref: '#/components/schemas/PersonRef'
+    Todo:
+      allOf:
+      - $ref: '#/components/schemas/Recording'
+      - type: object
+        properties:
+          content:
+            type: string
+            description: To-do text content
+          description:
+            type: string
+            description: HTML-formatted additional details
+          completed:
+            type: boolean
+            description: Whether this to-do has been completed
+          due_on:
+            type: string
+            format: date
+            description: Due date in ISO 8601 format
+            nullable: true
+          starts_on:
+            type: string
+            format: date
+            description: Start date in ISO 8601 format
+            nullable: true
+          position:
+            type: integer
+            description: Position within the to-do list
+          assignees:
+            type: array
+            description: People assigned to this to-do
+            items:
+              $ref: '#/components/schemas/PersonRef'
+          completion_subscribers:
+            type: array
+            description: People notified when this to-do is completed
+            items:
+              $ref: '#/components/schemas/PersonRef'
+          comments_count:
+            type: integer
+            description: Number of comments on this to-do
+          parent:
+            $ref: '#/components/schemas/Recording'
   responses:
     NotFound:
       description: Not found — the requested resource does not exist
@@ -424,18 +424,18 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
-    TodolistId:
-      name: todolistId
-      in: path
-      required: true
-      description: Unique identifier of the to-do list
-      schema:
-        type: integer
     TodoId:
       name: todoId
       in: path
       required: true
       description: Unique identifier of the to-do
+      schema:
+        type: integer
+    TodolistId:
+      name: todolistId
+      in: path
+      required: true
+      description: Unique identifier of the to-do list
       schema:
         type: integer
   securitySchemes:

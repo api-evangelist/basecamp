@@ -132,79 +132,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    MessageCreateRequest:
-      type: object
-      required:
-      - subject
-      properties:
-        subject:
-          type: string
-          description: Message subject (title)
-        content:
-          type: string
-          description: Message body in HTML format
-        status:
-          type: string
-          description: Set to "active" to publish immediately
-          enum:
-          - active
-          - draft
-        category_id:
-          type: integer
-          description: Optional message category ID
-        subscriptions:
-          type: array
-          description: Person IDs to notify about this message
-          items:
-            type: integer
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-    Message:
-      allOf:
-      - $ref: '#/components/schemas/Recording'
-      - type: object
-        properties:
-          subject:
-            type: string
-            description: Message subject/title
-          content:
-            type: string
-            description: HTML-formatted message body
-          comments_count:
-            type: integer
-            description: Number of comments on this message
-          comments_url:
-            type: string
-            format: uri
-            description: API URL to list comments
-          boosts_count:
-            type: integer
-            description: Number of boosts (reactions) on this message
-    BucketRef:
-      type: object
-      description: Reference to the project (bucket) that contains a resource
-      properties:
-        id:
-          type: integer
-          description: Project ID
-        name:
-          type: string
-          description: Project name
-        type:
-          type: string
-          description: Resource type, always "Project"
-        url:
-          type: string
-          format: uri
-          description: API URL for the project
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for the project
     PersonRef:
       type: object
       description: Minimal reference to a Basecamp person
@@ -271,6 +198,58 @@ components:
             name:
               type: string
               description: Company name
+    MessageCreateRequest:
+      type: object
+      required:
+      - subject
+      properties:
+        subject:
+          type: string
+          description: Message subject (title)
+        content:
+          type: string
+          description: Message body in HTML format
+        status:
+          type: string
+          description: Set to "active" to publish immediately
+          enum:
+          - active
+          - draft
+        category_id:
+          type: integer
+          description: Optional message category ID
+        subscriptions:
+          type: array
+          description: Person IDs to notify about this message
+          items:
+            type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    BucketRef:
+      type: object
+      description: Reference to the project (bucket) that contains a resource
+      properties:
+        id:
+          type: integer
+          description: Project ID
+        name:
+          type: string
+          description: Project name
+        type:
+          type: string
+          description: Resource type, always "Project"
+        url:
+          type: string
+          format: uri
+          description: API URL for the project
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for the project
     Recording:
       type: object
       description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
@@ -329,30 +308,30 @@ components:
         category_id:
           type: integer
           description: Updated message category ID
-  parameters:
-    MessageBoardId:
-      name: messageBoardId
-      in: path
-      required: true
-      description: Unique identifier of the message board
-      schema:
-        type: integer
-    MessageId:
-      name: messageId
-      in: path
-      required: true
-      description: Unique identifier of the message
-      schema:
-        type: integer
+    Message:
+      allOf:
+      - $ref: '#/components/schemas/Recording'
+      - type: object
+        properties:
+          subject:
+            type: string
+            description: Message subject/title
+          content:
+            type: string
+            description: HTML-formatted message body
+          comments_count:
+            type: integer
+            description: Number of comments on this message
+          comments_url:
+            type: string
+            format: uri
+            description: API URL to list comments
+          boosts_count:
+            type: integer
+            description: Number of boosts (reactions) on this message
   responses:
     NotFound:
       description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
       content:
         application/json:
           schema:
@@ -363,6 +342,27 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    MessageId:
+      name: messageId
+      in: path
+      required: true
+      description: Unique identifier of the message
+      schema:
+        type: integer
+    MessageBoardId:
+      name: messageBoardId
+      in: path
+      required: true
+      description: Unique identifier of the message board
+      schema:
+        type: integer
   securitySchemes:
     bearerAuth:
       type: http

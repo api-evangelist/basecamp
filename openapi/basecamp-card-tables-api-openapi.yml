@@ -63,96 +63,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    CardTableId:
-      name: cardTableId
-      in: path
-      required: true
-      description: Unique identifier of the card table
-      schema:
-        type: integer
   schemas:
-    CardColumn:
-      type: object
-      description: A column within a card table
-      properties:
-        id:
-          type: integer
-          description: Column ID
-        title:
-          type: string
-          description: Column title
-        type:
-          type: string
-          description: Column type (Kanban::Column, Kanban::Triage, etc.)
-        color:
-          type: string
-          description: Column color
-          nullable: true
-        position:
-          type: integer
-          description: Column position within the table
-        cards_count:
-          type: integer
-          description: Number of cards in this column
-        cards_url:
-          type: string
-          format: uri
-          description: API URL to list cards in this column
-    CardMoveRequest:
-      type: object
-      required:
-      - source_id
-      - target_id
-      - position
-      properties:
-        source_id:
-          type: integer
-          description: Recording ID of the card to move
-        target_id:
-          type: integer
-          description: Recording ID of the destination column
-        position:
-          type: integer
-          description: Zero-indexed position within the destination column
-          minimum: 0
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-    CardTable:
-      allOf:
-      - $ref: '#/components/schemas/Recording'
-      - type: object
-        properties:
-          lists:
-            type: array
-            description: Columns in the card table
-            items:
-              $ref: '#/components/schemas/CardColumn'
-    BucketRef:
-      type: object
-      description: Reference to the project (bucket) that contains a resource
-      properties:
-        id:
-          type: integer
-          description: Project ID
-        name:
-          type: string
-          description: Project name
-        type:
-          type: string
-          description: Resource type, always "Project"
-        url:
-          type: string
-          format: uri
-          description: API URL for the project
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for the project
     PersonRef:
       type: object
       description: Minimal reference to a Basecamp person
@@ -219,6 +130,70 @@ components:
             name:
               type: string
               description: Company name
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+    CardTable:
+      allOf:
+      - $ref: '#/components/schemas/Recording'
+      - type: object
+        properties:
+          lists:
+            type: array
+            description: Columns in the card table
+            items:
+              $ref: '#/components/schemas/CardColumn'
+    CardColumn:
+      type: object
+      description: A column within a card table
+      properties:
+        id:
+          type: integer
+          description: Column ID
+        title:
+          type: string
+          description: Column title
+        type:
+          type: string
+          description: Column type (Kanban::Column, Kanban::Triage, etc.)
+        color:
+          type: string
+          description: Column color
+          nullable: true
+        position:
+          type: integer
+          description: Column position within the table
+        cards_count:
+          type: integer
+          description: Number of cards in this column
+        cards_url:
+          type: string
+          format: uri
+          description: API URL to list cards in this column
+    BucketRef:
+      type: object
+      description: Reference to the project (bucket) that contains a resource
+      properties:
+        id:
+          type: integer
+          description: Project ID
+        name:
+          type: string
+          description: Project name
+        type:
+          type: string
+          description: Resource type, always "Project"
+        url:
+          type: string
+          format: uri
+          description: API URL for the project
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for the project
     Recording:
       type: object
       description: A generic recording object representing any Basecamp content resource such as a message, to-do, document, comment, or upload.
@@ -265,6 +240,23 @@ components:
           $ref: '#/components/schemas/BucketRef'
         creator:
           $ref: '#/components/schemas/PersonRef'
+    CardMoveRequest:
+      type: object
+      required:
+      - source_id
+      - target_id
+      - position
+      properties:
+        source_id:
+          type: integer
+          description: Recording ID of the card to move
+        target_id:
+          type: integer
+          description: Recording ID of the destination column
+        position:
+          type: integer
+          description: Zero-indexed position within the destination column
+          minimum: 0
   responses:
     NotFound:
       description: Not found — the requested resource does not exist
@@ -284,6 +276,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    CardTableId:
+      name: cardTableId
+      in: path
+      required: true
+      description: Unique identifier of the card table
+      schema:
+        type: integer
   securitySchemes:
     bearerAuth:
       type: http

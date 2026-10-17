@@ -179,35 +179,41 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    ConstructionId:
+      name: constructionId
+      in: path
+      required: true
+      description: Unique identifier of the project construction job
+      schema:
+        type: integer
+    TemplateId:
+      name: templateId
+      in: path
+      required: true
+      description: Unique identifier of the template
+      schema:
+        type: integer
+  responses:
+    NotFound:
+      description: Not found — the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized — missing or invalid Bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request — missing required fields or invalid values
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    DockItem:
-      type: object
-      description: A tool available on a project's dock
-      properties:
-        id:
-          type: integer
-          description: Dock item ID
-        title:
-          type: string
-          description: Display title of the tool
-        name:
-          type: string
-          description: Internal name of the tool (e.g., message_board, todoset)
-        enabled:
-          type: boolean
-          description: Whether this tool is enabled on the project
-        position:
-          type: integer
-          description: Display position of the tool in the dock
-          nullable: true
-        url:
-          type: string
-          format: uri
-          description: API URL for this tool's resource
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for this tool's resource
     ProjectConstructionRequest:
       type: object
       required:
@@ -275,36 +281,6 @@ components:
           description: Tools available in this template
           items:
             $ref: '#/components/schemas/DockItem'
-    ProjectConstruction:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Project construction job ID
-        status:
-          type: string
-          description: Construction status
-          enum:
-          - pending
-          - completed
-        url:
-          type: string
-          format: uri
-          description: API URL to poll for this construction job
-        project:
-          $ref: '#/components/schemas/Project'
-          description: The resulting project once construction is completed
-    TemplateCreateRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Template name
-        description:
-          type: string
-          description: Optional template description
     Project:
       type: object
       required:
@@ -367,40 +343,64 @@ components:
           description: List of tools available on this project
           items:
             $ref: '#/components/schemas/DockItem'
-  responses:
-    NotFound:
-      description: Not found — the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized — missing or invalid Bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request — missing required fields or invalid values
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    ConstructionId:
-      name: constructionId
-      in: path
-      required: true
-      description: Unique identifier of the project construction job
-      schema:
-        type: integer
-    TemplateId:
-      name: templateId
-      in: path
-      required: true
-      description: Unique identifier of the template
-      schema:
-        type: integer
+    DockItem:
+      type: object
+      description: A tool available on a project's dock
+      properties:
+        id:
+          type: integer
+          description: Dock item ID
+        title:
+          type: string
+          description: Display title of the tool
+        name:
+          type: string
+          description: Internal name of the tool (e.g., message_board, todoset)
+        enabled:
+          type: boolean
+          description: Whether this tool is enabled on the project
+        position:
+          type: integer
+          description: Display position of the tool in the dock
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: API URL for this tool's resource
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this tool's resource
+    TemplateCreateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Template name
+        description:
+          type: string
+          description: Optional template description
+    ProjectConstruction:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Project construction job ID
+        status:
+          type: string
+          description: Construction status
+          enum:
+          - pending
+          - completed
+        url:
+          type: string
+          format: uri
+          description: API URL to poll for this construction job
+        project:
+          $ref: '#/components/schemas/Project'
+          description: The resulting project once construction is completed
   securitySchemes:
     bearerAuth:
       type: http

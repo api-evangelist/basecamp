@@ -136,35 +136,15 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      description: Unique identifier of the project (bucket)
+      schema:
+        type: integer
   schemas:
-    DockItem:
-      type: object
-      description: A tool available on a project's dock
-      properties:
-        id:
-          type: integer
-          description: Dock item ID
-        title:
-          type: string
-          description: Display title of the tool
-        name:
-          type: string
-          description: Internal name of the tool (e.g., message_board, todoset)
-        enabled:
-          type: boolean
-          description: Whether this tool is enabled on the project
-        position:
-          type: integer
-          description: Display position of the tool in the dock
-          nullable: true
-        url:
-          type: string
-          format: uri
-          description: API URL for this tool's resource
-        app_url:
-          type: string
-          format: uri
-          description: Web URL for this tool's resource
     ProjectCreateRequest:
       type: object
       required:
@@ -182,36 +162,6 @@ components:
         error:
           type: string
           description: Human-readable error message
-    ProjectUpdateRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Updated project name
-        description:
-          type: string
-          description: Updated project description
-        schedule_attributes:
-          type: object
-          description: Optional schedule date range for the project
-          properties:
-            start_date:
-              type: string
-              format: date
-              description: Project start date in ISO 8601 format
-            end_date:
-              type: string
-              format: date
-              description: Project end date in ISO 8601 format
-        admissions:
-          type: string
-          description: Controls who can join the project
-          enum:
-          - invite
-          - employee
-          - team
     Project:
       type: object
       required:
@@ -274,15 +224,73 @@ components:
           description: List of tools available on this project
           items:
             $ref: '#/components/schemas/DockItem'
+    DockItem:
+      type: object
+      description: A tool available on a project's dock
+      properties:
+        id:
+          type: integer
+          description: Dock item ID
+        title:
+          type: string
+          description: Display title of the tool
+        name:
+          type: string
+          description: Internal name of the tool (e.g., message_board, todoset)
+        enabled:
+          type: boolean
+          description: Whether this tool is enabled on the project
+        position:
+          type: integer
+          description: Display position of the tool in the dock
+          nullable: true
+        url:
+          type: string
+          format: uri
+          description: API URL for this tool's resource
+        app_url:
+          type: string
+          format: uri
+          description: Web URL for this tool's resource
+    ProjectUpdateRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Updated project name
+        description:
+          type: string
+          description: Updated project description
+        schedule_attributes:
+          type: object
+          description: Optional schedule date range for the project
+          properties:
+            start_date:
+              type: string
+              format: date
+              description: Project start date in ISO 8601 format
+            end_date:
+              type: string
+              format: date
+              description: Project end date in ISO 8601 format
+        admissions:
+          type: string
+          description: Controls who can join the project
+          enum:
+          - invite
+          - employee
+          - team
   responses:
-    TooManyRequests:
-      description: Too many requests — rate limit exceeded. Retry after the interval indicated in the Retry-After response header.
+    NotFound:
+      description: Not found — the requested resource does not exist
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found — the requested resource does not exist
+    TooManyRequests:
+      description: Too many requests — rate limit exceeded. Retry after the interval indicated in the Retry-After response header.
       content:
         application/json:
           schema:
@@ -299,14 +307,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    ProjectId:
-      name: projectId
-      in: path
-      required: true
-      description: Unique identifier of the project (bucket)
-      schema:
-        type: integer
   securitySchemes:
     bearerAuth:
       type: http
