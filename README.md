@@ -1,4 +1,4 @@
-# Basecamp (basecamp)
+# Basecamp
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,106 +66,289 @@
 
 Basecamp is a project management and team collaboration platform developed by 37signals. The Basecamp REST API (bc3-api) provides programmatic access to projects, to-do lists, messages, documents, schedules, and team members. OAuth2 authentication via the 37signals Launchpad is required. The API returns JSON and is documented on GitHub at github.com/basecamp/bc3-api.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/basecamp/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/basecamp/refs/heads/main/apis.yml)
+**Areas:** Collaboration · Project Management · REST · Software-as-a-Service · Team Communication
 
-## Tags
+## Basecamp on APIs.io
 
-- Collaboration
-- Project Management
-- REST
-- SaaS
-- Team Communication
+Everything profiled for Basecamp is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/basecamp/](https://apis.io/providers/basecamp/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (20)
 
-- **Created:** 2024-01-01
-- **Modified:** 2026-05-19
+- [Basecamp Webhooks](https://apis.io/apis/basecamp/basecamp-webhooks/) — Basecamp Webhooks deliver real-time HTTP notifications when events occur within a project. Configure webhooks per project with an HTTPS payload URL and…
+- [Basecamp Authorization API](https://apis.io/apis/basecamp/basecamp-authorization-api/) — OAuth 2.0 authorization code flow endpoints
+- [Basecamp Campfires API](https://apis.io/apis/basecamp/basecamp-campfires-api/) — Manage project campfire chat rooms and lines
+- [Basecamp Card Tables API](https://apis.io/apis/basecamp/basecamp-card-tables-api/) — Manage kanban-style card tables and card movements
+- [Basecamp Comments API](https://apis.io/apis/basecamp/basecamp-comments-api/) — Manage comments on any commentable recording
+- [Basecamp Documents API](https://apis.io/apis/basecamp/basecamp-documents-api/) — Manage documents stored in vaults
+- [Basecamp Identity API](https://apis.io/apis/basecamp/basecamp-identity-api/) — Retrieve authenticated user identity
+- [Basecamp Messages API](https://apis.io/apis/basecamp/basecamp-messages-api/) — Manage messages on message boards
+- [Basecamp People API](https://apis.io/apis/basecamp/basecamp-people-api/) — Manage people, profiles, and project access
+- [Basecamp Projects API](https://apis.io/apis/basecamp/basecamp-projects-api/) — Manage Basecamp projects (buckets)
+- [Basecamp Recordings API](https://apis.io/apis/basecamp/basecamp-recordings-api/) — Common actions for all recordable resources (archive, trash, restore)
+- [Basecamp Schedule Entries API](https://apis.io/apis/basecamp/basecamp-schedule-entries-api/) — Manage individual schedule events and recurring entries
+- [Basecamp Schedules API](https://apis.io/apis/basecamp/basecamp-schedules-api/) — Manage project schedules
+- [Basecamp Subscriptions API](https://apis.io/apis/basecamp/basecamp-subscriptions-api/) — Manage per-recording notification subscriptions
+- [Basecamp Templates API](https://apis.io/apis/basecamp/basecamp-templates-api/) — Manage project templates and construct projects from them
+- [Basecamp To-Do Lists API](https://apis.io/apis/basecamp/basecamp-to-do-lists-api/) — Manage to-do lists within a to-do set
+- [Basecamp To-Dos API](https://apis.io/apis/basecamp/basecamp-to-dos-api/) — Manage individual to-do items
+- [Basecamp Token API](https://apis.io/apis/basecamp/basecamp-token-api/) — Token exchange and refresh endpoints
+- [Basecamp Uploads API](https://apis.io/apis/basecamp/basecamp-uploads-api/) — Manage file uploads stored in vaults
+- [Basecamp Webhooks API](https://apis.io/apis/basecamp/basecamp-webhooks-api/) — Manage webhook subscriptions for a project
 
-## APIs
+### Published properties
 
-### Basecamp API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-The Basecamp API is a REST API providing programmatic access to Basecamp's project management platform. Manage projects, to-do lists, messages, documents, schedules, and team members. Uses OAuth 2.0 for authentication and returns JSON.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://github.com/basecamp/bc3-api](https://github.com/basecamp/bc3-api)
-- **Base URL:** `https://3.basecampapi.com`
+Event-driven and webhook contracts.
 
-#### Tags
+- [Basecamp Webhook Events](https://apis.io/asyncapis/basecamp/basecamp-webhooks-asyncapi/)
 
-- Collaboration
-- Project Management
-- REST
-- Team Communication
+#### Event channels (1)
 
-#### Properties
+Individual events and webhooks the provider emits.
 
-- [Documentation](https://github.com/basecamp/bc3-api)
-- [OpenAPI](openapi/basecamp-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/basecamp-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/basecamp-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [/webhook](https://apis.io/channels/basecamp/webhook/)
 
-### Basecamp Webhooks
+#### GraphQL (1)
 
-Basecamp Webhooks deliver real-time HTTP notifications when events occur within a project. Configure webhooks per project with an HTTPS payload URL and resource types.
+GraphQL schemas.
 
-- **Human URL:** [https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md](https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md)
-- **Base URL:** `https://3.basecampapi.com`
+- [Moved to /providers/basecamp/](https://apis.io/graphqls/basecamp/basecamp-graphql/)
 
-#### Tags
+#### Agentic access (1)
 
-- Events
-- Notifications
-- Project Management
-- Webhooks
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Properties
+- [Basecamp Agentic Access](https://apis.io/agentic-access/basecamp/basecamp-agentic-access/)
 
-- [Documentation](https://github.com/basecamp/bc3-api/blob/master/sections/webhooks.md)
-- [AsyncAPI](asyncapi/basecamp-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [Postman Collection](collections/basecamp-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/basecamp-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/basecamp-oauth.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/basecamp-oauth.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### JSON Schema (48)
 
-### Basecamp OAuth
+The data models the API reads and writes.
 
-OAuth 2.0 authentication for Basecamp API access via the 37signals Launchpad. Register at launchpad.37signals.com for a client ID and secret, then implement the authorization code flow to obtain access tokens.
+- [Basecamp Project](https://apis.io/schemas/basecamp/basecamp-project/)
+- [Basecamp Webhook Payload](https://apis.io/schemas/basecamp/basecamp-webhook-payload/)
+- [BucketRef](https://apis.io/schemas/basecamp/bucketref/)
+- [Campfire](https://apis.io/schemas/basecamp/campfire/)
+- [CampfireLine](https://apis.io/schemas/basecamp/campfireline/)
+- [CampfireLineCreateRequest](https://apis.io/schemas/basecamp/campfirelinecreaterequest/)
+- [CardColumn](https://apis.io/schemas/basecamp/cardcolumn/)
+- [CardMoveRequest](https://apis.io/schemas/basecamp/cardmoverequest/)
+- [CardTable](https://apis.io/schemas/basecamp/cardtable/)
+- [Comment](https://apis.io/schemas/basecamp/comment/)
+- [CommentCreateRequest](https://apis.io/schemas/basecamp/commentcreaterequest/)
+- [DockItem](https://apis.io/schemas/basecamp/dockitem/)
+- [Document](https://apis.io/schemas/basecamp/document/)
+- [DocumentCreateRequest](https://apis.io/schemas/basecamp/documentcreaterequest/)
+- [Error](https://apis.io/schemas/basecamp/error/)
+- [Message](https://apis.io/schemas/basecamp/message/)
+- [MessageCreateRequest](https://apis.io/schemas/basecamp/messagecreaterequest/)
+- [MessageUpdateRequest](https://apis.io/schemas/basecamp/messageupdaterequest/)
+- [Person](https://apis.io/schemas/basecamp/person/)
+- [PersonRef](https://apis.io/schemas/basecamp/personref/)
+- [PositionRequest](https://apis.io/schemas/basecamp/positionrequest/)
+- [ProfileUpdateRequest](https://apis.io/schemas/basecamp/profileupdaterequest/)
+- [Project](https://apis.io/schemas/basecamp/project/)
+- [ProjectAccessRequest](https://apis.io/schemas/basecamp/projectaccessrequest/)
+- [ProjectConstruction](https://apis.io/schemas/basecamp/projectconstruction/)
+- …and 23 more published on APIs.io
 
-- **Human URL:** [https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md](https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md)
-- **Base URL:** `https://launchpad.37signals.com`
+#### JSON Structure (46)
 
-#### Tags
+Data models expressed in JSON Structure.
 
-- Authentication
-- Authorization
-- OAuth
-- Security
+- [Bucketref Structure](https://apis.io/json-structure/basecamp/bucketref-structure/)
+- [Campfire Structure](https://apis.io/json-structure/basecamp/campfire-structure/)
+- [Campfireline Structure](https://apis.io/json-structure/basecamp/campfireline-structure/)
+- [Campfirelinecreaterequest Structure](https://apis.io/json-structure/basecamp/campfirelinecreaterequest-structure/)
+- [Cardcolumn Structure](https://apis.io/json-structure/basecamp/cardcolumn-structure/)
+- [Cardmoverequest Structure](https://apis.io/json-structure/basecamp/cardmoverequest-structure/)
+- [Cardtable Structure](https://apis.io/json-structure/basecamp/cardtable-structure/)
+- [Comment Structure](https://apis.io/json-structure/basecamp/comment-structure/)
+- [Commentcreaterequest Structure](https://apis.io/json-structure/basecamp/commentcreaterequest-structure/)
+- [Dockitem Structure](https://apis.io/json-structure/basecamp/dockitem-structure/)
+- [Document Structure](https://apis.io/json-structure/basecamp/document-structure/)
+- [Documentcreaterequest Structure](https://apis.io/json-structure/basecamp/documentcreaterequest-structure/)
+- [Error Structure](https://apis.io/json-structure/basecamp/error-structure/)
+- [Message Structure](https://apis.io/json-structure/basecamp/message-structure/)
+- [Messagecreaterequest Structure](https://apis.io/json-structure/basecamp/messagecreaterequest-structure/)
+- [Messageupdaterequest Structure](https://apis.io/json-structure/basecamp/messageupdaterequest-structure/)
+- [Person Structure](https://apis.io/json-structure/basecamp/person-structure/)
+- [Personref Structure](https://apis.io/json-structure/basecamp/personref-structure/)
+- [Positionrequest Structure](https://apis.io/json-structure/basecamp/positionrequest-structure/)
+- [Profileupdaterequest Structure](https://apis.io/json-structure/basecamp/profileupdaterequest-structure/)
+- [Project Structure](https://apis.io/json-structure/basecamp/project-structure/)
+- [Projectaccessrequest Structure](https://apis.io/json-structure/basecamp/projectaccessrequest-structure/)
+- [Projectconstruction Structure](https://apis.io/json-structure/basecamp/projectconstruction-structure/)
+- [Projectconstructionrequest Structure](https://apis.io/json-structure/basecamp/projectconstructionrequest-structure/)
+- [Projectcreaterequest Structure](https://apis.io/json-structure/basecamp/projectcreaterequest-structure/)
+- …and 21 more published on APIs.io
 
-#### Properties
+#### JSON-LD (1)
 
-- [Documentation](https://github.com/basecamp/bc3-api/blob/master/sections/authentication.md)
-- [OpenAPI](openapi/basecamp-oauth-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/basecamp-oauth.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/basecamp-oauth.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Linked-data contexts for the provider's vocabulary.
 
-## Common Properties
+- [Basecamp Context](https://apis.io/jsonld/basecamp/basecamp-context/)
 
-- [LinkedIn](https://www.linkedin.com/company/37signals)
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Basecamp Vocabulary](https://apis.io/vocabularies/basecamp/basecamp-vocabulary/)
+
+#### Examples (46)
+
+Example requests and responses.
+
+- [Bucketref Example](https://apis.io/examples/basecamp/bucketref-example/)
+- [Campfire Example](https://apis.io/examples/basecamp/campfire-example/)
+- [Campfireline Example](https://apis.io/examples/basecamp/campfireline-example/)
+- [Campfirelinecreaterequest Example](https://apis.io/examples/basecamp/campfirelinecreaterequest-example/)
+- [Cardcolumn Example](https://apis.io/examples/basecamp/cardcolumn-example/)
+- [Cardmoverequest Example](https://apis.io/examples/basecamp/cardmoverequest-example/)
+- [Cardtable Example](https://apis.io/examples/basecamp/cardtable-example/)
+- [Comment Example](https://apis.io/examples/basecamp/comment-example/)
+- [Commentcreaterequest Example](https://apis.io/examples/basecamp/commentcreaterequest-example/)
+- [Dockitem Example](https://apis.io/examples/basecamp/dockitem-example/)
+- [Document Example](https://apis.io/examples/basecamp/document-example/)
+- [Documentcreaterequest Example](https://apis.io/examples/basecamp/documentcreaterequest-example/)
+- [Error Example](https://apis.io/examples/basecamp/error-example/)
+- [Message Example](https://apis.io/examples/basecamp/message-example/)
+- [Messagecreaterequest Example](https://apis.io/examples/basecamp/messagecreaterequest-example/)
+- [Messageupdaterequest Example](https://apis.io/examples/basecamp/messageupdaterequest-example/)
+- [Person Example](https://apis.io/examples/basecamp/person-example/)
+- [Personref Example](https://apis.io/examples/basecamp/personref-example/)
+- [Positionrequest Example](https://apis.io/examples/basecamp/positionrequest-example/)
+- [Profileupdaterequest Example](https://apis.io/examples/basecamp/profileupdaterequest-example/)
+- [Project Example](https://apis.io/examples/basecamp/project-example/)
+- [Projectaccessrequest Example](https://apis.io/examples/basecamp/projectaccessrequest-example/)
+- [Projectconstruction Example](https://apis.io/examples/basecamp/projectconstruction-example/)
+- [Projectconstructionrequest Example](https://apis.io/examples/basecamp/projectconstructionrequest-example/)
+- [Projectcreaterequest Example](https://apis.io/examples/basecamp/projectcreaterequest-example/)
+- …and 21 more published on APIs.io
+
+#### Collections (21)
+
+Postman and Open Collection request collections.
+
+- [Basecamp API](https://apis.io/collections/basecamp/open-basecamp-api/)
+- [Basecamp Authorization API](https://apis.io/collections/basecamp/open-basecamp-authorization-api/)
+- [Basecamp Authorization Campfires API](https://apis.io/collections/basecamp/open-basecamp-campfires-api/)
+- [Basecamp Authorization Card Tables API](https://apis.io/collections/basecamp/open-basecamp-card-tables-api/)
+- [Basecamp Authorization Comments API](https://apis.io/collections/basecamp/open-basecamp-comments-api/)
+- [Basecamp Authorization Documents API](https://apis.io/collections/basecamp/open-basecamp-documents-api/)
+- [Basecamp Authorization Identity API](https://apis.io/collections/basecamp/open-basecamp-identity-api/)
+- [Basecamp Authorization Messages API](https://apis.io/collections/basecamp/open-basecamp-messages-api/)
+- [Basecamp OAuth API](https://apis.io/collections/basecamp/open-basecamp-oauth/)
+- [Basecamp Authorization People API](https://apis.io/collections/basecamp/open-basecamp-people-api/)
+- [Basecamp Authorization Projects API](https://apis.io/collections/basecamp/open-basecamp-projects-api/)
+- [Basecamp Authorization Recordings API](https://apis.io/collections/basecamp/open-basecamp-recordings-api/)
+- [Basecamp Authorization Schedule Entries API](https://apis.io/collections/basecamp/open-basecamp-schedule-entries-api/)
+- [Basecamp Authorization Schedules API](https://apis.io/collections/basecamp/open-basecamp-schedules-api/)
+- [Basecamp Authorization Subscriptions API](https://apis.io/collections/basecamp/open-basecamp-subscriptions-api/)
+- [Basecamp Authorization Templates API](https://apis.io/collections/basecamp/open-basecamp-templates-api/)
+- [Basecamp Authorization To-Do Lists API](https://apis.io/collections/basecamp/open-basecamp-to-do-lists-api/)
+- [Basecamp Authorization To-Dos API](https://apis.io/collections/basecamp/open-basecamp-to-dos-api/)
+- [Basecamp Authorization Token API](https://apis.io/collections/basecamp/open-basecamp-token-api/)
+- [Basecamp Authorization Uploads API](https://apis.io/collections/basecamp/open-basecamp-uploads-api/)
+- [Basecamp Authorization Webhooks API](https://apis.io/collections/basecamp/open-basecamp-webhooks-api/)
+
+#### Governance rules (3)
+
+Spectral rulesets for the provider's contracts.
+
+- [Basecamp — asyncapi rules](https://apis.io/rules/basecamp/basecamp-asyncapi-spectral-rules/)
+- [Basecamp — jsonschema rules](https://apis.io/rules/basecamp/basecamp-jsonschema-spectral-rules/)
+- [Basecamp API Rules](https://apis.io/rules/basecamp/basecamp-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Basecamp Authentication](https://apis.io/security/basecamp/basecamp-authentication/)
+- [Basecamp Domain Security](https://apis.io/security/basecamp/basecamp-domain-security/)
+- [Basecamp Vulnerability Disclosure](https://apis.io/security/basecamp/basecamp-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Basecamp Plans Pricing](https://apis.io/plans/basecamp/basecamp-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Basecamp Rate Limits](https://apis.io/rate-limits/basecamp/basecamp-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Basecamp Finops](https://apis.io/finops/basecamp/basecamp-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://basecamp.com/)
 - [Documentation](https://github.com/basecamp/bc3-api)
-- [Sign Up](https://launchpad.37signals.com/)
 - [Blog](https://basecamp.com/blog)
-- [Terms of Service](https://basecamp.com/about/policies/terms)
-- [Privacy Policy](https://basecamp.com/about/policies/privacy)
-- [Spectral Rules](rules/basecamp-spectral-rules.yml)
-- [Vocabulary](vocabulary/basecamp-vocabulary.yaml)
-- [JSON-LD](json-ld/basecamp-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [Integrations](https://basecamp.com/integrations)
+- [Terms of service](https://basecamp.com/about/policies/terms)
+- [Privacy policy](https://basecamp.com/about/policies/privacy)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 43.2** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 67.8 |
+| Contract governance | 27.3 |
+| Operational transparency | 15.8 |
+| Developer ergonomics | 21.4 |
+| Access clarity | 42.1 |
+
+**Agent readiness 20.0** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 30.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/basecamp/](https://apis.io/providers/basecamp/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Basecamp: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/basecamp/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
